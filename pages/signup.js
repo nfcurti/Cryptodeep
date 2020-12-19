@@ -11,7 +11,7 @@ export default function Home() {
       <div className='bp-middle'>
         <div className='bp-middle-over'>
           <div className='bp-middle-all bp-blueshadow'>
-              <p className='loginTitle'>Sign up to Cryptodeep</p>
+              <p className='loginTitle'>Register</p>
             <form autocomplete="off">
 
               <div className='inputhold'>
@@ -37,7 +37,7 @@ export default function Home() {
               <div className='inputhold terms'>
                 <input  type="checkbox" id="agree" />
                 <label className="loginTerms" for="agree">
-                  I agree with the <a href="/pages/terms-and-conditions">terms and conditions</a>
+                  I agree with the <a href="">terms and conditions</a>
                 </label>
               </div>
 

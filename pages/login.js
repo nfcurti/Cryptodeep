@@ -11,7 +11,7 @@ export default function Home() {
       <div className='bp-middle'>
         <div className='bp-middle-over'>
           <div className='bp-middle-all bp-blueshadow'>
-              <p className='loginTitle'>Log in to Cryptodeep</p>
+              <p className='loginTitle'>Login</p>
             <form autocomplete="off">
 
               <div className='inputhold'>
