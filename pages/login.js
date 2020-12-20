@@ -25,7 +25,7 @@ export default function Home() {
               <div className='captchaHolder'>
                 <ReCAPTCHA
                   size='invisible'
-                  sitekey="6LcQhA0aAAAAAIPTP2dzASiMYLG5152tirZOnVtu"
+                  sitekey="6LfbWw4aAAAAAK0WBoabYDbdNkJyk0MFjap-i8RM"
                 />
               </div>
               
