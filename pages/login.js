@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Marquee from 'react-double-marquee';
-
+import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 export default function Home() {
@@ -22,8 +22,14 @@ export default function Home() {
                 <input type='password' placeholder="Password" name='pwd'/>
                 <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
+              <div className='captchaHolder'>
+                <ReCAPTCHA
+                  size='invisible'
+                  sitekey="6LcQhA0aAAAAAIPTP2dzASiMYLG5152tirZOnVtu"
+                />
+              </div>
               
-              <input
+               <input
                 value="Login"
                 type='submit'
                 className='loginSubmit '
@@ -32,13 +38,19 @@ export default function Home() {
 
             </form>
             <p className='loginSignup'>Don't have an account? <a href="/signup">Sign Up</a></p>
-            <p className='loginSignup'><a href="/pwdchange">I have forgotten my password</a></p>
+            <p className='loginSignup'><a href="/pwdreset">I have forgotten my password</a></p>
           </div>
           <div className='clearfix'/>
         </div>
       </div><br/><br/><br/>
       {/* <p>Hola</p> */}
       <style jsx>{`
+
+                  .captchaHolder{
+                    margin:0 auto;
+                        width: 40%;
+                      margin-bottom: 2em;
+                  }
                   input[type="checkbox"]{
                     width:1em;margin-top:1%
                   }

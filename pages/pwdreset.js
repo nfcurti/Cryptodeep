@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Marquee from 'react-double-marquee';
 
+import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 export default function Home() {
@@ -19,7 +20,12 @@ export default function Home() {
                 <input  placeholder="Email" name='email' type='email'/>
                 <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
               </div>
-              
+              <div className='captchaHolder'>
+                <ReCAPTCHA
+                  size='invisible'
+                  sitekey="6LcQhA0aAAAAAIPTP2dzASiMYLG5152tirZOnVtu"
+                />
+              </div>
               <input
                 value="Reset password"
                 type='submit'
@@ -36,6 +42,11 @@ export default function Home() {
       </div><br/><br/><br/>
       {/* <p>Hola</p> */}
       <style jsx>{`
+        .captchaHolder{
+                    margin:0 auto;
+                        width: 40%;
+                      margin-bottom: 2em;
+                  }
                   .loginSignup {font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
                   .loginSignup a{font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
 

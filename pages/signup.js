@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Marquee from 'react-double-marquee';
 
+import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 export default function Home() {
@@ -40,7 +41,12 @@ export default function Home() {
                   I agree with the <a href="">terms and conditions</a>
                 </label>
               </div>
-
+              <div className='captchaHolder'>
+                <ReCAPTCHA
+                  size='invisible'
+                  sitekey="6LcQhA0aAAAAAIPTP2dzASiMYLG5152tirZOnVtu"
+                />
+              </div>
               <input
                 value="Register"
                 type='submit'
@@ -56,7 +62,12 @@ export default function Home() {
       </div><br/><br/><br/>
       {/* <p>Hola</p> */}
       <style jsx>{`
-        input[type="checkbox"]{
+                  .captchaHolder{
+                              margin:0 auto;
+                                  width: 40%;
+                                margin-bottom: 2em;
+                            }
+                  input[type="checkbox"]{
                     width:1em;margin-top:1%
                   }
                   .loginTerms label{
