@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <BasePage>
 
-      <div className='bp-middle bp-h-bg'>
+      <div className='bp-h-bg'>
         <div className='bp-middle-over'>
           <img alt="Logout" className='loutButton' src={'images/logout.svg'} />
           <div className='bp-middle-left bp-blueshadow main'>
@@ -89,10 +89,13 @@ export default function Home() {
           <br/><br/><br/>
           <div className='bp-security'>
             <form autocomplete="off">
-
+            <div className='inputhold'>
+                  <input  placeholder="Current email" name='email' type='email'/>
+                  <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
+                </div>
                 
                 <div className='inputhold'>
-                  <input  placeholder="example@google.com" name='email' type='email'/>
+                  <input  placeholder="New email" name='email' type='email'/>
                   <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
                 </div>
                 <div className='inputhold'>
@@ -177,7 +180,7 @@ export default function Home() {
           </div>
           <div className='clearfix'/>
         </div>
-      </div><br/><br/><br/>
+      </div><br/>
       {/* <p>Hola</p> */}
       <style jsx>{`
                 .withdrawalForm{
