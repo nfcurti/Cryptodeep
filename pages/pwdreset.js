@@ -20,6 +20,7 @@ export default function Home() {
                 <input  placeholder="Email" name='email' type='email'/>
                 <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
               </div>
+              
               <div className='captchaHolder'>
                 <ReCAPTCHA
                   size='invisible'

@@ -67,6 +67,25 @@ a {
 			color: #353535;
 		}
 	}
+
+	a {
+		background-color:#353535;
+		border: 0px;
+		padding: 10px 30px;
+		border-radius: 4px;
+		font-family: 'Open Sans';
+		text-decoration: none;
+		text-transform: uppercase;
+		color: #DC8614;
+		font-weight: 700;
+		font-size: 14px;
+
+		&:hover {
+			cursor: pointer;
+			background-color: #DC8614;
+			color: #353535;
+		}
+	}
 }
 .bp-menu-item a {
 	display: block;

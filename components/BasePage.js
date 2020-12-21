@@ -10,10 +10,10 @@ export default class BasePage extends React.Component {
   <input type='checkbox' id='responsive-menu'/><label></label>
   <ul>
   <li><div className='bp-spacer'></div></li>
-    <li><div className='bp-cbutton'><button href='/myaccount'>My Account</button></div></li>
-    <li><div className='bp-cbutton'><button href='/affiliate'>Affiliate</button></div></li>
-    <li><div className='bp-cbutton'><button href='/reviews'>Reviews</button></div></li>
-    <li><div className='bp-cbutton'><button href='/'>Faucet</button></div></li>
+    <li><div className='bp-cbutton'><a href='/account'>My Account</a></div></li>
+    <li><div className='bp-cbutton'><a href='/affiliate'>Affiliate</a></div></li>
+    <li><div className='bp-cbutton'><a href='/reviews'>Reviews</a></div></li>
+    <li><div className='bp-cbutton'><a href='/'>Faucet</a></div></li>
   <li><div className='bp-spacer'></div></li>
   {/* <li><div className='bp-menu-item'></div></li> */}
   </ul>
