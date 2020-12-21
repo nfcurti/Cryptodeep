@@ -11,7 +11,9 @@
     "bootstrap": "^4.5.3",
     "mdbreact": "^5.0.1",
     "next": "10.0.3",
+    "pretty-bytes": "^5.4.1",
     "react": "17.0.1",
+    "react-animated-number": "^0.4.4",
     "react-awesome-modal": "^2.0.5",
     "react-bootstrap": "^1.4.0",
     "react-dom": "17.0.1",
@@ -19,6 +21,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-modal": "^3.12.1",
     "react-popupbox": "^2.0.8",
+    "react-random-reveal": "^1.0.1",
     "sass": "^1.26.10"
   }
 }
