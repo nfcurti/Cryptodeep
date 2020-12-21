@@ -1,9 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import Marquee from 'react-double-marquee';
 
+import Modal from 'react-modal';
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
+
 export default function Home() {
+  const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)',
+      backgroundColor       : '#252540'
+    }
+  };
+  var subtitle;
+  const [modalIsOpen,setIsOpen] = React.useState(false);
+  function openModal() {
+    setIsOpen(true);
+  }
+ 
+  function afterOpenModal() {
+  }
+ 
+  function closeModal(){
+    setIsOpen(false);
+  }
+
+  Modal.defaultStyles.overlay.backgroundColor = 'rgba(0, 0, 0, 0.55)';
   const router = useRouter();
   return (
     <BasePage>
@@ -11,43 +38,47 @@ export default function Home() {
       <div className='bp-middle bp-h-bg'>
         <div className='bp-middle-over'>
           <img alt="Logout" className='loutButton' src={'images/logout.svg'} />
-          <div className='bp-middle-left bp-blueshadow'>
+          <div className='bp-middle-left bp-blueshadow main'>
           <br/><p className='bp-title'>Wallet</p>
           <p>This is your balance and cash equivalents</p>
           <table className='bp-table wallet-table'>
               <tr>
                 <th style={{}}>AMOUNT</th>
-                <th style={{}}>CURRENCY</th>
                 <th className='fiat' style={{}}>FIAT </th>
                 <th style={{}}>STATUS</th>
               </tr>
               <tr>
-                <td className='textCenter' style={{}}><p>0.0012594 </p></td>
-                <td className='textCenter' style={{}}><p> BTC</p></td>
+                <td className='textCenter' style={{}}><p>12594 POINTS </p></td>
                 <td className='textCenter fiat' style={{}}><p> 5000 USD</p></td>
-                <td style={{}}><button className='crypto-status-btn csb-withdraw'>Withdraw</button></td>
+                <td style={{}}><button onClick={openModal} className='crypto-status-btn csb-withdraw'>Withdraw</button></td>
               </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>0.4638294 </p></td>
-                <td className='textCenter' style={{}}><p> LTC</p></td>
-                <td className='textCenter fiat' style={{}}><p> 5000 USD</p></td>
-                <td style={{}}><button className='crypto-status-btn csb-withdraw'>Withdraw</button></td>
-              </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>1.1842937 </p></td>
-                <td className='textCenter' style={{}}><p> ETH</p></td>
-                <td className='textCenter fiat' style={{}}><p> 5000 USD</p></td>
-                <td style={{}}><button className='crypto-status-btn csb-withdraw'>Withdraw</button></td>
-              </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>0.9574212 </p></td>
-                <td className='textCenter' style={{}}><p> BTC</p></td>
-                <td className='textCenter fiat' style={{}}><p> 5000 USD</p></td>
-                <td style={{}}><button className='crypto-status-btn csb-withdraw'>Withdraw</button></td>
-              </tr>
+              
             </table>
           </div>
-          
+          <Modal  isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal" >
+ 
+            <h4 className='withdrawTitle'>Make a Withdrawal</h4>
+            <form className="withdrawalForm">
+              <select name="currency" id="currency" className='selectCrypto'>
+                  <option value="select">Select currency...</option>
+                  <option value="btc">Bitcoin (BTC)</option>
+                  <option value="eth">Ethereum (ETH)</option>
+                  <option value="ltc">Litecoin (LTC)</option>
+                  <option value="trx">Tron (TRX)</option>
+                </select>
+              <div className='inputhold'>
+                <input  placeholder="Wallet Address" name='address'/>
+                <img className='walletSvg'  role="img" src="https://www.flaticon.com/svg/static/icons/svg/482/482541.svg" />
+              </div>
+              <div className='inputhold'>
+                <input  placeholder="Amount" name='withamount'/>
+                <img className='walletSvg'  role="img" src="https://www.flaticon.com/svg/static/icons/svg/810/810378.svg" />
+              </div>
+              <p className="minWith">Min. Withdrawal: 0.0005 BTC</p>
+            </form>
+              <p className="terms">All withdrawals are valid from Sunday midnight, within 24 hours maximum</p>
+              <button className='crypto-status-btn csb-withdraw withdrawFinal'>Withdraw</button>
+          </Modal>
           <div className='clearfix'/>
         </div>
       </div>
@@ -149,20 +180,66 @@ export default function Home() {
       </div><br/><br/><br/>
       {/* <p>Hola</p> */}
       <style jsx>{`
-        .loutButton{
-          z-index:99999;
-          filter: invert(99%) sepia(10%) saturate(208%) hue-rotate(106deg) brightness(115%) contrast(100%);
-          margin-top: 3em;
-    /* position: absolute; */
-    right: 17%;
-        }
-        .loutButton:hover{
-          cursor:pointer
-        }
-        .security{
-          width:
-        }
-        .submitSecurity{
+                .withdrawalForm{
+                  width: fit-content;
+                  margin: auto
+                }
+                .withdrawFinal{
+                  display:block;
+                  width:17em;
+                  padding: 10px;
+                  margin-bottom: 2em;
+                  color:white;
+                  border-radius:3px;
+                  margin:0 auto;
+                }
+                .terms{
+                  font-family:'Open Sans';
+                  color:white;
+                  text-align:left;
+                  font-size:0.8em;
+
+                }
+                .minWith{
+                  font-family:'Open Sans';
+                  color:white;
+                  text-align:left;
+                  font-size:0.5em;
+                  margin-top:-3em;
+                  margin-left:0.1em
+                }
+                .withdrawTitle{
+                  font-family:'Open Sans';
+                  color:white;
+                  text-align:center
+                }
+                .walletSvg{
+                  width: 1.5em;
+                  margin-left: -3em;
+                }
+                h2{
+                  font-family:"Open-Sans"
+                }
+                Modal{
+                  background-color:black
+                }
+                .main{
+                  height:19em !important
+                }
+                .loutButton{
+                  z-index:99999;
+                  filter: invert(99%) sepia(10%) saturate(208%) hue-rotate(106deg) brightness(115%) contrast(100%);
+                  margin-top: 3em;
+                  /* position: absolute; */
+                  right: 17%;
+                }
+                .loutButton:hover{
+                  cursor:pointer
+                }
+                .security{
+                  width:
+                }
+                .submitSecurity{
                   background-color:transparent;
                   border:1px solid #DC8614 !important;
                   width:100%
@@ -171,33 +248,49 @@ export default function Home() {
                   background-color:#DC8614;
                   cursor:pointer
                 }
-        .divider{
-          display:inline-block;
-          width:15%
-        }
-        .bp-security{
-          display:inline-block;
-        }
-        img{
-                    width:2em;
-                    position: absolute;
-                    margin-left: -4em;
-                    padding: 6px 12px;
-                    pointer-events: none;
+                .divider{
+                  display:inline-block;
+                  width:15%
+                }
+                .bp-security{
+                  display:inline-block;
+                }
+                img{
+                  width:2em;
+                  position: absolute;
+                  margin-left: -4em;
+                  padding: 6px 12px;
+                  pointer-events: none;
                   opacity:0.3;
                   }
-                  input{
-                      width: 15.5em;
+                .selectCrypto{
+                  outline:none;
+                  width: 17em;
                   padding: 10px;
                   margin-bottom: 2em;
-                    color:white;
+                  color:white;
+                  border-radius:3px;
+                  border-style:solid;
+                  border: 1px solid white;
+                  background-color:transparent;
+                  appearance:none
+                }
+                input{
+                  outline:none;
+                  width: 15.5em;
+                  padding: 10px;
+                  margin-bottom: 2em;
+                  color:white;
                   border-radius:3px;
                   border-style:solid;
                   border: 1px solid white;
                   background-color:transparent}
-        .wallet-table{
-          margin-top:2em
-        }
+                input::placeholder{
+                  color:white
+                }
+                .wallet-table{
+                  margin-top:2em
+                }
                 .csb-withdraw{
                   background-color:transparent;
                   border:1px solid #DC8614 !important;
@@ -294,6 +387,9 @@ export default function Home() {
                 }
 
                 @media screen and (max-width: 800px){
+                  .terms{
+                    text-align: center;
+                  }
                   .fiat{
                     display:none
                   }
@@ -311,13 +407,10 @@ export default function Home() {
                   display: block;
                 }
                 .loutButton{
-                  margin-top:2em;
-                  margin-right:-1em
+                    margin-top:2em;
+                    margin-right:-1em
+                  }
                 }
-                }
-
-
-                
                 .bp-blueshadow {
 
                   background: #252540;
@@ -333,8 +426,8 @@ export default function Home() {
 
                 .bp-crypto-price-item p {
                   display: flex;
-    align-items: center;
-    margin: 4px 4px;
+                  align-items: center;
+                  margin: 4px 4px;
                 }
 
                 .bp-crypto-price-avg-span-success {
@@ -365,8 +458,8 @@ export default function Home() {
 
                 .clearfix::after {
                   content: "";
-  clear: both;
-  display: table;
+                  clear: both;
+                  display: table;
                 }
             `}</style>
     </BasePage>
