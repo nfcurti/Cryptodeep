@@ -208,7 +208,7 @@ export default function Home() {
                   color:white;
                   text-align:left;
                   font-size:0.5em;
-                  margin-top:-3em;
+                  margin-top:-2em;
                   margin-left:0.1em
                 }
                 .withdrawTitle{

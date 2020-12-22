@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Marquee from 'react-double-marquee';
 import { RandomReveal } from "react-random-reveal";
+import ReactStars from "react-rating-stars-component";
+
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 export default function Home() {
@@ -42,6 +44,159 @@ export default function Home() {
 
       <div className='bp-middle bp-h-bg'>
         <div className='bp-middle-over'>
+          <div className="bp-reviewbox">
+            
+            <div className="review">
+              <div className="single-review"> 
+                <div style={{width:"fit-content"}}>
+                  <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
+                  <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                </div>
+                <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
+                  <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
+                  <p style={{fontSize:"0.5em"}}>Leading crypto  site for beginners</p>
+                </div>
+
+              <div className="stars-review">
+              <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
+                <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
+                <ReactStars
+                    count={5}
+                    size={14}
+                    value={3.8}
+                    edit={false}
+                    isHalf={true}
+                    activeColor="#ffd700"
+                  />
+                </div>
+              </div>
+              <div className="end-review">
+                
+                <div style={{backgroundColor:"#fc89ac"}} className="inside-end-review"><p>REVIEW</p></div><div style={{backgroundColor:"#8A2BE2"}} className="inside-end-review" ><p style={{textAlign:"right"}}>SITE</p></div>
+                </div>
+                </div>
+            </div>
+            <div className="review">
+              <div className="single-review"> 
+                <div style={{width:"fit-content"}}>
+                  <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
+                  <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                </div>
+                <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
+                  <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
+                  <p style={{fontSize:"0.5em"}}>Leading crypto  site for beginners</p>
+                </div>
+
+              <div className="stars-review">
+              <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
+                <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
+                <ReactStars
+                    count={5}
+                    size={14}
+                    value={3.8}
+                    edit={false}
+                    isHalf={true}
+                    activeColor="#ffd700"
+                  />
+                </div>
+              </div>
+              <div className="end-review">
+                
+                <div style={{backgroundColor:"#fc89ac"}} className="inside-end-review"><p>REVIEW</p></div><div style={{backgroundColor:"#8A2BE2"}} className="inside-end-review" ><p style={{textAlign:"right"}}>SITE</p></div>
+                </div>
+                </div>
+            </div>
+            <div className="review">
+              <div className="single-review"> 
+                <div style={{width:"fit-content"}}>
+                  <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
+                  <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                </div>
+                <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
+                  <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
+                  <p style={{fontSize:"0.5em"}}>Leading crypto  site for beginners</p>
+                </div>
+
+              <div className="stars-review">
+              <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
+                <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
+                <ReactStars
+                    count={5}
+                    size={14}
+                    value={3.8}
+                    edit={false}
+                    isHalf={true}
+                    activeColor="#ffd700"
+                  />
+                </div>
+              </div>
+              <div className="end-review">
+                
+                <div style={{backgroundColor:"#fc89ac"}} className="inside-end-review"><p>REVIEW</p></div><div style={{backgroundColor:"#8A2BE2"}} className="inside-end-review" ><p style={{textAlign:"right"}}>SITE</p></div>
+                </div>
+                </div>
+            </div>
+            <div className="review">
+              <div className="single-review"> 
+                <div style={{width:"fit-content"}}>
+                  <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
+                  <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                </div>
+                <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
+                  <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
+                  <p style={{fontSize:"0.5em"}}>Leading crypto  site for beginners</p>
+                </div>
+
+              <div className="stars-review">
+              <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
+                <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
+                <ReactStars
+                    count={5}
+                    size={14}
+                    value={3.8}
+                    edit={false}
+                    isHalf={true}
+                    activeColor="#ffd700"
+                  />
+                </div>
+              </div>
+              <div className="end-review">
+                
+                <div style={{backgroundColor:"#fc89ac"}} className="inside-end-review"><p>REVIEW</p></div><div style={{backgroundColor:"#8A2BE2"}} className="inside-end-review" ><p style={{textAlign:"right"}}>SITE</p></div>
+                </div>
+                </div>
+            </div>
+            <div className="review">
+              <div className="single-review"> 
+                <div style={{width:"fit-content"}}>
+                  <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
+                  <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                </div>
+                <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
+                  <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
+                  <p style={{fontSize:"0.5em"}}>Leading crypto  site for beginners</p>
+                </div>
+
+              <div className="stars-review">
+              <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
+                <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
+                <ReactStars
+                    count={5}
+                    size={14}
+                    value={3.8}
+                    edit={false}
+                    isHalf={true}
+                    activeColor="#ffd700"
+                  />
+                </div>
+              </div>
+              <div className="end-review">
+                
+                <div style={{backgroundColor:"#fc89ac"}} className="inside-end-review"><p>REVIEW</p></div><div style={{backgroundColor:"#8A2BE2"}} className="inside-end-review" ><p style={{textAlign:"right"}}>SITE</p></div>
+                </div>
+                </div>
+            </div>
+          </div>
           <div className='bp-middle-left bp-blueshadow'>
           <br/><p className='bp-title'>My Faucet</p>
           <p>You can roll a faucet every 30 minutes</p>
@@ -183,6 +338,70 @@ export default function Home() {
       </div><br/><br/><br/>
       {/* <p>Hola</p> */}
       <style jsx>{`
+                .stars-review{
+                  width:8em;
+                  height:3em;
+                  position:absolute;
+                  margin-top: 5em;
+                  display:flex;
+                  font-size0.6em
+                }
+                .end-review{
+                  height: 2em;
+                  background-color: black;
+                  position: absolute;
+                  margin-top: 7em;
+                  width: 11.5%;
+                  margin-left: -0.5em;
+                  display: -webkit-box;
+                  display: -webkit-flex;
+                  display: -ms-flexbox;
+                  display: flex;
+                              }
+                .inside-end-review{
+                  width: 50%;
+                  cursor:pointer
+                }
+                .inside-end-review p{
+                  margin-top: 0.7em;
+                  height: max-content;
+                  font-size:0.7em;
+                  font-weight:bold;
+                  cursor:pointer;
+                  text-align:center !important;
+                      }
+                .review{
+                  display:contents
+                }
+                .review-score{
+                  background-color:#151524;
+                  font-size:0.7em;
+                  text-align:center;
+                  padding:0.3em;
+                  border-radius:3px;
+                  margin-top:0em
+                }
+                .review-logo{
+                  width:3em;
+                }
+                .single-review{
+                  width:17%;
+                  height:4em;
+                  background-color:#252540;
+                  border-radius:3px;
+                  margin:0.5em;
+                  padding:0.5em;
+                  display:flex;
+                  font-family:"Open Sans"
+                }
+                .bp-reviewbox{
+                  display: flex;
+                  width:80%;
+                  height:10.5em;
+                  border:5px solid #1E1D32;
+                  border-top:none;
+                  margin:auto
+                }
                 .resultDisplay{
                   font-size:3em;
                   font-weight:600;
