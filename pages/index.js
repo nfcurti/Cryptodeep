@@ -344,7 +344,8 @@ export default function Home() {
                   position:absolute;
                   margin-top: 5em;
                   display:flex;
-                  font-size0.6em
+                  font-size0.6em;
+                  
                 }
                 .end-review{
                   height: 2em;
@@ -568,6 +569,42 @@ export default function Home() {
                 }
 
                 @media screen and (max-width: 800px){
+                  .stars-review{
+                    left: 0;
+                    right: 0;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 40%;
+                  }
+                  .end-review{
+                    left: 0;
+                    right: 0;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 40%;
+                  }
+                  .single-review{
+                        width: 83%;
+                        height: 9em;
+                        background-color: #252540;
+                        border-radius: 3px;
+                        margin: auto;
+                        padding: 0.5em;
+                        display: -webkit-box;
+                        display: -webkit-flex;
+                        display: -ms-flexbox;
+                        display: flex;
+                        font-family: "Open Sans";
+                        margin-bottom: 0.5em;
+                  }
+                  .bp-reviewbox{
+                        display: block;
+                        width: 80%;
+                        height: 52.5em;
+                        border: 5px solid #1E1D32;
+                        border-top: none;
+                        margin: auto;
+                  }
                   .resultDisplay{
                     font-size:2em !important;
                     margin-top:2em !important
