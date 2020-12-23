@@ -404,9 +404,9 @@ export default function Home() {
                   margin:auto
                 }
                 .resultDisplay{
-                  font-size:3em;
-                  font-weight:600;
-                  margin-top:1em !important
+                  font-size: 1.5em!important;
+    font-weight: 600;
+    margin-top: 3em !important;
                 }
                 .randomNumber{
                   font-size:5em !important;
@@ -605,9 +605,8 @@ export default function Home() {
                         margin: auto;
                   }
                   .resultDisplay{
-                    font-size: 1.5em!important;
-    font-weight: 600;
-    margin-top: 3em !important;
+                    font-size:2em !important;
+                    margin-top:2em !important
 
                   }
                   .randomNumber{
