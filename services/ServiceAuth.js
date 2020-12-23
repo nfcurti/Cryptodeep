@@ -7,7 +7,7 @@ const login = data => {
     data.password.length == 0) {
       return alert("");
     }
-  return http.post(`api/login`, qs.stringify({
+  return http.post(`login`, qs.stringify({
     username: data.username,
     password: data.password
   }));
@@ -20,7 +20,7 @@ const signup = data => {
     data.repeatpassword.length == 0) {
       return alert("");
     }
-  return http.post(`api/register`, qs.stringify({
+  return http.post(`register`, qs.stringify({
     username: data.username,
     password: data.password,
     email: data.email,
@@ -32,7 +32,7 @@ const resetpassword = data => {
   if(data.email.length == 0) {
       return alert("");
     }
-  return http.post(`api/resetpassword`, qs.stringify({
+  return http.post(`resetpassword`, qs.stringify({
     email: data.email
   }));
 }
@@ -42,7 +42,7 @@ const changepassword = data => {
     return alert("");
 }
 const _http = axios.create({
-  baseURL: "http://localhost:3001/",
+  baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
@@ -51,7 +51,7 @@ const _http = axios.create({
   }
 });
 
-return _http.post(`api/changepassword`, qs.stringify({
+return _http.post(`changepassword`, qs.stringify({
   oldPassword: data.oldPassword,
   newPassword: data.newPassword,
   repeatPassword: data.repeatPassword
@@ -64,7 +64,7 @@ const changeemail = data => {
     return alert("");
 }
 const _http = axios.create({
-  baseURL: "http://localhost:3001/",
+  baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
@@ -73,7 +73,7 @@ const _http = axios.create({
   }
 });
 
-return _http.post(`api/changeemail`, qs.stringify({
+return _http.post(`changeemail`, qs.stringify({
   email: data.email,
   newEmail: data.newEmail,
   password: data.password
