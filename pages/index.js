@@ -605,7 +605,7 @@ export default function Home() {
                         margin: auto;
                   }
                   .resultDisplay{
-                    font-size: 1.5em;
+                    font-size: 1.5em!important;
     font-weight: 600;
     margin-top: 3em !important;
 
