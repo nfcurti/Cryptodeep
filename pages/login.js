@@ -53,7 +53,7 @@ export default class Home extends React.Component {
                 </div>
                 <div className='captchaHolder'>
                   <ReCAPTCHA
-                    sitekey="6LfbWw4aAAAAAK0WBoabYDbdNkJyk0MFjap-i8RM"
+                    sitekey="6LfP4REaAAAAAIzLUXax3PLyxW_7VmhrkrYodKDt"
                     onChange={this.onChangeCaptcha}
                   />
                 </div>
