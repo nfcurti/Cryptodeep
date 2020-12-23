@@ -1,140 +1,197 @@
-import React, { useState, useEffect } from 'react';
-import Marquee from 'react-double-marquee';
-
-import Modal from 'react-modal';
-import { useRouter } from 'next/router'
-import BasePage from '../components/BasePage';
+import React from 'react';
 import ServiceCookies from '../services/cookies';
-import AccountSecurity from '../components/AccountSecurity';
+import ServiceAuth from '../services/ServiceAuth';
+export default class AccountSecurity extends React.Component {
 
-export default function Home() {
-  const customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)',
-      backgroundColor       : '#252540'
+    constructor() {
+        super();
+        this.state = {
+          errorForm: null,
+          formController: {
+            oldPassword: '',
+            newPassword: '',
+            repeatPassword: '',
+            email: '',
+            newEmail: '',
+            password: ''
+          }
+        }
+      }
+    
+      handleInputChange = event => {
+        const { name, value } = event.target;
+        const controller = this.state.formController;
+        controller[name] = value;
+        this.setState({
+          formController: controller
+        })
+      }
+    
+     logout = () => {
+        ServiceCookies.removeUserCookies();
+        window.location.replace('/');
+      }
+
+      changeEmailPressed = () => {
+        if(this.state.formController.email.length < 3 ||
+            this.state.formController.newEmail.length < 3 || this.state.formController.password.length < 3) {
+          alert('One or more fields are missing or invalid.');
+          return;
+        }
+    
+        if(this.state.formController.email == this.state.formController.newEmail) {
+          alert('The email accounts are the same');
+          return;
+        }
+    
+        const userCookies = ServiceCookies.getUserCookies();
+            if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+                window.location.replace(`/login`)
+            }else{
+                this.setState({logged: true});
+    
+                ServiceAuth.changeemail({
+                    "token": userCookies['cktoken'],
+                    "email": this.state.formController.email,
+                    "newEmail": this.state.formController.newEmail,
+                    "password": this.state.formController.password
+                  }).then(response => {
+                    const data = response.data;
+                    console.log(data);
+                    var _a = alert('Email changed.');
+                    if(_a) {
+                        window.location.replace(`/account`);
+                    }
+                  }).catch(e => {
+                    var _content = 'One or more fields are empty';
+                    console.log(e);
+                    if(e.response.status == 404 || e.response.status == 401) {
+                      _content = 'Invalid password or email'
+                    }
+                    alert(_content);
+                    return;
+                  })
+            }
+      }
+
+      changePasswordPressed = () => {
+        console.log(this.state.formController);
+    if(this.state.formController.oldPassword.length < 3 ||
+        this.state.formController.newPassword.length < 3 || this.state.formController.repeatPassword.length < 3) {
+      alert('One or more fields are missing or invalid.');
+      return;
     }
-  };
-  var subtitle;
-  const [modalIsOpen,setIsOpen] = React.useState(false);
-  function openModal() {
-    setIsOpen(true);
-  }
- 
-  function afterOpenModal() {
-  }
- 
-  function closeModal(){
-    setIsOpen(false);
-  }
 
-  function logout() {
-    ServiceCookies.removeUserCookies();
-    window.location.replace('/');
-  }
+    if(this.state.formController.newPassword != this.state.formController.repeatPassword) {
+      alert('Password doesn\'t match');
+      return;
+    }
 
-  Modal.defaultStyles.overlay.backgroundColor = 'rgba(0, 0, 0, 0.55)';
-  const router = useRouter();
-  return (
-    <BasePage>
+    const userCookies = ServiceCookies.getUserCookies();
+        if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+            window.location.replace(`/login`)
+        }else{
+            console.log({
+                "token": userCookies['cktoken'],
+                "oldPassword": this.state.formController.oldPassword,
+                "newPassword": this.state.formController.newPassword,
+                "repeatPassword": this.state.formController.repeatPassword
+              });
+            this.setState({logged: true});
 
-      <div className='bp-h-bg'>
-        <div className='bp-middle-over'>
-          <img alt="Logout" className='loutButton' src={'images/logout.svg'} />
-          <div className='bp-middle-left bp-blueshadow main'>
-          <br/><p className='bp-title'>Wallet</p>
-          <p>This is your balance and cash equivalents</p>
-          <table className='bp-table wallet-table'>
-              <tr>
-                <th style={{}}>AMOUNT</th>
-                <th className='fiat' style={{}}>FIAT </th>
-                <th style={{}}>STATUS</th>
-              </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>12594 POINTS </p></td>
-                <td className='textCenter fiat' style={{}}><p> 5000 USD</p></td>
-                <td style={{}}><button onClick={openModal} className='crypto-status-btn csb-withdraw'>Withdraw</button></td>
-              </tr>
-              
-            </table>
+            ServiceAuth.changepassword({
+                "token": userCookies['cktoken'],
+                "oldPassword": this.state.formController.oldPassword,
+                "newPassword": this.state.formController.newPassword,
+                "repeatPassword": this.state.formController.repeatPassword
+              }).then(response => {
+                const data = response.data;
+                // console.log(data);
+                alert('Password changed.')
+              }).catch(e => {
+                var _content = 'One or more fields are empty';
+                console.log(e);
+                if(e.response.status == 404 || e.response.status == 401) {
+                  _content = 'Invalid password'
+                }
+                alert(_content);
+                return;
+              })
+        }
+      }
+
+    render() {
+        return (
+            <div className='bp-middle-over security'>
+          <div className='bp-middle-left bp-blueshadow security'>
+          <br/><p className='bp-title'>Security</p>
+          <p>Change your personal data periodically to secure your account</p>
+          <br/><br/><br/>
+          <div className='bp-security'>
+            {/* <form autoComplete="off"> */}
+            <div className='inputhold'>
+                  <input  placeholder="Current email" name='email' type='email' onChange={this.handleInputChange} value={this.state.formController.email}/>
+                  <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
+                </div>
+                
+                <div className='inputhold'>
+                  <input  placeholder="New email" name='newEmail' type='email' onChange={this.handleInputChange} value={this.state.formController.newEmail}/>
+                  <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
+                </div>
+                <div className='inputhold'>
+                <input type='password' placeholder="Password" name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
+                <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
+              </div>
+                <input
+                  value="Save Email"
+                  onClick={() => this.changeEmailPressed()}
+                  type='submit'
+                  className='loginSubmit submitSecurity'
+                />
+                <input
+                  value="Settings"
+                  type='submit'
+                  className='loginSubmit submitSecurity'
+                />
+            {/* </form> */}
+            
           </div>
-          <Modal  isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal" >
- 
-            <h4 className='withdrawTitle'>Make a Withdrawal</h4>
-            <form className="withdrawalForm">
-              <select name="currency" id="currency" className='selectCrypto'>
-                  <option value="select">Select currency...</option>
-                  <option value="btc">Bitcoin (BTC)</option>
-                  <option value="eth">Ethereum (ETH)</option>
-                  <option value="ltc">Litecoin (LTC)</option>
-                  <option value="trx">Tron (TRX)</option>
-                </select>
-              <div className='inputhold'>
-                <input  placeholder="Wallet Address" name='address'/>
-                <img className='walletSvg'  role="img" src="https://www.flaticon.com/svg/static/icons/svg/482/482541.svg" />
+          <div className='divider'></div>
+            <div className='bp-security'>
+            {/* <form autoComplete="off"> */}
+
+                
+                <div className='inputhold'>
+                <input type='password' placeholder="Old Password" name='oldPassword' onChange={this.handleInputChange} value={this.state.formController.oldPassword}/>
+                <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
               <div className='inputhold'>
-                <input  placeholder="Amount" name='withamount'/>
-                <img className='walletSvg'  role="img" src="https://www.flaticon.com/svg/static/icons/svg/810/810378.svg" />
+                <input type='password' placeholder="New Password" name='newPassword'  onChange={this.handleInputChange} value={this.state.formController.newPassword}/>
+                <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
-              <p className="minWith">Min. Withdrawal: 0.0005 BTC</p>
-            </form>
-              <p className="terms">All withdrawals are valid from Sunday midnight, within 24 hours maximum</p>
-              <button className='crypto-status-btn csb-withdraw withdrawFinal'>Withdraw</button>
-          </Modal>
-          <div className='clearfix'/>
-        </div>
-      </div>
-      <AccountSecurity />
-      <div className='bp-center-text'>
-      <p style={{fontWeight: 700, fontSize: 16}}>Withdrawal history</p>
-      </div>
+              <div className='inputhold'>
+                <input type='password' placeholder="Repeat Password" name='repeatPassword'  onChange={this.handleInputChange} value={this.state.formController.repeatPassword}/>
+                <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
+              </div>
+                
+                <input
+                  value="Save Password"
+                  type='submit'
+                  onClick={() => this.changePasswordPressed()}
+                  className='loginSubmit submitSecurity'
+                />
+                <input
+                  value="Logout"
+                  onClick={() => this.logout()}
+                  type='submit'
+                  className='loginSubmit submitSecurity'
+                />
+            {/* </form> */}
+          </div>
+          </div>
           
-      <div className='bp-middle'>
-        <div className='bp-middle-over'>
-          <div className='bp-middle-all bp-blueshadow'>
-            <table className='bp-table'>
-              <tr>
-                <th style={{width: '20%'}}>DATE</th>
-                <th style={{}}>AMOUNT</th>
-                <th style={{}}>CURRENCY</th>
-                <th style={{}}>ACTION</th>
-              </tr>
-              <tr>
-                <td style={{width: '20%'}}>11/14/2020 - 11:15</td>
-                <td className='textCenter' style={{}}><p>0.0012594 </p></td>
-                <td className='textCenter' style={{}}><p> BTC</p></td>
-                <td style={{width: '40%'}}><button className='crypto-status-btn csb-success'>Validated</button></td>
-              </tr>
-              <tr>
-                <td style={{width: '20%'}}>11/17/2020 - 11:15</td>
-                <td className='textCenter' style={{}}><p>0.4638294 </p></td>
-                <td className='textCenter' style={{}}><p> LTC</p></td>
-                <td style={{}}><button className='crypto-status-btn csb-success'>Validated</button></td>
-              </tr>
-              <tr>
-                <td style={{width: '20%'}}>11/11/2020 - 11:15</td>
-                <td className='textCenter' style={{}}><p>1.1842937 </p></td>
-                <td className='textCenter' style={{}}><p> ETH</p></td>
-                <td style={{}}><button className='crypto-status-btn csb-in-process'>Pending</button></td>
-              </tr>
-              <tr>
-                <td style={{width: '20%'}}>11/14/2020 - 11:15</td>
-                <td className='textCenter' style={{}}><p>0.9574212 </p></td>
-                <td className='textCenter' style={{}}><p> BTC</p></td>
-                <td style={{}}><button className='crypto-status-btn csb-success'>Validated</button></td>
-              </tr>
-            </table>
-          </div>
           <div className='clearfix'/>
-        </div>
-      </div><br/>
-      {/* <p>Hola</p> */}
-      <style jsx>{`
+          <style jsx>{`
                 .withdrawalForm{
                   width: fit-content;
                   margin: auto
@@ -417,6 +474,8 @@ export default function Home() {
                   display: table;
                 }
             `}</style>
-    </BasePage>
-  )
+        </div>
+      
+        )
+    }
 }
