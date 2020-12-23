@@ -4,8 +4,72 @@ import Marquee from 'react-double-marquee';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
-export default function Home() {
-  const router = useRouter();
+import ServiceAuth from '../services/ServiceAuth';
+import ServiceCookies from '../services/cookies';
+export default class Home extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      errorForm: null,
+      formController: {
+        username: '',
+        password: '',
+        repeatPassword: '',
+        email: ''
+      }
+    }
+  }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    const controller = this.state.formController;
+    controller[name] = value;
+    this.setState({
+      formController: controller
+    })
+  }
+
+  _regiserPressed = () => {
+    console.log(this.state.formController);
+    if(this.state.formController.username.length < 3 || this.state.formController.password.length < 3 ||
+        this.state.formController.repeatPassword.length < 3 || this.state.formController.email.length < 3) {
+      alert('One or more fields are missing or invalid.');
+      return;
+    }
+
+    if(this.state.formController.password != this.state.formController.repeatPassword) {
+      alert('Password doesn\'t match');
+      return;
+    }
+
+    ServiceAuth.signup({
+      "username": this.state.formController.username,
+      "password": this.state.formController.password,
+      "repeatpassword": this.state.formController.repeatPassword,
+      "email": this.state.formController.email
+    }).then(response => {
+      const data = response.data;
+      // console.log(data);
+      const saveCookie = ServiceCookies.saveUserCookies({
+        ckuserid: data.data.user._id,
+        cktoken: data.data.token
+      })
+      if(saveCookie) {
+        window.location.replace(`/account`)
+      }
+    }).catch(e => {
+      var _content = 'One or more fields are empty';
+      console.log(e);
+      if(e.response.status == 404 || e.response.status == 401) {
+        _content = 'Username or email already taken'
+      }
+      alert(_content);
+      return;
+    })
+  }
+  render() {
+
   return (
     <BasePage>
     <br/>
@@ -13,48 +77,43 @@ export default function Home() {
         <div className='bp-middle-over'>
           <div className='bp-middle-all bp-blueshadow'>
               <p className='loginTitle'>Register</p>
-            <form autoComplete="off">
+            {/* <form autoComplete="off"> */}
 
               <div className='inputhold'>
-                <input  placeholder="Username" name='username'/>
+                <input  placeholder="Username" name='username' type='text' onChange={this.handleInputChange} value={this.state.formController.username}/>
                 <img  role="img" src="https://cdn.onlinewebfonts.com/svg/img_189000.png" />
               </div>
 
               <div className='inputhold'>
-                <input type='password' placeholder="Password" name='pwd'/>
+                <input type='password' placeholder="Password" name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
                 <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
 
               <div className='inputhold'>
-                <input type='password' placeholder="Repeat Password" name='repeatpwd'/>
+                <input type='password' placeholder="Repeat Password" name='repeatPassword' onChange={this.handleInputChange} value={this.state.formController.repeatPassword}/>
                 <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
 
               <div className='inputhold'>
-                <input  placeholder="Email" name='email' type='email'/>
+                <input  placeholder="Email" name='email' type='email' onChange={this.handleInputChange} value={this.state.formController.email} />
                 <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
               </div>
               
               <div className='inputhold terms'>
                 <input  type="checkbox" id="agree" />
-                <label className="loginTerms" for="agree">
+                <label className="loginTerms" htmlFor="agree">
                   I agree with the <a href="">terms and conditions</a>
                 </label>
-              </div>
-              <div className='captchaHolder'>
-                <ReCAPTCHA
-                  size='invisible'
-                  sitekey="6LfbWw4aAAAAAK0WBoabYDbdNkJyk0MFjap-i8RM"
-                />
               </div>
               <input
                 value="Register"
                 type='submit'
+                onClick={() => this._regiserPressed()}
                 className='loginSubmit '
               />
 
 
-            </form>
+            {/* </form> */}
             <p className='loginSignup'>Already have an account? <a href="/login">Login!</a></p>
           </div>
           <div className='clearfix'/>
@@ -271,5 +330,6 @@ export default function Home() {
                 }
             `}</style>
     </BasePage>
-  )
+  );
+  }
 }

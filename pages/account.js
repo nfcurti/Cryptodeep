@@ -4,6 +4,7 @@ import Marquee from 'react-double-marquee';
 import Modal from 'react-modal';
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
+import ServiceCookies from '../services/cookies';
 
 export default function Home() {
   const customStyles = {
@@ -28,6 +29,11 @@ export default function Home() {
  
   function closeModal(){
     setIsOpen(false);
+  }
+
+  function logout() {
+    ServiceCookies.removeUserCookies();
+                  window.location.replace('/');
   }
 
   Modal.defaultStyles.overlay.backgroundColor = 'rgba(0, 0, 0, 0.55)';
@@ -107,11 +113,17 @@ export default function Home() {
                   type='submit'
                   className='loginSubmit submitSecurity'
                 />
+                <input
+                  value="Settings"
+                  type='submit'
+                  className='loginSubmit submitSecurity'
+                />
             </form>
+            
           </div>
           <div className='divider'></div>
             <div className='bp-security'>
-            <form autoComplete="off">
+            {/* <form autoComplete="off"> */}
 
                 
                 <div className='inputhold'>
@@ -132,7 +144,13 @@ export default function Home() {
                   type='submit'
                   className='loginSubmit submitSecurity'
                 />
-            </form>
+                <input
+                  value="Logout"
+                  onClick={logout}
+                  type='submit'
+                  className='loginSubmit submitSecurity'
+                />
+            {/* </form> */}
           </div>
           </div>
           
@@ -332,7 +350,7 @@ export default function Home() {
                   margin-bottom: 30px;
                   width: 90%;
                   float: left;
-                  height: 390px;
+                  height: 440px;
                   padding: 0 14px;
 
                   font-family: 'Open Sans';

@@ -28,8 +28,18 @@ const signup = data => {
   }));
 }
 
+const resetpassword = data => {
+    if(data.email.length == 0) {
+        return alert("");
+      }
+    return http.post(`api/resetpassword`, qs.stringify({
+      email: data.email
+    }));
+  }
+
 export default {
     login,
-    signup
+    signup,
+    resetpassword
   }
   

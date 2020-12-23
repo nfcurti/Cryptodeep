@@ -3,6 +3,8 @@ import Marquee from 'react-double-marquee';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
+import ServiceAuth from '../services/ServiceAuth';
+import ServiceCookies from '../services/cookies';
 export default class Home extends React.Component {
   
   constructor() {
@@ -25,12 +27,35 @@ export default class Home extends React.Component {
     })
   }
 
-   onChangeCaptcha = value => {
-    console.log(value);
-  }
-
   _loginPressed = () => {
     console.log(this.state.formController);
+    if(this.state.formController.username.length < 3 || this.state.formController.password.length < 3) {
+      alert('One or more fields are missing or invalid.');
+      return;
+    }
+
+    ServiceAuth.login({
+      "username": this.state.formController.username,
+      "password": this.state.formController.password
+    }).then(response => {
+      const data = response.data;
+      // console.log(data);
+      const saveCookie = ServiceCookies.saveUserCookies({
+        ckuserid: data.data.user._id,
+        cktoken: data.data.token
+      })
+      if(saveCookie) {
+        window.location.replace(`/account`)
+      }
+    }).catch(e => {
+      console.log(e);
+      var _content = 'One or more fields are empty';
+      if(e.response.status == 404 || e.response.status == 401) {
+        _content = 'Wrong password'
+      }
+      alert(_content);
+      return;
+    })
   }
   
   render() {
@@ -50,12 +75,6 @@ export default class Home extends React.Component {
                 <div className='inputhold'>
                   <input type='password' placeholder="Password" name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
                   <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
-                </div>
-                <div className='captchaHolder'>
-                  <ReCAPTCHA
-                    sitekey="6Lck5xEaAAAAACuTSZI4OQfnos8YeSlf1ET-L1nz"
-                    onChange={this.onChangeCaptcha}
-                  />
                 </div>
                 
                  <input
