@@ -416,7 +416,7 @@ export default function Home() {
                   margin-top:0.6em;
                 }
                 .qmark{
-                  margin-left: 23em !important;
+                  right: 20%;
                   position: absolute;
                   margin-top: 1em !important;
                   pointer-events: none;
@@ -443,41 +443,46 @@ export default function Home() {
                   height:4em;
                   background-color: #CB5C0D;
                   border-top-left-radius: 0.4em;
-                  width: 34.8em;
+                  width: revert;
                   margin-left: -1.2em;
                   margin-top: -1em;
                   border-top-right-radius: 0.4em;
+                  margin-right: -1em;
                 }
                 .lotteryRange2{
                   font-weight:600;
                   height:4em;
                   background-color: #db7406;
-                  width: 34.8em;
+                  width: revert;
                   margin-left: -1.2em;
+                  margin-right: -1em;
                 }
                 .lotteryRange3{
                   font-weight:600;
                   height:4em;
                   background-color: #e98c00;
-                  width: 34.8em;
+                  width: revert;
                   margin-left: -1.2em;
+                  margin-right: -1em;
                 }
                 .lotteryRange4{
                   font-weight:600;
                   height:4em;
                   background-color: #ef9900;
-                  width: 34.8em;
+                  width: revert;
                   margin-left: -1.2em;
+                  margin-right: -1em;
                 }
                 .lotteryRange5{
                   font-weight:600;
                   height:4em;
                   background-color: #f5a500;
-                  width: 34.8em;
+                  width: revert;
                   margin-left: -1.2em;
                   border-bottom-right-radius: 0.4em;
                   border-bottom-left-radius: 0.4em;
                   margin-bottom: -2em;
+                  margin-right: -1em;
                 }
                 .bp-h-bg {
 
