@@ -224,44 +224,47 @@ export default function Home() {
           </div>
           <div className='bp-middle-left-sub bp-blueshadow' style={{}}>
           <div className='lotteryRange1'>
-              <tr>
+              <table>
+                <tbody><tr>
                 <td style={{width: '5em'}}><p className="numbering">1</p></td>
                 <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 0 - 999,500</p></td>
 
                 <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>5 POINTS</div></td>
-              </tr>
+              </tr></tbody>
+
+              </table>
               </div>
           <div className='lotteryRange2'>
-              <tr>
+             <table><tbody> <tr>
                 <td style={{width: '5em'}}><p className="numbering">2</p></td>
                 <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,501 - 999,700</p></td>
 
                 <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>10 POINTS</div></td>
-              </tr>
+              </tr></tbody></table>
               </div>
           <div className='lotteryRange3'>
-              <tr>
+              <table><tbody><tr>
                 <td style={{width: '5em'}}><p className="numbering">3</p></td>
                 <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,701 - 999,850</p></td>
 
                 <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>100 POINTS</div></td>
-              </tr>
+              </tr></tbody></table>
               </div>
           <div className='lotteryRange4'>
-              <tr>
+              <table><tbody><tr>
                 <td style={{width: '5em'}}><p className="numbering">4</p></td>
                 <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,851 - 999,920</p></td>
 
                 <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>200 POINTS</div></td>
-              </tr>
+              </tr></tbody></table>
               </div>
           <div className='lotteryRange5'>
-              <tr>
+              <table><tbody><tr>
                 <td style={{width: '5em'}}><p className="numbering">5</p></td>
                 <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,921 - 999,999</p></td>
 
                 <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>500 POINTS</div></td>
-              </tr>
+              </tr></tbody></table>
               </div>
           </div>
           <div className='clearfix'/>
@@ -306,11 +309,14 @@ export default function Home() {
         <div className='bp-middle-over'>
           <div className='bp-middle-all bp-blueshadow'>
             <table className='bp-table'>
+              <thead>
               <tr>
                 <th style={{width: '20%'}}>DATE</th>
                 <th style={{width: '30%'}}>AMOUNT</th>
                 <th style={{width: '30%'}}>STATUS</th>
               </tr>
+              </thead>
+              <tbody>
               <tr>
                 <td style={{width: '20%'}}>11/14/2020 - 11:15</td>
                 <td style={{width: '30%'}}><p>200 Points</p></td>
@@ -331,6 +337,7 @@ export default function Home() {
                 <td style={{width: '30%'}}><p>250 Points</p></td>
                 <td style={{width: '30%'}}><button className='crypto-status-btn csb-success'>Successful</button></td>
               </tr>
+              </tbody>
             </table>
           </div>
           <div className='clearfix'/>

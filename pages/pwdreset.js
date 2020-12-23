@@ -13,7 +13,7 @@ export default function Home() {
         <div className='bp-middle-over'>
           <div className='bp-middle-all bp-blueshadow'>
               <p className='loginTitle'>Reset password</p>
-            <form autocomplete="off">
+            <form autoComplete="off">
 
               
               <div className='inputhold'>

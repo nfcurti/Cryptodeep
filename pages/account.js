@@ -88,7 +88,7 @@ export default function Home() {
           <p>Change your personal data periodically to secure your account</p>
           <br/><br/><br/>
           <div className='bp-security'>
-            <form autocomplete="off">
+            <form autoComplete="off">
             <div className='inputhold'>
                   <input  placeholder="Current email" name='email' type='email'/>
                   <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
@@ -111,7 +111,7 @@ export default function Home() {
           </div>
           <div className='divider'></div>
             <div className='bp-security'>
-            <form autocomplete="off">
+            <form autoComplete="off">
 
                 
                 <div className='inputhold'>

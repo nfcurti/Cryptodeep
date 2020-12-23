@@ -13,7 +13,7 @@ export default function Home() {
         <div className='bp-middle-over'>
           <div className='bp-middle-all bp-blueshadow'>
               <p className='loginTitle'>Register</p>
-            <form autocomplete="off">
+            <form autoComplete="off">
 
               <div className='inputhold'>
                 <input  placeholder="Username" name='username'/>
