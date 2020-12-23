@@ -549,17 +549,16 @@ export default function Home() {
 
                 .bp-middle-left-sub {
                   text-align: center;
-                  margin-right: 30px;
-                  margin-top: 30px;
-                  width: 38%;
-                  float: left;
-                  padding: 10px 14px;
-                  padding-bottom: 20px;
-
-                  font-family: 'Open Sans';
-                  color: #FFFFFF;
-                  font-weight: 400;
-                  font-size: 12px;
+    /* margin-right: 30px; */
+    margin-top: 30px;
+    width: 44%;
+    float: left;
+    padding: 10px 14px;
+    padding-bottom: 20px;
+    font-family: 'Open Sans';
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 12px;
                 }
 
                 .bp-title {
@@ -606,8 +605,9 @@ export default function Home() {
                         margin: auto;
                   }
                   .resultDisplay{
-                    font-size:2em !important;
-                    margin-top:2em !important
+                    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 3em !important;
 
                   }
                   .randomNumber{
