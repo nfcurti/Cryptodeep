@@ -18,6 +18,13 @@ export default class Home extends React.Component {
     }
   }
 
+  componentDidMount() {
+    const userCookies = ServiceCookies.getUserCookies();
+            if(userCookies['ckuserid'] != null && userCookies['cktoken'] != null) {
+                window.location.replace(`/account`)
+            };
+  }
+
   handleInputChange = event => {
     const { name, value } = event.target;
     const controller = this.state.formController;
