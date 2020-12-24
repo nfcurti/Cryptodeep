@@ -28,8 +28,12 @@ export default function Home() {
           case Number(result)>999851 && Number(result)<=999920:
             resultPoints = 200
             break;
-          case Number(result)>999921 && Number(result)<=999999:
+          case Number(result)>999921 && Number(result)<=999998:
             resultPoints = 500
+            break;
+
+          case Number(result)==999999:
+            resultPoints = 5000
             break;
           default:
             // code block
@@ -54,7 +58,7 @@ export default function Home() {
                 </div>
                 <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
                   <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                  <p style={{fontSize:"0.5em"}}>Leading crypto  site for beginners</p>
+                  <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
                 </div>
 
               <div className="stars-review">
@@ -72,8 +76,13 @@ export default function Home() {
               </div>
               <div className="end-review">
                 
-                <div style={{backgroundColor:"#fc89ac"}} className="inside-end-review"><p>REVIEW</p></div><div style={{backgroundColor:"#8A2BE2"}} className="inside-end-review" ><p style={{textAlign:"right"}}>SITE</p></div>
+                <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
+                  <p>REVIEW</p>
                 </div>
+                <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                  <p style={{textAlign:"right"}}>SITE</p>
+                </div>
+              </div>
                 </div>
             </div>
             <div className="review">
@@ -84,7 +93,7 @@ export default function Home() {
                 </div>
                 <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
                   <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                  <p style={{fontSize:"0.5em"}}>Leading crypto  site for beginners</p>
+                  <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
                 </div>
 
               <div className="stars-review">
@@ -102,8 +111,13 @@ export default function Home() {
               </div>
               <div className="end-review">
                 
-                <div style={{backgroundColor:"#fc89ac"}} className="inside-end-review"><p>REVIEW</p></div><div style={{backgroundColor:"#8A2BE2"}} className="inside-end-review" ><p style={{textAlign:"right"}}>SITE</p></div>
+                <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
+                  <p>REVIEW</p>
                 </div>
+                <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                  <p style={{textAlign:"right"}}>SITE</p>
+                </div>
+              </div>
                 </div>
             </div>
             <div className="review">
@@ -114,7 +128,7 @@ export default function Home() {
                 </div>
                 <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
                   <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                  <p style={{fontSize:"0.5em"}}>Leading crypto  site for beginners</p>
+                  <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
                 </div>
 
               <div className="stars-review">
@@ -132,8 +146,13 @@ export default function Home() {
               </div>
               <div className="end-review">
                 
-                <div style={{backgroundColor:"#fc89ac"}} className="inside-end-review"><p>REVIEW</p></div><div style={{backgroundColor:"#8A2BE2"}} className="inside-end-review" ><p style={{textAlign:"right"}}>SITE</p></div>
+                <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
+                  <p>REVIEW</p>
                 </div>
+                <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                  <p style={{textAlign:"right"}}>SITE</p>
+                </div>
+              </div>
                 </div>
             </div>
             <div className="review">
@@ -144,7 +163,7 @@ export default function Home() {
                 </div>
                 <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
                   <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                  <p style={{fontSize:"0.5em"}}>Leading crypto  site for beginners</p>
+                  <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
                 </div>
 
               <div className="stars-review">
@@ -162,8 +181,13 @@ export default function Home() {
               </div>
               <div className="end-review">
                 
-                <div style={{backgroundColor:"#fc89ac"}} className="inside-end-review"><p>REVIEW</p></div><div style={{backgroundColor:"#8A2BE2"}} className="inside-end-review" ><p style={{textAlign:"right"}}>SITE</p></div>
+                <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
+                  <p>REVIEW</p>
                 </div>
+                <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                  <p style={{textAlign:"right"}}>SITE</p>
+                </div>
+              </div>
                 </div>
             </div>
             <div className="review">
@@ -174,7 +198,7 @@ export default function Home() {
                 </div>
                 <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
                   <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                  <p style={{fontSize:"0.5em"}}>Leading crypto  site for beginners</p>
+                  <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
                 </div>
 
               <div className="stars-review">
@@ -192,8 +216,13 @@ export default function Home() {
               </div>
               <div className="end-review">
                 
-                <div style={{backgroundColor:"#fc89ac"}} className="inside-end-review"><p>REVIEW</p></div><div style={{backgroundColor:"#8A2BE2"}} className="inside-end-review" ><p style={{textAlign:"right"}}>SITE</p></div>
+                <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
+                  <p>REVIEW</p>
                 </div>
+                <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                  <p style={{textAlign:"right"}}>SITE</p>
+                </div>
+              </div>
                 </div>
             </div>
           </div>
@@ -258,12 +287,20 @@ export default function Home() {
                 <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>200 POINTS</div></td>
               </tr></tbody></table>
               </div>
-          <div className='lotteryRange5'>
+          <div className='lotteryRange4'>
               <table><tbody><tr>
                 <td style={{width: '5em'}}><p className="numbering">5</p></td>
                 <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,921 - 999,999</p></td>
 
                 <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>500 POINTS</div></td>
+              </tr></tbody></table>
+              </div>
+          <div className='lotteryRange5'>
+              <table><tbody><tr>
+                <td style={{width: '5em'}}><p className="numbering">6</p></td>
+                <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,999</p></td>
+
+                <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>JACKPOT</div></td>
               </tr></tbody></table>
               </div>
           </div>
@@ -351,15 +388,13 @@ export default function Home() {
                   position:absolute;
                   margin-top: 5em;
                   display:flex;
-                  font-size0.6em;
                   
                 }
                 .end-review{
                   height: 2em;
-                  background-color: black;
                   position: absolute;
                   margin-top: 7em;
-                  width: 11.5%;
+                  width: 13.9%;
                   margin-left: -0.5em;
                   display: -webkit-box;
                   display: -webkit-flex;
@@ -404,7 +439,7 @@ export default function Home() {
                 }
                 .bp-reviewbox{
                   display: flex;
-                  width:80%;
+                  width:95%;
                   height:10.5em;
                   border:5px solid #1E1D32;
                   border-top:none;
@@ -412,8 +447,8 @@ export default function Home() {
                 }
                 .resultDisplay{
                   font-size: 1.5em!important;
-    font-weight: 600;
-    margin-top: 3em !important;
+                  font-weight: 600;
+                  margin-top: 3em !important;
                 }
                 .randomNumber{
                   font-size:5em !important;
