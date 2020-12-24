@@ -64,26 +64,29 @@ export default function Home() {
           </div>
           <Modal  isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal" >
  
-            <h4 className='withdrawTitle'>Make a Withdrawal</h4>
+            <h4 className='withdrawTitle'>Withdrawal</h4>
             <form className="withdrawalForm">
               <select name="currency" id="currency" className='selectCrypto'>
-                  <option value="select">Select currency...</option>
                   <option value="btc">Bitcoin (BTC)</option>
                   <option value="eth">Ethereum (ETH)</option>
                   <option value="ltc">Litecoin (LTC)</option>
                   <option value="trx">Tron (TRX)</option>
                 </select>
-              <div className='inputhold'>
-                <input  placeholder="Wallet Address" name='address'/>
+                <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png'} />
+              <div className='inputhold' style={{marginBottom: '-1em'}}>
+                <label>Your Withdrawal Address</label>
+                <input  placeholder="Your BTC Address" name='address'/>
                 <img className='walletSvg'  role="img" src="https://www.flaticon.com/svg/static/icons/svg/482/482541.svg" />
               </div>
               <div className='inputhold'>
-                <input  placeholder="Amount" name='withamount'/>
-                <img className='walletSvg'  role="img" src="https://www.flaticon.com/svg/static/icons/svg/810/810378.svg" />
+                <label>Amount</label>
+                <input  value="0.00000000" name='withamount'/>
+                <img className='wallet-svg' style={{width:'1.2em', padding:'11px 35px', opacity:'1'}} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png'} />
               </div>
-              <p className="minWith">Min. Withdrawal: 0.0005 BTC</p>
+              <p className="minWith" style={{color:'#ffffff90'}}>Min. 0.0005 <img className='wallet-svg' style={{width:'1.2em', padding:'2px 50px', opacity:'1'}} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png'} />
+             </p>
             </form>
-              <p className="terms">All withdrawals are valid from Sunday midnight, within 24 hours maximum</p>
+              <p className="terms">Your withdrawal will be made from: <span style={{fontWeight:'bold'}}>next sunday</span></p>
               <button className='crypto-status-btn csb-withdraw withdrawFinal'>Withdraw</button>
           </Modal>
           <div className='clearfix'/>
@@ -135,8 +138,15 @@ export default function Home() {
       </div><br/>
       {/* <p>Hola</p> */}
       <style jsx>{`
+                label{
+                  font-family:Open Sans;
+                  color:white;
+                  font-weight:bold;
+                  font-size:0.7em;
+                  margin-left:0.4em;
+                }
                 .withdrawalForm{
-                  width: fit-content;
+                  width: 30em;
                   margin: auto
                 }
                 .withdrawFinal{
@@ -147,21 +157,32 @@ export default function Home() {
                   color:white;
                   border-radius:3px;
                   margin:0 auto;
+                  background-color:#DC8614 !important;
+                  font-weight:bold;
+                }
+                withdrawFinal:hover{
+                  opacity:0.8
                 }
                 .terms{
                   font-family:'Open Sans';
                   color:white;
                   text-align:left;
                   font-size:0.8em;
+                  border:1px solid #DC8614;
+                  padding:0.6em 1em;
+                  border-radius:3px
 
                 }
                 .minWith{
                   font-family:'Open Sans';
                   color:white;
                   text-align:left;
-                  font-size:0.5em;
-                  margin-top:-3em;
-                  margin-left:0.1em
+                  font-size:0.7em;
+                  margin-top:-2em;
+                  margin-left:0.2em;
+                  
+
+
                 }
                 .withdrawTitle{
                   font-family:'Open Sans';
@@ -220,28 +241,30 @@ export default function Home() {
                   }
                 .selectCrypto{
                   outline:none;
-                  width: 17em;
+                  width: 15em;
                   padding: 10px;
                   margin-bottom: 2em;
                   color:white;
                   border-radius:3px;
-                  border-style:solid;
-                  border: 1px solid white;
-                  background-color:transparent;
-                  appearance:none
+                  background-color:#161526;
+                  appearance:none;
+                  border:none;
+                  margin-left:10.5em
                 }
                 input{
                   outline:none;
-                  width: 15.5em;
+                  width: fill-available;
                   padding: 10px;
                   margin-bottom: 2em;
                   color:white;
                   border-radius:3px;
                   border-style:solid;
-                  border: 1px solid white;
-                  background-color:transparent}
-                input::placeholder{
-                  color:white
+                  border: none;
+                  background-color:#161526;
+                  margin-top:0.3em}
+                  input::placeholder{
+                  color:gray;
+
                 }
                 .wallet-table{
                   margin-top:2em
@@ -342,6 +365,13 @@ export default function Home() {
                 }
 
                 @media screen and (max-width: 800px){
+                  .selectCrypto{
+                    margin-left:0
+                  }
+                  .withdrawalForm{
+                    width: 18em;
+                    margin: auto
+                  }
                   .terms{
                     text-align: center;
                   }
