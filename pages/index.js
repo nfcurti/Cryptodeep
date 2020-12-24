@@ -386,7 +386,7 @@ export default function Home() {
                   width:8em;
                   height:3em;
                   position:absolute;
-                  margin-top: 5em;
+                  margin-top: 5.5em;
                   display:flex;
                   
                 }
@@ -429,7 +429,7 @@ export default function Home() {
                 }
                 .single-review{
                   width:17%;
-                  height:4em;
+                  height:5em;
                   background-color:#252540;
                   border-radius:3px;
                   margin:0.5em;
