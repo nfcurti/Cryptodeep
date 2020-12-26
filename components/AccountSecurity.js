@@ -206,14 +206,14 @@ export default class AccountSecurity extends React.Component {
                   margin:0 auto;
                 }
                 .terms{
-                  font-family:'Open Sans';
+                  font-family:'Nunito';
                   color:white;
                   text-align:left;
                   font-size:0.8em;
 
                 }
                 .minWith{
-                  font-family:'Open Sans';
+                  font-family:'Nunito';
                   color:white;
                   text-align:left;
                   font-size:0.5em;
@@ -221,7 +221,7 @@ export default class AccountSecurity extends React.Component {
                   margin-left:0.1em
                 }
                 .withdrawTitle{
-                  font-family:'Open Sans';
+                  font-family:'Nunito';
                   color:white;
                   text-align:center
                 }
@@ -344,7 +344,7 @@ export default class AccountSecurity extends React.Component {
                   height: 440px;
                   padding: 0 14px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
@@ -357,7 +357,7 @@ export default class AccountSecurity extends React.Component {
                   float: left;
                   padding: 10px 14px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
@@ -371,7 +371,7 @@ export default class AccountSecurity extends React.Component {
                   padding: 10px 14px;
                   padding-bottom: 30px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
@@ -386,7 +386,7 @@ export default class AccountSecurity extends React.Component {
                   padding: 10px 14px;
                   padding-bottom: 20px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
@@ -409,7 +409,8 @@ export default class AccountSecurity extends React.Component {
                     width: 90%;
                   }
                   .security{
-                  height:50em !important
+                  height:63em !important;
+                      margin-bottom: -14em;
                 }
 
                 .divider{

@@ -189,7 +189,7 @@ export default class Home extends React.Component {
                     height: 340px;
                     padding: 0 14px;
   
-                    font-family: 'Open Sans';
+                    font-family: 'Nunito';
                     color: #FFFFFF;
                     font-weight: 400;
                     font-size: 12px;
@@ -202,7 +202,7 @@ export default class Home extends React.Component {
                     float: left;
                     padding: 10px 14px;
   
-                    font-family: 'Open Sans';
+                    font-family: 'Nunito';
                     color: #FFFFFF;
                     font-weight: 400;
                     font-size: 12px;
@@ -216,7 +216,7 @@ export default class Home extends React.Component {
                     padding: 10px 14px;
                     padding-bottom: 30px;
   
-                    font-family: 'Open Sans';
+                    font-family: 'Nunito';
                     color: #FFFFFF;
                     font-weight: 400;
                     font-size: 12px;
@@ -231,7 +231,7 @@ export default class Home extends React.Component {
                     padding: 10px 14px;
                     padding-bottom: 20px;
   
-                    font-family: 'Open Sans';
+                    font-family: 'Nunito';
                     color: #FFFFFF;
                     font-weight: 400;
                     font-size: 12px;

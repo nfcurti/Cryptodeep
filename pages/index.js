@@ -435,7 +435,7 @@ export default function Home() {
                   margin:0.5em;
                   padding:0.5em;
                   display:flex;
-                  font-family:"Open Sans"
+                  font-family:"Nunito"
                 }
                 .bp-reviewbox{
                   display: flex;
@@ -556,7 +556,7 @@ export default function Home() {
                   height: 340px;
                   padding: 0 14px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
@@ -569,7 +569,7 @@ export default function Home() {
                   float: left;
                   padding: 10px 14px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
@@ -583,7 +583,7 @@ export default function Home() {
                   padding: 10px 14px;
                   padding-bottom: 30px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
@@ -597,7 +597,7 @@ export default function Home() {
     float: left;
     padding: 10px 14px;
     padding-bottom: 20px;
-    font-family: 'Open Sans';
+    font-family: 'Nunito';
     color: #FFFFFF;
     font-weight: 400;
     font-size: 12px;
@@ -635,7 +635,7 @@ export default function Home() {
                         display: -webkit-flex;
                         display: -ms-flexbox;
                         display: flex;
-                        font-family: "Open Sans";
+                        font-family: "Nunito";
                         margin-bottom: 0.5em;
                   }
                   .bp-reviewbox{

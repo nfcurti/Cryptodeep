@@ -44,7 +44,8 @@ export default function Home() {
 
       <div className='bp-h-bg'>
         <div className='bp-middle-over'>
-          <img alt="Logout" className='loutButton' src={'images/logout.svg'} />
+        <img onClick={logout} style={{"pointer-events": "all"}} alt="Logout" className='loutButton' src={'images/logout.svg'} />
+             
           <div className='bp-middle-left bp-blueshadow main'>
           <br/><p className='bp-title'>Wallet</p>
           <p>This is your balance and cash equivalents</p>
@@ -99,36 +100,41 @@ export default function Home() {
           
       <div className='bp-middle'>
         <div className='bp-middle-over'>
-          <div className='bp-middle-all bp-blueshadow'>
+          <div className='bp-middle-all bp-blueshadow' style={{overflowX: 'auto'}}>
             <table className='bp-table'>
               <tr>
                 <th style={{width: '20%'}}>DATE</th>
                 <th style={{}}>AMOUNT</th>
                 <th style={{}}>CURRENCY</th>
+                <th style={{}}>POINTS</th>
                 <th style={{}}>ACTION</th>
               </tr>
               <tr>
                 <td style={{width: '20%'}}>11/14/2020 - 11:15</td>
                 <td className='textCenter' style={{}}><p>0.0012594 </p></td>
                 <td className='textCenter' style={{}}><p> BTC</p></td>
+                <td className='textCenter' style={{}}><p> 0</p></td>
                 <td style={{width: '40%'}}><button className='crypto-status-btn csb-success'>Validated</button></td>
               </tr>
               <tr>
                 <td style={{width: '20%'}}>11/17/2020 - 11:15</td>
                 <td className='textCenter' style={{}}><p>0.4638294 </p></td>
                 <td className='textCenter' style={{}}><p> LTC</p></td>
+                <td className='textCenter' style={{}}><p> 0</p></td>
                 <td style={{}}><button className='crypto-status-btn csb-success'>Validated</button></td>
               </tr>
               <tr>
                 <td style={{width: '20%'}}>11/11/2020 - 11:15</td>
                 <td className='textCenter' style={{}}><p>1.1842937 </p></td>
                 <td className='textCenter' style={{}}><p> ETH</p></td>
+                <td className='textCenter' style={{}}><p> 0</p></td>
                 <td style={{}}><button className='crypto-status-btn csb-in-process'>Pending</button></td>
               </tr>
               <tr>
                 <td style={{width: '20%'}}>11/14/2020 - 11:15</td>
                 <td className='textCenter' style={{}}><p>0.9574212 </p></td>
                 <td className='textCenter' style={{}}><p> BTC</p></td>
+                <td className='textCenter' style={{}}><p> 0</p></td>
                 <td style={{}}><button className='crypto-status-btn csb-success'>Validated</button></td>
               </tr>
             </table>
@@ -139,7 +145,7 @@ export default function Home() {
       {/* <p>Hola</p> */}
       <style jsx>{`
                 label{
-                  font-family:Open Sans;
+                  font-family:Nunito;
                   color:white;
                   font-weight:bold;
                   font-size:0.7em;
@@ -164,7 +170,7 @@ export default function Home() {
                   opacity:0.8
                 }
                 .terms{
-                  font-family:'Open Sans';
+                  font-family:'Nunito';
                   color:white;
                   text-align:left;
                   font-size:0.8em;
@@ -174,7 +180,7 @@ export default function Home() {
 
                 }
                 .minWith{
-                  font-family:'Open Sans';
+                  font-family:'Nunito';
                   color:white;
                   text-align:left;
                   font-size:0.7em;
@@ -185,7 +191,7 @@ export default function Home() {
 
                 }
                 .withdrawTitle{
-                  font-family:'Open Sans';
+                  font-family:'Nunito';
                   color:white;
                   text-align:center
                 }
@@ -310,7 +316,7 @@ export default function Home() {
                   height: 440px;
                   padding: 0 14px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
@@ -323,7 +329,7 @@ export default function Home() {
                   float: left;
                   padding: 10px 14px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
@@ -337,7 +343,7 @@ export default function Home() {
                   padding: 10px 14px;
                   padding-bottom: 30px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
@@ -352,7 +358,7 @@ export default function Home() {
                   padding: 10px 14px;
                   padding-bottom: 20px;
 
-                  font-family: 'Open Sans';
+                  font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
                   font-size: 12px;
