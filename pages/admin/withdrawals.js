@@ -162,7 +162,20 @@ _rejectWithdraw = (id) => {
                                                 item.status == 1 ? <button className='crypto-status-btn csb-rejected'>Rejected</button> : null
                                             }
                                 </td>
-                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => this._validateWithdraw(item._id)} className='admin-actiob admin-actiob-validate'><p>Validate</p></button><br/><button onClick={() => this._rejectWithdraw(item._id)} className='admin-actiob admin-actiob-reject'><p>Reject</p></button></td>
+                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
+                    if(item.status != 0) {
+                        alert('An action was already taken for this event')
+                    }else{
+                        this._validateWithdraw(item._id);
+                    }
+                }} className='admin-actiob admin-actiob-validate'><p>Validate</p></button><br/><button onClick={() => {
+                    
+                    if(item.status != 0) {
+                        alert('An action was already taken for this event')
+                    }else{
+                        this._rejectWithdraw(item._id)
+                    }
+                }} className='admin-actiob admin-actiob-reject'><p>Reject</p></button></td>
 
 
               </tr>
