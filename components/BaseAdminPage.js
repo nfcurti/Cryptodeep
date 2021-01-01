@@ -33,6 +33,7 @@ export default class BaseAdminPage extends React.Component {
   <input type='checkbox' id='responsive-menu'/><label></label>
   <ul>
   <li><div className='bp-spacer'></div></li>
+    <li><div className='bp-cbutton'><a href='/admin/withdrawals'>Withdraws</a></div></li>
     <li><div className='bp-cbutton'><a href='/admin/users'>Users</a></div></li>
     <li><div className='bp-cbutton'><a href='/admin/home'>General</a></div></li>
   <li><div className='bp-spacer'></div></li>

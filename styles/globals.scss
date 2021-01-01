@@ -220,27 +220,7 @@ a {
 		}
 		
 
-		.crypto-status-btn {
-			font-family: 'Nunito';
-                  color: #FFFFFF;
-                  font-weight: 400;
-				  font-size: 12px;
-			border: 0px;
-			padding: 4px 20px;
-			border-radius: 4px;
-		}
-
-		.csb-success {
-			background-color: green;
-		}
-
-		.csb-in-process {
-			background-color: darken(orange, 10%);
-		}
-
-		.csb-rejected {
-			background-color: darken(red, 10%);
-		}
+		
 				  
 	}
 
@@ -286,4 +266,58 @@ a {
 			}
 		}
 	}
+}
+
+.admin-actiob {
+	width: 140px;
+	border: none;
+	height: 30px;
+	margin: 4px 0px;
+	border-radius: 4px;
+
+	p {
+		padding: 2px;
+	}
+}
+
+.admin-actiob-validate {
+	background-color: lighten(green, 10%);
+
+	&:hover {
+		cursor: pointer;
+
+		background-color: lighten(green, 3%);
+	}
+}
+
+.admin-actiob-reject {
+	background-color: grey;
+
+	&:hover {
+		cursor: pointer;
+
+		background-color: darken(grey, 3%)
+	}
+}
+
+.crypto-status-btn {
+	font-family: 'Nunito';
+		  color: #FFFFFF;
+		  font-weight: 400;
+		  font-size: 12px;
+	border: 0px;
+	padding: 4px 20px;
+	border-radius: 4px;
+}
+
+.csb-success {
+	background-color: green;
+}
+
+.csb-in-process {
+	background-color: darken(orange, 10%);
+}
+
+.csb-rejected {
+	background-color: darken(red, 10%);
 }
