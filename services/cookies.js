@@ -9,7 +9,8 @@ const saveUserCookies = async (data) => {
   await Cookies.remove(cookieStateKeys.USER);
   await Cookies.set(cookieStateKeys.USER, {
     ckuserid: data.ckuserid,
-    cktoken: data.cktoken
+    cktoken: data.cktoken,
+    ckpl: data.ckprivilege
   });
   return true;
 }

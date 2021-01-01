@@ -80,11 +80,34 @@ return _http.post(`changeemail`, qs.stringify({
 }));
 }
 
+const getusers = data => {
+  if(!data.token) {
+    return alert("");
+}
+const _http = axios.create({
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+return _http.get(`admin/users`, qs.stringify({
+  email: data.email,
+  newEmail: data.newEmail,
+  password: data.password
+}));
+}
+
 export default {
     login,
     signup,
     resetpassword,
     changepassword,
-    changeemail
+    changeemail,
+    getusers
   }
   

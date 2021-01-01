@@ -260,3 +260,26 @@ a {
 		  align-items: center;
 		  margin: 4px 4px;
 }
+
+.admin-table {
+	thead {
+		tr {
+			td { 
+				height: 40px;
+				background-color: rgba(0, 0, 0, 0.3);
+				p {
+					font-size: 16px;
+				}
+			}
+		}
+	}
+
+	.admin-bodytr {
+		td {
+			height: 40px;
+			p {
+				font-size: 16px;
+			}
+		}
+	}
+}

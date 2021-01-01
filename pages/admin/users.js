@@ -3,131 +3,97 @@ import Marquee from 'react-double-marquee';
 
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from 'next/router'
-import BasePage from '../components/BasePage';
-import ServiceAuth from '../services/ServiceAuth';
-import ServiceCookies from '../services/cookies';
+import BaseAdminPage from '../../components/BaseAdminPage';
+import ServiceAuth from '../../services/ServiceAuth';
+import ServiceCookies from '../../services/cookies';
+import { PaginatedList } from 'react-paginated-list';
 export default class Home extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      errorForm: null,
-      formController: {
-        username: '',
-        password: '',
-        repeatPassword: '',
-        email: ''
-      }
+      users: []
     }
   }
 
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
-            if(userCookies['ckuserid'] != null && userCookies['cktoken'] != null) {
-                window.location.replace(`/account`)
-            };
+        if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+            window.location.replace(`/account`)
+        }else{
+            if(userCookies['ckpl'] != '999') {
+            window.location.replace(`/account`)
+            }
+        };
+
+        ServiceAuth.getusers({
+            "token": userCookies['cktoken']
+          }).then(response => {
+            const data = response.data;
+            console.log(data);
+            if(data.data.users != null) {
+                this.setState({
+                    users: data.data.users
+                })
+            }
+          }).catch(e => {
+            console.log(e);
+            alert(e);
+            return;
+          })
   }
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    const controller = this.state.formController;
-    controller[name] = value;
-    this.setState({
-      formController: controller
-    })
-  }
-
-  _regiserPressed = () => {
-    console.log(this.state.formController);
-    if(this.state.formController.username.length < 3 || this.state.formController.password.length < 3 ||
-        this.state.formController.repeatPassword.length < 3 || this.state.formController.email.length < 3) {
-      alert('One or more fields are missing or invalid.');
-      return;
-    }
-
-    if(this.state.formController.password != this.state.formController.repeatPassword) {
-      alert('Password doesn\'t match');
-      return;
-    }
-
-    ServiceAuth.signup({
-      "username": this.state.formController.username,
-      "password": this.state.formController.password,
-      "repeatpassword": this.state.formController.repeatPassword,
-      "email": this.state.formController.email
-    }).then(response => {
-      const data = response.data;
-      // console.log(data);
-      const saveCookie = ServiceCookies.saveUserCookies({
-        ckuserid: data.data.user._id,
-        cktoken: data.data.token,
-        ckprivilege: data.data.user.privilegeLevel
-      })
-      if(saveCookie) {
-        window.location.replace(`/account`)
-      }
-    }).catch(e => {
-      var _content = 'One or more fields are empty';
-      console.log(e);
-      if(e.response.status == 404 || e.response.status == 401) {
-        _content = 'Username or email already taken'
-      }
-      alert(_content);
-      return;
-    })
-  }
+  
   render() {
 
   return (
-    <BasePage>
-    <br/>
-      <div className='bp-middle'>
+          <BaseAdminPage>
+          <div className='bp-middle'>
+            <br/>
         <div className='bp-middle-over'>
-          <div className='bp-middle-all bp-blueshadow'>
-              <p className='loginTitle'>Register</p>
-            {/* <form autoComplete="off"> */}
+        <div className='bp-middle-all bp-blueshadow'>
+                <p className='loginTitle'>Admin Users</p>
 
-              <div className='inputhold'>
-                <input  placeholder="Username" name='username' type='text' onChange={this.handleInputChange} value={this.state.formController.username}/>
-                <img  role="img" src="https://cdn.onlinewebfonts.com/svg/img_189000.png" />
-              </div>
-
-              <div className='inputhold'>
-                <input type='password' placeholder="Password" name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
-                <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
-              </div>
-
-              <div className='inputhold'>
-                <input type='password' placeholder="Repeat Password" name='repeatPassword' onChange={this.handleInputChange} value={this.state.formController.repeatPassword}/>
-                <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
-              </div>
-
-              <div className='inputhold'>
-                <input  placeholder="Email" name='email' type='email' onChange={this.handleInputChange} value={this.state.formController.email} />
-                <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
-              </div>
-              
-              <div className='inputhold terms'>
-                <input  type="checkbox" id="agree" />
-                <label className="loginTerms" htmlFor="agree">
-                  I agree with the <a href="">terms and conditions</a>
-                </label>
-              </div>
-              <input
-                value="Register"
-                type='submit'
-                onClick={() => this._regiserPressed()}
-                className='loginSubmit '
-              />
+                <PaginatedList
+                    list={this.state.users}
+                    itemsPerPage={25}
+                    renderList={(list) => (
+                        <>
+                        <table className='admin-table'>
+                            <thead>
+                                <tr>
+                                    <td><p>#</p></td>
+                                    <td><p>Username</p></td>
+                                    <td><p>Email</p></td>
+                                    <td><p>Creation Date</p></td>
+                                    <td><p>Points</p></td>
+                                    <td><p>Actions</p></td>
+                                </tr>
+                            </thead>
+                            <tbody >
+                            {list.map((item, id) => {
+                                return (
+                                        <tr className='admin-bodytr' key={id}>
+                <td style={{width: '5em'}}><p className="numbering">{this.state.users.indexOf(item) + 1}</p></td>
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.username}</p></td>
+                <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>{item.email}</p></td>
+                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.created_at.substring(0, 10)}</p></td>
+                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.points}</p></td>
+                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>-</p></td>
 
 
-            {/* </form> */}
-            <p className='loginSignup'>Already have an account? <a href="/login">Login!</a></p>
-          </div>
+              </tr>
+                                )
+                            })}
+                            </tbody></table>
+                        </>
+                    )}
+                />
+            </div>
           <div className='clearfix'/>
         </div>
-      </div><br/><br/><br/>
-      {/* <p>Hola</p> */}
+
+
       <style jsx>{`
                   .captchaHolder{
                               margin:0 auto;
@@ -151,7 +117,7 @@ export default class Home extends React.Component {
                   .loginSignup a{font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
 
                   .bp-middle-over{
-                    width:50% !important;
+                    width:100% !important;
                     margin:0 auto !important;
                   }
 
@@ -228,15 +194,13 @@ export default class Home extends React.Component {
                 }
 
                 .bp-middle-over {
-                  margin: 0% 10%;
-                  width: 80%;
+                  width: 100%;
                 }
                 .bp-middle-left p, .bp-middle-all p {
                   margin: 0px;
                 }
                 .bp-middle-left {
                   text-align: center;
-                  margin-right: 12%;
                   margin-top: 30px;
                   margin-bottom: 30px;
                   width: 38%;
@@ -253,7 +217,7 @@ export default class Home extends React.Component {
                 .bp-center-text {
                   text-align: center;
                   margin: 0px auto;
-                  width: 92%;
+                  width: 100%;
                   float: left;
                   padding: 10px 14px;
 
@@ -266,6 +230,9 @@ export default class Home extends React.Component {
                 .bp-middle-all {
                   text-align: center;
                   margin-bottom: 30px;
+                  margin-left: 5%;
+                  margin-right: 5%;
+                  margin-top: 10px;
                   width: 90%;
                   float: left;
                   padding: 10px 14px;
@@ -337,7 +304,7 @@ export default class Home extends React.Component {
 
                 }
             `}</style>
-    </BasePage>
+      </div></BaseAdminPage>
   );
   }
 }
