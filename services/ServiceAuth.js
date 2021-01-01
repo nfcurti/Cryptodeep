@@ -178,6 +178,50 @@ return _http.get(`profile`, qs.stringify({
 }));
 }
 
+const getwithdrawals = data => {
+  if(!data.token) {
+    return alert("");
+}
+const _http = axios.create({
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+return _http.get(`withdrawals`, qs.stringify({
+  
+}));
+}
+
+const dowithdraw = data => {
+  if(!data.token || !data.currency || !data.cryptoaddress || !data.points) {
+    return alert("");
+}
+const _http = axios.create({
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "currency": data.currency,
+  "cryptoaddress": data.cryptoaddress,
+  "points": data.points
+};
+
+return _http.post(`withdraw`, qs.stringify(_mapToSend));
+}
+
 export default {
     login,
     signup,
@@ -187,6 +231,8 @@ export default {
     getusers,
     getgeneralsettings,
     updategeneralsettings,
-    getprofile
+    getprofile,
+    dowithdraw,
+    getwithdrawals
   }
   

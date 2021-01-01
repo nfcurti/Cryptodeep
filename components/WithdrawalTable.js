@@ -1,80 +1,100 @@
-import React, { useState, useEffect } from 'react';
-import Marquee from 'react-double-marquee';
-
-import Modal from 'react-modal';
-import { useRouter } from 'next/router'
-import BasePage from '../components/BasePage';
+import React from 'react';
+import { PaginatedList } from 'react-paginated-list';
 import ServiceCookies from '../services/cookies';
-import AccountSecurity from '../components/AccountSecurity';
-import WithdrawTable from '../components/WithdrawTable';
-import WithdrawPopup from '../components/WithdrawPopup';
-import WithdrawalTable from '../components/WithdrawalTable';
+import ServiceAuth from '../services/ServiceAuth';
+export default class WithdrawalTable extends React.Component {
 
-export default function Home() {
-  const customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)',
-      backgroundColor       : '#252540'
-    }
-  };
-  var subtitle;
-  const [modalIsOpen,setIsOpen] = React.useState(false);
-  function openModal() {
-    setIsOpen(true);
-  }
- 
-  function afterOpenModal() {
-  }
- 
-  function closeModal(){
-    setIsOpen(false);
-  }
+    constructor() {
+        super();
+        this.state = {
+            usdperpoint: 0,
+            withdrawals: []
+        }
+      }
 
-  function logout() {
-    ServiceCookies.removeUserCookies();
-    window.location.replace('/');
-  }
-  Modal.defaultStyles.overlay.backgroundColor = 'rgba(0, 0, 0, 0.55)';
-  const router = useRouter();
-  return (
-    <BasePage>
+      componentDidMount() {
+        const userCookies = ServiceCookies.getUserCookies();
+            if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+                window.location.replace(`/account`)
+            }else{
+                ServiceAuth.getwithdrawals({
+                    "token": userCookies['cktoken']
+                  }).then(response => {
+                    const data = response.data;
+                    console.log(data);
+                    this.setState({
+                        withdrawals: data.data.withdrawals
+                    })
+                      ServiceAuth.getgeneralsettings({
+                        "token": userCookies['cktoken']
+                      }).then(response => {
+                        const dataB = response.data;
+                        
+                        this.setState({
+                            usdperpoint: dataB.data.settings.usdperpoint
+                        })
+                      }).catch(e => {
+                        console.log(e);
+                        alert(e);
+                        return;
+                      })
+                  }).catch(e => {
+                    console.log(e);
+                    alert(e);
+                    return;
+                  })
+            };
+      }
 
-      <div className='bp-h-bg'>
-        <div className='bp-middle-over'>
-        <img onClick={logout} style={{"pointer-events": "all"}} alt="Logout" className='loutButton' src={'images/logout.svg'} />
-             
-          <div className='bp-middle-left bp-blueshadow main'>
-          <br/><p className='bp-title'>Wallet</p>
-          <p>This is your balance and cash equivalents</p>
-          <WithdrawTable openModal={openModal} />
-          </div>
-          <Modal ariaHideApp={false} isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal" >
- 
-            <WithdrawPopup />
-          </Modal>
+    render() {
+        return (
+            <PaginatedList 
+                list={this.state.withdrawals}
+                itemsPerPage={25}
+                renderList={(list) => (
+                    <table className='bp-table'>
+                        <thead>
+                        <tr>
+                            <th style={{width: '20%'}}>DATE</th>
+                            <th style={{}}>AMOUNT</th>
+                            <th style={{}}>CURRENCY</th>
+                            <th style={{}}>POINTS</th>
+                            <th style={{}}>ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {list.map((item, id) => {
+                                return (
+                                    <tr key={id}>
+                                        <td style={{width: '20%'}}>{item.created_at.substring(0, 10)}</td>
+                                        <td className='textCenter' style={{}}><p>${item.points * this.state.usdperpoint} </p></td>
+                                <td className='textCenter' style={{}}><p> {item.currency}</p></td>
+                                <td className='textCenter' style={{}}><p> {item.points}</p></td>
+                                        <td style={{width: '40%'}}>
+                                            
+                                            {
+                                                item.status == 2 ? <button className='crypto-status-btn csb-success'>Validated</button> : null
+                                            }
+                                        
+                                            {
+                                                item.status == 0 ? <button className='crypto-status-btn csb-in-process'>Pending</button> : null
+                                            }
+
+                                            {
+                                                item.status == 1 ? <button className='crypto-status-btn csb-rejected'>Rejected</button> : null
+                                            }
+
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
           <div className='clearfix'/>
-        </div>
-      </div>
-      <AccountSecurity />
-      <div className='bp-center-text'>
-      <p style={{fontWeight: 700, fontSize: 16}}>Withdrawal history</p>
-      </div>
+                    </table>
+                )}
+            >
           
-      <div className='bp-middle'>
-        <div className='bp-middle-over'>
-          <div className='bp-middle-all bp-blueshadow' style={{overflowX: 'auto'}}>
-            <WithdrawalTable />
-          </div>
-          <div className='clearfix'/>
-        </div>
-      </div><br/>
-      {/* <p>Hola</p> */}
-      <style jsx>{`
+          <style jsx>{`
                 label{
                   font-family:Nunito;
                   color:white;
@@ -384,6 +404,9 @@ export default function Home() {
                   display: table;
                 }
             `}</style>
-    </BasePage>
-  )
+        
+        </PaginatedList>
+      
+        )
+    }
 }

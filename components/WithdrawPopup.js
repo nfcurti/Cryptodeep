@@ -7,6 +7,7 @@ export default class WithdrawPopup extends React.Component {
         super();
         this.state = {
             maxpoints: 0,
+            minpoints: 1000,
             formController: {
                 currency: 'BTC',
                 cryptoaddress: '',
@@ -37,6 +38,20 @@ export default class WithdrawPopup extends React.Component {
                 this.setState({
                     maxpoints: data.user.points
                 })
+
+                ServiceAuth.getgeneralsettings({
+                    "token": userCookies['cktoken']
+                  }).then(response => {
+                    const dataB = response.data;
+                    console.log(dataB);
+                    this.setState({
+                        minpoints: dataB.data.settings.minpointwithdraw
+                    })
+                  }).catch(e => {
+                    console.log(e);
+                    alert(e);
+                    return;
+                  })
                 
               }).catch(e => {
                 console.log(e);
@@ -61,6 +76,32 @@ export default class WithdrawPopup extends React.Component {
         if(this.state.maxpoints - this.state.formController.points < 0) {
             return alert('Not enough points');
         }
+
+        if(this.state.formController.points < this.state.minpoints) {
+            return alert(`The minimum points that can be withdrawn are ${this.state.minpoints}`)
+        }
+
+        const userCookies = ServiceCookies.getUserCookies();
+            if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+                return;
+            }else{
+                ServiceAuth.dowithdraw({
+                    "token": userCookies['cktoken'],
+                    "currency": this.state.formController.currency,
+                    "points": this.state.formController.points,
+                    "cryptoaddress": this.state.formController.cryptoaddress
+                }).then(response => {
+                    const data = response.data;
+                    console.log(data);
+                    window.location.replace('/account');
+                }).catch(e => {
+                    console.log(e);
+                    alert(e);
+                    return;
+                })
+            }
+
+        
       }
 
     render() {
@@ -111,7 +152,7 @@ export default class WithdrawPopup extends React.Component {
                 <label>Points to withdraw</label>
                 <input type='number' value="0" name='points' value={this.state.formController.points} onChange={this.handleInputChange}/>
               </div>
-              <p className="minWith" style={{color:'#ffffff90'}}>Min. XXX points
+              <p className="minWith" style={{color:'#ffffff90'}}>Min. {this.state.minpoints} points
              </p>
             </form>
               <p className="terms">Your withdrawal will be made from: <span style={{fontWeight:'bold'}}>next sunday</span></p>
