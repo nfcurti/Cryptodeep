@@ -21,7 +21,7 @@ export default class AccountSecurity extends React.Component {
       componentDidMount() {
         const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-                window.location.replace(`/account`)
+                window.location.replace(`/login`)
             }else{
               ServiceAuth.getprofile({
                 "token": userCookies['cktoken']

@@ -28,7 +28,7 @@ export default class WithdrawPopup extends React.Component {
       componentDidMount() {
         const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-                window.location.replace(`/account`)
+                return;
             }else{
               ServiceAuth.getprofile({
                 "token": userCookies['cktoken']

@@ -33,6 +33,7 @@ export default class BasePage extends React.Component {
   <input type='checkbox' id='responsive-menu'/><label></label>
   <ul>
   <li><div className='bp-spacer'></div></li>
+  
     {
         this.state.logged ? <li><div className='bp-cbutton'><a href='/account'>My Account</a></div></li> :
         <li><div className='bp-cbutton'><a href='/login'>Get started</a></div></li>

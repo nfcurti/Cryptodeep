@@ -14,7 +14,7 @@ export default class WithdrawTable extends React.Component {
       componentDidMount() {
         const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-                window.location.replace(`/account`)
+                return;
             }else{
               ServiceAuth.getgeneralsettings({
                 "token": userCookies['cktoken']
