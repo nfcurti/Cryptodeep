@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 import ServiceCookies from '../services/cookies';
 import AccountSecurity from '../components/AccountSecurity';
+import WithdrawTable from '../components/WithdrawTable';
+import WithdrawPopup from '../components/WithdrawPopup';
 
 export default function Home() {
   const customStyles = {
@@ -49,46 +51,11 @@ export default function Home() {
           <div className='bp-middle-left bp-blueshadow main'>
           <br/><p className='bp-title'>Wallet</p>
           <p>This is your balance and cash equivalents</p>
-          <table className='bp-table wallet-table'>
-              <tr>
-                <th style={{}}>AMOUNT</th>
-                <th className='fiat' style={{}}>FIAT </th>
-                <th style={{}}>STATUS</th>
-              </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>12594 POINTS </p></td>
-                <td className='textCenter fiat' style={{}}><p> 5000 USD</p></td>
-                <td style={{}}><button onClick={openModal} className='crypto-status-btn csb-withdraw'>Withdraw</button></td>
-              </tr>
-              
-            </table>
+          <WithdrawTable openModal={openModal} />
           </div>
           <Modal  isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal" >
  
-            <h4 className='withdrawTitle'>Withdrawal</h4>
-            <form className="withdrawalForm">
-              <select name="currency" id="currency" className='selectCrypto'>
-                  <option value="btc">Bitcoin (BTC)</option>
-                  <option value="eth">Ethereum (ETH)</option>
-                  <option value="ltc">Litecoin (LTC)</option>
-                  <option value="trx">Tron (TRX)</option>
-                </select>
-                <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png'} />
-              <div className='inputhold' style={{marginBottom: '-1em'}}>
-                <label>Your Withdrawal Address</label>
-                <input  placeholder="Your BTC Address" name='address'/>
-                <img className='walletSvg'  role="img" src="https://www.flaticon.com/svg/static/icons/svg/482/482541.svg" />
-              </div>
-              <div className='inputhold'>
-                <label>Amount</label>
-                <input  value="0.00000000" name='withamount'/>
-                <img className='wallet-svg' style={{width:'1.2em', padding:'11px 35px', opacity:'1'}} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png'} />
-              </div>
-              <p className="minWith" style={{color:'#ffffff90'}}>Min. 0.0005 <img className='wallet-svg' style={{width:'1.2em', padding:'2px 50px', opacity:'1'}} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png'} />
-             </p>
-            </form>
-              <p className="terms">Your withdrawal will be made from: <span style={{fontWeight:'bold'}}>next sunday</span></p>
-              <button className='crypto-status-btn csb-withdraw withdrawFinal'>Withdraw</button>
+            <WithdrawPopup />
           </Modal>
           <div className='clearfix'/>
         </div>

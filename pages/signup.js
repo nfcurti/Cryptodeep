@@ -17,7 +17,8 @@ export default class Home extends React.Component {
         password: '',
         repeatPassword: '',
         email: ''
-      }
+      },
+      refBy: ''
     }
   }
 
@@ -26,6 +27,15 @@ export default class Home extends React.Component {
             if(userCookies['ckuserid'] != null && userCookies['cktoken'] != null) {
                 window.location.replace(`/account`)
             };
+
+            const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    if(urlParams.has('ref')) { 
+      this.setState({
+        refBy: urlParams.get('ref')
+      })
+    }
   }
 
   handleInputChange = event => {
@@ -54,7 +64,8 @@ export default class Home extends React.Component {
       "username": this.state.formController.username,
       "password": this.state.formController.password,
       "repeatpassword": this.state.formController.repeatPassword,
-      "email": this.state.formController.email
+      "email": this.state.formController.email,
+      "ref": this.state.refBy
     }).then(response => {
       const data = response.data;
       // console.log(data);

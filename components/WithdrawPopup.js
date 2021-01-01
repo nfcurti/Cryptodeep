@@ -1,21 +1,27 @@
 import React from 'react';
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
-export default class AccountSecurity extends React.Component {
+export default class WithdrawPopup extends React.Component {
 
     constructor() {
         super();
         this.state = {
-          errorForm: null,
-          formController: {
-            oldPassword: '',
-            newPassword: '',
-            repeatPassword: '',
-            email: '',
-            newEmail: '',
-            password: ''
-          }
+            maxpoints: 0,
+            formController: {
+                currency: 'BTC',
+                cryptoaddress: '',
+                points: '0'
+            }
         }
+      }
+
+      handleInputChange = event => {
+        const { name, value } = event.target;
+        const controller = this.state.formController;
+        controller[name] = value;
+        this.setState({
+          formController: controller
+        })
       }
 
       componentDidMount() {
@@ -28,12 +34,10 @@ export default class AccountSecurity extends React.Component {
               }).then(response => {
                 const data = response.data;
                 console.log(data);
-                var _fCon = this.state.formController;
-                _fCon.email = data.user.email;
                 this.setState({
-                  formController: _fCon
+                    maxpoints: data.user.points
                 })
-
+                
               }).catch(e => {
                 console.log(e);
                 alert(e);
@@ -41,184 +45,89 @@ export default class AccountSecurity extends React.Component {
               })
             }
       }
-    
-      handleInputChange = event => {
-        const { name, value } = event.target;
-        const controller = this.state.formController;
-        controller[name] = value;
-        this.setState({
-          formController: controller
-        })
-      }
-    
-     logout = () => {
-        ServiceCookies.removeUserCookies();
-        window.location.replace('/');
-      }
 
-      changeEmailPressed = () => {
-        if(this.state.formController.email.length < 3 ||
-            this.state.formController.newEmail.length < 3 || this.state.formController.password.length < 3) {
-          alert('One or more fields are missing or invalid.');
-          return;
-        }
-    
-        if(this.state.formController.email == this.state.formController.newEmail) {
-          alert('The email accounts are the same');
-          return;
-        }
-    
-        const userCookies = ServiceCookies.getUserCookies();
-            if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-                window.location.replace(`/login`)
-            }else{
-                this.setState({logged: true});
-    
-                ServiceAuth.changeemail({
-                    "token": userCookies['cktoken'],
-                    "email": this.state.formController.email,
-                    "newEmail": this.state.formController.newEmail,
-                    "password": this.state.formController.password
-                  }).then(response => {
-                    const data = response.data;
-                    console.log(data);
-                    var _a = alert('Email changed.');
-                    if(_a) {
-                        window.location.replace(`/account`);
-                    }
-                  }).catch(e => {
-                    var _content = 'One or more fields are empty';
-                    console.log(e);
-                    if(e.response.status == 404 || e.response.status == 401) {
-                      _content = 'Invalid password or email'
-                    }
-                    alert(_content);
-                    return;
-                  })
-            }
-      }
-
-      changePasswordPressed = () => {
-        console.log(this.state.formController);
-    if(this.state.formController.oldPassword.length < 3 ||
-        this.state.formController.newPassword.length < 3 || this.state.formController.repeatPassword.length < 3) {
-      alert('One or more fields are missing or invalid.');
-      return;
-    }
-
-    if(this.state.formController.newPassword != this.state.formController.repeatPassword) {
-      alert('Password doesn\'t match');
-      return;
-    }
-
-    const userCookies = ServiceCookies.getUserCookies();
-        if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-            window.location.replace(`/login`)
-        }else{
-            console.log({
-                "token": userCookies['cktoken'],
-                "oldPassword": this.state.formController.oldPassword,
-                "newPassword": this.state.formController.newPassword,
-                "repeatPassword": this.state.formController.repeatPassword
-              });
-            this.setState({logged: true});
-
-            ServiceAuth.changepassword({
-                "token": userCookies['cktoken'],
-                "oldPassword": this.state.formController.oldPassword,
-                "newPassword": this.state.formController.newPassword,
-                "repeatPassword": this.state.formController.repeatPassword
-              }).then(response => {
-                const data = response.data;
-                // console.log(data);
-                alert('Password changed.')
-              }).catch(e => {
-                var _content = 'One or more fields are empty';
-                console.log(e);
-                if(e.response.status == 404 || e.response.status == 401) {
-                  _content = 'Invalid password'
-                }
-                alert(_content);
+      _withdrawPressed = () => {
+        if(this.state.formController.points.length == 0 ||
+            this.state.formController.cryptoaddress.length == 0) {
+                alert('One or more fields are empty');
                 return;
-              })
+
+        }
+
+        if(isNaN(this.state.formController.points)) {
+            return alert('Points to withdraw must be a number');
+        }
+
+        if(this.state.maxpoints - this.state.formController.points < 0) {
+            return alert('Not enough points');
         }
       }
 
     render() {
         return (
-            <div className='bp-middle-over security'>
-          <div className='bp-middle-left bp-blueshadow security'>
-          <br/><p className='bp-title'>Security</p>
-          <p>Change your personal data periodically to secure your account</p>
-          <br/><br/><br/>
-          <div className='bp-security'>
-            {/* <form autoComplete="off"> */}
-            <div className='inputhold'>
-                  <input  placeholder="Current email" name='email' type='email' onChange={this.handleInputChange} value={this.state.formController.email}/>
-                  <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
-                </div>
+            <>
+            <h4 className='withdrawTitle'>Withdrawal</h4>
+            <form className="withdrawalForm">
+              <select name="currency" id="currency" className='selectCrypto' onChange={(val) => {
+                  console.log(val.target.value);
+                  var _fC = this.state.formController;
+                  _fC.currency = val.target.value.toUpperCase();
+                  this.setState({
+                      formController: _fC
+                  })
+              }}>
+                  <option value="btc">Bitcoin (BTC)</option>
+                  <option value="eth">Ethereum (ETH)</option>
+                  <option value="ltc">Litecoin (LTC)</option>
+                  <option value="trx">Tron (TRX)</option>
+                </select>
+                {
+                    this.state.formController.currency == 'BTC' ? 
+                    <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png'} />
+                    : null
+                }
+                {
+                    this.state.formController.currency == 'ETH' ? 
+                    <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/256/Ethereum-ETH-icon.png'} />
+                    : null
+                }
+                {
+                    this.state.formController.currency == 'LTC' ? 
+                    <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'http://cryptowiki.net/images/5/5d/Litecoin.png'} />
+                    : null
+                }
+                {
+                    this.state.formController.currency == 'TRX' ? 
+                    <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'https://cdn4.iconfinder.com/data/icons/crypto-currency-and-coin-2/256/tron_trn_coin-512.png'} />
+                    : null
+                }
                 
-                <div className='inputhold'>
-                  <input  placeholder="New email" name='newEmail' type='email' onChange={this.handleInputChange} value={this.state.formController.newEmail}/>
-                  <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
-                </div>
-                <div className='inputhold'>
-                <input type='password' placeholder="Password" name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
-                <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
-              </div>
-                <input
-                  value="Save Email"
-                  onClick={() => this.changeEmailPressed()}
-                  type='submit'
-                  className='loginSubmit submitSecurity'
-                />
-                <input
-                  style={{opacity: '0'}}
-                  value="Settings"
-                  type='submit'
-                  className='loginSubmit submitSecurity'
-                />
-            {/* </form> */}
-            
-          </div>
-          <div className='divider'></div>
-            <div className='bp-security'>
-            {/* <form autoComplete="off"> */}
-
-                
-                <div className='inputhold'>
-                <input type='password' placeholder="Old Password" name='oldPassword' onChange={this.handleInputChange} value={this.state.formController.oldPassword}/>
-                <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
+              <div className='inputhold' style={{marginBottom: '-1em'}}>
+                <label>Crypto Address</label>
+                <input type='text'  placeholder="Your Address" name='cryptoaddress' value={this.state.formController.cryptoaddress} onChange={this.handleInputChange}/>
+                <img className='walletSvg'  role="img" src="https://www.flaticon.com/svg/static/icons/svg/482/482541.svg" />
               </div>
               <div className='inputhold'>
-                <input type='password' placeholder="New Password" name='newPassword'  onChange={this.handleInputChange} value={this.state.formController.newPassword}/>
-                <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
+                <label>Points to withdraw</label>
+                <input type='number' value="0" name='points' value={this.state.formController.points} onChange={this.handleInputChange}/>
               </div>
-              <div className='inputhold'>
-                <input type='password' placeholder="Repeat Password" name='repeatPassword'  onChange={this.handleInputChange} value={this.state.formController.repeatPassword}/>
-                <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
-              </div>
-                
-                <input
-                  value="Save Password"
-                  type='submit'
-                  onClick={() => this.changePasswordPressed()}
-                  className='loginSubmit submitSecurity'
-                />
-                <input
-                  value="Logout"
-                  onClick={() => this.logout()}
-                  type='submit'
-                  className='loginSubmit submitSecurity'
-                />
-            {/* </form> */}
-          </div>
-          </div>
+              <p className="minWith" style={{color:'#ffffff90'}}>Min. XXX points
+             </p>
+            </form>
+              <p className="terms">Your withdrawal will be made from: <span style={{fontWeight:'bold'}}>next sunday</span></p>
+              <button onClick={() => this._withdrawPressed()} className='crypto-status-btn csb-withdraw withdrawFinal'>Withdraw</button>
           
           <div className='clearfix'/>
           <style jsx>{`
+                label{
+                  font-family:Nunito;
+                  color:white;
+                  font-weight:bold;
+                  font-size:0.7em;
+                  margin-left:0.4em;
+                }
                 .withdrawalForm{
-                  width: fit-content;
+                  width: 30em;
                   margin: auto
                 }
                 .withdrawFinal{
@@ -229,21 +138,32 @@ export default class AccountSecurity extends React.Component {
                   color:white;
                   border-radius:3px;
                   margin:0 auto;
+                  background-color:#DC8614 !important;
+                  font-weight:bold;
+                }
+                withdrawFinal:hover{
+                  opacity:0.8
                 }
                 .terms{
                   font-family:'Nunito';
                   color:white;
                   text-align:left;
                   font-size:0.8em;
+                  border:1px solid #DC8614;
+                  padding:0.6em 1em;
+                  border-radius:3px
 
                 }
                 .minWith{
                   font-family:'Nunito';
                   color:white;
                   text-align:left;
-                  font-size:0.5em;
+                  font-size:0.7em;
                   margin-top:-2em;
-                  margin-left:0.1em
+                  margin-left:0.2em;
+                  
+
+
                 }
                 .withdrawTitle{
                   font-family:'Nunito';
@@ -302,28 +222,30 @@ export default class AccountSecurity extends React.Component {
                   }
                 .selectCrypto{
                   outline:none;
-                  width: 17em;
+                  width: 15em;
                   padding: 10px;
                   margin-bottom: 2em;
                   color:white;
                   border-radius:3px;
-                  border-style:solid;
-                  border: 1px solid white;
-                  background-color:transparent;
-                  appearance:none
+                  background-color:#161526;
+                  appearance:none;
+                  border:none;
+                  margin-left:10.5em
                 }
                 input{
                   outline:none;
-                  width: 15.5em;
+                  width: fill-available;
                   padding: 10px;
                   margin-bottom: 2em;
                   color:white;
                   border-radius:3px;
                   border-style:solid;
-                  border: 1px solid white;
-                  background-color:transparent}
-                input::placeholder{
-                  color:white
+                  border: none;
+                  background-color:#161526;
+                  margin-top:0.3em}
+                  input::placeholder{
+                  color:gray;
+
                 }
                 .wallet-table{
                   margin-top:2em
@@ -424,6 +346,13 @@ export default class AccountSecurity extends React.Component {
                 }
 
                 @media screen and (max-width: 800px){
+                  .selectCrypto{
+                    margin-left:0
+                  }
+                  .withdrawalForm{
+                    width: 18em;
+                    margin: auto
+                  }
                   .terms{
                     text-align: center;
                   }
@@ -434,8 +363,7 @@ export default class AccountSecurity extends React.Component {
                     width: 90%;
                   }
                   .security{
-                  height:63em !important;
-                      margin-bottom: -14em;
+                  height:50em !important
                 }
 
                 .divider{
@@ -500,7 +428,8 @@ export default class AccountSecurity extends React.Component {
                   display: table;
                 }
             `}</style>
-        </div>
+        
+        </>
       
         )
     }

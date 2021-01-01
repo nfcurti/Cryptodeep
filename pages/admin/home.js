@@ -11,8 +11,29 @@ export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      
+      settings: null,
+      errorUpdateGeneralSettings: null,
+      formController: {
+        gs_usdperpoint: '',
+        gs_faucetdelay: '',
+        gs_minpointwithdraw: '',
+        gs_roll_a: '',
+        gs_roll_b: '',
+        gs_roll_c: '',
+        gs_roll_d: '',
+        gs_roll_e: '',
+        gs_jackpot: ''
+      }
     }
+  }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    const controller = this.state.formController;
+    controller[name] = value;
+    this.setState({
+      formController: controller
+    })
   }
 
   componentDidMount() {
@@ -22,10 +43,165 @@ export default class Home extends React.Component {
             }else{
               if(userCookies['ckpl'] != '999') {
                 window.location.replace(`/account`)
+              }else{
+                ServiceAuth.getgeneralsettings({
+                  "token": userCookies['cktoken']
+                }).then(response => {
+                  const data = response.data;
+                  console.log(data);
+                  var _formC = this.state.formController;
+                  _formC.gs_usdperpoint = data.data.settings.usdperpoint;
+                  _formC.gs_faucetdelay = data.data.settings.faucetdelay;
+                  _formC.gs_minpointwithdraw = data.data.settings.minpointwithdraw;
+                  _formC.gs_roll_a = data.data.settings.roll_a;
+                  _formC.gs_roll_b = data.data.settings.roll_b;
+                  _formC.gs_roll_c = data.data.settings.roll_c;
+                  _formC.gs_roll_d = data.data.settings.roll_d;
+                  _formC.gs_roll_e = data.data.settings.roll_e;
+                  _formC.gs_jackpot = data.data.settings.jackpot;
+
+                  this.setState({
+                    settings: data.data.settings,
+                    formController: _formC
+                  })
+                }).catch(e => {
+                  console.log(e);
+                  alert(e);
+                  return;
+                })
               }
             };
   }
 
+  _editGeneralSettings = () => {
+    if(this.state.formController.gs_usdperpoint.length == 0) {
+      return alert('USD Per Points is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_usdperpoint)) {
+      return alert('USD Per Points should be a number');
+    }
+
+    if(this.state.formController.gs_faucetdelay.length == 0) {
+      return alert('Faucet Delay is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_faucetdelay)) {
+      return alert('Faucet Delay should be a number');
+    }
+
+    if(this.state.formController.gs_minpointwithdraw.length == 0) {
+      return alert('Min Points Withdraw is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_minpointwithdraw)) {
+      return alert('Min Points Withdraw should be a number');
+    }
+
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
+    }else{
+      if(userCookies['ckpl'] != '999') { return; }
+
+      ServiceAuth.updategeneralsettings({
+        "token": userCookies['cktoken'],
+        "usdperpoint": this.state.formController.gs_usdperpoint,
+        "faucetdelay": this.state.formController.gs_faucetdelay,
+        "minpointwithdraw": this.state.formController.gs_minpointwithdraw,
+      }).then(response => {
+        const data = response.data;
+        console.log(data);
+        var _a = alert('Changes saved.');
+        if(_a) {
+            window.location.replace('/admin/home');
+        }
+      }).catch(e => {
+        console.log(e);
+        alert(e);
+        return;
+      })
+    }
+  }
+
+  _editFaucetRewardSettings = () => {
+    if(this.state.formController.gs_roll_a.length == 0) {
+      return alert('Roll A is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_roll_a)) {
+      return alert('Roll A should be a number');
+    }
+
+    if(this.state.formController.gs_roll_b.length == 0) {
+      return alert('Roll B is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_roll_b)) {
+      return alert('Roll B should be a number');
+    }
+
+    if(this.state.formController.gs_roll_c.length == 0) {
+      return alert('Roll C is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_roll_c)) {
+      return alert('Roll C should be a number');
+    }
+
+    if(this.state.formController.gs_roll_d.length == 0) {
+      return alert('Roll D is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_roll_d)) {
+      return alert('Roll D should be a number');
+    }
+
+    if(this.state.formController.gs_roll_e.length == 0) {
+      return alert('Roll E is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_roll_e)) {
+      return alert('Roll E should be a number');
+    }
+
+
+    if(this.state.formController.gs_jackpot.length == 0) {
+      return alert('Jackpot is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_jackpot)) {
+      return alert('Jackpot should be a number');
+    }
+
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
+    }else{
+      if(userCookies['ckpl'] != '999') { return; }
+
+      ServiceAuth.updategeneralsettings({
+        "token": userCookies['cktoken'],
+        "roll_a": this.state.formController.gs_roll_a,
+        "roll_b": this.state.formController.gs_roll_b,
+        "roll_c": this.state.formController.gs_roll_c,
+        "roll_d": this.state.formController.gs_roll_d,
+        "roll_e": this.state.formController.gs_roll_e,
+        "jackpot": this.state.formController.gs_jackpot
+      }).then(response => {
+        const data = response.data;
+        console.log(data);
+        var _a = alert('Changes saved.');
+        if(_a) {
+            window.location.replace('/admin/home');
+        }
+      }).catch(e => {
+        console.log(e);
+        alert(e);
+        return;
+      })
+    }
+  }
   
   render() {
 
@@ -36,12 +212,71 @@ export default class Home extends React.Component {
         <div className='bp-middle-over'>
         <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>Admin</p>
+                {
+                  this.state.settings == null ?
+                  <p>Loading...</p> :
+                  <div>
+                    <h2>General Settings</h2>
+                  <div className='inputhold'>
+                    <p>USD Per Point: <input  placeholder="USD Per Point" name='gs_usdperpoint' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_usdperpoint}/> usd per Point</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Faucet delay: <input  placeholder="Faucet delay" name='gs_faucetdelay' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_faucetdelay}/> min</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Min Points withdraw: <input  placeholder="Min Points Withdraw" name='gs_minpointwithdraw' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_minpointwithdraw}/> points</p>
+                  </div>
+                  <input
+                  value="Save"
+                  type='submit'
+                  onClick={() => this._editGeneralSettings()}
+                  className='loginSubmit '
+                />
+                <br/>
+                  <br/>
+                  <hr/>
+                  <br/>
+                  <h2>Faucet Reward Settings</h2>
+                  <div className='inputhold'>
+                    <p>Roll 0 - 999,500: <input  placeholder="X Points" name='gs_roll_a' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_roll_a}/> points</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Roll 999,501 - 999,700: <input  placeholder="X Points" name='gs_roll_b' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_roll_b}/> points</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Roll 999,701 - 999,850: <input  placeholder="X Points" name='gs_roll_c' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_roll_c}/> points</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Roll 999,851 - 999,920: <input  placeholder="X Points" name='gs_roll_d' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_roll_d}/> points</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Roll 999,921 - 999,998: <input  placeholder="X Points" name='gs_roll_e' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_roll_e}/> points</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Jackpot: <input  placeholder="X Points" name='gs_jackpot' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_jackpot}/> points</p>
+                  </div>
+                  <input
+                  value="Save"
+                  type='submit'
+                  onClick={() => this._editFaucetRewardSettings()}
+                  className='loginSubmit '
+                />
+                <br/>
+                </div>
+                }
             </div>
           <div className='clearfix'/>
         </div>
 
 
       <style jsx>{`
+                .inputhold p {
+                  font-size: 16px;
+                }
+
+                .inputhold p input {
+                  margin-left: 20px;
+                }
                   .captchaHolder{
                               margin:0 auto;
                                   width: 40%;
