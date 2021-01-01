@@ -264,6 +264,28 @@ var _mapToSend = {
 return _http.post(`validatewithdraw`, qs.stringify(_mapToSend));
 }
 
+const rejectwithdraw = data => {
+  if(!data.token || !data.withdrawId) {
+    return alert("");
+}
+const _http = axios.create({
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "withdrawId": data.withdrawId
+};
+
+return _http.post(`rejectwithdraw`, qs.stringify(_mapToSend));
+}
+
 export default {
     login,
     signup,
@@ -277,6 +299,7 @@ export default {
     dowithdraw,
     getwithdrawals,
     getglobalwithdraws,
-    validatewithdraw
+    validatewithdraw,
+    rejectwithdraw
   }
   

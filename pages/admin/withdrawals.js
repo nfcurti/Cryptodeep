@@ -85,6 +85,31 @@ export default class Home extends React.Component {
     }
     
 }
+
+_rejectWithdraw = (id) => {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+        window.location.replace(`/account`)
+    }else{
+        if(userCookies['ckpl'] != '999') {
+        window.location.replace(`/account`)
+        }else{
+            ServiceAuth.rejectwithdraw({
+                "token": userCookies['cktoken'],
+                "withdrawId": id
+            }).then(response => {
+                const data = response.data;
+                console.log(data);
+                window.location.reload();
+              }).catch(e => {
+                console.log(e);
+                alert(e);
+                return;
+              })
+        }
+    }
+    
+}
   
   render() {
 
@@ -137,7 +162,7 @@ export default class Home extends React.Component {
                                                 item.status == 1 ? <button className='crypto-status-btn csb-rejected'>Rejected</button> : null
                                             }
                                 </td>
-                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => this._validateWithdraw(item._id)} className='admin-actiob admin-actiob-validate'><p>Validate</p></button><br/><button className='admin-actiob admin-actiob-reject'><p>Reject</p></button></td>
+                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => this._validateWithdraw(item._id)} className='admin-actiob admin-actiob-validate'><p>Validate</p></button><br/><button onClick={() => this._rejectWithdraw(item._id)} className='admin-actiob admin-actiob-reject'><p>Reject</p></button></td>
 
 
               </tr>
