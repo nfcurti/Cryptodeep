@@ -91,8 +91,8 @@ const getusers = data => {
     return alert("");
 }
 const _http = axios.create({
-  // baseURL: 'http://localhost:3002/api-cryptodeep/',
-  baseURL: "https://juancurti.com/api-cryptodeep/",
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
@@ -114,8 +114,8 @@ const getgeneralsettings = data => {
     return alert("");
 }
 const _http = axios.create({
-  // baseURL: 'http://localhost:3002/api-cryptodeep/',
-  baseURL: "https://juancurti.com/api-cryptodeep/",
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
@@ -134,8 +134,8 @@ const updategeneralsettings = data => {
     return alert("");
 }
 const _http = axios.create({
-  // baseURL: 'http://localhost:3002/api-cryptodeep/',
-  baseURL: "https://juancurti.com/api-cryptodeep/",
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
@@ -154,6 +154,7 @@ if(data.roll_b != null) { _mapToSend.roll_b = data.roll_b; }
 if(data.roll_c != null) { _mapToSend.roll_c = data.roll_c; }
 if(data.roll_d != null) { _mapToSend.roll_d = data.roll_d; }
 if(data.roll_e != null) { _mapToSend.roll_e = data.roll_e; }
+if(data.jackpot != null) { _mapToSend.jackpot = data.jackpot; }
 
 return _http.post(`updategeneralsettings`, qs.stringify(_mapToSend));
 }
@@ -163,8 +164,8 @@ const getprofile = data => {
     return alert("");
 }
 const _http = axios.create({
-  // baseURL: 'http://localhost:3002/api-cryptodeep/',
-  baseURL: "https://juancurti.com/api-cryptodeep/",
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
@@ -183,8 +184,8 @@ const getwithdrawals = data => {
     return alert("");
 }
 const _http = axios.create({
-  // baseURL: 'http://localhost:3002/api-cryptodeep/',
-  baseURL: "https://juancurti.com/api-cryptodeep/",
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
@@ -203,8 +204,8 @@ const dowithdraw = data => {
     return alert("");
 }
 const _http = axios.create({
-  // baseURL: 'http://localhost:3002/api-cryptodeep/',
-  baseURL: "https://juancurti.com/api-cryptodeep/",
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
@@ -227,8 +228,8 @@ const getglobalwithdraws = data => {
     return alert("");
 }
 const _http = axios.create({
-  // baseURL: 'http://localhost:3002/api-cryptodeep/',
-  baseURL: "https://juancurti.com/api-cryptodeep/",
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
@@ -247,8 +248,8 @@ const validatewithdraw = data => {
     return alert("");
 }
 const _http = axios.create({
-  // baseURL: 'http://localhost:3002/api-cryptodeep/',
-  baseURL: "https://juancurti.com/api-cryptodeep/",
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
@@ -269,8 +270,8 @@ const rejectwithdraw = data => {
     return alert("");
 }
 const _http = axios.create({
-  // baseURL: 'http://localhost:3002/api-cryptodeep/',
-  baseURL: "https://juancurti.com/api-cryptodeep/",
+  baseURL: 'http://localhost:3002/api-cryptodeep/',
+  // baseURL: "https://juancurti.com/api-cryptodeep/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
