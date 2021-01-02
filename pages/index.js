@@ -69,6 +69,31 @@ export default class Home extends React.Component {
     this.setState({
       result: result
     })
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
+    }else{
+      ServiceAuth.doexecutefaucet({
+        "token": userCookies['cktoken'],
+        "rollednumber": result
+      }).then(response => {
+        const data = response.data;
+        console.log(data);
+        var _a = alert('Changes saved.');
+        if(_a) {
+            this.setState({
+              playing: false
+            })
+        }
+      }).catch(e => {
+        console.log(e);
+        this.setState({
+          playing: false
+        })
+        alert(e);
+        return;
+      })
+    }
   }
 
   render() {
@@ -271,7 +296,10 @@ export default class Home extends React.Component {
             />
             </div>
             
-            <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>ROLL & WIN</a></button></div>
+            {
+              this.state.playing ? null :
+              <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>ROLL & WIN</a></button></div>
+            }
             <p id='resultDisplay' className="resultDisplay"></p>  
             </div>
             <div className='bp-middle-left-sub bp-blueshadow'>
@@ -379,7 +407,7 @@ export default class Home extends React.Component {
                 <tr>
                   <th style={{width: '20%'}}>DATE</th>
                   <th style={{width: '30%'}}>AMOUNT</th>
-                  <th style={{width: '30%'}}>STATUS</th>
+                  <th style={{width: '30%'}}>ROLLED NUMBER</th>
                 </tr>
                 </thead>
                 <tbody>
