@@ -13,6 +13,7 @@ export default class Home extends React.Component {
     super();
 
     this.state = {
+      faucetmsg: '',
       result: '000000',
       resultPoints: 0,
       playing: false,
@@ -62,7 +63,7 @@ export default class Home extends React.Component {
 
   _rollPressed = () => {
     this.setState({
-      playing: !this.state.playing
+      playing: true
     })
 
     var result = (document.getElementById("rdm").innerHTML).replace(/\s/g, '');
@@ -79,17 +80,20 @@ export default class Home extends React.Component {
       }).then(response => {
         const data = response.data;
         console.log(data);
-        var _a = alert('Changes saved.');
-        if(_a) {
-            this.setState({
-              playing: false
-            })
-        }
+        setTimeout(function() {
+          this.setState({
+            playing: false,
+            faucetmsg: data.message
+          })
+       }.bind(this), 1000);
+        
       }).catch(e => {
         console.log(e);
-        this.setState({
-          playing: false
-        })
+        setTimeout(function() {
+          this.setState({
+            playing: false
+          })
+       }.bind(this), 1000);
         alert(e);
         return;
       })
@@ -300,7 +304,10 @@ export default class Home extends React.Component {
               this.state.playing ? null :
               <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>ROLL & WIN</a></button></div>
             }
-            <p id='resultDisplay' className="resultDisplay"></p>  
+            {
+              this.state.faucetmsg == '' ? null : <p id='resultDisplay' className="resultDisplay">{this.state.faucetmsg}</p> 
+            }
+             
             </div>
             <div className='bp-middle-left-sub bp-blueshadow'>
               <p className="qmark numbering ">?</p>
@@ -347,7 +354,7 @@ export default class Home extends React.Component {
             <div className='lotteryRange4'>
                 <table><tbody><tr>
                   <td style={{width: '5em'}}><p className="numbering">5</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,921 - 999,999</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,921 - 999,998</p></td>
   
                   <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>{this.state.sv_roll_e} POINTS</div></td>
                 </tr></tbody></table>
