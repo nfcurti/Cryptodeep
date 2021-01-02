@@ -112,12 +112,43 @@ export default function Home() {
           <div className='clearfix'/>
         </div>
       </div>
+
+            <div className='bp-center-text'>
+        <p style={{fontWeight: 700, fontSize: 16}}>Referral Banner and Display</p>
+      </div>
+          
+      <div className='bp-middle'>
+        <div className='bp-middle-over'>
+        
+          <div className='bp-middle-all bp-blueshadow affiliateProgram' style={{padding:"3em"}}>
+            <div style={{width:'80%',margin:'auto'}}>
+              <div className='inputhold'>
+                <img className='banner' src={'https://registry.screencraft.org/wp-content/uploads/sites/3/2015/06/placeholder-image-250.png' }width='250px' style={{width: '250px',position: 'inherit',margin: 'auto'}} />
+                <label style={{    display: 'block',fontSize: '1em',marginBottom: '3em'}}>250 x 250 px - Static PNG</label>
+              </div>
+              <div className='inputhold'>
+                <label style={{display: 'flex',fontSize: '1em'}}>Banner Url</label>
+                <input  value="https://www.cryptodeep.com" name='username' type='text'  />
+              </div>
+              <div className='inputhold'>
+                <label style={{display: 'flex',fontSize: '1em'}}>HTML Code</label>
+                <input  value='<a href="https://www.cryptodeep.com"><img
+        src="https://www.cryptodeep.com"></a>' name='username' type='text'  />
+              </div>
+              <div className='inputhold'>
+                <label style={{display: 'flex',fontSize: '1em'}}>BB Code</label>
+                <input  value='[url=https://www.cryptodeep.com][img]https://www.cryptodeep.com/image.jpg[/img][/url]' name='username' type='text'  />
+              </div>
+            </div>
+          </div>
+          <div className='clearfix'/>
+        </div>
+      </div>
         
       </div>
       <br/>
       {/* <p>Hola</p> */}
       <style jsx>{`
-
                 .bp-title span:hover{border-bottom:1px solid #DC8614;cursor:default}
                 .rules:hover{background-color:transparent}
                 label{
@@ -356,11 +387,10 @@ export default function Home() {
                 }
 
                 @media screen and (max-width: 800px){
+                  .banner{width: 85% !important}
                   .affiliateProgram{width: 73%!important;}
                   .affiliateProgram p{}
-                  .rightEarning{width: fit-content;
-    float: inherit!important;
-    margin-right: 0em!important;}
+                  .rightEarning{width: fit-content;float: inherit!important;margin-right: 0em!important;}
                   .selectCrypto{
                     margin-left:0
                   }
