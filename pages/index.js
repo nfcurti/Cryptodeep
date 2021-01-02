@@ -7,12 +7,14 @@ import { useRouter } from 'next/router'
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
 import BasePage from '../components/BasePage';
+import { PaginatedList } from 'react-paginated-list';
 export default class Home extends React.Component {
 
   constructor() {
     super();
 
     this.state = {
+      faucets: [],
       faucetmsg: '',
       result: '000000',
       resultPoints: 0,
@@ -46,9 +48,19 @@ export default class Home extends React.Component {
           sv_roll_d: dataB.data.settings.roll_d,
           sv_roll_e: dataB.data.settings.roll_e,
         })
-        // this.setState({
-        //     usdperpoint: dataB.data.settings.usdperpoint
-        // })
+        ServiceAuth.getfaucets({
+          "token": userCookies['cktoken']
+        }).then(response => {
+          const dataC = response.data;
+          console.log(dataC.data.faucets);
+          this.setState({
+            faucets: dataC.data.faucets
+          })
+        }).catch(e => {
+          console.log(e);
+          alert(e);
+          return;
+        })
       }).catch(e => {
         console.log(e);
         alert(e);
@@ -85,6 +97,7 @@ export default class Home extends React.Component {
             playing: false,
             faucetmsg: data.message
           })
+          window.location.reload();
        }.bind(this), 1000);
         
       }).catch(e => {
@@ -409,21 +422,35 @@ export default class Home extends React.Component {
         <div className='bp-middle'>
           <div className='bp-middle-over'>
             <div className='bp-middle-all bp-blueshadow'>
-              <table className='bp-table'>
-                <thead>
-                <tr>
-                  <th style={{width: '20%'}}>DATE</th>
-                  <th style={{width: '30%'}}>AMOUNT</th>
-                  <th style={{width: '30%'}}>ROLLED NUMBER</th>
+             
+                <PaginatedList 
+                  list={this.state.faucets}
+                  itemsPerPage={25}
+                  renderList={(list) => (
+                    <table className='bp-table'>
+                    <thead>
+                    <tr>
+                      <th style={{width: '20%'}}>DATE</th>
+                      <th style={{width: '30%'}}>AMOUNT</th>
+                      <th style={{width: '30%'}}>ROLLED NUMBER</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {list.map((item, id) => {
+                      return (
+                        <tr key={id}>
+                  <td style={{width: '20%'}}>{item.created_at.split('T').join(' ').substring(0, 16)}</td>
+                  <td style={{width: '30%'}}><p style={{display: 'block', textAlign: 'center'}}>{item.amount} Points</p></td>
+                  <td style={{width: '30%', textAlign: 'center'}}><p style={{display: 'block', textAlign: 'center'}}>{item.rollednumber}</p></td>
                 </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td style={{width: '20%'}}>11/14/2020 - 11:15</td>
-                  <td style={{width: '30%'}}><p>200 Points</p></td>
-                  <td style={{width: '30%'}}><button className='crypto-status-btn csb-success'>Successful</button></td>
-                </tr>
-                <tr>
+                      );
+                    })}
+                    </tbody>
+              </table>
+    )}
+                />
+                
+                {/* <tr>
                   <td style={{width: '20%'}}>11/17/2020 - 11:15</td>
                   <td style={{width: '30%'}}><p>315 Points</p></td>
                   <td style={{width: '30%'}}><button className='crypto-status-btn csb-success'>Successful</button></td>
@@ -438,8 +465,7 @@ export default class Home extends React.Component {
                   <td style={{width: '30%'}}><p>250 Points</p></td>
                   <td style={{width: '30%'}}><button className='crypto-status-btn csb-success'>Successful</button></td>
                 </tr>
-                </tbody>
-              </table>
+                </tbody> */}
             </div>
             <div className='clearfix'/>
           </div>

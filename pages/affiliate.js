@@ -165,6 +165,7 @@ export default function Home() {
                 .withdrawalForm p{
                   color:white;
                   margin: auto;
+                  font-family: 'Nunito';
                 }
                 .withdrawFinal{
                   display:block;

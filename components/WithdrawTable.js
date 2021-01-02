@@ -39,7 +39,7 @@ export default class WithdrawTable extends React.Component {
                   console.log(data);
                   this.setState({
                     amount: data.user.points,
-                    fiat: data.user.points * dataB.data.settings.usdperpoint
+                    fiat: Math.floor(data.user.points * dataB.data.settings.usdperpoint)
                   })
 
                 }).catch(e => {

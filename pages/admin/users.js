@@ -70,7 +70,7 @@ export default class Home extends React.Component {
                                     <td><p>Creation Date</p></td>
                                     <td><p>Points</p></td>
                                     <td><p>Referred </p></td>
-                                    <td><p>Actions</p></td>
+                                    {/* <td><p>Actions</p></td> */}
                                 </tr>
                             </thead>
                             <tbody >
@@ -83,7 +83,7 @@ export default class Home extends React.Component {
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.created_at.substring(0, 10)}</p></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.points}</p></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.referredBy == null ? 'No' : item.referredBy.length == 0 ? 'No' : 'Yes'}</p></td>
-                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>-</p></td>
+                {/* <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>-</p></td> */}
 
 
               </tr>
