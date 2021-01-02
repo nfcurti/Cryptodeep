@@ -10,14 +10,20 @@ export default function Home() {
     var result = '000000'
     var resultPoints = 0
     const [isPlaying, setIsPlaying] = React.useState(true);
+    function completeFaucet(){
+          document.getElementById("resultDisplay").innerHTML = "You won: <span style=color:green>+"+resultPoints+" Points</span> "
+            console.log(resultPoints)
+        }
     React.useEffect(() => {
+
       document.getElementById("roll").onclick = function(){
+
         setIsPlaying(playing => !playing);
         result = (document.getElementById("rdm").innerHTML).replace(/\s/g, '')
-        
         switch(true) {
           case Number(result)<=999500:
             resultPoints = 5
+            if (isPlaying == true){}
             break;
           case Number(result)>999500 && Number(result)<=999700:
             resultPoints = 10
@@ -38,8 +44,7 @@ export default function Home() {
           default:
             // code block
         }
-        document.getElementById("resultDisplay").innerHTML = "You won: <span style=color:green>+"+resultPoints+" Points</span> "
-        console.log(resultPoints)
+        
       };
 
     }, []);
@@ -233,12 +238,12 @@ export default function Home() {
           id='rdm'
             className = "randomNumber">
           <RandomReveal
-            isPlaying={isPlaying}
+            isPlaying={!isPlaying}
             duration={Infinity}
-            revealDuration={0.7}
+            revealDuration={0}
             characterSet={["0 ","1 ","2 ","3 ","4 ","5 ","6 ","7 ","8 ","9 "]}
             characters="000000"
-            onComplete={() => [false,3000]}
+            onComplete={completeFaucet()}
           />
           </div>
           
