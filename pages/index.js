@@ -377,11 +377,14 @@ export default class Home extends React.Component {
     <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userwallet} points</h1>
             </div>
             <div className='bp-middle-left-sub bp-blueshadow'>
-              <p className="qmark numbering ">?</p>
-              <img className='crypto-icon crownSvg' src={'https://www.flaticon.com/svg/static/icons/svg/2122/2122712.svg'} />
+              
+              <span className='crypto-icon crownSvg' style={{backgroundImage: 'url("/images/robot_trophy.png")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '50px', height: '60px', border: 'none' }} />
               <p style={{marginTop:-2}}>JACKPOT</p>
+              <span className='crypto-icon' style={{position: 'absolute', marginLeft: '90px', marginTop: '-30px', backgroundImage: 'url("/images/robot_trophy.png")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '50px', height: '60px', border: 'none' }} />
     <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.sv_jackpot} points</h1>
+    
             </div>
+            
             <div className='bp-middle-left-sub bp-blueshadow' style={{}}>
             <div className='lotteryRange1'>
                 <table>
@@ -617,6 +620,7 @@ export default class Home extends React.Component {
                     position: absolute;
                     width: 4em;
                     margin-top: -0.2em;
+                    border: none;
                   }
                   .numbering{
                     font-weight:800;
