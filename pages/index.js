@@ -8,6 +8,7 @@ import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
 import BasePage from '../components/BasePage';
 import { PaginatedList } from 'react-paginated-list';
+import Countdown from 'react-countdown';
 export default class Home extends React.Component {
 
   constructor() {
@@ -25,11 +26,17 @@ export default class Home extends React.Component {
       sv_roll_b: 0,
       sv_roll_c: 0,
       sv_roll_d: 0,
-      sv_roll_e: 0
+      sv_roll_e: 0,
+      remTime: null,
+      userwallet: 0
     }
   }
 
   componentDidMount() {
+    this._initData();
+  }
+
+  _initData = () => {
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
         return;
@@ -47,6 +54,7 @@ export default class Home extends React.Component {
           sv_roll_c: dataB.data.settings.roll_c,
           sv_roll_d: dataB.data.settings.roll_d,
           sv_roll_e: dataB.data.settings.roll_e,
+          userwallet: dataB.data.userwallet
         })
         ServiceAuth.getfaucets({
           "token": userCookies['cktoken']
@@ -92,13 +100,25 @@ export default class Home extends React.Component {
       }).then(response => {
         const data = response.data;
         console.log(data);
-        setTimeout(function() {
-          this.setState({
-            playing: false,
-            faucetmsg: data.message
-          })
-          window.location.reload();
-       }.bind(this), 1000);
+
+        if(data.diff != null) {
+          setTimeout(function() {
+            this.setState({
+              playing: false,
+              faucetmsg: data.message,
+              remTime: data.diff
+            })
+         }.bind(this), 1000);
+        }else{
+          setTimeout(function() {
+            this.setState({
+              playing: false,
+              faucetmsg: data.message
+            })
+            this._initData();
+         }.bind(this), 1000);
+        }
+        
         
       }).catch(e => {
         console.log(e);
@@ -297,7 +317,10 @@ export default class Home extends React.Component {
                   </div>
               </div>
             </div>
+            
             <div className='bp-middle-left bp-blueshadow'>
+            
+            <br/>
             <br/><p className='bp-title'>My Faucet</p>
             <p>You can roll a faucet every {this.state.sv_faucetdelay} minutes</p>
             <div 
@@ -314,13 +337,43 @@ export default class Home extends React.Component {
             </div>
             
             {
-              this.state.playing ? null :
+              (this.state.playing || this.state.remTime != null) ? null :
               <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>ROLL & WIN</a></button></div>
             }
             {
-              this.state.faucetmsg == '' ? null : <p id='resultDisplay' className="resultDisplay">{this.state.faucetmsg}</p> 
+              this.state.faucetmsg == '' ? null :
+              (
+                this.state.remTime == null ? 
+                <p id='resultDisplay' className="resultDisplay">{this.state.faucetmsg}</p> 
+                : <Countdown
+                  renderer={({ hours, minutes, seconds, completed }) => {
+                    if (completed) {
+                      // Render a completed state
+                      return <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>ROLL & WIN</a></button></div>;
+                    } else {
+                      // Render a countdown
+                      return <p className="resultDisplay">You need to wait {("0" + hours).slice(-2)}:{("0" + minutes).slice(-2)}:{("0" + seconds).slice(-2)}</p>;
+                    }
+                  }}
+                  onComplete={() => {
+                    this.setState({
+                      faucetmsg: '',
+                      remTime: null
+                    })
+                  }}
+                  date={Date.now() + (this.state.remTime * 60000)}
+                />
+              )
+              
             }
              
+            </div>
+            
+            
+            <div className='bp-middle-left-sub bp-blueshadow'>
+              <img className='crypto-icon crownSvg' src={'https://images.vexels.com/media/users/3/143188/isolated/preview/5f44f3160a09b51b4fa4634ecdff62dd-money-icon-by-vexels.png'} />
+              <p style={{marginTop:-2}}>WALLET</p>
+    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userwallet} points</h1>
             </div>
             <div className='bp-middle-left-sub bp-blueshadow'>
               <p className="qmark numbering ">?</p>
@@ -384,6 +437,7 @@ export default class Home extends React.Component {
             <div className='clearfix'/>
           </div>
         </div>
+        
         <div className='bp-center-text'>
         <div style={{ width: '80%',whiteSpace: 'nowrap',margin:'auto'}}>
           <Marquee >
@@ -677,6 +731,20 @@ export default class Home extends React.Component {
                     color: #FFFFFF;
                     font-weight: 400;
                     font-size: 12px;
+                  }
+
+                  .bp-middle-left-subduo {
+                    text-align: center;
+      /* margin-right: 30px; */
+      margin-top: 30px;
+      width: 38%;
+      float: left;
+      padding: 10px 14px;
+      padding-bottom: 20px;
+      font-family: 'Nunito';
+      color: #FFFFFF;
+      font-weight: 400;
+      font-size: 12px;
                   }
   
                   .bp-middle-left-sub {
