@@ -148,6 +148,8 @@ export default class AccountSecurity extends React.Component {
         return (
             <div className='bp-middle-over security'>
           <div className='bp-middle-left bp-blueshadow security'>
+
+          <div className='over_robot_d'/>
           <br/><p className='bp-title'>Security</p>
           <p>Change your personal data periodically to secure your account</p>
           <br/><br/><br/>

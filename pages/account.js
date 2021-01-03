@@ -49,6 +49,8 @@ export default function Home() {
         <img onClick={logout} style={{"pointer-events": "all"}} alt="Logout" className='loutButton' src={'images/logout.svg'} />
              
           <div className='bp-middle-left bp-blueshadow main'>
+
+          <div className='over_robot_e'/>
           <br/><p className='bp-title'>Wallet</p>
           <p>This is your balance and cash equivalents</p>
           <WithdrawTable openModal={openModal} />

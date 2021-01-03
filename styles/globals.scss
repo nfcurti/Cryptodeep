@@ -200,33 +200,48 @@ a {
 
 	th {
 		font-family: 'Nunito';
-                  color: #FFFFFF;
                   font-weight: 600;
-                  font-size: 12px;
+				  font-size: 16px;
 	}
 
 	td {
 		font-family: 'Nunito';
                   color: #FFFFFF;
                   font-weight: 400;
-				  font-size: 12px;
+				  font-size: 16px;
 				  line-height: 1.5em;
 				  vertical-align: middle;
 		
 		p {
 			color: white;
 			display: flex;
+			font-size: 16px;
 			align-items: center;
-		}
-		
-
-		
-				  
+		}		  
 	}
 
 	td, th {
 		border: 0px solid black;
 		padding: 16px 0px;
+	}
+
+	// tr {
+	// 	background-color: red;
+	// }
+
+	th {
+		background-color: #FFFFFF;
+		color: darken(#1E1D32, 0.2%);
+	}
+	th:first-child {
+		border-radius: 15px 0px 0px 0px;
+		background-color: #FFFFFF;
+		color: darken(#1E1D32, 0.2%);
+	}
+	th:last-child {
+		border-radius: 0px 15px 0px 0px;
+		background-color: #FFFFFF;
+		color: darken(#1E1D32, 0.2%);
 	}
 
 	tr:nth-child(even) {
@@ -320,4 +335,78 @@ a {
 
 .csb-rejected {
 	background-color: darken(red, 10%);
+}
+
+.over_robot_a {
+	position: absolute;
+	background-image: url('/images/robot_faucet.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	left: 2%;
+	width: 14em;
+	height: 15em;
+}
+
+.over_robot_b {
+	position: absolute;
+	background-image: url('/images/robot_faq.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	right: 5%;
+	width: 14em;
+	height: 15em;
+}
+
+.over_robot_c {
+	position: absolute;
+	background-image: url('/images/robot_affiliate.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	right: 5%;
+	width: 14em;
+	height: 15em;
+}
+
+.over_robot_d {
+	position: absolute;
+	background-image: url('/images/robot_settings.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	left: 5%;
+	width: 20em;
+	height: 20em;
+}
+
+.over_robot_e {
+	position: absolute;
+	background-image: url('/images/robot_withdraw.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	left: 0%;
+	margin-bottom: 40px;
+	width: 20em;
+	height: 20em;
+}
+
+@media screen and (max-width: 800px){
+	.over_robot_b {
+		right: 0%;
+		width: 8em;
+	}
+
+	.over_robot_c {
+		width: 11em;
+	}
+
+	.over_robot_d {
+		margin-top: 80px;
+		width: 10em;
+		height: 10em;
+	}
+
+	.over_robot_e {
+		margin-top: 50px;
+		width: 10em;
+		height: 10em;
+	}
 }

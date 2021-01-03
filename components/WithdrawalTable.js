@@ -53,6 +53,7 @@ export default class WithdrawalTable extends React.Component {
                 itemsPerPage={25}
                 renderList={(list) => (
                     <table className='bp-table'>
+
                         <thead>
                         <tr>
                             <th style={{width: '20%'}}>DATE</th>

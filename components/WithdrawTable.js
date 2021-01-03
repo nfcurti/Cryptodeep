@@ -59,6 +59,7 @@ export default class WithdrawTable extends React.Component {
     render() {
         return (
             <table className='bp-table wallet-table'>
+
               <tr>
                 <th style={{}}>AMOUNT</th>
                 <th className='fiat' style={{}}>FIAT </th>

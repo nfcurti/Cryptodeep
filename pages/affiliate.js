@@ -47,6 +47,8 @@ export default function Home() {
       <div className='bp-h-bg'>
       <div className='bp-middle-over'>
           <div className='bp-middle-left bp-blueshadow main'>
+
+          <div className='over_robot_c'/>
           <br/><p className='bp-title' style={{textAlign:'start',padding:'1em',color:'#DC8614', fontWeight:"bold"}}>Your Referral Link: <span style={{color:'#ffffff80',fontWeight:"500"}}>https://cryptodeep.com/?ref=A8670FGb5D</span></p>
           <div style={{width:'fit-content',float:"left"}}>
             <p style={{textAlign:'start',paddingLeft:'1.2em'}}>Total Referrals Lifetime: 15 (5 second gen.)</p>

@@ -321,6 +321,7 @@ export default class Home extends React.Component {
             <div className='bp-middle-left bp-blueshadow'>
             
             <br/>
+            <div className='over_robot_a'/>
             <br/><p className='bp-title'>My Faucet</p>
             <p>You can roll a faucet every {this.state.sv_faucetdelay} minutes</p>
             <div 
@@ -379,7 +380,7 @@ export default class Home extends React.Component {
               <p className="qmark numbering ">?</p>
               <img className='crypto-icon crownSvg' src={'https://www.flaticon.com/svg/static/icons/svg/2122/2122712.svg'} />
               <p style={{marginTop:-2}}>JACKPOT</p>
-    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>${this.state.sv_jackpot}</h1>
+    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.sv_jackpot} points</h1>
             </div>
             <div className='bp-middle-left-sub bp-blueshadow' style={{}}>
             <div className='lotteryRange1'>
@@ -475,27 +476,30 @@ export default class Home extends React.Component {
             
         <div className='bp-middle'>
           <div className='bp-middle-over'>
+            
             <div className='bp-middle-all bp-blueshadow'>
-             
+
                 <PaginatedList 
                   list={this.state.faucets}
-                  itemsPerPage={25}
+                  itemsPerPage={10}
                   renderList={(list) => (
                     <table className='bp-table'>
+
+                  <div className='over_robot_b'/>
                     <thead>
-                    <tr>
-                      <th style={{width: '20%'}}>DATE</th>
+                    <tr className='bp-header'>
+                      <th style={{width: '30%'}}>DATE</th>
                       <th style={{width: '30%'}}>AMOUNT</th>
-                      <th style={{width: '30%'}}>ROLLED NUMBER</th>
+                      <th style={{width: '20%'}}>ROLLED NUMBER</th>
                     </tr>
                     </thead>
                     <tbody>
                     {list.map((item, id) => {
                       return (
                         <tr key={id}>
-                  <td style={{width: '20%'}}>{item.created_at.split('T').join(' ').substring(0, 16)}</td>
+                  <td style={{width: '30%'}}>{item.created_at.split('T').join(' ').substring(0, 16)}</td>
                   <td style={{width: '30%'}}><p style={{display: 'block', textAlign: 'center'}}>{item.amount} Points</p></td>
-                  <td style={{width: '30%', textAlign: 'center'}}><p style={{display: 'block', textAlign: 'center'}}>{item.rollednumber}</p></td>
+                  <td style={{width: '20%', textAlign: 'center', fontWeight: 'bold',  color: 'orange', paddingBottom: '1px'}}><p style={{display: 'block', textAlign: 'center', letterSpacing: '4px', color: 'orange'}}>{item.rollednumber}</p></td>
                 </tr>
                       );
                     })}
