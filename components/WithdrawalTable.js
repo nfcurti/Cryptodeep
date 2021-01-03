@@ -54,6 +54,7 @@ export default class WithdrawalTable extends React.Component {
                 renderList={(list) => (
                     <table className='bp-table'>
 
+          <div className='over_robot_b'/>
                         <thead>
                         <tr>
                             <th style={{width: '20%'}}>DATE</th>
