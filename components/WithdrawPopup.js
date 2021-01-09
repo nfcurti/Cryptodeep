@@ -169,7 +169,7 @@ export default class WithdrawPopup extends React.Component {
                 }
                 {
                     this.state.formController.currency == 'LTC' ? 
-                    <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'http://cryptowiki.net/images/5/5d/Litecoin.png'} />
+                    <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'https://en.bitcoinwiki.org/upload/en/images/thumb/c/c5/Litecoin-news.png/900px-Litecoin-news.png'} />
                     : null
                 }
                 {
