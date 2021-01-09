@@ -32,9 +32,20 @@ export default class Home extends React.Component {
     const urlParams = new URLSearchParams(queryString);
 
     if(urlParams.has('ref')) { 
+      ServiceCookies.saveRefCookies({
+        'ckref': urlParams.get('ref')
+      });
       this.setState({
         refBy: urlParams.get('ref')
       })
+    }else{
+      const refCo = ServiceCookies.getRefCookies();
+            if(refCo['ckref'] != null) {
+              console.log(refCo['ckref']);
+              this.setState({
+                refBy: refCo['ckref']
+              })
+            }
     }
   }
 
