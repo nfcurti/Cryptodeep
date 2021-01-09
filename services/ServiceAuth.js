@@ -120,7 +120,7 @@ const _http = axios.create({
   // baseURL: 'http://localhost:3002/api-cryptodeep/',
   baseURL: finalUrl,
   headers: {
-    "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
     'Content-Type': ' application/x-www-form-urlencoded',
     'x-access-token': data.token
