@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 import ServiceCookies from '../services/cookies';
 import AccountSecurity from '../components/AccountSecurity';
+import AffiliateTable from '../components/AffiliateTable';
+import AffiliateSubTable from '../components/AffiliateSubTable';
 
 export default function Home() {
   const customStyles = {
@@ -46,37 +48,7 @@ export default function Home() {
 
       <div className='bp-h-bg'>
       <div className='bp-middle-over'>
-          <div className='bp-middle-left bp-blueshadow main'>
-
-          <div className='over_robot_c'/>
-          <br/><p className='bp-title' style={{textAlign:'start',padding:'1em',color:'#DC8614', fontWeight:"bold"}}>Your Referral Link: <span style={{color:'#ffffff80',fontWeight:"500"}}>https://cryptodeep.com/?ref=A8670FGb5D</span></p>
-          <div style={{width:'fit-content',float:"left"}}>
-            <p style={{textAlign:'start',paddingLeft:'1.2em'}}>Total Referrals Lifetime: 15 (5 second gen.)</p>
-            <p style={{textAlign:'start',padding:'1.2em'}}>Total Referrals This Week: 0 (0 second gen.)</p>
-          </div>
-          <div className='rightEarning' style={{width:'fit-content',float:"right",marginRight:"15em"}}>
-            <p style={{textAlign:'start',paddingLeft:'1.2em'}}>Total Earnings: 150 POINTS</p>
-            <p style={{textAlign:'start',padding:'1.2em'}}>Total Earnings Today: 0 POINTS</p>
-          </div>
-          <table className='bp-table wallet-table'>
-              <tr>
-                <th style={{}}>USERNAME</th>
-                <th className='fiat' style={{}}>EARNINGS </th>
-                <th style={{}}>REGISTRATION DATE</th>
-              </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>CRYPTOCOOL2 </p></td>
-                <td className='textCenter fiat' style={{}}><p> 5000 POINTS</p></td>
-                <td style={{}}>12/20/2020 11:34</td>
-              </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>CRYPTOCOOL2 </p></td>
-                <td className='textCenter fiat' style={{}}><p> 5000 POINTS</p></td>
-                <td style={{}}>12/20/2020 11:34</td>
-              </tr>
-              
-            </table>
-          </div>
+          <AffiliateTable />
           <Modal  isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal" >
  
             <div className='withdrawalForm' style={{float:'left', textAlign:'left',fontSize:"1.1em"}}>
@@ -115,37 +87,7 @@ export default function Home() {
         </div>
       </div>
 
-            <div className='bp-center-text'>
-        <p style={{fontWeight: 700, fontSize: 16}}>Referral Banner and Display</p>
-      </div>
-          
-      <div className='bp-middle'>
-        <div className='bp-middle-over'>
-        
-          <div className='bp-middle-all bp-blueshadow affiliateProgram' style={{padding:"3em"}}>
-            <div style={{width:'80%',margin:'auto'}}>
-              <div className='inputhold'>
-                <img className='banner' src={'https://registry.screencraft.org/wp-content/uploads/sites/3/2015/06/placeholder-image-250.png' }width='250px' style={{width: '250px',position: 'inherit',margin: 'auto'}} />
-                <label style={{    display: 'block',fontSize: '1em',marginBottom: '3em'}}>250 x 250 px - Static PNG</label>
-              </div>
-              <div className='inputhold'>
-                <label style={{display: 'flex',fontSize: '1em'}}>Banner Url</label>
-                <input  value="https://www.cryptodeep.com" name='username' type='text'  />
-              </div>
-              <div className='inputhold'>
-                <label style={{display: 'flex',fontSize: '1em'}}>HTML Code</label>
-                <input  value='<a href="https://www.cryptodeep.com"><img
-        src="https://www.cryptodeep.com"></a>' name='username' type='text'  />
-              </div>
-              <div className='inputhold'>
-                <label style={{display: 'flex',fontSize: '1em'}}>BB Code</label>
-                <input  value='[url=https://www.cryptodeep.com][img]https://www.cryptodeep.com/image.jpg[/img][/url]' name='username' type='text'  />
-              </div>
-            </div>
-          </div>
-          <div className='clearfix'/>
-        </div>
-      </div>
+            <AffiliateSubTable/>
         
       </div>
       <br/>

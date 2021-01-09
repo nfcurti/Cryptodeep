@@ -337,6 +337,26 @@ return _http.get(`getfaucets`, qs.stringify({
 }));
 }
 
+const getaffiliates = data => {
+  if(!data.token) {
+    return alert("");
+}
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+return _http.get(`getaffiliates`, qs.stringify({
+  
+}));
+}
+
 export default {
     login,
     signup,
@@ -353,6 +373,7 @@ export default {
     validatewithdraw,
     rejectwithdraw,
     doexecutefaucet,
-    getfaucets
+    getfaucets,
+    getaffiliates
   }
   
