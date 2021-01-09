@@ -16,7 +16,10 @@ export default class Home extends React.Component {
       formController: {
         gs_usdperpoint: '',
         gs_faucetdelay: '',
-        gs_minpointwithdraw: '',
+        gs_minbtcwithdraw: '',
+        gs_minethwithdraw: '',
+        gs_minltcwithdraw: '',
+        gs_mintrxwithdraw: '',
         gs_roll_a: '',
         gs_roll_b: '',
         gs_roll_c: '',
@@ -52,7 +55,10 @@ export default class Home extends React.Component {
                   var _formC = this.state.formController;
                   _formC.gs_usdperpoint = data.data.settings.usdperpoint;
                   _formC.gs_faucetdelay = data.data.settings.faucetdelay;
-                  _formC.gs_minpointwithdraw = data.data.settings.minpointwithdraw;
+                  _formC.gs_minbtcwithdraw = data.data.settings.minbtcwithdraw;
+                  _formC.gs_minethwithdraw = data.data.settings.minethwithdraw;
+                  _formC.gs_minltcwithdraw = data.data.settings.minltcwithdraw;
+                  _formC.gs_mintrxwithdraw = data.data.settings.mintrxwithdraw;
                   _formC.gs_roll_a = data.data.settings.roll_a;
                   _formC.gs_roll_b = data.data.settings.roll_b;
                   _formC.gs_roll_c = data.data.settings.roll_c;
@@ -90,12 +96,36 @@ export default class Home extends React.Component {
       return alert('Faucet Delay should be a number');
     }
 
-    if(this.state.formController.gs_minpointwithdraw.length == 0) {
-      return alert('Min Points Withdraw is empty');
+    if(this.state.formController.gs_minbtcwithdraw.length == 0) {
+      return alert('Min BTC Withdraw is empty');
     }
 
-    if(isNaN(this.state.formController.gs_minpointwithdraw)) {
-      return alert('Min Points Withdraw should be a number');
+    if(isNaN(this.state.formController.gs_minbtcwithdraw)) {
+      return alert('Min BTC Withdraw should be a number');
+    }
+
+    if(this.state.formController.gs_minethwithdraw.length == 0) {
+      return alert('Min ETH Withdraw is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_minethwithdraw)) {
+      return alert('Min ETH Withdraw should be a number');
+    }
+
+    if(this.state.formController.gs_minltcwithdraw.length == 0) {
+      return alert('Min LTC Withdraw is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_minltcwithdraw)) {
+      return alert('Min LTC Withdraw should be a number');
+    }
+
+    if(this.state.formController.gs_mintrxwithdraw.length == 0) {
+      return alert('Min TRX Withdraw is empty');
+    }
+
+    if(isNaN(this.state.formController.gs_mintrxwithdraw)) {
+      return alert('Min TRX Withdraw should be a number');
     }
 
     const userCookies = ServiceCookies.getUserCookies();
@@ -108,7 +138,10 @@ export default class Home extends React.Component {
         "token": userCookies['cktoken'],
         "usdperpoint": this.state.formController.gs_usdperpoint,
         "faucetdelay": this.state.formController.gs_faucetdelay,
-        "minpointwithdraw": this.state.formController.gs_minpointwithdraw,
+        "minbtcwithdraw": this.state.formController.gs_minbtcwithdraw,
+        "minethwithdraw": this.state.formController.gs_minethwithdraw,
+        "minltcwithdraw": this.state.formController.gs_minltcwithdraw,
+        "mintrxwithdraw": this.state.formController.gs_mintrxwithdraw,
       }).then(response => {
         const data = response.data;
         console.log(data);
@@ -224,7 +257,16 @@ export default class Home extends React.Component {
                     <p>Faucet delay: <input  placeholder="Faucet delay" name='gs_faucetdelay' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_faucetdelay}/> min</p>
                   </div>
                   <div className='inputhold'>
-                    <p>Min Points withdraw: <input  placeholder="Min Points Withdraw" name='gs_minpointwithdraw' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_minpointwithdraw}/> points</p>
+                    <p>Min BTC withdraw: <input  placeholder="Min BTC Withdraw" name='gs_minbtcwithdraw' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_minbtcwithdraw}/> USD</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Min ETH withdraw: <input  placeholder="Min ETH Withdraw" name='gs_minethwithdraw' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_minethwithdraw}/> USD</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Min LTC withdraw: <input  placeholder="Min LTC Withdraw" name='gs_minltcwithdraw' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_minltcwithdraw}/> USD</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Min TRX withdraw: <input  placeholder="Min TRX Withdraw" name='gs_mintrxwithdraw' type='text' onChange={this.handleInputChange} value={this.state.formController.gs_mintrxwithdraw}/> USD</p>
                   </div>
                   <input
                   value="Save"

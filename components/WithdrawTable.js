@@ -21,17 +21,6 @@ export default class WithdrawTable extends React.Component {
               }).then(response => {
                 const dataB = response.data;
                 console.log(dataB);
-                // var _formC = this.state.formController;
-                // _formC.gs_usdperpoint = data.data.settings.usdperpoint;
-                // _formC.gs_faucetdelay = data.data.settings.faucetdelay;
-                // _formC.gs_minpointwithdraw = data.data.settings.minpointwithdraw;
-                // _formC.gs_roll_a = data.data.settings.roll_a;
-                // _formC.gs_roll_b = data.data.settings.roll_b;
-                // _formC.gs_roll_c = data.data.settings.roll_c;
-                // _formC.gs_roll_d = data.data.settings.roll_d;
-                // _formC.gs_roll_e = data.data.settings.roll_e;
-                // _formC.gs_jackpot = data.data.settings.jackpot;
-
                 ServiceAuth.getprofile({
                   "token": userCookies['cktoken']
                 }).then(response => {

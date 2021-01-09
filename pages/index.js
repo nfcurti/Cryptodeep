@@ -28,7 +28,8 @@ export default class Home extends React.Component {
       sv_roll_d: 0,
       sv_roll_e: 0,
       remTime: null,
-      userwallet: 0
+      userwallet: 0,
+      cryptoval: null
     }
   }
 
@@ -54,7 +55,8 @@ export default class Home extends React.Component {
           sv_roll_c: dataB.data.settings.roll_c,
           sv_roll_d: dataB.data.settings.roll_d,
           sv_roll_e: dataB.data.settings.roll_e,
-          userwallet: dataB.data.userwallet
+          userwallet: dataB.data.userwallet,
+          cryptoval: dataB.data.cryptoval
         })
         ServiceAuth.getfaucets({
           "token": userCookies['cktoken']
@@ -444,32 +446,20 @@ export default class Home extends React.Component {
         
         <div className='bp-center-text'>
         <div style={{ width: '80%',whiteSpace: 'nowrap',margin:'auto'}}>
-          <Marquee >
+          {this.state.cryptoval == null ? null : <Marquee >
             <div  className='bp-crypto-price-item'>
-              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png'} /> $12,541<span className='bp-crypto-price-avg-span-success'><div className='bp-crypto-pass'></div>+0.23%</span></p>
+          <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png'} /> ${this.state.cryptoval.BTC.last}<span className={this.state.cryptoval.BTC.bid_ask_spread_percentage > 0 ? 'bp-crypto-price-avg-span-success' :'bp-crypto-price-avg-span-fail'}><div className={this.state.cryptoval.BTC.bid_ask_spread_percentage > 0 ? 'bp-crypto-pass' : 'bp-crypto-pasf'}></div>+{this.state.cryptoval.BTC.bid_ask_spread_percentage.toFixed(4)}%</span></p>
             </div>
             <div className='bp-crypto-price-item'>
-              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://seeklogo.com/images/T/tether-usdt-logo-FA55C7F397-seeklogo.com.png'} />$12,541<span className='bp-crypto-price-avg-span-fail'><div className='bp-crypto-pasf'></div>-0.13%</span></p>
+              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/256/Ethereum-ETH-icon.png'} />${this.state.cryptoval.ETH.last}<span className={this.state.cryptoval.ETH.bid_ask_spread_percentage > 0 ? 'bp-crypto-price-avg-span-success' :'bp-crypto-price-avg-span-fail'}><div className={this.state.cryptoval.ETH.bid_ask_spread_percentage > 0 ? 'bp-crypto-pass' : 'bp-crypto-pasf'}></div>+{this.state.cryptoval.ETH.bid_ask_spread_percentage.toFixed(4)}%</span></p>
             </div>
             <div className='bp-crypto-price-item'>
-              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://www.blockchain.com/static/img/home/hero-eth.svg'} />$12,541<span className='bp-crypto-price-avg-span-fail'><div className='bp-crypto-pasf'></div>-2.13%</span></p>
+              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'http://cryptowiki.net/images/5/5d/Litecoin.png'} />${this.state.cryptoval.LTC.last}<span className={this.state.cryptoval.LTC.bid_ask_spread_percentage > 0 ? 'bp-crypto-price-avg-span-success' :'bp-crypto-price-avg-span-fail'}><div className={this.state.cryptoval.LTC.bid_ask_spread_percentage > 0 ? 'bp-crypto-pass' : 'bp-crypto-pasf'}></div>+{this.state.cryptoval.LTC.bid_ask_spread_percentage.toFixed(4)}%</span></p>
             </div>
             <div className='bp-crypto-price-item'>
-              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://www.blockchain.com/static/img/home/hero-xrp.svg'} />$12,541<span className='bp-crypto-price-avg-span-success'><div className='bp-crypto-pass'></div>+0.23%</span></p>
+              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://cdn4.iconfinder.com/data/icons/crypto-currency-and-coin-2/256/tron_trn_coin-512.png'} />${this.state.cryptoval.TRX.last}<span className={this.state.cryptoval.TRX.bid_ask_spread_percentage > 0 ? 'bp-crypto-price-avg-span-success' :'bp-crypto-price-avg-span-fail'}><div className={this.state.cryptoval.TRX.bid_ask_spread_percentage > 0 ? 'bp-crypto-pass' : 'bp-crypto-pasf'}></div>+{this.state.cryptoval.TRX.bid_ask_spread_percentage.toFixed(4)}%</span></p>
             </div>
-            <div className='bp-crypto-price-item'>
-              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://dynamic-assets.coinbase.com/3d0b1dc2a70acb73379c2d35a1e641f4438702ce8e4a4855b5514ad2758e3f520797d3ae7a9aa675d683188302e4d09c801a5195d89382d4296933dd72217717/asset_icons/1597d628dd19b7885433a2ac2d7de6ad196c519aeab4bfe679706aacbf1df78a.png'} />$12,541<span className='bp-crypto-price-avg-span-fail'><div className='bp-crypto-pasf'></div>-3.04%</span></p>
-            </div>
-            <div className='bp-crypto-price-item'>
-              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://dynamic-assets.coinbase.com/93a4303d1b0410b79bb1feac01020e4e7bdf8e6ece68282d0af2c7d0b481c5f5c44c0cec1d7071ae8f84674dbd139e290d50a038a6a4c1bbc856ec0871b5f3e2/asset_icons/3af4b33bde3012fd29dd1366b0ad737660f24acc91750ee30a034a0679256d0b.png'} />$12,541<span className='bp-crypto-price-avg-span-success'><div className='bp-crypto-pass'></div>+7.10%</span></p>
-            </div>
-            <div className='bp-crypto-price-item'>
-              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://dynamic-assets.coinbase.com/a353373ccecedb0e8b6f51ed78db22fbe0167d63d129b15963407f71392c052ae5f2ffd5fbaa6e976da86b73987a335462022f5f54ec559360683ddb8da3da96/asset_icons/a6f13081ab7468290003b49b78fc383614e113700a151a4f9794c556f5c3ca9a.png'} />$12,541<span className='bp-crypto-price-avg-span-fail'><div className='bp-crypto-pasf'></div>-7.00%</span></p>
-            </div>
-            <div className='bp-crypto-price-item'>
-              <p style={{fontWeight: 400, fontSize: 12}}><img className='crypto-icon' src={'https://dynamic-assets.coinbase.com/49567ec5f7c7a1ccb3ce247297c443b3dd32072ee5b91902abc0f6789654e14fd3b9ed8851580b93b4daf7da13324bc61e143a2d391d9e6d8b98f8d69923e4b4/asset_icons/3c5b36c70a05bad40eee4f711aeefbb1809169a17db047bf91f1ef45828349e5.png'} />$12,541<span className='bp-crypto-price-avg-span-success'><div className='bp-crypto-pass'></div>+4.23%</span></p>
-            </div>
-          </Marquee>
+          </Marquee>}
           </div>
           
         </div>

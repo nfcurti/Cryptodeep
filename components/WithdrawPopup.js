@@ -6,13 +6,19 @@ export default class WithdrawPopup extends React.Component {
     constructor() {
         super();
         this.state = {
+            usdperpoint: 0,
             maxpoints: 0,
-            minpoints: 1000,
+            minbtc: 1000,
+            mineth: 1000,
+            minltc: 1000,
+            mintrx: 1000,
             formController: {
                 currency: 'BTC',
                 cryptoaddress: '',
                 points: '0'
-            }
+            },
+            cryptoval: null,
+            pointValIndex: 0
         }
       }
 
@@ -45,7 +51,13 @@ export default class WithdrawPopup extends React.Component {
                     const dataB = response.data;
                     console.log(dataB);
                     this.setState({
-                        minpoints: dataB.data.settings.minpointwithdraw
+                        minbtc: dataB.data.settings.minbtcwithdraw,
+                        mineth: dataB.data.settings.minethwithdraw,
+                        minltc: dataB.data.settings.minltcwithdraw,
+                        mintrx: dataB.data.settings.mintrxwithdraw,
+                        pointValIndex: dataB.data.cryptoval[this.state.formController.currency].last,
+                        cryptoval: dataB.data.cryptoval,
+                        usdperpoint: dataB.data.settings.usdperpoint
                     })
                   }).catch(e => {
                     console.log(e);
@@ -77,9 +89,24 @@ export default class WithdrawPopup extends React.Component {
             return alert('Not enough points');
         }
 
-        if(this.state.formController.points < this.state.minpoints) {
-            return alert(`The minimum points that can be withdrawn are ${this.state.minpoints}`)
+        if(this.state.formController.currency == 'BTC') {
+          if((this.state.formController.points * this.state.usdperpoint) < (this.state.minbtc)) {
+            return alert(`The minimum amount that can be withdrawn on BTC are ${this.state.minbtc} USD`)
         }
+        }else if(this.state.formController.currency == 'ETH') {
+          if((this.state.formController.points * this.state.usdperpoint) < (this.state.mineth)) {
+            return alert(`The minimum amount that can be withdrawn on ETH are ${this.state.mineth} USD`)
+        }
+        }else if(this.state.formController.currency == 'LTC') {
+          if((this.state.formController.points * this.state.usdperpoint) < (this.state.minltc)) {
+            return alert(`The minimum amount that can be withdrawn on LTC are ${this.state.minltc} USD`)
+        }
+        }else if(this.state.formController.currency == 'TRX') {
+          if((this.state.formController.points * this.state.usdperpoint) < (this.state.mintrx)) {
+            return alert(`The minimum amount that can be withdrawn on TRX are ${this.state.mintrx} USD`)
+        }
+        }
+        
 
         const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
@@ -113,8 +140,16 @@ export default class WithdrawPopup extends React.Component {
                   console.log(val.target.value);
                   var _fC = this.state.formController;
                   _fC.currency = val.target.value.toUpperCase();
+
+                  var _newPVI = 0;
+
+                  if(this.state.cryptoval != null) {
+                    _newPVI = this.state.cryptoval[_fC.currency].last
+                  }
+
                   this.setState({
-                      formController: _fC
+                      formController: _fC,
+                      pointValIndex: _newPVI
                   })
               }}>
                   <option value="btc">Bitcoin (BTC)</option>
@@ -154,6 +189,7 @@ export default class WithdrawPopup extends React.Component {
               </div>
               <p className="minWith" style={{color:'#ffffff90'}}>Min. {this.state.minpoints} points
              </p>
+              <p className='terms' style={{opacity: '0.5'}}>{this.state.formController.currency}: { this.state.formController.points * this.state.usdperpoint / this.state.pointValIndex }</p>
             </form>
               <p className="terms">Your withdrawal will be made from: <span style={{fontWeight:'bold'}}>next sunday</span></p>
               <button onClick={() => this._withdrawPressed()} className='crypto-status-btn csb-withdraw withdrawFinal'>Withdraw</button>
