@@ -476,6 +476,47 @@ var _mapToSend = {
 return _http.post(`deletereviewitem`, qs.stringify(_mapToSend));
 }
 
+//
+const updatereviewitem = data => {
+  if(!data.token || 
+      !data.reviewid ||
+      !data.enabled ||
+      !data.iconurl ||
+      !data.title ||
+      !data.description ||
+      !data.reward ||
+      !data.siteurl ||
+      !data.hashtags) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "reviewid": data.reviewid,
+  "enabled": data.enabled,
+  "iconurl": data.iconurl,
+  "title": data.title,
+  "description": data.description,
+  "reward": data.reward,
+  "siteurl": data.siteurl,
+  "hashtags": data.hashtags
+};
+
+return _http.post(`updatereviewitem`, qs.stringify(_mapToSend));
+}
+
 export default {
     login,
     signup,
@@ -497,6 +538,7 @@ export default {
     edituserasadmin,
     getreviewitems,
     addreviewitem,
-    deletereviewitem
+    deletereviewitem,
+    updatereviewitem
   }
   

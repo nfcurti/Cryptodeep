@@ -45,6 +45,37 @@ export default class Home extends React.Component {
        
   }
 
+  toggleEnablingReviewItem = (item, newval) => {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
+    }else{
+      if(userCookies['ckpl'] != '999') { return; }
+      
+      const _mTSZ = {
+        'token': userCookies['cktoken'],
+        'reviewid': item._id,
+        'iconurl': item.iconurl,
+        'title': item.title,
+        'description': item.description,
+        'reward': item.reward,
+        'siteurl': item.siteurl,
+        'hashtags': item.hashtags,
+        'enabled': newval ? 'true' : 'false'
+      }
+      console.log(_mTSZ);
+      ServiceAuth.updatereviewitem(_mTSZ).then(response => {
+        const data = response.data;
+        console.log(data);
+        window.location.replace('/admin/reviews');
+      }).catch(e => {
+        console.log(e);
+        alert('There was an error with the request. Check the site url is unique and was not added before');
+        return;
+      })
+    }
+  }
+
   removeReviewItem = (id) => {
     var _a = confirm('You sure you want to delete the item? ');
     if(!_a) { return; }
@@ -120,12 +151,16 @@ export default class Home extends React.Component {
                                 }} src={item.iconurl}/></div></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}>
                                 {
-                                    item.enabled ? <button className='crypto-status-btn csb-success'>Enabled</button> 
-                                    : <button className='crypto-status-btn csb-in-process'>Disabled</button>  
+                                    item.enabled ? <button className='crypto-status-btn csb-success' onClick={() => {
+                                      this.toggleEnablingReviewItem(item, false);
+                                    }}>Enabled</button> 
+                                    : <button className='crypto-status-btn csb-in-process' onClick={() => {
+                                      this.toggleEnablingReviewItem(item, true);
+                                    }}>Disabled</button>  
                                 }
                                 </td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
-                    
+                    window.location.replace(`/admin/editreview?id=${item._id}`)
                 }} className='admin-actiob admin-actiob-validate'><p>Edit</p></button><br/><button onClick={() => {
                     this.removeReviewItem(item._id);
                 }} className='admin-actiob admin-actiob-reject'><p>Remove</p></button></td>
@@ -362,6 +397,10 @@ export default class Home extends React.Component {
                     width:85% !important
                   }
 
+                }
+
+                .crypto-status-btn:hover {
+                  cursor: pointer;
                 }
             `}</style>
       </div></BaseAdminPage>
