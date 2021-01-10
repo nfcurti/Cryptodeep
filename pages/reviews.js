@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Marquee from 'react-double-marquee';
+import ReactStars from "react-rating-stars-component";
 
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from 'next/router'
@@ -23,12 +24,178 @@ export default class Home extends React.Component {
           <div className='bp-middle-over'>
             <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>Reviews </p>
+                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Select Category </p>
+                <div className='imgsm_box'>
+                  <div className="imgbox">
+                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/2927/2927808.svg"/>
+                    <p>Gambling</p>
+                  </div>
+                  <div className="imgbox">
+                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/3309/3309991.svg"/>
+                    <p>Trading</p>
+                  </div>
+                  <div className="imgbox">
+                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/1775/1775748.svg"/>
+                    <p>Dating</p>
+                  </div>
+                  <div className="imgbox">
+                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/1987/1987753.svg"/>
+                    <p>Other</p>
+                  </div>
+                </div>
+            </div>
+            <div className="bp-reviewbox">
+              <div className="review">
+                <div className="single-review"> 
+                  <div style={{width:"fit-content"}}>
+                    <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
+                    <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                  </div>
+                  <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
+                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
+                    <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
+                    <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
+                  <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
+                  <ReactStars
+                      count={5}
+                      size={14}
+                      value={3.8}
+                      edit={false}
+                      isHalf={true}
+                      activeColor="#ffd700"
+                    />
+                  </div>
+
+                  </div><div className="end-review">
+                  
+                  <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
+                    <p>REVIEW</p>
+                  </div>
+                  <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                    <p style={{textAlign:"right"}}>SITE</p>
+                  </div>
+                </div>
+  
+                
+                  </div>
+              </div>
+            </div>
+<div className="bp-reviewbox">
+              <div className="review">
+                <div className="single-review"> 
+                  <div style={{width:"fit-content"}}>
+                    <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
+                    <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                  </div>
+                  <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
+                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
+                    <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
+                    <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
+                  <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
+                  <ReactStars
+                      count={5}
+                      size={14}
+                      value={3.8}
+                      edit={false}
+                      isHalf={true}
+                      activeColor="#ffd700"
+                    />
+                  </div>
+
+                  </div><div className="end-review">
+                  
+                  <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
+                    <p>REVIEW</p>
+                  </div>
+                  <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                    <p style={{textAlign:"right"}}>SITE</p>
+                  </div>
+                </div>
+  
+                
+                  </div>
+              </div>
             </div>
             <div className='clearfix'/>
           </div>
         </div><br/><br/><br/>
         {/* <p>Hola</p> */}
         <style jsx>{`
+          .stars-review{
+                    width:8em;
+                    height:3em;
+                    position:absolute;
+                    margin-top: 5.5em;
+                    display:flex;
+                    
+                  }
+                  .end-review{
+                    height: 2em;
+                    margin-top: 1.7em;
+                    margin-left:25%;
+                    width: 10em;
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                                }
+                  .inside-end-review{
+                    width: 50%;
+                    cursor:pointer
+                  }
+                  .inside-end-review p{
+                    margin-top: 0.7em;
+                    height: max-content;
+                    font-size:0.7em;
+                    font-weight:bold;
+                    cursor:pointer;
+                    text-align:center !important;
+                        }
+                  .review{
+                    display:contents
+                  }
+                  .review-score{
+                    background-color:#151524;
+                    font-size:0.7em;
+                    text-align:center;
+                    padding:0.3em;
+                    border-radius:3px;
+                    margin-top:0em
+                  }
+                  .review-logo{
+                    width:5em;
+                  }
+                  .single-review{
+                        width: 95%;
+
+                    height:5em;
+                    background-color:#252540;
+                    border-radius:3px;
+                    margin:0.5em;
+                    padding:0.5em;
+                    display:flex;
+                    font-family:"Nunito"
+                  }
+                  .bp-reviewbox{
+                    display: flex;
+                    width:95%;
+                    height:10.5em;
+                    border-top:none;
+                    margin:auto;
+
+    margin-left: -0.1em;margin-bottom:-2em
+                  }
+          .imgbox{padding:1em}
+          .imgbox:hover {cursor:pointer;
+    background-color: #DC8614;
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+}
+          .imgsm_box{width: fit-content;
+    display: flex;
+    margin: auto;}
+    .imgsm_box div{margin-right:2em;margin-left:2em;font-family='Nunito'}
           .captchaHolder{
                       margin:0 auto;
                           width: 40%;
@@ -45,14 +212,8 @@ export default class Home extends React.Component {
                     inputhold{
                       position:relative
                     }
-  
-                    img{
-                      width:2em;
-                      position: absolute;
-                      margin-left: -4em;
-                      padding: 12px 12px;
-                      pointer-events: none;
-                    opacity:0.3;
+                    .imgsm{
+                          width: 4em;
                     }
   
                    form{
@@ -186,6 +347,26 @@ export default class Home extends React.Component {
                   }
   
                   @media screen and (max-width: 800px){
+                    .single-review div{margin: auto;margin-top: 10em;}
+                    .end-review{height: 2em;
+                      margin-top: 1.7em;
+                      width: 10em;
+                      display: flex;
+                      margin: auto;
+                      margin-top: 2.5em !important;}
+                    .single-review{width: 95%;
+                      height: 15em;
+                      background-color: #252540;
+                      border-radius: 3px;
+                      margin: 0.5em;
+                      padding: 0.5em;
+                      display: -webkit-box;
+                      display: -webkit-flex;
+                      display: -ms-flexbox;
+                      display: flow-root;
+                      font-family: "Nunito";
+                      margin-left: 1.4em;}
+                    .imgsm_box{display: inherit !important;}
                     .bp-middle-left, .bp-middle-left-sub {
                       width: 90%;
                     }
@@ -205,7 +386,7 @@ export default class Home extends React.Component {
                   }
   
                   @media screen and (max-width: 800px){
-  
+                    
                     .bp-middle{
                       margin-top:5em
                     }
