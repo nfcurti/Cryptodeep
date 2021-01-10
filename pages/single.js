@@ -109,12 +109,12 @@ export default class Home extends React.Component {
                           activeColor="#ffd700"
                         />
                     </div>
-                    <div className='inputhold' style={{marginBottom: '-1em'}}>
+                    {/* <div className='inputhold' style={{marginBottom: '-1em'}}>
                       <label>Email Address</label>
                       <input type='text'  placeholder="info@cryptodeep.com" name='email' />
-                    </div>
+                    </div> */}
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
-                      <label>Your Comment</label>
+                      <label>Your Comment (Optional)</label>
                       <textarea type='text'  placeholder="Leave your comment here" name='comment' rows={5}/>
                     </div>
                     <input type='submit' style={{textAlign:"right"}} value="SEND REVIEW" />

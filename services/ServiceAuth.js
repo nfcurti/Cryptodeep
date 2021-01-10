@@ -394,6 +394,88 @@ var _mapToSend = {
 return _http.post(`edituserasadmin`, qs.stringify(_mapToSend));
 }
 
+const getreviewitems = data => {
+  if(!data.token) {
+    return alert("");
+}
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+return _http.get(`getreviewitems`, qs.stringify({
+  
+}));
+}
+
+const addreviewitem = data => {
+  if(!data.token || 
+      !data.iconurl ||
+      !data.title ||
+      !data.description ||
+      !data.reward ||
+      !data.siteurl ||
+      !data.hashtags) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "iconurl": data.iconurl,
+  "title": data.title,
+  "description": data.description,
+  "reward": data.reward,
+  "siteurl": data.siteurl,
+  "hashtags": data.hashtags
+};
+
+return _http.post(`addreviewitem`, qs.stringify(_mapToSend));
+}
+
+const deletereviewitem = data => {
+  if(!data.token || 
+      !data.reviewid) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "reviewid": data.reviewid
+};
+
+return _http.post(`deletereviewitem`, qs.stringify(_mapToSend));
+}
+
 export default {
     login,
     signup,
@@ -412,6 +494,9 @@ export default {
     doexecutefaucet,
     getfaucets,
     getaffiliates,
-    edituserasadmin
+    edituserasadmin,
+    getreviewitems,
+    addreviewitem,
+    deletereviewitem
   }
   
