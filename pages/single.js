@@ -83,6 +83,44 @@ export default class Home extends React.Component {
                     <input type='submit' style={{textAlign:"right"}} value="SEND REVIEW" />
                 </form>
             </div>
+
+            <div className='bp-middle-all bp-blueshadow'>
+                <p className='loginTitle'>Latest reviews </p>
+                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>This is what people think of this site </p>
+               
+                <div className='scores'>
+                    <ReactStars
+                          count={5}
+                      edit={false}
+                          size={14}
+                          value={3.8}
+                          isHalf={true}
+                          activeColor="#ffd700"
+                        />
+                      <p style={{marginTop:'1em'}}>info@cryptodeep.com - 01-/01/2020 12:34</p>
+                    </div>
+                    <div className='inputhold' style={{marginBottom: '-1em'}}>
+                      
+                      <textarea style={{resize:'none'}} readonly type='text'  value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Thank you" name='comment' rows={5}/>
+                    </div>
+                     <hr style={{backgroundColor: '#f5a500',height: '1px', border:'none'}}/>
+                     <div className='scores'>
+                    <ReactStars
+                          count={5}
+                          size={14}
+                      edit={false}
+                          value={3.8}
+                          isHalf={true}
+                          activeColor="#ffd700"
+                        />
+                      <p style={{marginTop:'1em'}}>info@cryptodeep.com - 01-/01/2020 12:34</p>
+                    </div>
+                    <div className='inputhold' style={{marginBottom: '-1em'}}>
+                      
+                      <textarea style={{resize:'none'}} readonly type='text'  value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Thank you" name='comment' rows={5}/>
+                    </div>
+                     <hr style={{backgroundColor: '#f5a500',height: '1px', border:'none'}}/>
+            </div>
             
             
             <div className='clearfix'/>
