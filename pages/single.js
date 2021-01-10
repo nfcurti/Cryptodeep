@@ -58,33 +58,7 @@ export default class Home extends React.Component {
                   </div>
               </div>
             </div>
-            <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>Leave a review </p>
-                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Let us know what you think about this site! </p>
-                <form>
-                <div className='scores'>
-                    <label>Your Score</label>
-                    <ReactStars
-                          count={5}
-                          size={14}
-                          value={3.8}
-                          isHalf={true}
-                          activeColor="#ffd700"
-                        />
-                    </div>
-                    <div className='inputhold' style={{marginBottom: '-1em'}}>
-                      <label>Email Address</label>
-                      <input type='text'  placeholder="info@cryptodeep.com" name='email' />
-                    </div>
-                    <div className='inputhold' style={{marginBottom: '-1em'}}>
-                      <label>Your Comment</label>
-                      <textarea type='text'  placeholder="Leave your comment here" name='comment' rows={5}/>
-                    </div>
-                    <input type='submit' style={{textAlign:"right"}} value="SEND REVIEW" />
-                </form>
-            </div>
-
-            <div className='bp-middle-all bp-blueshadow'>
+             <div className='bp-middle-all bp-blueshadow latest_rev'>
                 <p className='loginTitle'>Latest reviews </p>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>This is what people think of this site </p>
                
@@ -121,6 +95,33 @@ export default class Home extends React.Component {
                     </div>
                      <hr style={{backgroundColor: '#f5a500',height: '1px', border:'none'}}/>
             </div>
+            <div className='bp-middle-all bp-blueshadow'>
+                <p className='loginTitle'>Leave a review </p>
+                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Let us know what you think about this site! </p>
+                <form>
+                <div className='scores'>
+                    <label>Your Score</label>
+                    <ReactStars
+                          count={5}
+                          size={14}
+                          value={3.8}
+                          isHalf={true}
+                          activeColor="#ffd700"
+                        />
+                    </div>
+                    <div className='inputhold' style={{marginBottom: '-1em'}}>
+                      <label>Email Address</label>
+                      <input type='text'  placeholder="info@cryptodeep.com" name='email' />
+                    </div>
+                    <div className='inputhold' style={{marginBottom: '-1em'}}>
+                      <label>Your Comment</label>
+                      <textarea type='text'  placeholder="Leave your comment here" name='comment' rows={5}/>
+                    </div>
+                    <input type='submit' style={{textAlign:"right"}} value="SEND REVIEW" />
+                </form>
+            </div>
+
+           
             
             
             <div className='clearfix'/>
@@ -380,7 +381,8 @@ export default class Home extends React.Component {
                   }
   
                   @media screen and (max-width: 800px){
-                    .bp-blueshadow{    margin-top: 15em;}
+                    .latest_rev{margin-top: 15em !important;}
+                    .bp-blueshadow{    margin-top: 3em;}
                     .single-review div{margin: auto}
                     .end-review{height: 2em;
                       margin-top: 1.7em;
