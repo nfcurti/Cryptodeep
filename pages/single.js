@@ -22,29 +22,7 @@ export default class Home extends React.Component {
       <br/>
         <div className='bp-middle'>
           <div className='bp-middle-over'>
-            <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>Reviews </p>
-                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Select Category </p>
-                <div className='imgsm_box'>
-                  <div className="imgbox">
-                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/2927/2927808.svg"/>
-                    <p>Gambling</p>
-                  </div>
-                  <div className="imgbox">
-                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/3309/3309991.svg"/>
-                    <p>Trading</p>
-                  </div>
-                  <div className="imgbox">
-                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/1775/1775748.svg"/>
-                    <p>Dating</p>
-                  </div>
-                  <div className="imgbox">
-                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/1987/1987753.svg"/>
-                    <p>Other</p>
-                  </div>
-                </div>
-            </div>
-            <div className="bp-reviewbox">
+          <div className="bp-reviewbox">
               <div className="review">
                 <div className="single-review"> 
                   <div style={{width:"fit-content"}}>
@@ -70,10 +48,8 @@ export default class Home extends React.Component {
                   
                   <p className='qty_com'>21 Messages</p>
                   <br/>
-                  <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
-                   <a href="/single" style={{textDecoration:'none'}}><p >REVIEW</p></a>
-                  </div>
-                  <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                  
+                  <div style={{backgroundColor:"#353535",    borderRadius: '1em',width: '10em'}} className="inside-end-review" >
                     <p style={{textAlign:"right"}}>SITE</p>
                   </div>
                 </div>
@@ -82,12 +58,48 @@ export default class Home extends React.Component {
                   </div>
               </div>
             </div>
-
+            <div className='bp-middle-all bp-blueshadow'>
+                <p className='loginTitle'>Leave a review </p>
+                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Let us know what you think about this site! </p>
+                <form>
+                <div className='scores'>
+                    <label>Your Score</label>
+                    <ReactStars
+                          count={5}
+                          size={14}
+                          value={3.8}
+                          isHalf={true}
+                          activeColor="#ffd700"
+                        />
+                    </div>
+                    <div className='inputhold' style={{marginBottom: '-1em'}}>
+                      <label>Email Address</label>
+                      <input type='text'  placeholder="info@cryptodeep.com" name='email' />
+                    </div>
+                    <div className='inputhold' style={{marginBottom: '-1em'}}>
+                      <label>Your Comment</label>
+                      <textarea type='text'  placeholder="Leave your comment here" name='comment' rows={5}/>
+                    </div>
+                    <input type='submit' style={{textAlign:"right"}} value="SEND REVIEW" />
+                </form>
+            </div>
+            
+            
             <div className='clearfix'/>
           </div>
         </div><br/><br/><br/>
         {/* <p>Hola</p> */}
         <style jsx>{`
+          input[type="submit"]:hover{opacity:0.8}
+          input[type="submit"]{text-align:center !important;cursor: pointer;
+    width: 18em;
+    text-align: center;
+    background: #f5a500;
+    border-radius: 2em;}
+          .scores{    text-align: initial;
+    margin-left: 0.2em;margin-bottom:1em}
+          .inputhold label{margin-left: 0.2em;
+    float: left;}
                     .qty_com{
                           font-size: 0.6em;
                     position: absolute;
@@ -198,16 +210,22 @@ export default class Home extends React.Component {
                     margin:0 auto;
                    }
   
-                   input{
-                        width: 15.5em;
-                    padding: 15px;
-                    margin-bottom: 2em;
-                      color:white;
-                    border-radius:3px;
-                    border-style:solid;
-                    border: 1px solid white;
-                    background-color:transparent}
-  
+                   input, textarea{
+                    font-family:'nunito';
+                  outline:none;
+                  width: fill-available;
+                  padding: 10px;
+                  margin-bottom: 2em;
+                  color:white;
+                  border-radius:3px;
+                  border-style:solid;
+                  border: none;
+                  background-color:#161526;
+                  margin-top:0.3em}
+                  input::placeholder{
+                  color:gray;
+
+                }
                     input:focus{
                       color:white;
                       outline:none;
@@ -324,6 +342,7 @@ export default class Home extends React.Component {
                   }
   
                   @media screen and (max-width: 800px){
+                    .bp-blueshadow{    margin-top: 15em;}
                     .single-review div{margin: auto}
                     .end-review{height: 2em;
                       margin-top: 1.7em;
