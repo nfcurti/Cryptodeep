@@ -12,8 +12,25 @@ export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      user: null,
+      formController: {
+        username: '',
+        email: '',
+        points: '',
+        firstgen: '',
+        secondgen: '',
+        privilegeLevel: ''
+      },
     }
+  }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    const controller = this.state.formController;
+    controller[name] = value;
+    this.setState({
+      formController: controller
+    })
   }
 
   componentDidMount() {
@@ -29,10 +46,35 @@ export default class Home extends React.Component {
                   }).then(response => {
                     const data = response.data;
                     console.log(data);
+                    const queryString = window.location.search;
+                    const urlParams = new URLSearchParams(queryString);
+
+                    if(!urlParams.has('id')) {
+                      return;
+                    }
+                    var _idToFetch = urlParams.get('id'); 
                     if(data.data.users != null) {
-                        this.setState({
-                            users: data.data.users
+                        if(data.data.users.filter(u => u._id == _idToFetch).length > 0) {
+                          console.log(data.data.users.filter(u => u._id == _idToFetch)[0]);
+
+                          var _tUser = data.data.users.filter(u => u._id == _idToFetch)[0];
+                          
+                          var _fC = this.state.formController;
+                          _fC.username = _tUser.username;
+                          _fC.email = _tUser.email;
+                          _fC.points = _tUser.points;
+                          _fC.firstgen = _tUser.firstgen ?? 20;
+                          _fC.secondgen = _tUser.secondgen ?? 2;
+                          _fC.privilegeLevel = _tUser.privilegeLevel;
+
+                          this.setState({
+                            user: _tUser,
+                            formController: _fC
                         })
+                        }else{
+                          window.location.replace(`/admin/users`)
+                        }
+                        
                     }
                   }).catch(e => {
                     console.log(e);
@@ -45,6 +87,66 @@ export default class Home extends React.Component {
        
   }
 
+  _editPressed = () => {
+    var error = false;
+    [
+      'username', 'email', 'points', 'firstgen', 'secondgen'
+    ].forEach(mtc => {
+      if(this.state.formController[mtc] == '' && !error) {
+        error = true;
+        alert('Missing field: '+mtc);
+        return;
+      }
+    })
+
+    if(error) { return; }
+
+    if(isNaN(this.state.formController.points)) {
+      return alert('Points should be a number');
+    }
+
+    if(isNaN(this.state.formController.firstgen)) {
+      return alert('First gen should be a number');
+    }
+
+    if(isNaN(this.state.formController.secondgen)) {
+      return alert('Second gen should be a number');
+    }
+
+
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
+    }else{
+      if(userCookies['ckpl'] != '999') { return; }
+      var _mTSZ = {
+        'token': userCookies['cktoken'],
+        'userid': this.state.user._id,
+        'username': this.state.formController.username,
+        'email': this.state.formController.email,
+        'points': this.state.formController.points,
+        'firstgen': this.state.formController.firstgen,
+        'secondgen': this.state.formController.secondgen,
+        'privilegeLevel': this.state.formController.privilegeLevel
+      }
+      console.log(_mTSZ);
+      ServiceAuth.edituserasadmin(_mTSZ).then(response => {
+        const data = response.data;
+        console.log(data);
+        var _a = alert('Changes saved.');
+        if(_a) {
+            window.location.reload();
+        }
+      }).catch(e => {
+        console.log(e);
+        alert(e);
+        return;
+      })
+    }
+
+    
+  }
+
   
   render() {
 
@@ -53,53 +155,86 @@ export default class Home extends React.Component {
           <div className='bp-middle'>
             <br/>
         <div className='bp-middle-over'>
-        <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>Admin Users</p>
-
-                <PaginatedList
-                    list={this.state.users}
-                    itemsPerPage={25}
-                    renderList={(list) => (
-                        <>
-                        <table className='admin-table'>
-                            <thead>
-                                <tr>
-                                    <td><p>#</p></td>
-                                    <td><p>Username</p></td>
-                                    <td><p>Email</p></td>
-                                    <td><p>Creation Date</p></td>
-                                    <td><p>Points</p></td>
-                                    <td><p>Referred </p></td>
-                                    {/* <td><p>Actions</p></td> */}
-                                </tr>
-                            </thead>
-                            <tbody >
-                            {list.map((item, id) => {
-                                return (
-                                        <tr className='admin-bodytr' key={id}>
-                                          
-                <td style={{width: '5em'}}><p className="numbering">{this.state.users.indexOf(item) + 1}</p></td>
-                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><a href={`/admin/user?id=${item._id}`}><p style={{color: 'orange'}}>{item.username}</p></a></td>
-                <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>{item.email}</p></td>
-                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.created_at.substring(0, 10)}</p></td>
-                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.points}</p></td>
-                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.referredBy == null ? 'No' : item.referredBy.length == 0 ? 'No' : 'Yes'}</p></td>
-                {/* <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>-</p></td> */}
-
-              </tr>
-                                )
-                            })}
-                            </tbody>
-                            </table>
-                        </>
-                    )}
+       {
+         this.state.user == null ? null :  <div className='bp-middle-all bp-blueshadow'>
+            <p className='loginTitle'>Manage user: {this.state.user.username}</p>
+            <div className='eucont'>
+              <div
+              style={{
+                textAlign: 'center'
+              }}
+              className='euconta'>
+                 <div className='inputhold'>
+                    <p style={{fontSize: '18px'}}>Username: <input name='username' style={{height: '10px'}} type='text' onChange={this.handleInputChange} value={this.state.formController.username}/></p>
+                  </div>
+                  <div className='inputhold'>
+                    <p style={{fontSize: '18px'}}>Email: <input name='email' style={{height: '10px'}} type='email' onChange={this.handleInputChange} value={this.state.formController.email}/></p>
+                  </div>
+                  <div className='inputhold'>
+                    <p style={{fontSize: '18px'}}>Points: <input name='points' style={{height: '10px'}} type='number' onChange={this.handleInputChange} value={this.state.formController.points}/></p>
+                  </div>
+                  <div className='inputhold'>
+                    <p style={{fontSize: '18px'}}>1st Gen %: <input name='firstgen' style={{height: '10px'}} type='number' onChange={this.handleInputChange} value={this.state.formController.firstgen}/></p>
+                  </div>
+                  <div className='inputhold'>
+                    <p style={{fontSize: '18px'}}>2nd Gen %: <input name='secondgen' style={{height: '10px'}} type='number' onChange={this.handleInputChange} value={this.state.formController.secondgen}/></p>
+                  </div>
+                  {
+                    this.state.formController.privilegeLevel == '999' ?
+                    <input
+                  value="Remove admin"
+                  type='submit'
+                  onClick={() => {
+                    var _fC = this.state.formController;
+                    _fC.privilegeLevel = 0;
+                    this.setState({
+                      formController: _fC
+                    }, () => {
+                      this._editPressed()
+                    })
+                  }}
+                  className='loginSubmit '
+                /> :  <input
+                value="Make admin"
+                type='submit'
+                onClick={() => {
+                  var _fC = this.state.formController;
+                    _fC.privilegeLevel = 999;
+                    this.setState({
+                      formController: _fC
+                    }, () => {
+                      this._editPressed()
+                    })
+                }}
+                className='loginSubmit '
+              />
+                  } <br/><br/>
+                  <input
+                  value="Save"
+                  type='submit'
+                  onClick={() => this._editPressed()}
+                  className='loginSubmit '
                 />
+              </div>
             </div>
+            <div className='clearfix'/>
+        </div>
+       }
           <div className='clearfix'/>
         </div>
 
 
       <style jsx>{`
+      .euconta {
+        width: 100%;
+        float: left;
+      }
+
+      @media screen and (max-width: 800px){
+        .euconta,  {
+          width: 100%;
+        }
+      }
                   .captchaHolder{
                               margin:0 auto;
                                   width: 40%;

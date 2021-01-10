@@ -2,8 +2,8 @@ import axios from "axios";
 import http from "./URLManager";
 var qs = require("qs");
 
-// const finalUrl = 'http://localhost:3002/api-cryptodeep/';
-const finalUrl = "https://juancurti.com/api-cryptodeep/";
+const finalUrl = 'http://localhost:3002/api-cryptodeep/';
+// const finalUrl = "https://juancurti.com/api-cryptodeep/";
 
 const login = data => {
   if(data.username.length == 0 ||
@@ -357,6 +357,43 @@ return _http.get(`getaffiliates`, qs.stringify({
 }));
 }
 
+
+//
+const edituserasadmin = data => {
+  if(!data.token || !data.userid || !data.username || !data.email || !data.points || !data.firstgen || !data.secondgen) {
+
+   alert("Missing field");
+   return;
+}
+
+if(data.privilegeLevel == null) {
+  alert("Missing field...");
+   return;
+}
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "userid": data.userid,
+  "username": data.username,
+  "email": data.email,
+  "points": data.points,
+  "firstgen": data.firstgen,
+  "secondgen": data.secondgen,
+  "privilegeLevel": data.privilegeLevel
+};
+
+return _http.post(`edituserasadmin`, qs.stringify(_mapToSend));
+}
+
 export default {
     login,
     signup,
@@ -374,6 +411,7 @@ export default {
     rejectwithdraw,
     doexecutefaucet,
     getfaucets,
-    getaffiliates
+    getaffiliates,
+    edituserasadmin
   }
   

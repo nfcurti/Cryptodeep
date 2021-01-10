@@ -129,6 +129,7 @@ export default class Home extends React.Component {
         </div><br/><br/><br/>
         {/* <p>Hola</p> */}
         <style jsx>{`
+        
           input[type="submit"]:hover{opacity:0.8}
           input[type="submit"]{text-align:center !important;cursor: pointer;
     width: 18em;
@@ -160,8 +161,9 @@ export default class Home extends React.Component {
                   .end-review{
                     height: 2em;
                     margin-top: 2.8em;
-                    margin-left:25%;
                     width: 10em;
+                    position: absolute;
+                    right: 10%;
                     display: -webkit-box;
                     display: -webkit-flex;
                     display: -ms-flexbox;
@@ -194,25 +196,24 @@ export default class Home extends React.Component {
                     width:5em;
                   }
                   .single-review{
-                        width: 95%;
+                    width: 100%;
 
-                    height:5em;
-                    background-color:#252540;
-                    border-radius:3px;
-                    margin:0.5em;
-                    padding:0.5em;
-                    display:flex;
-                    font-family:"Nunito"
-                  }
-                  .bp-reviewbox{
-                    display: flex;
-                    width:95%;
-                    height:10.5em;
-                    border-top:none;
-                    margin:auto;
-                    margin-left: -0.1em;
-                    margin-bottom:-2em
-                  }
+                height: 6em;
+                background-color:#252540;
+                border-radius:3px;
+                margin:0.5em;
+                padding:0.5em;
+                display:flex;
+                font-family:"Nunito"
+              }
+              .bp-reviewbox{
+                display: flex;
+                width:100%;
+                height:10.5em;
+                border-top:none;
+                margin:auto;
+                margin-bottom:-2em
+              }
                     .imgbox{padding:1em}
                     .imgbox:hover {cursor:pointer;
                           background-color: #DC8614;
@@ -233,7 +234,7 @@ export default class Home extends React.Component {
                     .loginSignup a{font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
   
                     .bp-middle-over{
-                      width:50% !important;
+                      width:90% !important;
                       margin:0 auto !important;
                     }
   
@@ -379,10 +380,14 @@ export default class Home extends React.Component {
                     font-weight: 700;
                     font-size: 14px;
                   }
+
+                  .latest_rev{
+                    margin-left: 5%;
+                  }
   
                   @media screen and (max-width: 800px){
-                    .latest_rev{margin-top: 15em !important;}
-                    .bp-blueshadow{    margin-top: 3em;}
+                    .latest_rev{margin-top: 15em !important; margin-left: 3% !important;}
+                    .bp-blueshadow{    margin-top: 3em; margin-left: 3%;}
                     .single-review div{margin: auto}
                     .end-review{height: 2em;
                       margin-top: 1.7em;
@@ -409,7 +414,7 @@ export default class Home extends React.Component {
                   }
   
                   .bp-blueshadow {
-  
+                    margin-left: 5%;
                     background: #252540;
                     box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
                     border-radius: 4px;

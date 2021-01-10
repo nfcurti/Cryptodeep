@@ -109,8 +109,9 @@ export default class Home extends React.Component {
                   .end-review{
                     height: 2em;
                     margin-top: 2.8em;
-                    margin-left:25%;
                     width: 10em;
+                    position: absolute;
+                    right: 8%;
                     display: -webkit-box;
                     display: -webkit-flex;
                     display: -ms-flexbox;
@@ -143,9 +144,9 @@ export default class Home extends React.Component {
                     width:5em;
                   }
                   .single-review{
-                        width: 95%;
+                        width: 100%;
 
-                    height:5em;
+                    height: 6.5em;
                     background-color:#252540;
                     border-radius:3px;
                     margin:0.5em;
@@ -155,11 +156,10 @@ export default class Home extends React.Component {
                   }
                   .bp-reviewbox{
                     display: flex;
-                    width:95%;
+                    width:100%;
                     height:10.5em;
                     border-top:none;
                     margin:auto;
-                    margin-left: -0.1em;
                     margin-bottom:-2em
                   }
                     .imgbox{padding:1em}
@@ -175,14 +175,14 @@ export default class Home extends React.Component {
                     .imgsm_box div{margin-right:2em;margin-left:2em;font-family='Nunito'}
                     .captchaHolder{
                       margin:0 auto;
-                          width: 40%;
+                          width: 100%;
                         margin-bottom: 2em;
                     }
                     .loginSignup {font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
                     .loginSignup a{font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
   
                     .bp-middle-over{
-                      width:50% !important;
+                      width:90% !important;
                       margin:0 auto !important;
                     }
   
@@ -194,7 +194,7 @@ export default class Home extends React.Component {
                     }
   
                    form{
-                    width:87%;
+                    width:100%;
                     margin:0 auto;
                    }
   
@@ -254,7 +254,7 @@ export default class Home extends React.Component {
   
                   .bp-middle-over {
                     margin: 0% 10%;
-                    width: 80%;
+                    width: 100%;
                   }
                   .bp-middle-left p, .bp-middle-all p {
                     margin: 0px;
@@ -291,7 +291,7 @@ export default class Home extends React.Component {
                   .bp-middle-all {
                     text-align: center;
                     margin-bottom: 30px;
-                    width: 90%;
+                    width: 100%;
                     float: left;
                     padding: 10px 14px;
                     padding-bottom: 30px;
@@ -345,7 +345,7 @@ export default class Home extends React.Component {
                       margin-left: 1.4em;}
                     .imgsm_box{display: inherit !important;}
                     .bp-middle-left, .bp-middle-left-sub {
-                      width: 90%;
+                      width: 100%;
                     }
                   }
   
@@ -377,7 +377,7 @@ export default class Home extends React.Component {
                     }
   
                     .bp-middle-over{
-                      width:85% !important
+                      width:100% !important
                     }
                   }
               `}</style>

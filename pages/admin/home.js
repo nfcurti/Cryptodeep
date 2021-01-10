@@ -222,6 +222,7 @@ export default class Home extends React.Component {
         "roll_e": this.state.formController.gs_roll_e,
         "jackpot": this.state.formController.gs_jackpot
       }).then(response => {
+        if(response.data == null) { return; }
         const data = response.data;
         console.log(data);
         var _a = alert('Changes saved.');
