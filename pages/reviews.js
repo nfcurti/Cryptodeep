@@ -152,7 +152,8 @@ export default class Home extends React.Component {
                     margin:0.5em;
                     padding:0.5em;
                     display:flex;
-                    font-family:"Nunito"
+                    font-family:"Nunito";
+                    margin-left: 4%;
                   }
                   .bp-reviewbox{
                     display: flex;
@@ -342,7 +343,7 @@ export default class Home extends React.Component {
                       display: -ms-flexbox;
                       display: flow-root;
                       font-family: "Nunito";
-                      margin-left: 1.4em;}
+                      margin-left: 2em;}
                     .imgsm_box{display: inherit !important;}
                     .bp-middle-left, .bp-middle-left-sub {
                       width: 100%;
@@ -350,7 +351,6 @@ export default class Home extends React.Component {
                   }
   
                   .bp-blueshadow {
-  
                     background: #252540;
                     box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
                     border-radius: 4px;
