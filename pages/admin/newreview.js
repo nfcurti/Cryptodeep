@@ -7,6 +7,7 @@ import BaseAdminPage from '../../components/BaseAdminPage';
 import ServiceAuth from '../../services/ServiceAuth';
 import ServiceCookies from '../../services/cookies';
 import { PaginatedList } from 'react-paginated-list';
+import ReactStars from "react-rating-stars-component";
 export default class Home extends React.Component {
 
   constructor() {
@@ -17,7 +18,8 @@ export default class Home extends React.Component {
           iconurl: '',
           description: '',
           siteurl: '',
-          hashtags: ''
+          hashtags: '',
+          score: 2.5
       }
     }
   }
@@ -53,7 +55,8 @@ export default class Home extends React.Component {
       'title',
       'description',
       'siteurl',
-      'hashtags'
+      'hashtags',
+      'score'
     ].forEach(mtc => {
       if(this.state.formController[mtc] == '' && !error) {
         error = true;
@@ -89,7 +92,8 @@ export default class Home extends React.Component {
         'title': this.state.formController.title,
         'description': this.state.formController.description,
         'siteurl': this.state.formController.siteurl,
-        'hashtags': this.state.formController.hashtags
+        'hashtags': this.state.formController.hashtags,
+        'score': this.state.formController.score
       }
       console.log(_mTSZ);
       ServiceAuth.addreviewitem(_mTSZ).then(response => {
@@ -145,7 +149,23 @@ export default class Home extends React.Component {
                 width: '90%'
             }} onChange={this.handleInputChange} value={this.state.formController.description}/></p>
         </div>
-
+        <div style={{margin: 'auto', width: '200px'}}>
+        <ReactStars
+                          onChange={(val) => {
+                            var _fC = this.state.formController;
+                            _fC.score = val;
+                            this.setState({
+                              formController: _fC
+                            })
+                          }}
+                          count={5}
+                          size={40}
+                          value={this.state.formController.score}
+                          isHalf={true}
+                          activeColor="#ffd700"
+                        /><br/>
+        </div>
+        
 
                   </div>
                   </div>

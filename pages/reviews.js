@@ -115,7 +115,7 @@ export default class Home extends React.Component {
                     <div className="single-review"> 
                   <div style={{width:"fit-content"}}>
                     <img className='review-logo' src={item.iconurl}/>
-                    <p className='review-score'>{this.state.reviews.filter(r => r.reviewid == item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == item._id).reduce((acc, r) => acc+r.score, 0) / this.state.reviews.filter(r => r.reviewid == item._id).length}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                    <p className='review-score'>{item.score}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
                   </div>
                   <div style={{padding:"0.1em",maxWidth: '65%',marginLeft:"0.5em",marginTop:"-0.3em"}}>
                     <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{item.title}</p>
@@ -125,7 +125,7 @@ export default class Home extends React.Component {
                   <ReactStars
                       count={5}
                       size={20}
-                      value={this.state.reviews.filter(r => r.reviewid == item._id).reduce((acc, r) => acc+r.score, 0) / this.state.reviews.filter(r => r.reviewid == item._id).length}
+                      value={item.score}
                       edit={false}
                       isHalf={true}
                       activeColor="#ffd700"

@@ -61,7 +61,8 @@ export default class Home extends React.Component {
         'siteurl': item.siteurl,
         'hashtags': item.hashtags,
         'enabled': newval ? 'true' : 'false',
-        'featured': item.featured
+        'featured': item.featured == null ? 'false' : (item.featured ? 'true' : 'false'),
+        'score': item.score
       }
       console.log(_mTSZ);
       ServiceAuth.updatereviewitem(_mTSZ).then(response => {
@@ -91,8 +92,9 @@ export default class Home extends React.Component {
         'description': item.description,
         'siteurl': item.siteurl,
         'hashtags': item.hashtags,
-        'enabled': item.enabled,
-        'featured': newval ? 'true' : 'false'
+        'enabled': item.enabled ? 'true' : 'false',
+        'featured': newval ? 'true' : 'false',
+        'score': item.score
       }
       console.log(_mTSZ);
       ServiceAuth.updatereviewitem(_mTSZ).then(response => {
@@ -181,16 +183,6 @@ export default class Home extends React.Component {
                                 }} src={item.iconurl}/></div></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}>
                                 {
-                                    item.enabled ? <button className='crypto-status-btn csb-success' onClick={() => {
-                                      this.toggleEnablingReviewItem(item, false);
-                                    }}>Enabled</button> 
-                                    : <button className='crypto-status-btn csb-in-process' onClick={() => {
-                                      this.toggleEnablingReviewItem(item, true);
-                                    }}>Disabled</button>  
-                                }
-                                </td>
-                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}>
-                                {
                                     item.featured ? <button className='crypto-status-btn csb-success' onClick={() => {
                                       this.toggleFeaturingReviewItem(item, false);
                                     }}>Featured</button> 
@@ -199,6 +191,17 @@ export default class Home extends React.Component {
                                     }}>Normal</button>  
                                 }
                                 </td>
+                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}>
+                                {
+                                    item.enabled ? <button className='crypto-status-btn csb-success' onClick={() => {
+                                      this.toggleEnablingReviewItem(item, false);
+                                    }}>Enabled</button> 
+                                    : <button className='crypto-status-btn csb-in-process' onClick={() => {
+                                      this.toggleEnablingReviewItem(item, true);
+                                    }}>Disabled</button>  
+                                }
+                                </td>
+                                
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
                     window.location.replace(`/admin/editreview?id=${item._id}`)
                 }} className='admin-actiob admin-actiob-validate'><p>Edit</p></button><br/><button onClick={() => {

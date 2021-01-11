@@ -420,6 +420,7 @@ const addreviewitem = data => {
       !data.title ||
       !data.description ||
       !data.siteurl ||
+      !data.score ||
       !data.hashtags) {
 
    alert("Missing field");
@@ -442,7 +443,8 @@ var _mapToSend = {
   "title": data.title,
   "description": data.description,
   "siteurl": data.siteurl,
-  "hashtags": data.hashtags
+  "hashtags": data.hashtags,
+  "score": data.score
 };
 
 return _http.post(`addreviewitem`, qs.stringify(_mapToSend));
@@ -484,6 +486,7 @@ const updatereviewitem = data => {
       !data.title ||
       !data.description ||
       !data.siteurl ||
+      !data.score ||
       !data.hashtags) {
 
    alert("Missing field");
@@ -509,7 +512,8 @@ var _mapToSend = {
   "title": data.title,
   "description": data.description,
   "siteurl": data.siteurl,
-  "hashtags": data.hashtags
+  "hashtags": data.hashtags,
+  "score": data.score
 };
 
 return _http.post(`updatereviewitem`, qs.stringify(_mapToSend));
@@ -518,8 +522,7 @@ return _http.post(`updatereviewitem`, qs.stringify(_mapToSend));
 const doreview = data => {
   if(!data.token || 
       !data.reviewid ||
-      !data.userid ||
-      !data.score) {
+      !data.userid) {
 
    alert("Missing field");
    return;
@@ -537,7 +540,6 @@ const _http = axios.create({
 });
 
 var _mapToSend = {
-  "score": data.score,
   "message": data.message ?? "",
   "userid": data.userid,
   "reviewid": data.reviewid

@@ -7,6 +7,7 @@ import BaseAdminPage from '../../components/BaseAdminPage';
 import ServiceAuth from '../../services/ServiceAuth';
 import ServiceCookies from '../../services/cookies';
 import { PaginatedList } from 'react-paginated-list';
+import ReactStars from "react-rating-stars-component";
 export default class Home extends React.Component {
 
   constructor() {
@@ -18,7 +19,8 @@ export default class Home extends React.Component {
           iconurl: '',
           description: '',
           siteurl: '',
-          hashtags: ''
+          hashtags: '',
+          score: null
       }
     }
   }
@@ -50,6 +52,7 @@ export default class Home extends React.Component {
 
                         var _itemX = data.data.items.filter(i => i._id == _idToFetch)[0];
                         var _fC = this.state.formController;
+                        _fC.score = _itemX.score;
                         _fC.title = _itemX.title;
                         _fC.iconurl = _itemX.iconurl;
                         _fC.description = _itemX.description;
@@ -87,7 +90,8 @@ export default class Home extends React.Component {
       'title',
       'description',
       'siteurl',
-      'hashtags'
+      'hashtags',
+      'score'
     ].forEach(mtc => {
       if(this.state.formController[mtc] == '' && !error) {
         error = true;
@@ -126,7 +130,8 @@ export default class Home extends React.Component {
         'siteurl': this.state.formController.siteurl,
         'hashtags': this.state.formController.hashtags,
         'enabled': this.state.item.enabled ? 'true' : 'false',
-        'featured': this.state.item.featured ? 'true' : 'false'
+        'featured': this.state.item.featured ? 'true' : 'false',
+        'score': this.state.formController.score
       }
       console.log(_mTSZ);
       ServiceAuth.updatereviewitem(_mTSZ).then(response => {
@@ -183,6 +188,26 @@ export default class Home extends React.Component {
             }} onChange={this.handleInputChange} value={this.state.formController.description}/></p>
         </div>
 
+
+        <div style={{margin: 'auto', width: '200px'}}>
+        {
+          this.state.item == null ? null :
+          <ReactStars
+                          onChange={(val) => {
+                            var _fC = this.state.formController;
+                            _fC.score = val;
+                            this.setState({
+                              formController: _fC
+                            })
+                          }}
+                          count={5}
+                          size={40}
+                          value={this.state.formController.score == null ? this.state.item.score : this.state.formController.score}
+                          isHalf={true}
+                          activeColor="#ffd700"
+                        />
+        }<br/>
+                        </div>
 
                   </div>
                   </div>

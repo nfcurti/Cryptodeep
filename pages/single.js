@@ -99,8 +99,7 @@ export default class Home extends React.Component {
         'token': userCookies['cktoken'],
         'reviewid': this.state.item._id,
         'userid': userCookies['ckuserid'],
-        'message': this.state.formController.message,
-        'score': this.state.formController.score ?? 2.5
+        'message': this.state.formController.message
       }
       console.log(_mTSZ);
       ServiceAuth.doreview(_mTSZ).then(response => {
@@ -126,7 +125,7 @@ export default class Home extends React.Component {
                 <div className="single-review"> 
                   <div style={{width:"fit-content"}}>
                     <img className='review-logo' src={this.state.item.iconurl}/>
-                    <p className='review-score'>{this.state.reviews.length == 0 ? '-' : this.state.reviews.reduce((acc, r) => acc+r.score, 0) / this.state.reviews.length}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                    <p className='review-score'>{this.state.item.score}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
                   </div>
                   <div style={{padding:"0.1em",maxWidth: '65%',marginLeft:"0.5em",marginTop:"-0.3em"}}>
                     <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{this.state.item.title}</p>
@@ -136,7 +135,7 @@ export default class Home extends React.Component {
                   <ReactStars
                       count={5}
                       size={20}
-                      value={this.state.reviews.reduce((acc, r) => acc+r.score, 0) / this.state.reviews.length}
+                      value={this.state.item.score}
                       edit={false}
                       isHalf={true}
                       activeColor="#ffd700"
@@ -173,14 +172,6 @@ export default class Home extends React.Component {
                  listx.map((item, id) => {
                   return <div>
                 <div key={id} className='scores'>
-                    <ReactStars
-                          count={5}
-                      edit={false}
-                          size={18}
-                          value={item.score}
-                          isHalf={true}
-                          activeColor="#ffd700"
-                        />
                       <p style={{marginTop:'1em'}}>By {item.username} - Date: {item.created_at.replace('T', ' ').substring(0, 16)}</p>
                     </div>
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
@@ -204,27 +195,6 @@ export default class Home extends React.Component {
                 <p className='loginTitle'>Leave a review </p>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Let us know what you think about this site! </p>
                 {/* <form> */}
-                <div className='scores'>
-                    <label>Your Score</label>
-                    <ReactStars
-                          onChange={(val) => {
-                            var _fC = this.state.formController;
-                            _fC.score = val;
-                            this.setState({
-                              formController: _fC
-                            })
-                          }}
-                          count={5}
-                          size={30}
-                          value={3.8}
-                          isHalf={true}
-                          activeColor="#ffd700"
-                        />
-                    </div>
-                    {/* <div className='inputhold' style={{marginBottom: '-1em'}}>
-                      <label>Email Address</label>
-                      <input type='text'  placeholder="info@cryptodeep.com" name='email' />
-                    </div> */}
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
                       <label>Your Comment (Optional)</label>
                       <textarea type='text' style={{resize: 'none'}} placeholder="Leave your comment here" name='message' onChange={this.handleInputChange} value={this.state.formController.message} rows={5}/>
