@@ -16,15 +16,10 @@ export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
+        item: null,
       formController: {
           title: '',
-          iconurl: '',
-          description: '',
-          siteurl: '',
-          hashtags: '',
-          pros: '',
-          cons: '',
-          score: 2.5
+          iconurlx: '',
       }
     }
   }
@@ -37,7 +32,37 @@ export default class Home extends React.Component {
             if(userCookies['ckpl'] != '999') {
             window.location.replace(`/account`)
             }else{
-                
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+
+                if(!urlParams.has('id')) {
+                    return;
+                }
+                var _idToFetch = urlParams.get('id'); 
+                ServiceAuth.getrevcategory({
+                    "token": userCookies['cktoken']
+                  }).then(response => {
+                    const data = response.data;
+                    console.log(data);
+                    if(data.data.items != null) {
+                        if(data.data.items.filter(i => i._id == _idToFetch).length == 0) {
+                            window.location.replace(`/admin/categories`)
+                        }
+
+                        var _itemX = data.data.items.filter(i => i._id == _idToFetch)[0];
+                        var _fC = this.state.formController;
+                        _fC.title = _itemX.title;
+                        _fC.iconurlx = _itemX.iconurlx;
+                        this.setState({
+                            item: _itemX,
+                            formController: _fC
+                        })
+                    }
+                  }).catch(e => {
+                    console.log(e);
+                    alert(e);
+                    return;
+                  })
             }
         };
 
@@ -56,14 +81,8 @@ export default class Home extends React.Component {
   addReviewPressed = () => {
     var error = false;
     [
-      'iconurl',
-      'title',
-      'description',
-      'siteurl',
-      'hashtags',
-      'pros',
-      'cons',
-      'score'
+      'iconurlx',
+      'title'
     ].forEach(mtc => {
       if(this.state.formController[mtc] == '' && !error) {
         error = true;
@@ -74,16 +93,9 @@ export default class Home extends React.Component {
 
     if(error) { return; }
 
-    if(!this.state.formController.siteurl.includes('http')) {
-        return alert('Site URL should be full, starting with http:...');
-    }
 
-    if(!this.state.formController.iconurl.includes('http')) {
+    if(!this.state.formController.iconurlx.includes('http')) {
         return alert('Icon URL should be full, starting with http:...');
-    }
-
-    if(this.state.formController.hashtags.includes(' ')) {
-        return alert('The field Hashtags cannot contain spaces. Separate each component by comma');
     }
 
 
@@ -92,26 +104,21 @@ export default class Home extends React.Component {
         window.location.replace(`/login`)
     }else{
       if(userCookies['ckpl'] != '999') { return; }
-
-      var _mTSZ = {
+      
+      const _mTSZ = {
         'token': userCookies['cktoken'],
-        'iconurl': this.state.formController.iconurl,
-        'title': this.state.formController.title,
-        'description': this.state.formController.description,
-        'siteurl': this.state.formController.siteurl,
-        'hashtags': this.state.formController.hashtags,
-        'score': this.state.formController.score,
-        'pros': this.state.formController.pros,
-        'cons': this.state.formController.cons
+        'categoryid': this.state.item._id,
+        'iconurlx': this.state.formController.iconurlx,
+        'title': this.state.formController.title
       }
       console.log(_mTSZ);
-      ServiceAuth.addreviewitem(_mTSZ).then(response => {
+      ServiceAuth.editrevcategory(_mTSZ).then(response => {
         const data = response.data;
         console.log(data);
-        window.location.replace('/admin/reviews');
+        window.location.replace('/admin/categories');
       }).catch(e => {
         console.log(e);
-        alert('There was an error with the request. Check the site url is unique and was not added before');
+        alert('There was an error with the request.');
         return;
       })
     }
@@ -125,7 +132,7 @@ export default class Home extends React.Component {
             <br/>
         <div className='bp-middle-over'>
         <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>New Category</p>
+                <p className='loginTitle'>Edit Category</p>
                 <div className='eucont'>
               <div
               style={{
@@ -133,138 +140,16 @@ export default class Home extends React.Component {
               }}
               className='euconta'>
 
-<div className='inputhold'>
-            <p style={{fontSize: '18px'}}>Site URL: <br/><input name='siteurl' style={{height: '10px',
-            width: '90%'
-        }} type='text' onChange={this.handleInputChange} value={this.state.formController.siteurl}/></p>
-        </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Title: <br/><input name='title' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.title}/></p>
         </div>
         <div className='inputhold'>
-            <p style={{fontSize: '18px'}}>Icon (URL):<br/> <input name='iconurl' style={{height: '10px',
+            <p style={{fontSize: '18px'}}>Icon (URL):<br/> <input name='iconurlx' style={{height: '10px',
             width: '90%'
-        }} type='text' onChange={this.handleInputChange} value={this.state.formController.iconurl}/></p>
+        }} type='text' onChange={this.handleInputChange} value={this.state.formController.iconurlx}/></p>
         </div>
-        <div className='inputhold'>
-            <p style={{fontSize: '18px'}}>Hashtags (Separated by comma and no spaces, e.g.: gambling,gaming,enterprise): <br/><input name='hashtags' style={{height: '10px',
-            width: '90%'
-        }} type='text' onChange={this.handleInputChange} value={this.state.formController.hashtags}/></p>
-        </div>
-        <div className='inputhold'>
-            <p style={{fontSize: '26px'}}>Description: <br/> 
-          
-        </p>
-        <div style={{width: '90%', marginLeft: '5%'}}>
-        <ReactQuill
-        className='richeditor'
-          formats={[
-            'header',
-            'bold', 'italic', 'underline', 'strike', 'blockquote',
-            'list', 'bullet', 'indent',
-            'link', 'image'
-          ]}
-          modules={{
-            toolbar: [
-              [{ 'header': [1, 2, false] }],
-              ['bold', 'italic', 'underline','strike', 'blockquote'],
-              [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-              ['link', 'image'],
-              ['clean']
-            ],
-          }}
-          value={this.state.formController.description}
-          onChange={(val) => {
-            var _fC = this.state.formController;
-            _fC.description = val;
-            this.setState({
-              formController: _fC
-            })
-          }}
-        /><br/>
-        </div>
-        </div>
-        <div className='inputhold'>
-            <p style={{fontSize: '18px'}}>Pros: <br/></p>
-            <div style={{width: '90%', marginLeft: '5%'}}>
-        <ReactQuill
-        className='richeditor'
-          formats={[
-            'header',
-            'bold', 'italic', 'underline', 'strike', 'blockquote',
-            'list', 'bullet', 'indent',
-            'link', 'image'
-          ]}
-          modules={{
-            toolbar: [
-              [{ 'header': [1, 2, false] }],
-              ['bold', 'italic', 'underline','strike', 'blockquote'],
-              [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-              ['link', 'image'],
-              ['clean']
-            ],
-          }}
-          value={this.state.formController.pros}
-          onChange={(val) => {
-            var _fC = this.state.formController;
-            _fC.pros = val;
-            this.setState({
-              formController: _fC
-            })
-          }}
-        /><br/>
-        </div>
-        </div>
-        <div className='inputhold'>
-            <p style={{fontSize: '18px'}}>Cons: <br/></p>
-
-            <div style={{width: '90%', marginLeft: '5%'}}>
-            <ReactQuill
-        className='richeditor'
-          formats={[
-            'header',
-            'bold', 'italic', 'underline', 'strike', 'blockquote',
-            'list', 'bullet', 'indent',
-            'link', 'image'
-          ]}
-          modules={{
-            toolbar: [
-              [{ 'header': [1, 2, false] }],
-              ['bold', 'italic', 'underline','strike', 'blockquote'],
-              [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-              ['link', 'image'],
-              ['clean']
-            ],
-          }}
-          value={this.state.formController.cons}
-          onChange={(val) => {
-            var _fC = this.state.formController;
-            _fC.cons = val;
-            this.setState({
-              formController: _fC
-            })
-          }}
-        /><br/></div>
-        </div>
-        <div style={{margin: 'auto', width: '200px'}}>
-        <ReactStars
-                          onChange={(val) => {
-                            var _fC = this.state.formController;
-                            _fC.score = val;
-                            this.setState({
-                              formController: _fC
-                            })
-                          }}
-                          count={5}
-                          size={40}
-                          value={this.state.formController.score}
-                          isHalf={true}
-                          activeColor="#ffd700"
-                        /><br/>
-        </div>
-        
 
                   </div>
                   </div>
@@ -280,7 +165,7 @@ export default class Home extends React.Component {
                   value="Back"
                   type='submit'
                   onClick={() => {
-                    window.location.replace('/admin/reviews');
+                    window.location.replace('/admin/categories');
                   }}
                   className='loginSubmit '
                 />

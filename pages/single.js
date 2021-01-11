@@ -129,8 +129,7 @@ export default class Home extends React.Component {
                     <p className='review-score'>{this.state.item.score}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
                   </div>
                   <div style={{padding:"0.1em",maxWidth: '65%',marginLeft:"0.5em",marginTop:"-0.3em"}}>
-                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{this.state.item.title}</p>
-                    <p style={{fontSize:"0.7em"}}>{this.state.item.description.length < 200 ? this.state.item.description : this.state.item.description.substring(0, 200)+'...'}</p>
+                    <p style={{fontSize:"1.2em", fontWeight:"bold"}}>{this.state.item.title}</p>
                     <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
                     <span style={{marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item._id).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length})</span>
                    <ReactStars
@@ -161,7 +160,6 @@ export default class Home extends React.Component {
             </div>
 
             <div className='bp-middle-all bp-blueshadow'>
-            <p className='loginTitle'>{this.state.item.title} </p>
             {
               this.state.item.description == ''
               ? null :

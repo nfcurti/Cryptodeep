@@ -580,6 +580,111 @@ return _http.get(url, qs.stringify({
 }));
 }
 
+//
+const addrevcategory = data => {
+  if(!data.token || 
+      !data.iconurlx ||
+      !data.title) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "iconurlx": data.iconurlx,
+  "title": data.title
+};
+
+return _http.post(`addrevcategory`, qs.stringify(_mapToSend));
+}
+
+const getrevcategory = data => {
+  if(!data.token) {
+    return alert("");
+}
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+return _http.get(`getrevcategory`, qs.stringify({
+  
+}));
+}
+
+const removerevcategory = data => {
+  if(!data.token || 
+      !data.categoryid) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "categoryid": data.categoryid
+};
+
+return _http.post(`removerevcategory`, qs.stringify(_mapToSend));
+}
+
+const editrevcategory = data => {
+  if(!data.token || 
+      !data.categoryid ||
+      !data.iconurlx ||
+      !data.title) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "categoryid": data.categoryid,
+  "iconurlx": data.iconurlx,
+  "title": data.title
+};
+
+return _http.post(`editrevcategory`, qs.stringify(_mapToSend));
+}
+
 export default {
     login,
     signup,
@@ -604,6 +709,10 @@ export default {
     deletereviewitem,
     updatereviewitem,
     doreview,
-    getreviews
+    getreviews,
+    addrevcategory,
+    getrevcategory,
+    removerevcategory,
+    editrevcategory
   }
   
