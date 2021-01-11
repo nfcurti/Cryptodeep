@@ -17,6 +17,8 @@ export default class Home extends React.Component {
     super();
     this.state = {
         item: null,
+
+      subcategories: [],
       formController: {
           title: '',
           iconurl: '',
@@ -70,6 +72,16 @@ export default class Home extends React.Component {
                             item: _itemX,
                             formController: _fC
                         })
+
+                        ServiceAuth.getrevsubcategory({
+                          "token": userCookies['cktoken']
+                        }).then(response => {
+                          const datass = response.data;
+                          console.log(datass);
+                          this.setState({
+                            subcategories: datass.data.items
+                        })
+                      });
                     }
                   }).catch(e => {
                     console.log(e);
@@ -102,7 +114,6 @@ export default class Home extends React.Component {
       'pros',
       'cons',
       'score',
-      'subcategoryid'
     ].forEach(mtc => {
       if(this.state.formController[mtc] == '' && !error) {
         error = true;
@@ -187,10 +198,26 @@ export default class Home extends React.Component {
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.iconurl}/></p>
         </div>
         <div className='inputhold'>
-            <p style={{fontSize: '18px'}}>Subcategoryid: <br/><input name='subcategoryid' style={{height: '10px',
-            width: '90%'
-        }} type='text' onChange={this.handleInputChange} value={this.state.formController.subcategoryid}/></p>
-        </div>
+            <p style={{fontSize: '18px'}}>Subcategory: <br/>
+            
+            
+            </p>
+
+            {this.state.subcategories.length == 0 ? null : <select value={this.state.formController.subcategoryid} name="currency" id="currency" className='selectCrypto' onChange={(val) => {
+                  // console.log(val.target.value);
+                  var _fC = this.state.formController;
+                  _fC.subcategoryid = val.target.value;
+
+
+                  this.setState({
+                      formController: _fC,
+                  })
+              }}>
+                  {this.state.subcategories.map(s => <option value={s._id}>{s.title}</option>)}
+                </select>}
+
+
+        </div><br/>
         <div className='inputhold'>
             <p style={{fontSize: '26px'}}>Description: <br/> 
           
