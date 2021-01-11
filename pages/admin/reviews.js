@@ -85,7 +85,7 @@ export default class Home extends React.Component {
         window.location.replace('/admin/reviews');
       }).catch(e => {
         console.log(e);
-        alert('There was an error with the request. Check the site url is unique and was not added before');
+        alert('There was an error with the request. If you\'re filling Rich Text, please reduce your characters in order to avoid memory usage');
         return;
       })
     }
@@ -119,7 +119,7 @@ export default class Home extends React.Component {
         window.location.replace('/admin/reviews');
       }).catch(e => {
         console.log(e);
-        alert('There was an error with the request. Check the site url is unique and was not added before');
+        alert('There was an error with the request. If you\'re filling Rich Text, please reduce your characters in order to avoid memory usage');
         return;
       })
     }
@@ -146,7 +146,7 @@ export default class Home extends React.Component {
         window.location.replace('/admin/reviews');
       }).catch(e => {
         console.log(e);
-        alert('There was an error with the request. Check the site url is unique and was not added before');
+        alert('There was an error with the request. If you\'re filling Rich Text, please reduce your characters in order to avoid memory usage');
         return;
       })
     }
