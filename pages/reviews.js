@@ -27,9 +27,6 @@ export default class Home extends React.Component {
     if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
         window.location.replace(`/account`)
     }else{
-        if(userCookies['ckpl'] != '999') {
-        window.location.replace(`/account`)
-        }else{
             ServiceAuth.getreviewitems({
                 "token": userCookies['cktoken']
               }).then(response => {
@@ -65,7 +62,7 @@ export default class Home extends React.Component {
                 alert(e);
                 return;
               })
-        }
+        
     };
   }
 
