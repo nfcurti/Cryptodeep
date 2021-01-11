@@ -131,15 +131,15 @@ export default class Home extends React.Component {
                     <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{this.state.item.title}</p>
                     <p style={{fontSize:"0.7em"}}>{this.state.item.description.length < 200 ? this.state.item.description : this.state.item.description.substring(0, 200)+'...'}</p>
                     <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
-                  <span style={{marginTop: '6px', marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.length}</span>
-                  <ReactStars
-                      count={5}
-                      size={20}
-                      value={this.state.item.score}
-                      edit={false}
-                      isHalf={true}
-                      activeColor="#ffd700"
-                    />
+                    <span style={{marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item._id).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length})</span>
+                   <ReactStars
+                       count={5}
+                       size={14}
+                       value={this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length}
+                       edit={false}
+                       isHalf={true}
+                       activeColor="#ffd700"
+                     />
                   </div>
 
                   </div><div className="end-review">

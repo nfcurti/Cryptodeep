@@ -227,11 +227,11 @@ export default class Home extends React.Component {
    
                  <div className="stars-review">
                  <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
-               <span style={{marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == rs._id).length}</span>
+               <span style={{marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == rs._id).length} ({this.state.reviews.filter(r => r.reviewid == rs._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == rs._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == rs._id).length})</span>
                    <ReactStars
                        count={5}
                        size={14}
-                       value={rs.score}
+                       value={this.state.reviews.filter(r => r.reviewid == rs._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == rs._id).length}
                        edit={false}
                        isHalf={true}
                        activeColor="#ffd700"
