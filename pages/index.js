@@ -29,12 +29,81 @@ export default class Home extends React.Component {
       sv_roll_e: 0,
       remTime: null,
       userwallet: 0,
-      cryptoval: null
+      cryptoval: null,
+      reviewsites: [],
+      reviews: []
     }
   }
 
   componentDidMount() {
     this._initData();
+    this._loadReviews();
+  }
+
+   shuffle = (array) => {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
+
+  _loadReviews = () => {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+        window.location.replace(`/account`)
+    }else{
+        if(userCookies['ckpl'] != '999') {
+        window.location.replace(`/account`)
+        }else{
+            ServiceAuth.getreviewitems({
+                "token": userCookies['cktoken']
+              }).then(response => {
+                const data = response.data;
+                console.log(data);
+                if(data.data.items != null) {
+                    var _pool = data.data.items;
+                    console.log(_pool);
+                    _pool = _pool.filter(p => p.enabled == true);
+
+                    var _catTemp = _pool.reduce((acc, i) => acc+i.hashtags+(_pool.indexOf(i) == _pool.length - 1 ? "" : ","), "").split(',');
+                    var unique = _catTemp.filter(function(elem, index, self) {
+                      return index === self.indexOf(elem);
+                  })
+
+                  ServiceAuth.getreviews({
+                    "token": userCookies['cktoken']
+                  }).then(response => {
+                    const dataz = response.data;
+                    console.log(dataz);
+                    _pool = this.shuffle(_pool);
+
+                    this.setState({
+                      reviewsites: _pool.length <= 5 ? _pool : _pool.slice(0, 5),
+                      reviews: dataz.data.items
+                  })
+                  })
+
+                    
+                }
+              }).catch(e => {
+                console.log(e);
+                alert(e);
+                return;
+              })
+        }
+    };
   }
 
   _initData = () => {
@@ -142,182 +211,48 @@ export default class Home extends React.Component {
         <div className='bp-middle bp-h-bg'>
           <div className='bp-middle-over'>
             <div className="bp-reviewbox">
-              
-              <div className="review">
-                <div className="single-review"> 
-                  <div style={{width:"fit-content"}}>
-                    <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
-                    <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
-                  </div>
-                  <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
-                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                    <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
-                  </div>
-  
-                <div className="stars-review">
-                <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
-                  <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
-                  <ReactStars
-                      count={5}
-                      size={14}
-                      value={3.8}
-                      edit={false}
-                      isHalf={true}
-                      activeColor="#ffd700"
-                    />
-                  </div>
-                </div>
-                <div className="end-review">
-                  
-                  <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
-                    <p>REVIEW</p>
-                  </div>
-                  <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
-                    <p style={{textAlign:"right"}}>SITE</p>
-                  </div>
-                </div>
-                  </div>
-              </div>
-              <div className="review">
-                <div className="single-review"> 
-                  <div style={{width:"fit-content"}}>
-                    <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
-                    <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
-                  </div>
-                  <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
-                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                    <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
-                  </div>
-  
-                <div className="stars-review">
-                <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
-                  <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
-                  <ReactStars
-                      count={5}
-                      size={14}
-                      value={3.8}
-                      edit={false}
-                      isHalf={true}
-                      activeColor="#ffd700"
-                    />
-                  </div>
-                </div>
-                <div className="end-review">
-                  
-                  <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
-                    <p>REVIEW</p>
-                  </div>
-                  <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
-                    <p style={{textAlign:"right"}}>SITE</p>
-                  </div>
-                </div>
-                  </div>
-              </div>
-              <div className="review">
-                <div className="single-review"> 
-                  <div style={{width:"fit-content"}}>
-                    <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
-                    <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
-                  </div>
-                  <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
-                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                    <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
-                  </div>
-  
-                <div className="stars-review">
-                <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
-                  <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
-                  <ReactStars
-                      count={5}
-                      size={14}
-                      value={3.8}
-                      edit={false}
-                      isHalf={true}
-                      activeColor="#ffd700"
-                    />
-                  </div>
-                </div>
-                <div className="end-review">
-                  
-                  <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
-                    <p>REVIEW</p>
-                  </div>
-                  <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
-                    <p style={{textAlign:"right"}}>SITE</p>
-                  </div>
-                </div>
-                  </div>
-              </div>
-              <div className="review">
-                <div className="single-review"> 
-                  <div style={{width:"fit-content"}}>
-                    <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
-                    <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
-                  </div>
-                  <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
-                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                    <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
-                  </div>
-  
-                <div className="stars-review">
-                <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
-                  <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
-                  <ReactStars
-                      count={5}
-                      size={14}
-                      value={3.8}
-                      edit={false}
-                      isHalf={true}
-                      activeColor="#ffd700"
-                    />
-                  </div>
-                </div>
-                <div className="end-review">
-                  
-                  <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
-                    <p>REVIEW</p>
-                  </div>
-                  <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
-                    <p style={{textAlign:"right"}}>SITE</p>
-                  </div>
-                </div>
-                  </div>
-              </div>
-              <div className="review">
-                <div className="single-review"> 
-                  <div style={{width:"fit-content"}}>
-                    <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
-                    <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
-                  </div>
-                  <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
-                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                    <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
-                  </div>
-  
-                <div className="stars-review">
-                <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
-                  <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
-                  <ReactStars
-                      count={5}
-                      size={14}
-                      value={3.8}
-                      edit={false}
-                      isHalf={true}
-                      activeColor="#ffd700"
-                    />
-                  </div>
-                </div>
-                <div className="end-review">
-                  
-                  <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
-                    <p>REVIEW</p>
-                  </div>
-                  <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
-                    <p style={{textAlign:"right"}}>SITE</p>
-                  </div>
-                </div>
-                  </div>
-              </div>
+
+             {
+               this.state.reviewsites.map(rs => {
+                 return  <div className="review">
+                 <div className="single-review"> 
+                   <div style={{width:"fit-content"}}>
+                     <img className='review-logo' src={rs.iconurl}/>
+                     <p className='review-score'>{this.state.reviews.filter(r => r.reviewid == rs._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == rs._id).reduce((acc, r) => acc+r.score, 0) / this.state.reviews.filter(r => r.reviewid == rs._id).length}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                   </div>
+                   <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
+               <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{rs.title}</p>
+               <p style={{fontSize:"0.7em"}}>{rs.description.length < 36 ? rs.description : `${rs.description.substring(0, 36)}...`}</p>
+                   </div>
+   
+                 <div className="stars-review">
+                 <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
+               <span style={{marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == rs._id).length}</span>
+                   <ReactStars
+                       count={5}
+                       size={14}
+                       value={this.state.reviews.filter(r => r.reviewid == rs._id).reduce((acc, r) => acc+r.score, 0) / this.state.reviews.filter(r => r.reviewid == rs._id).length}
+                       edit={false}
+                       isHalf={true}
+                       activeColor="#ffd700"
+                     />
+                   </div>
+                 </div>
+                 <div className="end-review">
+                   
+                   <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
+                     <p>REVIEW</p>
+                   </div>
+                   <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                     <p style={{textAlign:"right"}}>SITE</p>
+                   </div>
+                 </div>
+                   </div>
+               </div>
+               
+               })
+             } 
+             
             </div>
             
             <div className='bp-middle-left bp-blueshadow'>
