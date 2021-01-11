@@ -159,7 +159,9 @@ export default class Home extends React.Component {
               </div>
             </div>
 
-            <div className='bp-middle-all bp-blueshadow'>
+            <div className='bp-middle-all bp-blueshadow' style={{
+          textAlign: 'left'
+        }}>
             {
               this.state.item.description == ''
               ? null :
