@@ -129,7 +129,7 @@ export default class Home extends React.Component {
                   </div>
                   <div style={{padding:"0.1em",maxWidth: '65%',marginLeft:"0.5em",marginTop:"-0.3em"}}>
                     <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{this.state.item.title}</p>
-                    <p style={{fontSize:"0.7em"}}>{this.state.item.description}</p>
+                    <p style={{fontSize:"0.7em"}}>{this.state.item.description.length < 200 ? this.state.item.description : this.state.item.description.substring(0, 200)+'...'}</p>
                     <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
                   <span style={{marginTop: '6px', marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.length}</span>
                   <ReactStars
@@ -158,6 +158,51 @@ export default class Home extends React.Component {
                   </div>
               </div>
             </div>
+
+            <div className='bp-middle-all bp-blueshadow'>
+            <p className='loginTitle'>{this.state.item.title} </p>
+            {
+              this.state.item.description == ''
+              ? null :
+              <div
+              dangerouslySetInnerHTML={{
+                __html: this.state.item.description
+              }}></div>
+            }
+        </div>
+
+        <div className='bp-middle-all bp-blueshadow' style={{
+          textAlign: 'left'
+        }}>
+            <p className='loginTitle' style={{
+              textAlign: 'center'
+            }}>Pros </p>
+            {
+              this.state.item.pros == ''
+              ? null :
+              <div
+              dangerouslySetInnerHTML={{
+                __html: this.state.item.pros
+              }}></div>
+            }
+        </div>
+
+        <div className='bp-middle-all bp-blueshadow' style={{
+          textAlign: 'left'
+        }}>
+            <p className='loginTitle' style={{
+              textAlign: 'center'
+            }}>Cons </p>
+            {
+              this.state.item.cons == ''
+              ? null :
+              <div
+              dangerouslySetInnerHTML={{
+                __html: this.state.item.cons
+              }}></div>
+            }
+        </div>
+
             <div className='bp-middle-all bp-blueshadow latest_rev'>
             <p className='loginTitle'>Latest reviews </p>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>This is what people think of this site </p>

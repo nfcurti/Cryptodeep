@@ -8,6 +8,9 @@ import ServiceAuth from '../../services/ServiceAuth';
 import ServiceCookies from '../../services/cookies';
 import { PaginatedList } from 'react-paginated-list';
 import ReactStars from "react-rating-stars-component";
+const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
+import 'react-quill/dist/quill.snow.css';
+
 export default class Home extends React.Component {
 
   constructor() {
@@ -19,6 +22,8 @@ export default class Home extends React.Component {
           description: '',
           siteurl: '',
           hashtags: '',
+          pros: '',
+          cons: '',
           score: 2.5
       }
     }
@@ -56,6 +61,8 @@ export default class Home extends React.Component {
       'description',
       'siteurl',
       'hashtags',
+      'pros',
+      'cons',
       'score'
     ].forEach(mtc => {
       if(this.state.formController[mtc] == '' && !error) {
@@ -93,7 +100,9 @@ export default class Home extends React.Component {
         'description': this.state.formController.description,
         'siteurl': this.state.formController.siteurl,
         'hashtags': this.state.formController.hashtags,
-        'score': this.state.formController.score
+        'score': this.state.formController.score,
+        'pros': this.state.formController.pros,
+        'cons': this.state.formController.cons
       }
       console.log(_mTSZ);
       ServiceAuth.addreviewitem(_mTSZ).then(response => {
@@ -145,9 +154,99 @@ export default class Home extends React.Component {
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.hashtags}/></p>
         </div>
         <div className='inputhold'>
-            <p style={{fontSize: '18px'}}>Description: <br/><textarea row={6} name='description' type='text' style={{
-                width: '90%'
-            }} onChange={this.handleInputChange} value={this.state.formController.description}/></p>
+            <p style={{fontSize: '26px'}}>Description: <br/> 
+          
+        </p>
+        <div style={{width: '90%', marginLeft: '5%'}}>
+        <ReactQuill
+        className='richeditor'
+          formats={[
+            'header',
+            'bold', 'italic', 'underline', 'strike', 'blockquote',
+            'list', 'bullet', 'indent',
+            'link', 'image'
+          ]}
+          modules={{
+            toolbar: [
+              [{ 'header': [1, 2, false] }],
+              ['bold', 'italic', 'underline','strike', 'blockquote'],
+              [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+              ['link', 'image'],
+              ['clean']
+            ],
+          }}
+          value={this.state.formController.description}
+          onChange={(val) => {
+            var _fC = this.state.formController;
+            _fC.description = val;
+            this.setState({
+              formController: _fC
+            })
+          }}
+        /><br/>
+        </div>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Pros: <br/></p>
+            <div style={{width: '90%', marginLeft: '5%'}}>
+        <ReactQuill
+        className='richeditor'
+          formats={[
+            'header',
+            'bold', 'italic', 'underline', 'strike', 'blockquote',
+            'list', 'bullet', 'indent',
+            'link', 'image'
+          ]}
+          modules={{
+            toolbar: [
+              [{ 'header': [1, 2, false] }],
+              ['bold', 'italic', 'underline','strike', 'blockquote'],
+              [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+              ['link', 'image'],
+              ['clean']
+            ],
+          }}
+          value={this.state.formController.pros}
+          onChange={(val) => {
+            var _fC = this.state.formController;
+            _fC.pros = val;
+            this.setState({
+              formController: _fC
+            })
+          }}
+        /><br/>
+        </div>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Cons: <br/></p>
+
+            <div style={{width: '90%', marginLeft: '5%'}}>
+            <ReactQuill
+        className='richeditor'
+          formats={[
+            'header',
+            'bold', 'italic', 'underline', 'strike', 'blockquote',
+            'list', 'bullet', 'indent',
+            'link', 'image'
+          ]}
+          modules={{
+            toolbar: [
+              [{ 'header': [1, 2, false] }],
+              ['bold', 'italic', 'underline','strike', 'blockquote'],
+              [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+              ['link', 'image'],
+              ['clean']
+            ],
+          }}
+          value={this.state.formController.cons}
+          onChange={(val) => {
+            var _fC = this.state.formController;
+            _fC.cons = val;
+            this.setState({
+              formController: _fC
+            })
+          }}
+        /><br/></div>
         </div>
         <div style={{margin: 'auto', width: '200px'}}>
         <ReactStars

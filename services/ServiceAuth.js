@@ -421,6 +421,8 @@ const addreviewitem = data => {
       !data.description ||
       !data.siteurl ||
       !data.score ||
+      !data.pros ||
+      !data.cons ||
       !data.hashtags) {
 
    alert("Missing field");
@@ -444,7 +446,9 @@ var _mapToSend = {
   "description": data.description,
   "siteurl": data.siteurl,
   "hashtags": data.hashtags,
-  "score": data.score
+  "score": data.score,
+  "pros": data.pros,
+  "cons": data.cons
 };
 
 return _http.post(`addreviewitem`, qs.stringify(_mapToSend));
@@ -487,6 +491,8 @@ const updatereviewitem = data => {
       !data.description ||
       !data.siteurl ||
       !data.score ||
+      !data.pros ||
+      !data.cons ||
       !data.hashtags) {
 
    alert("Missing field");
@@ -513,7 +519,9 @@ var _mapToSend = {
   "description": data.description,
   "siteurl": data.siteurl,
   "hashtags": data.hashtags,
-  "score": data.score
+  "score": data.score,
+  "pros": data.pros,
+  "cons": data.cons
 };
 
 return _http.post(`updatereviewitem`, qs.stringify(_mapToSend));

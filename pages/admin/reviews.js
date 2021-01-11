@@ -62,7 +62,9 @@ export default class Home extends React.Component {
         'hashtags': item.hashtags,
         'enabled': newval ? 'true' : 'false',
         'featured': item.featured == null ? 'false' : (item.featured ? 'true' : 'false'),
-        'score': item.score
+        'score': item.score,
+        'pros': item.pros,
+        'cons': item.cons
       }
       console.log(_mTSZ);
       ServiceAuth.updatereviewitem(_mTSZ).then(response => {
@@ -94,7 +96,9 @@ export default class Home extends React.Component {
         'hashtags': item.hashtags,
         'enabled': item.enabled ? 'true' : 'false',
         'featured': newval ? 'true' : 'false',
-        'score': item.score
+        'score': item.score,
+        'pros': item.pros,
+        'cons': item.cons
       }
       console.log(_mTSZ);
       ServiceAuth.updatereviewitem(_mTSZ).then(response => {
