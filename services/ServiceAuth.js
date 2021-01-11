@@ -530,6 +530,7 @@ return _http.post(`updatereviewitem`, qs.stringify(_mapToSend));
 const doreview = data => {
   if(!data.token || 
       !data.reviewid ||
+      !data.scoregiven ||
       !data.userid) {
 
    alert("Missing field");
@@ -550,7 +551,8 @@ const _http = axios.create({
 var _mapToSend = {
   "message": data.message ?? "",
   "userid": data.userid,
-  "reviewid": data.reviewid
+  "reviewid": data.reviewid,
+  "scoregiven": data.scoregiven
 };
 
 return _http.post(`doreview`, qs.stringify(_mapToSend));
