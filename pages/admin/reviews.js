@@ -58,10 +58,41 @@ export default class Home extends React.Component {
         'iconurl': item.iconurl,
         'title': item.title,
         'description': item.description,
-        'reward': item.reward,
         'siteurl': item.siteurl,
         'hashtags': item.hashtags,
-        'enabled': newval ? 'true' : 'false'
+        'enabled': newval ? 'true' : 'false',
+        'featured': item.featured
+      }
+      console.log(_mTSZ);
+      ServiceAuth.updatereviewitem(_mTSZ).then(response => {
+        const data = response.data;
+        console.log(data);
+        window.location.replace('/admin/reviews');
+      }).catch(e => {
+        console.log(e);
+        alert('There was an error with the request. Check the site url is unique and was not added before');
+        return;
+      })
+    }
+  }
+
+  toggleFeaturingReviewItem = (item, newval) => {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
+    }else{
+      if(userCookies['ckpl'] != '999') { return; }
+      
+      const _mTSZ = {
+        'token': userCookies['cktoken'],
+        'reviewid': item._id,
+        'iconurl': item.iconurl,
+        'title': item.title,
+        'description': item.description,
+        'siteurl': item.siteurl,
+        'hashtags': item.hashtags,
+        'enabled': item.enabled,
+        'featured': newval ? 'true' : 'false'
       }
       console.log(_mTSZ);
       ServiceAuth.updatereviewitem(_mTSZ).then(response => {
@@ -124,10 +155,10 @@ export default class Home extends React.Component {
                                     <td><p>#</p></td>
                                     <td><p>Title</p></td>
                                     <td><p>Site Url</p></td>
-                                    <td><p>Reward<br/>in points</p></td>
                                     <td><p>Description</p></td>
                                     <td><p>Hashtags</p></td>
                                     <td><p>Icon Url </p></td>
+                                    <td><p>Featured</p></td>
                                     <td><p>Enabled </p></td>
                                     <td><p>Actions</p></td>
                                 </tr>
@@ -139,7 +170,6 @@ export default class Home extends React.Component {
                 <td style={{width: '5em'}}><p className="numbering">{this.state.items.indexOf(item) + 1}</p></td>
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.title}</p></td>
                 <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>{item.siteurl}</p></td>
-                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.reward}</p></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.description.length < 10 ? item.description : `${item.description.substring(0, 10)}...`}</p></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.hashtags.split(',').map(h => <button style={{margin: '4px'}} className='crypto-status-btn csb-success'>{h}</button>)}</p></td>
                                 <td style={{width: '100px'}}><div>
@@ -157,6 +187,16 @@ export default class Home extends React.Component {
                                     : <button className='crypto-status-btn csb-in-process' onClick={() => {
                                       this.toggleEnablingReviewItem(item, true);
                                     }}>Disabled</button>  
+                                }
+                                </td>
+                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}>
+                                {
+                                    item.featured ? <button className='crypto-status-btn csb-success' onClick={() => {
+                                      this.toggleFeaturingReviewItem(item, false);
+                                    }}>Featured</button> 
+                                    : <button className='crypto-status-btn csb-in-process' onClick={() => {
+                                      this.toggleFeaturingReviewItem(item, true);
+                                    }}>Normal</button>  
                                 }
                                 </td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {

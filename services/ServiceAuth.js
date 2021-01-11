@@ -2,8 +2,8 @@ import axios from "axios";
 import http from "./URLManager";
 var qs = require("qs");
 
-// const finalUrl = 'http://localhost:3002/api-cryptodeep/';
-const finalUrl = "https://juancurti.com/api-cryptodeep/";
+const finalUrl = 'http://localhost:3002/api-cryptodeep/';
+// const finalUrl = "https://juancurti.com/api-cryptodeep/";
 
 const login = data => {
   if(data.username.length == 0 ||
@@ -419,7 +419,6 @@ const addreviewitem = data => {
       !data.iconurl ||
       !data.title ||
       !data.description ||
-      !data.reward ||
       !data.siteurl ||
       !data.hashtags) {
 
@@ -442,7 +441,6 @@ var _mapToSend = {
   "iconurl": data.iconurl,
   "title": data.title,
   "description": data.description,
-  "reward": data.reward,
   "siteurl": data.siteurl,
   "hashtags": data.hashtags
 };
@@ -481,10 +479,10 @@ const updatereviewitem = data => {
   if(!data.token || 
       !data.reviewid ||
       !data.enabled ||
+      !data.featured ||
       !data.iconurl ||
       !data.title ||
       !data.description ||
-      !data.reward ||
       !data.siteurl ||
       !data.hashtags) {
 
@@ -506,10 +504,10 @@ const _http = axios.create({
 var _mapToSend = {
   "reviewid": data.reviewid,
   "enabled": data.enabled,
+  "featured": data.featured,
   "iconurl": data.iconurl,
   "title": data.title,
   "description": data.description,
-  "reward": data.reward,
   "siteurl": data.siteurl,
   "hashtags": data.hashtags
 };

@@ -75,7 +75,7 @@ export default class Home extends React.Component {
                 if(data.data.items != null) {
                     var _pool = data.data.items;
                     console.log(_pool);
-                    _pool = _pool.filter(p => p.enabled == true);
+                    _pool = _pool.filter(p => p.enabled == true && p.featured == true);
 
                     var _catTemp = _pool.reduce((acc, i) => acc+i.hashtags+(_pool.indexOf(i) == _pool.length - 1 ? "" : ","), "").split(',');
                     var unique = _catTemp.filter(function(elem, index, self) {

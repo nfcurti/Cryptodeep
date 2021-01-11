@@ -16,7 +16,6 @@ export default class Home extends React.Component {
           title: '',
           iconurl: '',
           description: '',
-          reward: '',
           siteurl: '',
           hashtags: ''
       }
@@ -53,7 +52,6 @@ export default class Home extends React.Component {
       'iconurl',
       'title',
       'description',
-      'reward',
       'siteurl',
       'hashtags'
     ].forEach(mtc => {
@@ -65,10 +63,6 @@ export default class Home extends React.Component {
     })
 
     if(error) { return; }
-
-    if(isNaN(this.state.formController.reward)) {
-    return alert('Reward should be a number');
-    }
 
     if(!this.state.formController.siteurl.includes('http')) {
         return alert('Site URL should be full, starting with http:...');
@@ -94,7 +88,6 @@ export default class Home extends React.Component {
         'iconurl': this.state.formController.iconurl,
         'title': this.state.formController.title,
         'description': this.state.formController.description,
-        'reward': this.state.formController.reward,
         'siteurl': this.state.formController.siteurl,
         'hashtags': this.state.formController.hashtags
       }
@@ -141,11 +134,6 @@ export default class Home extends React.Component {
             <p style={{fontSize: '18px'}}>Icon (URL):<br/> <input name='iconurl' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.iconurl}/></p>
-        </div>
-        <div className='inputhold'>
-            <p style={{fontSize: '18px'}}>Reward (In points):<br/> <input name='reward' style={{height: '10px',
-            width: '90%'
-        }} type='number' onChange={this.handleInputChange} value={this.state.formController.reward}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Hashtags (Separated by comma and no spaces, e.g.: gambling,gaming,enterprise): <br/><input name='hashtags' style={{height: '10px',
