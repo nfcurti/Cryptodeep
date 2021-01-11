@@ -6,18 +6,117 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 import ServiceAuth from '../services/ServiceAuth';
+import ServiceCookies from '../services/cookies';
+import { PaginatedList } from 'react-paginated-list';
 export default class Home extends React.Component {
 
 
   constructor() {
     super();
     this.state = {
-        
+      userid: '',
+      item: null,
+      reviews: [],
+      formController: {
+        score: 3.5,
+        message: ''
+      }
+    }
+  }
+
+  componentDidMount() {
+    const userCookies = ServiceCookies.getUserCookies();
+        if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+            window.location.replace(`/account`)
+        }else{
+          this.setState({
+            userid: userCookies['ckuserid']
+          })
+          const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+
+                if(!urlParams.has('id')) {
+                    window.location.replace(`/reviews`)
+                    return;
+                }
+                var _idToFetch = urlParams.get('id'); 
+                ServiceAuth.getreviewitems({
+                    "token": userCookies['cktoken']
+                  }).then(response => {
+                    const data = response.data;
+                    console.log(data);
+                    if(data.data.items != null) {
+                        if(data.data.items.filter(i => i._id == _idToFetch).length == 0) {
+                            window.location.replace(`/reviews`)
+                        }
+
+                        var _itemX = data.data.items.filter(i => i._id == _idToFetch)[0];
+                        
+                        ServiceAuth.getreviews({
+                          "token": userCookies['cktoken'],
+                          'reviewid': _itemX._id
+                        }).then(response => {
+                          const dataz = response.data;
+                          console.log(dataz);
+                          this.setState({
+                            item: _itemX,
+                            reviews: dataz.data.items
+                        })
+                        })
+                        
+                    }
+                  }).catch(e => {
+                    console.log(e);
+                    alert(e);
+                    return;
+                  })
+        };
+
+       
+  }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    const controller = this.state.formController;
+    controller[name] = value;
+    this.setState({
+      formController: controller
+    })
+  }
+
+  doReview = () => {
+    if(this.state.formController.message == '') {
+      var _a = confirm('Are you sure you want to send the review without a message?');
+      if(!_a) { return; }
+    }
+
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
+    }else{
+      
+      const _mTSZ = {
+        'token': userCookies['cktoken'],
+        'reviewid': this.state.item._id,
+        'userid': userCookies['ckuserid'],
+        'message': this.state.formController.message,
+        'score': this.state.formController.score ?? 2.5
+      }
+      console.log(_mTSZ);
+      ServiceAuth.doreview(_mTSZ).then(response => {
+        const data = response.data;
+        console.log(data);
+        window.location.replace(`/single?id=${this.state.item._id}`);
+      }).catch(e => {
+        console.log(e);
+        alert('You already reviewed this site');
+        return;
+      })
     }
   }
 
   render() {
-    return (
+    return this.state.item == null ? null : (
       <BasePage>
       <br/>
         <div className='bp-middle'>
@@ -26,18 +125,18 @@ export default class Home extends React.Component {
               <div className="review">
                 <div className="single-review"> 
                   <div style={{width:"fit-content"}}>
-                    <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
-                    <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                    <img className='review-logo' src={this.state.item.iconurl}/>
+                    <p className='review-score'>{this.state.reviews.length == 0 ? '-' : this.state.reviews.reduce((acc, r) => acc+r.score, 0) / this.state.reviews.length}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
                   </div>
-                  <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
-                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                    <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
+                  <div style={{padding:"0.1em",maxWidth: '65%',marginLeft:"0.5em",marginTop:"-0.3em"}}>
+                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{this.state.item.title}</p>
+                    <p style={{fontSize:"0.7em"}}>{this.state.item.description}</p>
                     <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
-                  <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
+                  <span style={{marginTop: '6px', marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.length}</span>
                   <ReactStars
                       count={5}
-                      size={14}
-                      value={3.8}
+                      size={20}
+                      value={this.state.reviews.reduce((acc, r) => acc+r.score, 0) / this.state.reviews.length}
                       edit={false}
                       isHalf={true}
                       activeColor="#ffd700"
@@ -46,10 +145,12 @@ export default class Home extends React.Component {
 
                   </div><div className="end-review">
                   
-                  <p className='qty_com'>21 Messages</p>
+                  <p className='qty_com'>{this.state.reviews.filter(r => r.message != '').length} Messages</p>
                   <br/>
                   
-                  <div style={{backgroundColor:"#353535",    borderRadius: '1em',width: '10em'}} className="inside-end-review" >
+                  <div onClick={() => {
+                    const tab = window.open(this.state.item.siteurl, '_blank');
+                  }} style={{backgroundColor:"#353535",    borderRadius: '1em',width: '10em'}} className="inside-end-review" >
                     <p style={{textAlign:"right"}}>SITE</p>
                   </div>
                 </div>
@@ -58,52 +159,63 @@ export default class Home extends React.Component {
                   </div>
               </div>
             </div>
-             <div className='bp-middle-all bp-blueshadow latest_rev'>
-                <p className='loginTitle'>Latest reviews </p>
+            <div className='bp-middle-all bp-blueshadow latest_rev'>
+            <p className='loginTitle'>Latest reviews </p>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>This is what people think of this site </p>
-               
-                <div className='scores'>
+                
+            <PaginatedList
+              list={this.state.reviews.filter(r => r.message != "")}
+              itemsPerPage={25}
+              renderList={(listx) => (
+                <>
+                  
+               {
+                 listx.map((item, id) => {
+                  return <div>
+                <div key={id} className='scores'>
                     <ReactStars
                           count={5}
                       edit={false}
-                          size={14}
-                          value={3.8}
+                          size={18}
+                          value={item.score}
                           isHalf={true}
                           activeColor="#ffd700"
                         />
-                      <p style={{marginTop:'1em'}}>info@cryptodeep.com - 01-/01/2020 12:34</p>
+                      <p style={{marginTop:'1em'}}>By {item.username} - Date: {item.created_at.replace('T', ' ').substring(0, 16)}</p>
                     </div>
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
                       
-                      <textarea style={{resize:'none'}} readonly type='text'  value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Thank you" name='comment' rows={5}/>
+                      <textarea style={{resize:'none'}} readonly type='text'  value={item.message} name='comment' rows={5}/>
                     </div>
                      <hr style={{backgroundColor: '#f5a500',height: '1px', border:'none'}}/>
-                     <div className='scores'>
-                    <ReactStars
-                          count={5}
-                          size={14}
-                      edit={false}
-                          value={3.8}
-                          isHalf={true}
-                          activeColor="#ffd700"
-                        />
-                      <p style={{marginTop:'1em'}}>info@cryptodeep.com - 01-/01/2020 12:34</p>
-                    </div>
-                    <div className='inputhold' style={{marginBottom: '-1em'}}>
-                      
-                      <textarea style={{resize:'none'}} readonly type='text'  value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Thank you" name='comment' rows={5}/>
-                    </div>
-                     <hr style={{backgroundColor: '#f5a500',height: '1px', border:'none'}}/>
+                </div>
+                 })
+               }
+                
+                   
+                </>
+              )}
+            />  
             </div>
-            <div className='bp-middle-all bp-blueshadow'>
+
+            {
+              this.state.reviews.filter(r => r.userid == this.state.userid).length == 0 ?
+              <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>Leave a review </p>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Let us know what you think about this site! </p>
-                <form>
+                {/* <form> */}
                 <div className='scores'>
                     <label>Your Score</label>
                     <ReactStars
+                          onChange={(val) => {
+                            var _fC = this.state.formController;
+                            _fC.score = val;
+                            this.setState({
+                              formController: _fC
+                            })
+                          }}
                           count={5}
-                          size={14}
+                          size={30}
                           value={3.8}
                           isHalf={true}
                           activeColor="#ffd700"
@@ -115,11 +227,20 @@ export default class Home extends React.Component {
                     </div> */}
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
                       <label>Your Comment (Optional)</label>
-                      <textarea type='text'  placeholder="Leave your comment here" name='comment' rows={5}/>
+                      <textarea type='text' style={{resize: 'none'}} placeholder="Leave your comment here" name='message' onChange={this.handleInputChange} value={this.state.formController.message} rows={5}/>
                     </div>
-                    <input type='submit' style={{textAlign:"right"}} value="SEND REVIEW" />
-                </form>
-            </div>
+                    <input onClick={() => this.doReview()} type='submit' style={{textAlign:"right"}} value="SEND REVIEW" />
+                {/* </form> */}
+            </div> : 
+            <div className='bp-middle-all bp-blueshadow'>
+            <p className='loginTitle'>You already reviewed this site! </p>
+            <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Look for more sites to review and earn rewards! </p>
+            {/* <form> */}
+            {/* </form> */}
+        </div>
+            }
+             
+            
 
            
             

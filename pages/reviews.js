@@ -6,14 +6,67 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 import ServiceAuth from '../services/ServiceAuth';
+import ServiceCookies from '../services/cookies';
+import { PaginatedList } from 'react-paginated-list';
 export default class Home extends React.Component {
 
 
   constructor() {
     super();
     this.state = {
-        
+      items: [],
+      filteredList: [],
+      reviews: [],
+      categories: [],
+      filterActivated: ''
     }
+  }
+
+  componentDidMount() {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+        window.location.replace(`/account`)
+    }else{
+        if(userCookies['ckpl'] != '999') {
+        window.location.replace(`/account`)
+        }else{
+            ServiceAuth.getreviewitems({
+                "token": userCookies['cktoken']
+              }).then(response => {
+                const data = response.data;
+                console.log(data);
+                if(data.data.items != null) {
+                    var _pool = data.data.items;
+                    console.log(_pool);
+                    _pool = _pool.filter(p => p.enabled == true);
+
+                    var _catTemp = _pool.reduce((acc, i) => acc+i.hashtags+(_pool.indexOf(i) == _pool.length - 1 ? "" : ","), "").split(',');
+                    var unique = _catTemp.filter(function(elem, index, self) {
+                      return index === self.indexOf(elem);
+                  })
+
+                  ServiceAuth.getreviews({
+                    "token": userCookies['cktoken']
+                  }).then(response => {
+                    const dataz = response.data;
+                    console.log(dataz);
+                    this.setState({
+                      items: _pool,
+                      filteredList: _pool,
+                      categories: unique,
+                      reviews: dataz.data.items
+                  })
+                  })
+
+                    
+                }
+              }).catch(e => {
+                console.log(e);
+                alert(e);
+                return;
+              })
+        }
+    };
   }
 
   render() {
@@ -26,11 +79,18 @@ export default class Home extends React.Component {
                 <p className='loginTitle'>Reviews </p>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Select Category </p>
                 <div className='imgsm_box'>
-                  <div className="imgbox">
-                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/2927/2927808.svg"/>
-                    <p>Gambling</p>
-                  </div>
-                  <div className="imgbox">
+                  {this.state.categories.map(c => 
+                    <div style={{width: '100px'}} className={`imgbox ${this.state.filterActivated == c ? 'imgboxsel' : ''}`} onClick={() => {
+                      this.setState({
+                        filterActivated: c,
+                        filteredList: this.state.items.filter(i => i.hashtags.toUpperCase().includes(c.toUpperCase()))
+                      })
+                    }}>
+                      <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/2927/2927808.svg"/>
+                      <p>{c.toUpperCase()}</p>
+                    </div>
+                    )}
+                  {/* <div className="imgbox">
                     <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/3309/3309991.svg"/>
                     <p>Trading</p>
                   </div>
@@ -41,25 +101,34 @@ export default class Home extends React.Component {
                   <div className="imgbox">
                     <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/1987/1987753.svg"/>
                     <p>Other</p>
-                  </div>
+                  </div> */}
                 </div>
             </div>
-            <div className="bp-reviewbox">
-              <div className="review">
-                <div className="single-review"> 
+                <PaginatedList
+                  list={this.state.filteredList}
+                  itemsPerPage={25}
+                  renderList={(list) => (
+                    <>
+                    {
+                      list.map((item, id) => {
+                        return (
+                          
+                    <div key={id}  className="bp-reviewbox">
+                    <div className="review">
+                    <div className="single-review"> 
                   <div style={{width:"fit-content"}}>
-                    <img className='review-logo' src={'https://www.logo.wine/a/logo/Binance/Binance-Icon-Logo.wine.svg'}/>
-                    <p className='review-score'>3.8<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+                    <img className='review-logo' src={item.iconurl}/>
+                    <p className='review-score'>{this.state.reviews.filter(r => r.reviewid == item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == item._id).reduce((acc, r) => acc+r.score, 0) / this.state.reviews.filter(r => r.reviewid == item._id).length}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
                   </div>
-                  <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
-                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>Binance</p>
-                    <p style={{fontSize:"0.7em"}}>Leading crypto  site for beginners</p>
+                  <div style={{padding:"0.1em",maxWidth: '65%',marginLeft:"0.5em",marginTop:"-0.3em"}}>
+                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{item.title}</p>
+                    <p style={{fontSize:"0.7em", }}>{item.description.length < 200 ? item.description : `${item.description.substring(0, 200)}...`}</p>
                     <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
-                  <span style={{marginRight:'0.2em',fontWeight:'bold'}}>20</span>
+                        <span style={{marginTop: '6px', marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == item._id).length}</span>
                   <ReactStars
                       count={5}
-                      size={14}
-                      value={3.8}
+                      size={20}
+                      value={this.state.reviews.filter(r => r.reviewid == item._id).reduce((acc, r) => acc+r.score, 0) / this.state.reviews.filter(r => r.reviewid == item._id).length}
                       edit={false}
                       isHalf={true}
                       activeColor="#ffd700"
@@ -68,20 +137,28 @@ export default class Home extends React.Component {
 
                   </div><div className="end-review">
                   
-                  <p className='qty_com'>21 Messages</p>
+                  <p className='qty_com'>{this.state.reviews.filter(r => r.reviewid == item._id && r.message != '').length} Messages</p>
                   <br/>
                   <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
-                   <a href="/single" style={{textDecoration:'none'}}><p >REVIEW</p></a>
+                   <a href={`/single?id=${item._id}`} style={{textDecoration:'none'}}><p >REVIEW</p></a>
                   </div>
-                  <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                  <div onClick={() => {
+                    const tab = window.open(item.siteurl, '_blank');
+                  }} style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
                     <p style={{textAlign:"right"}}>SITE</p>
                   </div>
                 </div>
   
                 
-                  </div>
               </div>
             </div>
+            </div>
+                        )
+                      })
+                    }
+                    </>
+                  )}
+                />
 
             <div className='clearfix'/>
           </div>
@@ -164,6 +241,9 @@ export default class Home extends React.Component {
                     margin-bottom:-2em
                   }
                     .imgbox{padding:1em}
+                    .imgboxsel {
+                      background-color: #DC8614;
+                    }
                     .imgbox:hover {cursor:pointer;
                           background-color: #DC8614;
                           -webkit-transition: background-color 1000ms linear;

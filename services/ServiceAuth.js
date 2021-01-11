@@ -2,8 +2,8 @@ import axios from "axios";
 import http from "./URLManager";
 var qs = require("qs");
 
-const finalUrl = 'http://localhost:3002/api-cryptodeep/';
-// const finalUrl = "https://juancurti.com/api-cryptodeep/";
+// const finalUrl = 'http://localhost:3002/api-cryptodeep/';
+const finalUrl = "https://juancurti.com/api-cryptodeep/";
 
 const login = data => {
   if(data.username.length == 0 ||
@@ -517,6 +517,59 @@ var _mapToSend = {
 return _http.post(`updatereviewitem`, qs.stringify(_mapToSend));
 }
 
+const doreview = data => {
+  if(!data.token || 
+      !data.reviewid ||
+      !data.userid ||
+      !data.score) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "score": data.score,
+  "message": data.message ?? "",
+  "userid": data.userid,
+  "reviewid": data.reviewid
+};
+
+return _http.post(`doreview`, qs.stringify(_mapToSend));
+}
+
+const getreviews = data => {
+  if(!data.token) {
+    return alert("");
+}
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var url = data.reviewid ? `getreviews?reviewid=${data.reviewid}` : 'getreviews';
+
+return _http.get(url, qs.stringify({
+  
+}));
+}
+
 export default {
     login,
     signup,
@@ -539,6 +592,8 @@ export default {
     getreviewitems,
     addreviewitem,
     deletereviewitem,
-    updatereviewitem
+    updatereviewitem,
+    doreview,
+    getreviews
   }
   
