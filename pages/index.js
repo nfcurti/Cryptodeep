@@ -240,10 +240,14 @@ export default class Home extends React.Component {
                  </div>
                  <div className="end-review">
                    
-                   <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
+                   <div onClick={() => {
+                     window.location.replace(`/single?id=${rs._id}`);
+                   }} style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
                      <p>REVIEW</p>
                    </div>
-                   <div style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
+                   <div onClick={() => {
+                     const tab = window.open(rs.siteurl, '_blank');
+                   }} style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
                      <p style={{textAlign:"right"}}>SITE</p>
                    </div>
                  </div>
