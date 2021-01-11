@@ -209,7 +209,9 @@ export default class Home extends React.Component {
 
              {
                this.state.reviewsites.map(rs => {
-                 return  <div className="review">
+                 return  <div onClick={() => {
+                  window.location.replace(`/single?id=${rs._id}`);
+                 }} className="review">
                  <div className="single-review"> 
                    <div style={{width:"fit-content"}}>
                      <img className='review-logo' src={rs.iconurl}/>
