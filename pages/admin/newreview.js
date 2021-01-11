@@ -21,7 +21,7 @@ export default class Home extends React.Component {
           iconurl: '',
           description: '',
           siteurl: '',
-          hashtags: '',
+          subcategoryid: '',
           pros: '',
           cons: '',
           score: 2.5
@@ -60,10 +60,11 @@ export default class Home extends React.Component {
       'title',
       'description',
       'siteurl',
-      'hashtags',
+      'subcategoryid',
       'pros',
       'cons',
-      'score'
+      'score',
+      'subcategoryid'
     ].forEach(mtc => {
       if(this.state.formController[mtc] == '' && !error) {
         error = true;
@@ -82,10 +83,6 @@ export default class Home extends React.Component {
         return alert('Icon URL should be full, starting with http:...');
     }
 
-    if(this.state.formController.hashtags.includes(' ')) {
-        return alert('The field Hashtags cannot contain spaces. Separate each component by comma');
-    }
-
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
@@ -99,7 +96,7 @@ export default class Home extends React.Component {
         'title': this.state.formController.title,
         'description': this.state.formController.description,
         'siteurl': this.state.formController.siteurl,
-        'hashtags': this.state.formController.hashtags,
+        'subcategoryid': this.state.formController.subcategoryid,
         'score': this.state.formController.score,
         'pros': this.state.formController.pros,
         'cons': this.state.formController.cons
@@ -149,9 +146,9 @@ export default class Home extends React.Component {
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.iconurl}/></p>
         </div>
         <div className='inputhold'>
-            <p style={{fontSize: '18px'}}>Hashtags (Separated by comma and no spaces, e.g.: gambling,gaming,enterprise): <br/><input name='hashtags' style={{height: '10px',
+            <p style={{fontSize: '18px'}}>subcategoryid: <br/><input name='subcategoryid' style={{height: '10px',
             width: '90%'
-        }} type='text' onChange={this.handleInputChange} value={this.state.formController.hashtags}/></p>
+        }} type='text' onChange={this.handleInputChange} value={this.state.formController.subcategoryid}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '26px'}}>Description: <br/> 

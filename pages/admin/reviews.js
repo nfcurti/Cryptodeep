@@ -59,7 +59,7 @@ export default class Home extends React.Component {
         'title': item.title,
         'description': item.description,
         'siteurl': item.siteurl,
-        'hashtags': item.hashtags,
+        'subcategoryid': item.subcategoryid,
         'enabled': newval ? 'true' : 'false',
         'featured': item.featured == null ? 'false' : (item.featured ? 'true' : 'false'),
         'score': item.score,
@@ -93,7 +93,7 @@ export default class Home extends React.Component {
         'title': item.title,
         'description': item.description,
         'siteurl': item.siteurl,
-        'hashtags': item.hashtags,
+        'subcategoryid': item.subcategoryid,
         'enabled': item.enabled ? 'true' : 'false',
         'featured': newval ? 'true' : 'false',
         'score': item.score,
@@ -162,7 +162,6 @@ export default class Home extends React.Component {
                                     <td><p>Title</p></td>
                                     <td><p>Site Url</p></td>
                                     <td><p>Description</p></td>
-                                    <td><p>Hashtags</p></td>
                                     <td><p>Icon Url </p></td>
                                     <td><p>Featured</p></td>
                                     <td><p>Enabled </p></td>
@@ -177,7 +176,6 @@ export default class Home extends React.Component {
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.title}</p></td>
                 <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>{item.siteurl}</p></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.description.length < 10 ? item.description : `${item.description.substring(0, 10)}...`}</p></td>
-                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.hashtags.split(',').map(h => <button style={{margin: '4px'}} className='crypto-status-btn csb-success'>{h}</button>)}</p></td>
                                 <td style={{width: '100px'}}><div>
                                 <img style={{
                                   margin: '-35px -35px',

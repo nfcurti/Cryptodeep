@@ -77,11 +77,6 @@ export default class Home extends React.Component {
                     console.log(_pool);
                     _pool = _pool.filter(p => p.enabled == true && p.featured == true);
 
-                    var _catTemp = _pool.reduce((acc, i) => acc+i.hashtags+(_pool.indexOf(i) == _pool.length - 1 ? "" : ","), "").split(',');
-                    var unique = _catTemp.filter(function(elem, index, self) {
-                      return index === self.indexOf(elem);
-                  })
-
                   ServiceAuth.getreviews({
                     "token": userCookies['cktoken']
                   }).then(response => {
@@ -222,21 +217,21 @@ export default class Home extends React.Component {
                    </div>
                    <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
                <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{rs.title}</p>
-               <p style={{fontSize:"0.7em"}}>{rs.description.length < 36 ? rs.description : `${rs.description.substring(0, 36)}...`}</p>
-                   </div>
-   
-                 <div className="stars-review">
-                 <div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
-               <span style={{marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == rs._id).length} ({this.state.reviews.filter(r => r.reviewid == rs._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == rs._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == rs._id).length})</span>
+               <br/><div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
+               <span style={{marginRight:'0.2em',fontWeight:'bold', fontSize: '12px'}}>{this.state.reviews.filter(r => r.reviewid == rs._id).length} ({this.state.reviews.filter(r => r.reviewid == rs._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == rs._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == rs._id).length})</span>
                    <ReactStars
                        count={5}
-                       size={14}
+                       size={10}
                        value={this.state.reviews.filter(r => r.reviewid == rs._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == rs._id).length}
                        edit={false}
                        isHalf={true}
                        activeColor="#ffd700"
                      />
+                   </div>{/* <p style={{fontSize:"0.7em"}}>{rs.description.length < 36 ? rs.description : `${rs.description.substring(0, 36)}...`}</p> */}
                    </div>
+   
+                 <div className="stars-review">
+                 
                  </div>
                  <div className="end-review">
                    

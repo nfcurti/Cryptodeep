@@ -423,7 +423,7 @@ const addreviewitem = data => {
       !data.score ||
       !data.pros ||
       !data.cons ||
-      !data.hashtags) {
+      !data.subcategoryid) {
 
    alert("Missing field");
    return;
@@ -445,7 +445,7 @@ var _mapToSend = {
   "title": data.title,
   "description": data.description,
   "siteurl": data.siteurl,
-  "hashtags": data.hashtags,
+  "subcategoryid": data.subcategoryid,
   "score": data.score,
   "pros": data.pros,
   "cons": data.cons
@@ -493,7 +493,7 @@ const updatereviewitem = data => {
       !data.score ||
       !data.pros ||
       !data.cons ||
-      !data.hashtags) {
+      !data.subcategoryid) {
 
    alert("Missing field");
    return;
@@ -518,7 +518,7 @@ var _mapToSend = {
   "title": data.title,
   "description": data.description,
   "siteurl": data.siteurl,
-  "hashtags": data.hashtags,
+  "subcategoryid": data.subcategoryid,
   "score": data.score,
   "pros": data.pros,
   "cons": data.cons

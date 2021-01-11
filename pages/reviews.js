@@ -18,7 +18,9 @@ export default class Home extends React.Component {
       filteredList: [],
       reviews: [],
       categories: [],
-      filterActivated: ''
+      subcategories: [],
+      selectedCategory: '',
+      selectedSubcategory: ''
     }
   }
 
@@ -37,23 +39,39 @@ export default class Home extends React.Component {
                     console.log(_pool);
                     _pool = _pool.filter(p => p.enabled == true);
 
-                    var _catTemp = _pool.reduce((acc, i) => acc+i.hashtags+(_pool.indexOf(i) == _pool.length - 1 ? "" : ","), "").split(',');
-                    var unique = _catTemp.filter(function(elem, index, self) {
-                      return index === self.indexOf(elem);
-                  })
+                    ServiceAuth.getrevcategory({
+                      "token": userCookies['cktoken']
+                    }).then(response => {
+                      const datacc = response.data;
+                      console.log(datacc);
+                      this.setState({
+                        categories: datacc.data.items
+                    })
 
-                  ServiceAuth.getreviews({
-                    "token": userCookies['cktoken']
-                  }).then(response => {
-                    const dataz = response.data;
-                    console.log(dataz);
-                    this.setState({
-                      items: _pool,
-                      filteredList: _pool,
-                      categories: unique,
-                      reviews: dataz.data.items
-                  })
-                  })
+                      ServiceAuth.getrevsubcategory({
+                        "token": userCookies['cktoken']
+                      }).then(response => {
+                        const datass = response.data;
+                        console.log(datass);
+                        this.setState({
+                          subcategories: datass.data.items
+                      })
+
+                      ServiceAuth.getreviews({
+                        "token": userCookies['cktoken']
+                      }).then(response => {
+                        const dataz = response.data;
+                        console.log(dataz);
+                        this.setState({
+                          items: _pool,
+                          filteredList: _pool,
+                          reviews: dataz.data.items
+                      })
+                      })
+                      })
+                    })
+
+                  
 
                     
                 }
@@ -77,30 +95,44 @@ export default class Home extends React.Component {
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Select Category </p>
                 <div className='imgsm_box'>
                   {this.state.categories.map(c => 
-                    <div style={{width: '100px'}} className={`imgbox ${this.state.filterActivated == c ? 'imgboxsel' : ''}`} onClick={() => {
+                    <div style={{width: '100px'}} className={`imgbox ${this.state.selectedCategory == c._id ? 'imgboxsel' : ''}`} onClick={() => {
+                      
+                      var _subcategoriesAvailables = this.state.subcategories.filter(s => s.parentcategoryid == c._id);
                       this.setState({
-                        filterActivated: c,
-                        filteredList: this.state.items.filter(i => i.hashtags.toUpperCase().includes(c.toUpperCase()))
+                        selectedCategory: c._id,
+                        filteredList: this.state.items.filter(i => (_subcategoriesAvailables.map(s => s._id).indexOf(i.subcategoryid) != -1) )
                       })
                     }}>
-                      <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/2927/2927808.svg"/>
-                      <p>{c.toUpperCase()}</p>
+                      <img className='imgsm' src={c.iconurlx}/>
+                      <p>{c.title.toUpperCase()}</p>
                     </div>
                     )}
-                  {/* <div className="imgbox">
-                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/3309/3309991.svg"/>
-                    <p>Trading</p>
-                  </div>
-                  <div className="imgbox">
-                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/1775/1775748.svg"/>
-                    <p>Dating</p>
-                  </div>
-                  <div className="imgbox">
-                    <img className='imgsm' src="https://www.flaticon.com/svg/static/icons/svg/1987/1987753.svg"/>
-                    <p>Other</p>
-                  </div> */}
                 </div>
             </div>
+
+            {
+              this.state.selectedCategory == '' ? null :
+              <div style={{transition: 'all 1s ease-in'}} className='bp-middle-all bp-blueshadow'>
+              <br/><br/>
+                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Subcategories</p>
+                <div className='imgsm_box'>
+                  {this.state.subcategories.filter(s => s.parentcategoryid == this.state.selectedCategory).map(c => 
+                    <div style={{width: '100px'}} className={`imgbox ${this.state.selectedSubcategory == c._id ? 'imgboxsel' : ''}`} onClick={() => {
+                      
+                      var _subcategoriesAvailables = this.state.subcategories.filter(s => s.parentcategoryid == this.state.selectedCategory).filter(s => s.parentcategoryid == c._id);
+                      this.setState({
+                        selectedSubcategory: c._id,
+                        filteredList: this.state.items.filter(i => i.subcategoryid == c._id )
+                      })
+                    }}>
+                      <img className='imgsm' src={c.iconurlx}/>
+                      <p>{c.title.toUpperCase()}</p>
+                    </div>
+                    )}
+                </div>
+            </div>
+            }
+
                 <PaginatedList
                   list={this.state.filteredList}
                   itemsPerPage={25}
@@ -119,8 +151,8 @@ export default class Home extends React.Component {
                   </div>
                   <div style={{padding:"0.1em",maxWidth: '65%',marginLeft:"0.5em",marginTop:"-0.3em"}}>
                     <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{item.title}</p>
-                    <p style={{fontSize:"0.7em", }}>{item.description.length < 200 ? item.description : `${item.description.substring(0, 200)}...`}</p>
-                    <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
+                    {/* <p style={{fontSize:"0.7em", }}>{item.description.length < 200 ? item.description : `${item.description.substring(0, 200)}...`}</p> */}
+                    <br/><div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
                         <span style={{marginTop: '6px', marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == item._id).length} ({this.state.reviews.filter(r => r.reviewid == item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == item._id).length})</span>
                   <ReactStars
                       count={5}
