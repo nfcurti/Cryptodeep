@@ -20,8 +20,20 @@ export default class Home extends React.Component {
       categories: [],
       subcategories: [],
       selectedCategory: '',
-      selectedSubcategory: ''
+      selectedSubcategory: '',
+      formController: {
+        search: ''
+      }
     }
+  }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    const controller = this.state.formController;
+    controller[name] = value;
+    this.setState({
+      formController: controller
+    })
   }
 
   componentDidMount() {
@@ -96,7 +108,13 @@ export default class Home extends React.Component {
                 <div className='imgsm_box'>
                   {this.state.categories.map(c => 
                     <div style={{width: '100px'}} className={`imgbox ${this.state.selectedCategory == c._id ? 'imgboxsel' : ''}`} onClick={() => {
-                      
+                      if(c._id == this.state.selectedCategory) {
+                        this.setState({
+                          selectedCategory: '',
+                          filteredList: this.state.items
+                        })
+                        return;
+                      }
                       var _subcategoriesAvailables = this.state.subcategories.filter(s => s.parentcategoryid == c._id);
                       this.setState({
                         selectedCategory: c._id,
@@ -108,6 +126,20 @@ export default class Home extends React.Component {
                     </div>
                     )}
                 </div>
+                <div>
+                    <p>
+                      <input 
+                          style={{
+                            width: '90%'
+                          }}
+                          placeholder="Search..."
+                          name='search' 
+                          type='text'
+                           onChange={this.handleInputChange} 
+                          value={this.state.formController.search}
+                      />
+                     </p>
+                  </div>
             </div>
 
             {
@@ -134,7 +166,7 @@ export default class Home extends React.Component {
             }
 
                 <PaginatedList
-                  list={this.state.filteredList}
+                  list={this.state.filteredList.filter(r => r.title.toUpperCase().includes(this.state.formController.search.toUpperCase()))}
                   itemsPerPage={25}
                   renderList={(list) => (
                     <>

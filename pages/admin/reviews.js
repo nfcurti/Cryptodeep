@@ -12,8 +12,20 @@ export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      items: []
+      items: [],
+      formController: {
+        search: ''
+      }
     }
+  }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    const controller = this.state.formController;
+    controller[name] = value;
+    this.setState({
+      formController: controller
+    })
   }
 
   componentDidMount() {
@@ -149,9 +161,22 @@ export default class Home extends React.Component {
         <div className='bp-middle-over'>
         <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>Admin Reviews</p>
-
+                <div>
+                    <p>
+                      <input 
+                          style={{
+                            width: '90%'
+                          }}
+                          placeholder="Search..."
+                          name='search' 
+                          type='text'
+                           onChange={this.handleInputChange} 
+                          value={this.state.formController.search}
+                      />
+                     </p>
+                  </div>
                 <PaginatedList
-                    list={this.state.items}
+                    list={this.state.items.filter(r => r.title.toUpperCase().includes(this.state.formController.search.toUpperCase()))}
                     itemsPerPage={25}
                     renderList={(list) => (
                         <>
