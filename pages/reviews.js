@@ -333,6 +333,7 @@ export default class Home extends React.Component {
                     }
                     .imgsm{
                           width: 4em;
+                          height: 4em;
                     }
   
                    form{
