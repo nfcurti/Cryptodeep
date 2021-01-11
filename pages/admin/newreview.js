@@ -43,7 +43,10 @@ export default class Home extends React.Component {
               }).then(response => {
                 const datass = response.data;
                 console.log(datass);
+                var _fC = this.state.formController;
+                _fC.subcategoryid = datass.data.items[0]._id
                 this.setState({
+                  formController: _fC,
                   subcategories: datass.data.items
               })
             });
