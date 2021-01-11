@@ -12,6 +12,8 @@ export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
+        parentcatname: '',
+        parentid: '',
       items: []
     }
   }
@@ -24,14 +26,27 @@ export default class Home extends React.Component {
             if(userCookies['ckpl'] != '999') {
             window.location.replace(`/account`)
             }else{
-                ServiceAuth.getrevcategory({
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+
+                if(!urlParams.has('id')) {
+                    return;
+                }
+                var _idToFetch = urlParams.get('id'); 
+                var _titleOfParentCat = urlParams.get('name') ?? 'Category';
+                this.setState({
+                    parentcatname: _titleOfParentCat,
+                    parentid: _idToFetch
+                })
+
+                ServiceAuth.getrevsubcategory({
                     "token": userCookies['cktoken']
                   }).then(response => {
                     const data = response.data;
                     console.log(data);
                     if(data.data.items != null) {
                         this.setState({
-                            items: data.data.items
+                            items: data.data.items.filter(s => s.parentcategoryid == _idToFetch)
                         })
                     }
                   }).catch(e => {
@@ -58,16 +73,16 @@ export default class Home extends React.Component {
 
       var _mTSZ = {
         'token': userCookies['cktoken'],
-        'categoryid': id
+        'subcategoryid': id
       }
       console.log(_mTSZ);
-      ServiceAuth.removerevcategory(_mTSZ).then(response => {
+      ServiceAuth.removerevsubcategory(_mTSZ).then(response => {
         const data = response.data;
         console.log(data);
-        window.location.replace('/admin/categories');
+        window.location.reload();
       }).catch(e => {
         console.log(e);
-        alert('There was an error with the request. Check the site url is unique and was not added before');
+        alert('There was an error with the request.');
         return;
       })
     }
@@ -81,7 +96,7 @@ export default class Home extends React.Component {
             <br/>
         <div className='bp-middle-over'>
         <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>Admin Categories</p>
+  <p className='loginTitle'>Admin Subcategories of {this.state.parentcatname}</p>
 
                 <PaginatedList
                     list={this.state.items}
@@ -94,7 +109,6 @@ export default class Home extends React.Component {
                                     <td><p>#</p></td>
                                     <td><p>Title</p></td>
                                     <td><p>Icon Url </p></td>
-                                    <td><p>Subcategories</p></td>
                                     <td><p>Actions</p></td>
                                 </tr>
                             </thead>
@@ -111,11 +125,8 @@ export default class Home extends React.Component {
                                   height: '40px',
                                   opacity: '1',
                                 }} src={item.iconurlx}/></div></td>
-                                <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
-                    window.location.replace(`/admin/subcategories?id=${item._id}&name=${item.title}`);
-                }} className='admin-actiob admin-actiob-reject'><p>Enter</p></button></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
-                    window.location.replace(`/admin/editcategory?id=${item._id}`)
+                    window.location.replace(`/admin/editsubcategory?id=${item._id}`)
                 }} className='admin-actiob admin-actiob-validate'><p>Edit</p></button><br/><button onClick={() => {
                     this.removeReviewItem(item._id);
                 }} className='admin-actiob admin-actiob-reject'><p>Remove</p></button></td>
@@ -135,7 +146,7 @@ export default class Home extends React.Component {
                   value="Create"
                   type='submit'
                   onClick={() => {
-                    window.location.replace('/admin/newcategory');
+                    window.location.replace(`/admin/newsubcategory?parentcategoryid=${this.state.parentid}`);
                   }}
                   className='loginSubmit '
                 />

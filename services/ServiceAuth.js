@@ -685,6 +685,112 @@ var _mapToSend = {
 return _http.post(`editrevcategory`, qs.stringify(_mapToSend));
 }
 
+const addrevsubcategory = data => {
+  if(!data.token || 
+      !data.iconurlx ||
+      !data.parentcategoryid ||
+      !data.title) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "iconurlx": data.iconurlx,
+  "title": data.title,
+  'parentcategoryid': data.parentcategoryid
+};
+
+return _http.post(`addrevsubcategory`, qs.stringify(_mapToSend));
+}
+
+const getrevsubcategory = data => {
+  if(!data.token) {
+    return alert("");
+}
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+return _http.get(`getrevsubcategory`, qs.stringify({
+  
+}));
+}
+
+const removerevsubcategory = data => {
+  if(!data.token || 
+      !data.subcategoryid) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "subcategoryid": data.subcategoryid
+};
+
+return _http.post(`removerevsubcategory`, qs.stringify(_mapToSend));
+}
+
+const editrevsubcategory = data => {
+  if(!data.token || 
+      !data.subcategoryid ||
+      !data.iconurlx ||
+      !data.title) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "subcategoryid": data.subcategoryid,
+  "iconurlx": data.iconurlx,
+  "title": data.title
+};
+
+return _http.post(`editrevsubcategory`, qs.stringify(_mapToSend));
+}
+
 export default {
     login,
     signup,
@@ -713,6 +819,10 @@ export default {
     addrevcategory,
     getrevcategory,
     removerevcategory,
-    editrevcategory
+    editrevcategory,
+    addrevsubcategory,
+    getrevsubcategory,
+    removerevsubcategory,
+    editrevsubcategory
   }
   
