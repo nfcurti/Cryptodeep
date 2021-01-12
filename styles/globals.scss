@@ -418,3 +418,168 @@ a {
 		color: white;
 	}
 }
+
+.ffreview {
+	height: 160px;
+	width: 180px;
+	margin: 2px 2px;
+	// background-color: black;
+
+	.ffrcont {
+		background-color: #252540;
+		height: 70%;
+		margin-left: 5%;
+		margin-top: 5%;
+		border-radius: 4px;
+		width: 90%;
+
+		.ffrinfo {
+			margin-left: 2.5%;
+			margin-top: 2%;
+			width: 95%;
+			height: 70%;
+
+			.ffrlogo {
+				float: left;
+				margin-top: 5%;
+				margin-left: 5%;
+				width: 30%;
+				height: 60%;
+
+				img {
+					width: 100%;
+					height: 100%;
+				}
+
+
+
+				.ffreviewscoreset {
+					background-color: rgba(0,0,0,0.8);
+					border-radius: 4px;
+					padding: 4px;
+					font-family: 'Nunito';
+					margin: 0px;
+					float: left;
+					margin-left: 4px;
+					font-size: 12px;
+				}
+			}
+
+			.ffrida {
+				float: left;
+				width: 62%;
+				margin-left: 3%;
+				margin-top: 5%;
+				height: 80%;
+
+				.ffrevtit {
+					font-family: 'Nunito';
+					margin: 0px;
+					float: left;
+					font-weight: bold;
+					font-size: 18px;
+				}
+
+				.ffrevdesc {
+					font-family: 'Nunito';
+					margin: 0px;
+					float: left;
+					font-size: 10px;
+					max-lines: 3;
+				}
+			}
+		}
+
+		.ffrrate {
+			margin-left: 2.5%;
+			width: 95%;
+			height: 30%;
+			padding-left: 15%;
+			padding-top: 4px;
+
+			.ffrratep {
+				line-height: 26px;
+				font-family: 'Nunito';
+				margin: 0px;
+				float: left;
+				font-size: 14px;
+				margin-right: 6px;
+			}
+		}
+	}
+
+	.ffrc {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	.ffrctext {
+		font-family: 'Nunito';
+		margin: 0px;
+		font-size: 11px;
+		font-weight: bold;
+		text-align: center;
+		line-height: 30px;
+	}
+
+	.ffrcleft {
+		margin-left: 5%;
+		width: 45%;
+		height: 20%;
+		border-radius: 0 0 0 50%;
+		background-color: orange;
+		float: left;
+
+		&:hover {
+			background-color: darken(orange, 5%);
+		}
+	}
+
+	.ffrcright {
+		width: 45%;
+		height: 20%;
+		border-radius: 0 0 50% 0;
+		background-color: grey;
+		float: left;
+
+		&:hover {
+			background-color: darken(grey, 5%);
+		}
+	}
+
+	.ffrcleftx {
+		margin-left: 5%;
+		width: 45%;
+		height: 20%;
+		border-radius: 0 0 0 4px;
+		background-color: orange;
+		float: left;
+
+		&:hover {
+			background-color: darken(orange, 5%);
+		}
+	}
+
+	.ffrcrightx {
+		width: 45%;
+		height: 20%;
+		border-radius: 0 0 4px 0;
+		background-color: grey;
+		float: left;
+
+		&:hover {
+			background-color: darken(grey, 5%);
+		}
+	}
+}
+
+.bp-reviewbox {
+	padding-left: calc(50% - ((184px * 5) / 2));
+}
+
+@media screen and (max-width: 800px){
+	.ffreview {
+		margin-left: calc(50% - 80px);
+	}
+}

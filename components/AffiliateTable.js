@@ -79,14 +79,14 @@ export default class AffiliateTable extends React.Component {
             <div className='bp-middle-left bp-blueshadow main'>
 
             <div className='over_robot_c'/>
-        <br/><p className='bp-title' style={{textAlign:'start',padding:'1em',color:'#DC8614', fontWeight:"bold"}}>Your Referral Link: <span style={{color:'#ffffff80',fontWeight:"500"}}>https://cryptodeep.com/signup?ref={this.state.userid}</span></p>
+        <br/><p className='bp-title' style={{fontSize: '18px', textAlign:'start',padding:'1em',color:'#DC8614', fontWeight:"bold"}}>Your Referral Link: <span style={{color:'#ffffff80',fontWeight:"500"}}>https://cryptodeep.com/signup?ref={this.state.userid}</span></p>
             <div style={{width:'fit-content',float:"left"}}>
-              <p style={{textAlign:'start',paddingLeft:'1.2em'}}>Total Referrals Lifetime: {this.state.valstr.totalRef} ({this.state.valstr.totalRefSecondGen} second gen.)</p>
-              <p style={{textAlign:'start',padding:'1.2em'}}>Total Referrals This Week: {this.state.valstr.totalRefThisWeek} ({this.state.valstr.totalRefThisWeekSecondGen} second gen.)</p>
+              <p style={{fontSize: '16px', textAlign:'start',paddingLeft:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>Total Referrals Lifetime:</span> {this.state.valstr.totalRef} ({this.state.valstr.totalRefSecondGen} second gen.)</p>
+              <p style={{fontSize: '16px',textAlign:'start',padding:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>Total Referrals This Week:</span>  {this.state.valstr.totalRefThisWeek} ({this.state.valstr.totalRefThisWeekSecondGen} second gen.)</p>
             </div>
             <div className='rightEarning' style={{width:'fit-content',float:"right",marginRight:"15em"}}>
-              <p style={{textAlign:'start',paddingLeft:'1.2em'}}>Total Earnings: {this.state.valstr.totalEarnings} POINTS</p>
-              <p style={{textAlign:'start',padding:'1.2em'}}>Total Earnings Today: {this.state.valstr.totalEarningsToday} POINTS</p>
+              <p style={{fontSize: '16px',textAlign:'start',paddingLeft:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>Total Earnings:</span>  {this.state.valstr.totalEarnings} POINTS</p>
+              <p style={{fontSize: '16px',textAlign:'start',padding:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>Total Earnings Today:</span>  {this.state.valstr.totalEarningsToday} POINTS</p>
             </div>
             <PaginatedList
               list={this.state.affiliates}

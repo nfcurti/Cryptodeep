@@ -76,7 +76,8 @@ export default class Home extends React.Component {
         'featured': item.featured == null ? 'false' : (item.featured ? 'true' : 'false'),
         'score': item.score,
         'pros': item.pros,
-        'cons': item.cons
+        'cons': item.cons,
+        'shortdescription': item.shortdescription
       }
       console.log(_mTSZ);
       ServiceAuth.updatereviewitem(_mTSZ).then(response => {
@@ -110,7 +111,8 @@ export default class Home extends React.Component {
         'featured': newval ? 'true' : 'false',
         'score': item.score,
         'pros': item.pros,
-        'cons': item.cons
+        'cons': item.cons,
+        'shortdescription': item.shortdescription
       }
       console.log(_mTSZ);
       ServiceAuth.updatereviewitem(_mTSZ).then(response => {
@@ -186,7 +188,7 @@ export default class Home extends React.Component {
                                     <td><p>#</p></td>
                                     <td><p>Title</p></td>
                                     <td><p>Site Url</p></td>
-                                    <td><p>Description</p></td>
+                                    <td><p>Short<br/>Description</p></td>
                                     <td><p>Icon Url </p></td>
                                     <td><p>Featured</p></td>
                                     <td><p>Enabled </p></td>
@@ -200,7 +202,7 @@ export default class Home extends React.Component {
                 <td style={{width: '5em'}}><p className="numbering">{this.state.items.indexOf(item) + 1}</p></td>
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.title}</p></td>
                 <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>{item.siteurl}</p></td>
-                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.description.length < 10 ? item.description : `${item.description.substring(0, 10)}...`}</p></td>
+                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{(item.shortdescription ?? "").length < 10 ? item.shortdescription : `${item.shortdescription.substring(0, 10)}...`}</p></td>
                                 <td style={{width: '100px'}}><div>
                                 <img style={{
                                   margin: '-35px -35px',

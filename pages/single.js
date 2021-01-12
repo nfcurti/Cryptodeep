@@ -120,44 +120,48 @@ export default class Home extends React.Component {
       <BasePage>
       <br/>
         <div className='bp-middle'>
-          <div className='bp-middle-over'>
-          <div className="bp-reviewbox">
-              <div className="review">
-                <div className="single-review"> 
-                  <div style={{width:"fit-content"}}>
-                    <img className='review-logo' src={this.state.item.iconurl}/>
-                    <p className='review-score'>{this.state.item.score}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
-                  </div>
-                  <div style={{padding:"0.1em",maxWidth: '65%',marginLeft:"0.5em",marginTop:"-0.3em"}}>
-                    <p style={{fontSize:"1.2em", fontWeight:"bold"}}>{this.state.item.title}</p>
+
+        <div className='bp-middle-all bp-blueshadow' style={{
+          textAlign: 'left'
+        }}>
+           <div style={{width:"fit-content", float: 'left'}}>
+              <img className='review-logo' style={{width: '100px'}} src={this.state.item.iconurl}/>
+              <p className='review-score' style={{fontSize: '12px'}}>{this.state.item.score}<img style={{width:"1.5em",height:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+            </div>
+            <div style={{width:"80%", marginLeft: '10px', float: 'left'}}>
+            <p style={{fontSize:"4em", fontWeight:"bold",  margin: "0"}}>{this.state.item.title} <a style={{
+              fontSize: '16px'
+            }} href={this.state.item.siteurl} target='_blank'>[Visit]</a></p>
+               <p style={{fontSize:"14px", maxWidth: '100%',  fontWeight:"normal"}}>{(this.state.item.shortdescription ?? "").length < 200 ? this.state.item.shortdescription : `${this.state.item.shortdescription.substring(0, 200)}...`}</p>
                     <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
-                    <span style={{marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item._id).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length})</span>
+                    <span style={{fontSize: '20px', marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item._id).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length})</span>
                    <ReactStars
                        count={5}
-                       size={14}
+                       size={18}
                        value={this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length}
                        edit={false}
                        isHalf={true}
                        activeColor="#ffd700"
                      />
                   </div>
-
-                  </div><div className="end-review">
-                  
-                  <p className='qty_com'>{this.state.reviews.filter(r => r.message != '').length} Messages</p>
-                  <br/>
-                  
-                  <div onClick={() => {
-                    const tab = window.open(this.state.item.siteurl, '_blank');
-                  }} style={{backgroundColor:"#353535",    borderRadius: '1em',width: '10em'}} className="inside-end-review" >
-                    <p style={{textAlign:"right"}}>SITE</p>
-                  </div>
-                </div>
-  
-                
-                  </div>
-              </div>
             </div>
+            <div style={{
+              float: 'left',
+              width: '100%',
+              paddingLeft: '5px'
+            }}>
+            <p className='qty_com'>{this.state.reviews.filter(r => r.message != '').length} Messages</p>
+            {/* <div onClick={() => {
+                    const tab = window.open(this.state.item.siteurl, '_blank');
+                  }} style={{backgroundColor:"#353535",    borderRadius: '1em',width: '10em', height: '40px'}} className="inside-end-review" >
+                    <p style={{textAlign:"right"}}>SITE</p>
+                  </div> */}
+            <br/>
+            <div className='clearfix'/></div>
+        </div>
+          
+          <div className='bp-middle-over'>
+          
 
             <div className='bp-middle-all bp-blueshadow' style={{
           textAlign: 'left'
@@ -307,14 +311,14 @@ export default class Home extends React.Component {
           .inputhold label{margin-left: 0.2em;
     float: left;}
                     .qty_com{
-                          font-size: 0.6em;
+                          font-size: 1em;
                     position: absolute;
                     font-family: 'Nunito';
                     padding: 1em;
                     background: #00000050;
                     border-radius: 2em;
                     margin-top: -4.7em;
-                    margin-left: 8.6em; 
+                    margin-left: 8.8em; 
                     }
                   .stars-review{
                     width:8em;

@@ -9,6 +9,7 @@ import ServiceAuth from '../services/ServiceAuth';
 import BasePage from '../components/BasePage';
 import { PaginatedList } from 'react-paginated-list';
 import Countdown from 'react-countdown';
+import FeaturedReviews from '../components/FeaturedReviews';
 export default class Home extends React.Component {
 
   constructor() {
@@ -205,51 +206,14 @@ export default class Home extends React.Component {
   
         <div className='bp-middle bp-h-bg'>
           <div className='bp-middle-over'>
-            <div className="bp-reviewbox">
-
+            <div className={`bp-reviewbox`}>
              {
                this.state.reviewsites.map(rs => {
-                 return  <div onClick={() => {
-                  window.location.replace(`/single?id=${rs._id}`);
-                 }} className="review">
-                 <div className="single-review"> 
-                   <div style={{width:"fit-content"}}>
-                     <img className='review-logo' src={rs.iconurl}/>
-                     <p className='review-score'>{rs.score}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
-                   </div>
-                   <div style={{padding:"0.1em",marginLeft:"0.5em",marginTop:"-0.3em"}}>
-               <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{rs.title}</p>
-               <br/><div style={{display:'flex',width:"fit-content",margin:'auto',marginTop:'initial'}}>
-               <span style={{marginRight:'0.2em',fontWeight:'bold', fontSize: '12px'}}>{this.state.reviews.filter(r => r.reviewid == rs._id).length} ({this.state.reviews.filter(r => r.reviewid == rs._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == rs._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == rs._id).length})</span>
-                   <ReactStars
-                       count={5}
-                       size={10}
-                       value={this.state.reviews.filter(r => r.reviewid == rs._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == rs._id).length}
-                       edit={false}
-                       isHalf={true}
-                       activeColor="#ffd700"
-                     />
-                   </div>{/* <p style={{fontSize:"0.7em"}}>{rs.description.length < 36 ? rs.description : `${rs.description.substring(0, 36)}...`}</p> */}
-                   </div>
-   
-                 <div className="stars-review">
-                 
-                 </div>
-                 <div className="end-review">
-                   
-                   <div onClick={() => {
-                     window.location.replace(`/single?id=${rs._id}`);
-                   }} style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
-                     <p>REVIEW</p>
-                   </div>
-                   <div onClick={() => {
-                     const tab = window.open(rs.siteurl, '_blank');
-                   }} style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
-                     <p style={{textAlign:"right"}}>SITE</p>
-                   </div>
-                 </div>
-                   </div>
-               </div>
+                 return  <FeaturedReviews 
+                  item={rs}
+                  featured={true}
+                  reviews={this.state.reviews}
+                 />
                
                })
              } 
@@ -506,7 +470,7 @@ export default class Home extends React.Component {
                   }
                   .single-review{
                     width:17%;
-                    height:5em;
+                    height:6.5em;
                     background-color:#252540;
                     border-radius:3px;
                     margin:0.5em;
@@ -520,7 +484,7 @@ export default class Home extends React.Component {
                     height:10.5em;
                     border:5px solid #1E1D32;
                     border-top:none;
-                    margin:auto
+                    margin: 0 auto;
                   }
                   .resultDisplay{
                     font-size: 1.5em!important;

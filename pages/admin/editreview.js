@@ -27,7 +27,8 @@ export default class Home extends React.Component {
           subcategoryid: '',
           pros: '',
           cons: '',
-          score: null
+          score: null,
+          shortdescription: ''
       }
     }
   }
@@ -67,6 +68,7 @@ export default class Home extends React.Component {
                         _fC.description = _itemX.description;
                         _fC.siteurl = _itemX.siteurl;
                         _fC.subcategoryid = _itemX.subcategoryid;
+                        _fC.shortdescription = _itemX.shortdescription;
                         
                         this.setState({
                             item: _itemX,
@@ -112,6 +114,7 @@ export default class Home extends React.Component {
       'siteurl',
       'subcategoryid',
       'pros',
+      'shortdescription',
       'cons',
       'score',
     ].forEach(mtc => {
@@ -151,7 +154,8 @@ export default class Home extends React.Component {
         'subcategoryid': this.state.formController.subcategoryid,
         'enabled': this.state.item.enabled ? 'true' : 'false',
         'featured': this.state.item.featured ? 'true' : 'false',
-        'score': this.state.formController.score
+        'score': this.state.formController.score,
+        'shortdescription': this.state.formController.shortdescription
       }
       console.log(_mTSZ);
       ServiceAuth.updatereviewitem(_mTSZ).then(response => {
@@ -191,6 +195,11 @@ export default class Home extends React.Component {
             <p style={{fontSize: '18px'}}>Title: <br/><input name='title' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.title}/></p>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Short Description: <br/><input name='shortdescription' style={{height: '10px',
+            width: '90%'
+        }} type='text' onChange={this.handleInputChange} value={this.state.formController.shortdescription}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Icon (URL):<br/> <input name='iconurl' style={{height: '10px',

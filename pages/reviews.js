@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 import ServiceAuth from '../services/ServiceAuth';
 import ServiceCookies from '../services/cookies';
+import FeaturedReviews from '../components/FeaturedReviews';
 import { PaginatedList } from 'react-paginated-list';
 export default class Home extends React.Component {
 
@@ -96,12 +97,33 @@ export default class Home extends React.Component {
     };
   }
 
+  groupByN = (n, data) => {
+    let result = [];
+    for (var i = 0; i < data.length; i += n) result.push(data.slice(i, i + n));
+    return result;
+  };
+
   render() {
     return (
       <BasePage>
-      <br/>
         <div className='bp-middle'>
           <div className='bp-middle-over'>
+
+          <div className="bp-reviewbox" style={{
+            marginBottom: '60px'
+          }}>
+             {
+               this.state.items.filter(i => i.enabled && i.featured).map(rs => {
+                 return <FeaturedReviews 
+                 item={rs}
+                 featured={true}
+                 reviews={this.state.reviews}
+                />
+               })
+             } <br/>
+             
+            </div>
+
             <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>Reviews </p>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Select Category </p>
@@ -165,61 +187,48 @@ export default class Home extends React.Component {
             </div>
             }
 
-                <PaginatedList
-                  list={this.state.filteredList.filter(r => r.title.toUpperCase().includes(this.state.formController.search.toUpperCase()))}
-                  itemsPerPage={25}
-                  renderList={(list) => (
-                    <>
-                    {
-                      list.map((item, id) => {
-                        return (
-                          
-                    <div key={id}  className="bp-reviewbox">
-                    <div className="review">
-                    <div className="single-review"> 
-                  <div style={{width:"fit-content"}}>
-                    <img className='review-logo' src={item.iconurl}/>
-                    <p className='review-score'>{item.score}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
-                  </div>
-                  <div style={{padding:"0.1em",maxWidth: '65%',marginLeft:"0.5em",marginTop:"-0.3em"}}>
-                    <p style={{fontSize:"0.7em", fontWeight:"bold"}}>{item.title}</p>
-                    {/* <p style={{fontSize:"0.7em", }}>{item.description.length < 200 ? item.description : `${item.description.substring(0, 200)}...`}</p> */}
-                    <br/><div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
-                        <span style={{marginTop: '6px', marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == item._id).length} ({this.state.reviews.filter(r => r.reviewid == item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == item._id).length})</span>
-                  <ReactStars
-                      count={5}
-                      size={20}
-                      value={this.state.reviews.filter(r => r.reviewid == item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == item._id).length}
-                      edit={false}
-                      isHalf={true}
-                      activeColor="#ffd700"
-                    />
-                  </div>
-
-                  </div><div className="end-review">
-                  
-                  <p className='qty_com'>{this.state.reviews.filter(r => r.reviewid == item._id && r.message != '').length} Messages</p>
-                  <br/>
-                  <div style={{backgroundColor:"#f5a500",    borderTopLeftRadius: '1em',borderBottomLeftRadius: '1em'}} className="inside-end-review">
-                   <a href={`/single?id=${item._id}`} style={{textDecoration:'none'}}><p >REVIEW</p></a>
-                  </div>
-                  <div onClick={() => {
-                    const tab = window.open(item.siteurl, '_blank');
-                  }} style={{backgroundColor:"#353535",    borderTopRightRadius: '1em',borderBottomRightRadius: '1em'}} className="inside-end-review" >
-                    <p style={{textAlign:"right"}}>SITE</p>
-                  </div>
-                </div>
-  
-                
-              </div>
-            </div>
-            </div>
-                        )
-                      })
-                    }
-                    </>
-                  )}
+          {/* <div className="bp-reviewbox" style={{
+            marginBottom: '60px'
+          }}>
+             {
+               this.state.filteredList.filter(r => r.title.toUpperCase().includes(this.state.formController.search.toUpperCase())).map(rs => {
+                 return <FeaturedReviews 
+                 item={rs}
+                 reviews={this.state.reviews}
                 />
+               })
+             } <br/>
+             
+            </div> */}
+            
+            
+            <PaginatedList
+                list={this.groupByN(5, this.state.filteredList.filter(r => r.title.toUpperCase().includes(this.state.formController.search.toUpperCase())))}
+                itemsPerPage={10}
+                renderList={(list) => (
+                  <>
+                  {
+                    list.map((item, id) => {
+                      return (
+                        <div className="bp-reviewbox" key={id} style={{
+                          marginBottom: '60px'
+                        }}>
+                           {
+                             item.map(rs => {
+                               return <FeaturedReviews 
+                               item={rs}
+                               reviews={this.state.reviews}
+                              />
+                             })
+                           } <br/>
+                           
+                          </div>
+                      )
+                    })
+                  }
+                  </>
+                )}
+              />
 
             <div className='clearfix'/>
           </div>

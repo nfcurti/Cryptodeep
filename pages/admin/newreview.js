@@ -24,6 +24,7 @@ export default class Home extends React.Component {
           siteurl: '',
           subcategoryid: '',
           pros: '',
+          shortdescription: '',
           cons: '',
           score: 2.5
       }
@@ -74,6 +75,7 @@ export default class Home extends React.Component {
       'siteurl',
       'subcategoryid',
       'pros',
+      'shortdescription',
       'cons',
       'score',
       'subcategoryid'
@@ -111,7 +113,8 @@ export default class Home extends React.Component {
         'subcategoryid': this.state.formController.subcategoryid,
         'score': this.state.formController.score,
         'pros': this.state.formController.pros,
-        'cons': this.state.formController.cons
+        'cons': this.state.formController.cons,
+        'shortdescription': this.state.formController.shortdescription
       }
       console.log(_mTSZ);
       ServiceAuth.addreviewitem(_mTSZ).then(response => {
@@ -151,6 +154,11 @@ export default class Home extends React.Component {
             <p style={{fontSize: '18px'}}>Title: <br/><input name='title' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.title}/></p>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Short Description: <br/><input name='shortdescription' style={{height: '10px',
+            width: '90%'
+        }} type='text' onChange={this.handleInputChange} value={this.state.formController.shortdescription}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Icon (URL):<br/> <input name='iconurl' style={{height: '10px',
