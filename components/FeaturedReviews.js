@@ -21,7 +21,7 @@ export default class FeaturedReviews extends React.Component {
                        </div>
                        <div className='ffrida'>
                        <p className='ffrevtit'>{this.props.item.title}</p>
-                       <p className='ffrevdesc'>{(this.props.item.shortdescription ?? "").length < 50 ? this.props.item.shortdescription : `${this.props.item.shortdescription.substring(0, 50)}...`}</p>
+                       <p className='ffrevdesc'>{(this.props.item.shortdescription ?? "").length < 70 ? this.props.item.shortdescription : `${this.props.item.shortdescription.substring(0, 70)}...`}</p>
                        </div>
                    </div>
                    <div className='ffrrate'>

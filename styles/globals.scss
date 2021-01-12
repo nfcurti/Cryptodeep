@@ -419,9 +419,14 @@ a {
 	}
 }
 
+
+.bp-reviewbox {
+	padding-left: calc(50% - (((20% + 4px) * 5) / 2));
+}
+
 .ffreview {
 	height: 160px;
-	width: 180px;
+	width: 20%;
 	margin: 2px 2px;
 	// background-color: black;
 
@@ -443,7 +448,7 @@ a {
 				float: left;
 				margin-top: 5%;
 				margin-left: 5%;
-				width: 30%;
+				width: 25%;
 				height: 60%;
 
 				img {
@@ -454,6 +459,7 @@ a {
 
 
 				.ffreviewscoreset {
+					width: 32px;
 					background-color: rgba(0,0,0,0.8);
 					border-radius: 4px;
 					padding: 4px;
@@ -462,12 +468,13 @@ a {
 					float: left;
 					margin-left: 4px;
 					font-size: 12px;
+					text-align: center;
 				}
 			}
 
 			.ffrida {
 				float: left;
-				width: 62%;
+				width: 65%;
 				margin-left: 3%;
 				margin-top: 5%;
 				height: 80%;
@@ -574,9 +581,6 @@ a {
 	}
 }
 
-.bp-reviewbox {
-	padding-left: calc(50% - ((184px * 5) / 2));
-}
 
 @media screen and (max-width: 800px){
 	.ffreview {
