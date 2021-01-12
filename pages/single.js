@@ -180,12 +180,15 @@ export default class Home extends React.Component {
           textAlign: 'left'
         }}>
             <p className='loginTitle' style={{
-              textAlign: 'center'
+              textAlign: 'center',
+              color: '#A2ED96'
             }}>Pros </p>
             {
               this.state.item.pros == ''
               ? null :
-              <div
+              <div style={{
+                color: '#A2ED96'
+              }}
               dangerouslySetInnerHTML={{
                 __html: this.state.item.pros
               }}></div>
@@ -196,12 +199,16 @@ export default class Home extends React.Component {
           textAlign: 'left'
         }}>
             <p className='loginTitle' style={{
-              textAlign: 'center'
+              textAlign: 'center',
+              color: '#ED9696'
             }}>Cons </p>
             {
               this.state.item.cons == ''
               ? null :
               <div
+              style={{
+                color: '#ED9696'
+              }}
               dangerouslySetInnerHTML={{
                 __html: this.state.item.cons
               }}></div>
