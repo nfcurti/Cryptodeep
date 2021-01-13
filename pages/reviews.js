@@ -110,7 +110,9 @@ export default class Home extends React.Component {
           <div className='bp-middle-over'>
 
           <div className="bp-reviewbox" style={{
-            marginBottom: '60px'
+            marginBottom: '60px',
+            marginLeft: '2%',
+            marginRight: '2%'
           }}>
              {
                this.state.items.filter(i => i.enabled && i.featured).map(rs => {
