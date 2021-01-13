@@ -111,8 +111,7 @@ export default class Home extends React.Component {
 
           <div className="bp-reviewbox" style={{
             marginBottom: '60px',
-            marginLeft: '2%',
-            marginRight: '2%'
+            border: '5px solid #1E1D32'
           }}>
              {
                this.state.items.filter(i => i.enabled && i.featured).map(rs => {
@@ -125,7 +124,8 @@ export default class Home extends React.Component {
              } <br/>
              
             </div>
-
+             </div>
+             <div className='bp-middle-over'>
             <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>Reviews </p>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Select Category </p>
@@ -306,11 +306,10 @@ export default class Home extends React.Component {
                   }
                   .bp-reviewbox{
                     display: flex;
-                    width:100%;
+                    width:95%;
                     height:10.5em;
                     border-top:none;
-                    margin:auto;
-                    margin-bottom:-2em
+                    margin: 0 auto;
                   }
                     .imgbox{padding:1em}
                     .imgboxsel {
@@ -334,9 +333,9 @@ export default class Home extends React.Component {
                     .loginSignup {font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
                     .loginSignup a{font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
   
-                    .bp-middle-over{
-                      width:90% !important;
-                      margin:0 auto !important;
+                    .bp-middle-over {
+                      margin: 0% 10%;
+                      width: 80%;
                     }
   
                     inputhold{
@@ -401,15 +400,15 @@ export default class Home extends React.Component {
                     background-repeat: no-repeat;
                   }
                   .bp-middle {
-                      margin: 0px;
-                      width: 100%;
-                      height: 400px;
-                  }
-  
-                  .bp-middle-over {
-                    margin: 0% 10%;
+                    margin: 0px;
                     width: 100%;
-                  }
+                    height: 400px;
+                }
+
+                .bp-middle-over {
+                  margin: 0% 10%;
+                  width: 80%;
+                }
                   .bp-middle-left p, .bp-middle-all p {
                     margin: 0px;
                   }

@@ -206,6 +206,7 @@ export default class Home extends React.Component {
   
         <div className='bp-middle bp-h-bg'>
           <div className='bp-middle-over'>
+            
             <div className={`bp-reviewbox`}>
              {
                this.state.reviewsites.map(rs => {
