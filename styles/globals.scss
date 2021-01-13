@@ -388,6 +388,16 @@ a {
 	height: 20em;
 }
 
+.over_robot_f {
+	position: absolute;
+	background-image: url('/images/robot_hidden.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	left: 3.5%;
+	width: 14em;
+	height: 15em;
+}
+
 @media screen and (max-width: 800px){
 	.over_robot_b {
 		right: 0%;
@@ -408,6 +418,11 @@ a {
 		margin-top: 50px;
 		width: 10em;
 		height: 10em;
+	}
+
+	.over_robot_f {
+		left: 0%;
+		width: 6em;
 	}
 }
 

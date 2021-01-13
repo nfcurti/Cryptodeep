@@ -224,7 +224,7 @@ export default class Home extends React.Component {
             <div className='bp-middle-left bp-blueshadow'>
             
             <br/>
-            <div className='over_robot_a'/>
+            <div className='over_robot_f'/>
             <br/><p className='bp-title'>My Faucet</p>
             <p>You can roll a faucet every {this.state.sv_faucetdelay} minutes</p>
             <div 
