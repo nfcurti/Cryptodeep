@@ -393,9 +393,10 @@ a {
 	background-image: url('/images/robot_hidden.png');
 	background-size: contain;
 	background-repeat: no-repeat;
-	left: 3.5%;
-	width: 14em;
-	height: 15em;
+	left: 2%;
+	margin-left: 3%;
+	width: 20%;
+	height: 19%;
 }
 
 @media screen and (max-width: 800px){
@@ -422,7 +423,7 @@ a {
 
 	.over_robot_f {
 		left: 0%;
-		width: 6em;
+		width: 5em;
 	}
 }
 
