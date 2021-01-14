@@ -40,6 +40,7 @@ export default class BasePage extends React.Component {
     }
     
     
+    <li><div className='bp-cbutton'><a href='/faq'>FAQ</a></div></li>
     <li><div className='bp-cbutton'><a href='/affiliate'>Affiliate</a></div></li>
     <li><div className='bp-cbutton'><a href='/reviews'>Reviews</a></div></li>
     <li><div className='bp-cbutton'><a href='/'>Faucet</a></div></li>
