@@ -129,32 +129,38 @@ export default class Home extends React.Component {
             <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>Reviews </p>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Select Category </p>
-                <div className='imgsm_box'>
-                  {this.state.categories.map(c => 
-                    <div style={{width: '100px'}} className={`imgbox ${this.state.selectedCategory == c._id ? 'imgboxsel' : ''}`} onClick={() => {
-                      if(c._id == this.state.selectedCategory) {
-                        this.setState({
-                          selectedCategory: '',
-                          filteredList: this.state.items
+                
+                  {this.groupByN(5, this.state.categories).map(c => 
+                    <div className='imgsm_box'>
+                    
+                      {
+                         c.map(cx => {
+                          return <div style={{width: '100px'}} className={`imgbox ${this.state.selectedCategory == cx._id ? 'imgboxsel' : ''}`} onClick={() => {
+                            if(cx._id == this.state.selectedCategory) {
+                              this.setState({
+                                selectedCategory: '',
+                                filteredList: this.state.items
+                              })
+                              return;
+                            }
+                            var _subcategoriesAvailables = this.state.subcategories.filter(s => s.parentcategoryid == cx._id);
+                            this.setState({
+                              selectedCategory: cx._id,
+                              filteredList: this.state.items.filter(i => (_subcategoriesAvailables.map(s => s._id).indexOf(i.subcategoryid) != -1) )
+                            })
+                          }}>
+                            <img className='imgsm' src={cx.iconurlx}/>
+                            <p>{cx.title.toUpperCase()}</p>
+                          </div>
                         })
-                        return;
                       }
-                      var _subcategoriesAvailables = this.state.subcategories.filter(s => s.parentcategoryid == c._id);
-                      this.setState({
-                        selectedCategory: c._id,
-                        filteredList: this.state.items.filter(i => (_subcategoriesAvailables.map(s => s._id).indexOf(i.subcategoryid) != -1) )
-                      })
-                    }}>
-                      <img className='imgsm' src={c.iconurlx}/>
-                      <p>{c.title.toUpperCase()}</p>
                     </div>
-                    )}
-                </div>
+                  )}
                 <div>
                     <p>
                       <input 
                           style={{
-                            width: '90%'
+                            width: '60%'
                           }}
                           placeholder="Search..."
                           name='search' 
@@ -171,21 +177,28 @@ export default class Home extends React.Component {
               <div style={{transition: 'all 1s ease-in'}} className='bp-middle-all bp-blueshadow'>
               <br/><br/>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Subcategories</p>
-                <div className='imgsm_box'>
-                  {this.state.subcategories.filter(s => s.parentcategoryid == this.state.selectedCategory).map(c => 
-                    <div style={{width: '100px'}} className={`imgbox ${this.state.selectedSubcategory == c._id ? 'imgboxsel' : ''}`} onClick={() => {
-                      
-                      var _subcategoriesAvailables = this.state.subcategories.filter(s => s.parentcategoryid == this.state.selectedCategory).filter(s => s.parentcategoryid == c._id);
-                      this.setState({
-                        selectedSubcategory: c._id,
-                        filteredList: this.state.items.filter(i => i.subcategoryid == c._id )
-                      })
-                    }}>
-                      <img className='imgsm' src={c.iconurlx}/>
-                      <p>{c.title.toUpperCase()}</p>
+                
+                  {this.groupByN(5, this.state.subcategories.filter(s => s.parentcategoryid == this.state.selectedCategory)).map(c => 
+                    <div className='imgsm_box'>
+                     {
+                       c.map(cx => {
+                        return <div style={{width: '100px'}} className={`imgbox ${this.state.selectedSubcategory == cx._id ? 'imgboxsel' : ''}`} onClick={() => {
+                        
+                          var _subcategoriesAvailables = this.state.subcategories.filter(s => s.parentcategoryid == this.state.selectedCategory).filter(s => s.parentcategoryid == cx._id);
+                          this.setState({
+                            selectedSubcategory: cx._id,
+                            filteredList: this.state.items.filter(i => i.subcategoryid == cx._id )
+                          })
+                        }}>
+                          <img className='imgsm' src={cx.iconurlx}/>
+                          <p>{cx.title.toUpperCase()}</p>
+                        </div>
+                       })
+                     }
+
+
                     </div>
                     )}
-                </div>
             </div>
             }
 
@@ -477,7 +490,28 @@ export default class Home extends React.Component {
                   }
   
                   @media screen and (max-width: 800px){
-                    .single-review div{margin: auto}
+                    .single-review{
+                      width: 83%;
+                      height: 9em;
+                      background-color: #252540;
+                      border-radius: 3px;
+                      margin: auto;
+                      padding: 0.5em;
+                      display: -webkit-box;
+                      display: -webkit-flex;
+                      display: -ms-flexbox;
+                      display: flex;
+                      font-family: "Nunito";
+                      margin-bottom: 0.5em;
+                }
+                    .bp-reviewbox{
+                      display: block;
+                      width: 80%;
+                      height: 52.5em;
+                      border: 5px solid #1E1D32;
+                      border-top: none;
+                      margin: auto;
+                }
                     .end-review{height: 2em;
                       margin-top: 1.7em;
                       width: 10em;
@@ -498,7 +532,7 @@ export default class Home extends React.Component {
                       margin-left: 2em;}
                     .imgsm_box{display: inherit !important;}
                     .bp-middle-left, .bp-middle-left-sub {
-                      width: 100%;
+                      width: 90%;
                     }
                   }
   
@@ -528,9 +562,7 @@ export default class Home extends React.Component {
                       display:none
                     }
   
-                    .bp-middle-over{
-                      width:100% !important
-                    }
+                    
                   }
               `}</style>
       </BasePage>
