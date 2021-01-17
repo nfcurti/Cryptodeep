@@ -209,7 +209,7 @@ export default class Home extends React.Component {
                                   width: '40px',
                                   height: '40px',
                                   opacity: '1',
-                                }} src={item.iconurl}/></div></td>
+                                }} src={`data:image/png;base64,${item.iconurl}`}/></div></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}>
                                 {
                                     item.featured ? <button className='crypto-status-btn csb-success' onClick={() => {

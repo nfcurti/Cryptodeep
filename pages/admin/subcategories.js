@@ -124,7 +124,7 @@ export default class Home extends React.Component {
                                   width: '40px',
                                   height: '40px',
                                   opacity: '1',
-                                }} src={item.iconurlx}/></div></td>
+                                }} src={`data:image/png;base64,${item.iconurlx}`}/></div></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
                     window.location.replace(`/admin/editsubcategory?id=${item._id}`)
                 }} className='admin-actiob admin-actiob-validate'><p>Edit</p></button><br/><button onClick={() => {

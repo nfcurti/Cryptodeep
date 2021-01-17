@@ -110,7 +110,7 @@ export default class Home extends React.Component {
                                   width: '40px',
                                   height: '40px',
                                   opacity: '1',
-                                }} src={item.iconurlx}/></div></td>
+                                }} src={`data:image/png;base64,${item.iconurlx}`}/></div></td>
                                 <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
                     window.location.replace(`/admin/subcategories?id=${item._id}&name=${item.title}`);
                 }} className='admin-actiob admin-actiob-reject'><p>Enter</p></button></td>

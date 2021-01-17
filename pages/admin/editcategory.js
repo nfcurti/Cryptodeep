@@ -24,6 +24,16 @@ export default class Home extends React.Component {
     }
   }
 
+  _handleReaderLoaded = (readerEvt) => {
+    let binaryString = readerEvt.target.result
+    
+    var _fC = this.state.formController;
+    _fC.iconurlx = btoa(binaryString)
+    this.setState({
+      formController: _fC
+    })
+  }
+
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
@@ -94,10 +104,6 @@ export default class Home extends React.Component {
     if(error) { return; }
 
 
-    if(!this.state.formController.iconurlx.includes('http')) {
-        return alert('Icon URL should be full, starting with http:...');
-    }
-
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
@@ -146,14 +152,44 @@ export default class Home extends React.Component {
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.title}/></p>
         </div>
         <div className='inputhold'>
-            <p style={{fontSize: '18px'}}>Icon (URL):<br/> <input name='iconurlx' style={{height: '10px',
+            <p style={{fontSize: '18px'}}>Icon (URL):<br/> 
+            <input 
+            type='file'
+            name='image'
+            id='file'
+            accept='.png'
+            onChange={(val) => {
+              var file = val.target.files[0];
+
+              if(file) {
+                const reader = new FileReader();
+                reader.onload = this._handleReaderLoaded.bind(this);
+                reader.readAsBinaryString(file);
+              }
+            }}
+          /><br/>
+            <img
+              style={{
+                opacity: '100% !important',
+                width: '90px',
+                height: '90px',
+                border: '1px solid white',
+              }} 
+              src={`data:image/png;base64,${this.state.formController.iconurlx}`} 
+            />
+          
+          {/* <input name='iconurlx' style={{height: '10px',
             width: '90%'
-        }} type='text' onChange={this.handleInputChange} value={this.state.formController.iconurlx}/></p>
+        }} type='text' onChange={this.handleInputChange} value={this.state.formController.iconurlx}/> */}
+        </p>
         </div>
 
                   </div>
                   </div>
                 <input
+                style={{
+                  marginTop: '140px'
+                }}
                   value="Save"
                   type='submit'
                   onClick={() => this.addReviewPressed()}
@@ -221,7 +257,7 @@ export default class Home extends React.Component {
                                 margin-left: -4em;
                                 padding: 12px 12px;
                                 pointer-events: none;
-                              opacity:0.3;
+                              // opacity:0.3;
                               }
             
                              form{
@@ -384,9 +420,6 @@ export default class Home extends React.Component {
                                 width:87%
                               }
             
-                              .inputhold img{
-                                display:none
-                              }
             
                               .bp-middle-over{
                                 width:85% !important
