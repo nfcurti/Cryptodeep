@@ -399,6 +399,17 @@ a {
 	height: 19%;
 }
 
+.over_robot_g {
+	position: absolute;
+	background-image: url('/images/robot_hello.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	right: 20%;
+	margin-top: -110px;
+	width: 15%;
+	height: 19%;
+}
+
 @media screen and (max-width: 800px){
 	.over_robot_b {
 		right: 0%;
@@ -424,6 +435,10 @@ a {
 	.over_robot_f {
 		left: 0%;
 		width: 5em;
+	}
+
+	.over_robot_g {
+
 	}
 }
 

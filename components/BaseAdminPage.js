@@ -41,6 +41,16 @@ export default class BaseAdminPage extends React.Component {
   <li><div className='bp-spacer'></div></li>
   {/* <li><div className='bp-menu-item'></div></li> */}
   </ul>
+  <ul>
+  <li><div className='bp-spacer'></div></li>
+    <li><div className='bp-cbutton'><a href='/admin/withdrawals'>Withdraws</a></div></li>
+    <li><div className='bp-cbutton'><a href='/admin/reviews'>Reviews</a></div></li>
+    <li><div className='bp-cbutton'><a href='/admin/categories'>Categories</a></div></li>
+    <li><div className='bp-cbutton'><a href='/admin/users'>Users</a></div></li>
+    <li><div className='bp-cbutton'><a href='/admin/home'>General</a></div></li>
+  <li><div className='bp-spacer'></div></li>
+  {/* <li><div className='bp-menu-item'></div></li> */}
+  </ul>
 </nav>
                 </div>
                 {this.props.children}

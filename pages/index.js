@@ -379,6 +379,7 @@ export default class Home extends React.Component {
                   renderList={(list) => (
                     <table className='bp-table'>
 
+                  <div className='over_robot_g'/>
                   <div className='over_robot_b'/>
                     <thead>
                     <tr className='bp-header'>
