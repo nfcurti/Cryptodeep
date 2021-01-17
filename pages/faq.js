@@ -19,19 +19,66 @@ export default class Home extends React.Component {
     }
   }
 
+  componentDidMount() {
+    const items = document.querySelectorAll(".accordion button");
+    var i;
+    function toggleAccordion() {
+      const itemToggle = this.getAttribute('aria-expanded');
+      
+      for (i = 0; i < items.length; i++) {
+        items[i].setAttribute('aria-expanded', 'false');
+      }
+      
+      if (itemToggle == 'false') {
+        this.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    items.forEach(item => item.addEventListener('click', toggleAccordion));
+  }
+
   render() {
     return (
       <BasePage>
-        <div className='bp-middle'>
-          <div className='bp-middle-over'>
 
-         
-             </div>
+        <div className='bp-middle'>
              <div className='bp-middle-over'>
-            <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>FAQ </p>
-                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Ya tu sabe </p>
-                
+            <div className='bp-middle-all bp-blueshadow' style={{marginTop:'2em'}}>
+                <div class="container">
+                  <h2>Frequently Asked Questions</h2>
+                  <div class="accordion">
+                    <div class="accordion-item">
+                      <button id="accordion-button-1" aria-expanded="false"><span class="accordion-title">Why is the moon white?</span><span class="icon" aria-hidden="true"></span></button>
+                      <div class="accordion-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <button id="accordion-button-2" aria-expanded="false"><span class="accordion-title">Why is the sky blue?</span><span class="icon" aria-hidden="true"></span></button>
+                      <div class="accordion-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <button id="accordion-button-3" aria-expanded="false"><span class="accordion-title">Will we ever discover aliens?</span><span class="icon" aria-hidden="true"></span></button>
+                      <div class="accordion-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <button id="accordion-button-4" aria-expanded="false"><span class="accordion-title">How much does the Earth weigh?</span><span class="icon" aria-hidden="true"></span></button>
+                      <div class="accordion-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <button id="accordion-button-5" aria-expanded="false"><span class="accordion-title">How do airplanes stay up?</span><span class="icon" aria-hidden="true"></span></button>
+                      <div class="accordion-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
 
             <div className='clearfix'/>
@@ -39,6 +86,7 @@ export default class Home extends React.Component {
         </div><br/><br/><br/>
         {/* <p>Hola</p> */}
         <style jsx>{`
+
                     .qty_com{
                           font-size: 0.6em;
                     position: absolute;
@@ -331,7 +379,7 @@ export default class Home extends React.Component {
                     }
   
                     .bp-middle-over{
-                      width:100% !important
+                      width: 73% !important;
                     }
                   }
               `}</style>
