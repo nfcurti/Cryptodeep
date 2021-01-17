@@ -5,6 +5,8 @@ export default class BasePage extends React.Component {
     constructor() {
         super();
         this.state = {
+            currentLang: 'en',
+            langmenuOpen: false,
             logged: false
         }
     }
@@ -14,6 +16,10 @@ export default class BasePage extends React.Component {
     }
 
     _checkCookies = async () => {
+        const langCookies = ServiceCookies.getLangCookies();
+        this.setState({
+            currentLang: langCookies['cklang']
+        })
         const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
             console.log('Not logged in');
@@ -22,6 +28,13 @@ export default class BasePage extends React.Component {
             console.log(userCookies);
             this.setState({logged: true});
         }
+    }
+
+    _changeLang = data => {
+        ServiceCookies.saveLangCookies({cklang: data});
+        this.setState({
+            currentLang: data
+        })
     }
 
     render() {
@@ -49,6 +62,55 @@ export default class BasePage extends React.Component {
   </ul>
 </nav>
                 </div>
+
+                <div className='bp-header'>
+               <a href='/'><div style={{cursor: 'pointer'}} className='bp-logo'></div></a> 
+                <nav id='menu'>
+                <input type='checkbox' id='responsive-menu'/><label></label>
+  <ul>
+  <li><div className='bp-spacer'></div></li>
+
+
+  <li><div className='bp-spacer' style={{
+      width: '60px'
+  }}></div></li>
+<li>
+<div class="main-menu">
+  <div class="lang-select" onClick={() => {
+      this.setState({
+        langmenuOpen: !this.state.langmenuOpen
+      })
+  }}>
+      {/* lang-selected */}
+  <a href="#" onClick={() => this._changeLang('en')}>
+  <img src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-round-250.png"
+       class={`flag-img ${this.state.currentLang == 'en' ? 'lang-selected' : ''} ${this.state.langmenuOpen ? 'lang-show' : ''}`}/>
+  </a>
+  <a href="#" onClick={() => this._changeLang('es')}>
+    <img src="https://cdn.countryflags.com/thumbs/spain/flag-round-250.png"
+       class={`flag-img ${this.state.currentLang == 'es' ? 'lang-selected' : ''} ${this.state.langmenuOpen ? 'lang-show' : ''}`}/>
+  </a>
+  <a href="#" onClick={() => this._changeLang('it')}>
+  <img src="https://cdn.countryflags.com/thumbs/italy/flag-round-250.png"
+       class={`flag-img ${this.state.currentLang == 'it' ? 'lang-selected' : ''} ${this.state.langmenuOpen ? 'lang-show' : ''}`}/>
+  </a>
+  <a href="#" onClick={() => this._changeLang('ru')}> 
+  <img src="https://cdn.countryflags.com/thumbs/russia/flag-round-250.png"
+       class={`flag-img ${this.state.currentLang == 'ru' ? 'lang-selected' : ''} ${this.state.langmenuOpen ? 'lang-show' : ''}`}/>
+  </a>
+  <a href="#" onClick={() => this._changeLang('hi')}>
+  <img src="https://cdn.countryflags.com/thumbs/india/flag-round-250.png"
+       class={`flag-img ${this.state.currentLang == 'hi' ? 'lang-selected' : ''} ${this.state.langmenuOpen ? 'lang-show' : ''}`}/>
+  </a>
+  </div>
+</div>
+</li>
+  <li><div className='bp-spacer'></div></li>
+  {/* <li><div className='bp-menu-item'></div></li> */}
+  </ul>
+</nav>
+                </div>
+
                 {this.props.children}
             <style jsx>{`
                 .basepage {
