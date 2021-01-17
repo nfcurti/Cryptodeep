@@ -2,8 +2,8 @@ import axios from "axios";
 import http from "./URLManager";
 var qs = require("qs");
 
-// const finalUrl = 'http://localhost:3002/api-cryptodeep/';
-const finalUrl = "https://juancurti.com/api-cryptodeep/";
+const finalUrl = 'http://localhost:3002/api-cryptodeep/';
+// const finalUrl = "https://juancurti.com/api-cryptodeep/";
 
 const login = data => {
   if(data.username.length == 0 ||
@@ -795,6 +795,66 @@ var _mapToSend = {
 return _http.post(`editrevsubcategory`, qs.stringify(_mapToSend));
 }
 
+const getlanguagedataset = data => {
+  if(!data.token) {
+    return alert("");
+}
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+return _http.get(`getlanguagedataset`, qs.stringify({
+  
+}));
+}
+
+const editlanguagedataset = data => {
+  if(!data.token || 
+      !data.codemsg ||
+      !data.en) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "codemsg": data.codemsg,
+  "en": data.en
+};
+
+[
+  'descriptionhelper',
+  'es',
+  'it',
+  'ru',
+  'hi'
+].forEach((v) => {
+  if(data[v] != null) {
+    _mapToSend[v] = data[v];
+  }
+})
+
+return _http.post(`editlanguagedataset`, qs.stringify(_mapToSend));
+}
+
 export default {
     login,
     signup,
@@ -827,6 +887,8 @@ export default {
     addrevsubcategory,
     getrevsubcategory,
     removerevsubcategory,
-    editrevsubcategory
+    editrevsubcategory,
+    getlanguagedataset,
+    editlanguagedataset
   }
   

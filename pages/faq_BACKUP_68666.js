@@ -18,21 +18,43 @@ export default class Home extends React.Component {
  
     }
   }
+<<<<<<< HEAD
+
+=======
  
+>>>>>>> 49a9a363c5fd7b61cdbd5dc8b778455838910b43
   componentDidMount() {
     const items = document.querySelectorAll(".accordion button");
     var i;
     function toggleAccordion() {
       const itemToggle = this.getAttribute('aria-expanded');
+<<<<<<< HEAD
+      
+      for (i = 0; i < items.length; i++) {
+        items[i].setAttribute('aria-expanded', 'false');
+      }
+      
+=======
  
       for (i = 0; i < items.length; i++) {
         items[i].setAttribute('aria-expanded', 'false');
       }
  
+>>>>>>> 49a9a363c5fd7b61cdbd5dc8b778455838910b43
       if (itemToggle == 'false') {
         this.setAttribute('aria-expanded', 'true');
       }
     }
+<<<<<<< HEAD
+
+    items.forEach(item => item.addEventListener('click', toggleAccordion));
+  }
+
+  render() {
+    return (
+      <BasePage>
+
+=======
  
     items.forEach(item => item.addEventListener('click', toggleAccordion));
   }
@@ -41,6 +63,7 @@ export default class Home extends React.Component {
     return (
       <BasePage>
  
+>>>>>>> 49a9a363c5fd7b61cdbd5dc8b778455838910b43
         <div className='bp-middle'>
              <div className='bp-middle-over'>
             <div className='bp-middle-all bp-blueshadow' style={{marginTop:'2em'}}>
@@ -86,7 +109,11 @@ export default class Home extends React.Component {
         </div><br/><br/><br/>
         {/* <p>Hola</p> */}
         <style jsx>{`
+<<<<<<< HEAD
+
+=======
  
+>>>>>>> 49a9a363c5fd7b61cdbd5dc8b778455838910b43
                     .qty_com{
                           font-size: 0.6em;
                     position: absolute;

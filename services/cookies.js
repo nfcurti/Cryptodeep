@@ -4,6 +4,20 @@ const cookieStateKeys = {
   USER: 'ckuser'
 }
 
+const saveLangCookies = async (data) => {
+  if(!data.cklang) { return false; }
+  await Cookies.remove('cklang');
+  await Cookies.set('cklang', {
+    'cklang': data.cklang
+  });
+  return true;
+}
+
+const getLangCookies = () => {
+  const cklang = Cookies.get('cklang');
+  return cklang === undefined ? {'cklang': 'en'} : JSON.parse(cklang);
+}
+
 const saveRefCookies = async (data) => {
   if(!data.ckref) { return false; }
   await Cookies.remove('ckref');
@@ -44,5 +58,7 @@ export default {
   getUserCookies,
   removeUserCookies,
   saveRefCookies,
-  getRefCookies
+  getRefCookies,
+  saveLangCookies,
+  getLangCookies
 }
