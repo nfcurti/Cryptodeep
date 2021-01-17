@@ -15,7 +15,7 @@ export default class FeaturedReviews extends React.Component {
                >
                    <div className='ffrinfo'>
                        <div className='ffrlogo'>
-                       <img src={this.props.item.iconurl}/>
+                       <img src={`data:image/png;base64,${this.props.item.iconurl}`}/>
                        <p className='ffreviewscoreset'>{this.props.item.score}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
                        
                        </div>
