@@ -444,7 +444,6 @@ a {
 	height: 160px;
 	width: 20%;
 	margin: 2px 2px;
-	// background-color: black;
 
 	.ffrcont {
 		background-color: #252540;
@@ -600,6 +599,12 @@ a {
 
 @media screen and (max-width: 800px){
 	.ffreview {
-		margin-left: calc(50% - 80px);
+		margin-left: 15%;
+		width: 70%;
+	}
+
+	.ffrcont {
+		background-color: #252540;
+		
 	}
 }

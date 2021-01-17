@@ -123,6 +123,7 @@ export default class Home extends React.Component {
                })
              } <br/>
              
+            <div className='clearfix'/>
             </div>
              </div>
              <div className='bp-middle-over'>
@@ -217,6 +218,7 @@ export default class Home extends React.Component {
             </div> */}
             
             
+            <div className='clearfix'/>
             <PaginatedList
                 list={this.groupByN(5, this.state.filteredList.filter(r => r.title.toUpperCase().includes(this.state.formController.search.toUpperCase())))}
                 itemsPerPage={10}
