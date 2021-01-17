@@ -46,35 +46,12 @@ export default class BasePage extends React.Component {
   <input type='checkbox' id='responsive-menu'/><label></label>
   <ul>
   <li><div className='bp-spacer'></div></li>
-  
-    {
-        this.state.logged ? <li><div className='bp-cbutton'><a href='/account'>My Account</a></div></li> :
-        <li><div className='bp-cbutton'><a href='/login'>Get started</a></div></li>
-    }
-    
-    
-    <li><div className='bp-cbutton'><a href='/faq'>FAQ</a></div></li>
-    <li><div className='bp-cbutton'><a href='/affiliate'>Affiliate</a></div></li>
-    <li><div className='bp-cbutton'><a href='/reviews'>Reviews</a></div></li>
-    <li><div className='bp-cbutton'><a href='/'>Faucet</a></div></li>
-  <li><div className='bp-spacer'></div></li>
-  {/* <li><div className='bp-menu-item'></div></li> */}
-  </ul>
-</nav>
-                </div>
-
-                <div className='bp-header'>
-               <a href='/'><div style={{cursor: 'pointer'}} className='bp-logo'></div></a> 
-                <nav id='menu'>
-                <input type='checkbox' id='responsive-menu'/><label></label>
-  <ul>
-  <li><div className='bp-spacer'></div></li>
 
 
   <li><div className='bp-spacer' style={{
       width: '60px'
   }}></div></li>
-<li>
+  <li>
 <div class="main-menu">
   <div class="lang-select" onClick={() => {
       this.setState({
@@ -105,11 +82,22 @@ export default class BasePage extends React.Component {
   </div>
 </div>
 </li>
+    {
+        this.state.logged ? <li><div className='bp-cbutton'><a href='/account'>My Account</a></div></li> :
+        <li><div className='bp-cbutton'><a href='/login'>Get started</a></div></li>
+    }
+    
+    
+    <li><div className='bp-cbutton'><a href='/faq'>FAQ</a></div></li>
+    <li><div className='bp-cbutton'><a href='/affiliate'>Affiliate</a></div></li>
+    <li><div className='bp-cbutton'><a href='/reviews'>Reviews</a></div></li>
+    <li><div className='bp-cbutton'><a href='/'>Faucet</a></div></li>
   <li><div className='bp-spacer'></div></li>
   {/* <li><div className='bp-menu-item'></div></li> */}
   </ul>
 </nav>
                 </div>
+
 
                 {this.props.children}
             <style jsx>{`

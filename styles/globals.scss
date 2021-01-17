@@ -15,6 +15,7 @@ $blue: #DC8614;
     }
   }
   button {
+	transition: all 200ms ease-out;
     position: relative;
     display: block;
     text-align: left;
@@ -82,7 +83,7 @@ $blue: #DC8614;
     text-align:start;
       opacity: 1;
       max-height: 9em;
-      transition: all 200ms linear;
+      transition: all 200ms ease-out;
       will-change: opacity, max-height;
     }
   }
