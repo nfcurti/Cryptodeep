@@ -854,6 +854,32 @@ var _mapToSend = {
 
 return _http.post(`editlanguagedataset`, qs.stringify(_mapToSend));
 }
+//
+const addbulklanguagedataset = data => {
+  if(!data.token || 
+      !data.items) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "items": data.items,
+};
+
+return _http.post(`addbulklanguagedataset`, qs.stringify(_mapToSend));
+}
 
 export default {
     login,
@@ -889,6 +915,7 @@ export default {
     removerevsubcategory,
     editrevsubcategory,
     getlanguagedataset,
-    editlanguagedataset
+    editlanguagedataset,
+    addbulklanguagedataset
   }
   
