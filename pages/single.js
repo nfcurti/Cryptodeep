@@ -193,6 +193,7 @@ export default class Home extends React.Component {
               this.state.item.description == ''
               ? null :
               <div
+              className='innerhtmlx'
               dangerouslySetInnerHTML={{
                 __html: this.state.item.description
               }}></div>
