@@ -27,6 +27,8 @@ export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
+
+      userfaucetbalance: 0,
       isOpen: false,
       //Lang
       translatorData: [],
@@ -36,6 +38,21 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     this._loadLang();
+    const userCookies = ServiceCookies.getUserCookies();
+    
+    var _tmpMap = userCookies['cktoken'] == null ? {} : {
+      "token": userCookies['cktoken']
+    }
+    ServiceAuth.getgeneralsettings(_tmpMap).then(response => {
+      const dataB = response.data;
+      
+      console.log(dataB);
+      this.setState({
+        userfaucetbalance: dataB.data.userfaucetbalance,
+        
+      })
+    
+    })
   }
 
   _loadLang = () => {
@@ -82,7 +99,24 @@ export default class Home extends React.Component {
   
         <div className='bp-h-bg'>
           <div className='bp-middle-over'>
-          <img onClick={() => this.logout()} style={{"pointer-events": "all"}} alt="Logout" className='loutButton' src={'images/logout.svg'} />
+          <div className='bp-middle-left-sub bp-blueshadow' style={{
+              width: '90%',
+              marginBottom: '40px'
+            }}>
+              <img className='crypto-icon crownSvg' src='images/cryptodeep_asset_6.png' style={{
+                marginTop: '0px'
+              }} />
+              <a style={{
+                fontSize: '14px'
+              }} href={this.state.userfaucetbalance.length == 0 ? '#' : '/faucetbalance'}>
+              <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_faucetbalance', this.state.currentLang, this.state.translatorData)}</p>
+              </a>
+    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.state.currentLang, this.state.translatorData)}</h1>
+            </div>
+
+            <div className='clearfix'/>
+
+          <img onClick={() => this.logout()} style={{"pointer-events": "all"}} alt="Logout" className='loutButton img' src={'images/logout.svg'} />
                
             <div className='bp-middle-left bp-blueshadow main'>
   
@@ -236,7 +270,7 @@ export default class Home extends React.Component {
                   .bp-security{
                     display:inline-block;
                   }
-                  img{
+                  .img{
                     width:2em;
                     position: absolute;
                     margin-left: -4em;

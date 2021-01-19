@@ -2,8 +2,8 @@ import axios from "axios";
 import http from "./URLManager";
 var qs = require("qs");
 
-// const finalUrl = 'http://localhost:3002/api-cryptodeep/';
-const finalUrl = "https://juancurti.com/api-cryptodeep/";
+const finalUrl = 'http://localhost:3002/api-cryptodeep/';
+// const finalUrl = "https://juancurti.com/api-cryptodeep/";
 
 const login = data => {
   if(data.username.length == 0 ||
@@ -113,9 +113,9 @@ return _http.get(`admin/users`, qs.stringify({
 
 
 const getgeneralsettings = data => {
-  if(!data.token) {
-    return alert("");
-}
+//   if(!data.token) {
+//     return alert("");
+// }
 const _http = axios.create({
   // baseURL: 'http://localhost:3002/api-cryptodeep/',
   baseURL: finalUrl,
@@ -318,9 +318,7 @@ return _http.post(`executefaucet`, qs.stringify(_mapToSend));
 
 //
 const getfaucets = data => {
-  if(!data.token) {
-    return alert("");
-}
+  
 const _http = axios.create({
   // baseURL: 'http://localhost:3002/api-cryptodeep/',
   baseURL:finalUrl,
@@ -328,7 +326,7 @@ const _http = axios.create({
     "Access-Control-Allow-Origin": "*",
     'crossDomain': true,
     'Content-Type': ' application/x-www-form-urlencoded',
-    'x-access-token': data.token
+    // 'x-access-token': data.token
   }
 });
 

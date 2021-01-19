@@ -18,12 +18,29 @@ export default class Home extends React.Component {
       isOpen: false,
       //Lang
       translatorData: [],
-      currentLang: 'en'
+      currentLang: 'en',
+
+      userfaucetbalance: 0,
     }
   }
 
   componentDidMount() {
     this._loadLang();
+    const userCookies = ServiceCookies.getUserCookies();
+    
+    var _tmpMap = userCookies['cktoken'] == null ? {} : {
+      "token": userCookies['cktoken']
+    }
+    ServiceAuth.getgeneralsettings(_tmpMap).then(response => {
+      const dataB = response.data;
+      
+      console.log(dataB);
+      this.setState({
+        userfaucetbalance: dataB.data.userfaucetbalance,
+        
+      })
+    
+    })
   }
 
   _loadLang = () => {
@@ -61,6 +78,24 @@ export default class Home extends React.Component {
   
         <div className='bp-h-bg'>
         <div className='bp-middle-over'>
+
+        <div className='bp-middle-left-sub bp-blueshadow' style={{
+              width: '100%',
+              marginBottom: '40px'
+            }}>
+              <img className='crypto-icon crownSvg' src='images/cryptodeep_asset_6.png' style={{
+                marginTop: '0px'
+              }} />
+              <a style={{
+                fontSize: '14px'
+              }} href={this.state.userfaucetbalance.length == 0 ? '#' : '/faucetbalance'}>
+              <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_faucetbalance', this.state.currentLang, this.state.translatorData)}</p>
+              </a>
+    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.state.currentLang, this.state.translatorData)}</h1>
+            </div>
+
+            <div className='clearfix'/>
+
             <AffiliateTable 
               currentLang={this.state.currentLang}
               translatorData={this.state.translatorData}
@@ -103,6 +138,7 @@ export default class Home extends React.Component {
             
         <div className='bp-middle'>
           <div className='bp-middle-over'>
+
             <div className='bp-middle-all bp-blueshadow affiliateProgram' style={{padding:"3em"}}>
               <p style={{textAlign:'initial',width:'80%',marginTop:"1em",fontSize:"1.2em"}}>{Translator.getStringTranslated('aff_offer', this.state.currentLang, this.state.translatorData)}</p>
               <button onClick={() => {
@@ -239,14 +275,6 @@ export default class Home extends React.Component {
                   .bp-security{
                     display:inline-block;
                   }
-                  img{
-                    width:2em;
-                    position: absolute;
-                    margin-left: -4em;
-                    padding: 6px 12px;
-                    pointer-events: none;
-                    opacity:0.3;
-                    }
                   .selectCrypto{
                     outline:none;
                     width: 15em;

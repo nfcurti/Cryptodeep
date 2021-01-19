@@ -200,7 +200,6 @@ export default class Home extends React.Component {
         <div className='bp-middle-over'>
         <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>Admin Languages</p>
-                <p className='loginTitle'>LANG SEL: {Translator.getStringTranslated('code_test', this.state.currentLang, this.state.translatorData)}</p>
                 <input
                   value="Export"
                   type='submit'

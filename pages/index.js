@@ -124,13 +124,14 @@ export default class Home extends React.Component {
 
   _initData = () => {
     const userCookies = ServiceCookies.getUserCookies();
-    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-        return;
-    }else{
-      ServiceAuth.getgeneralsettings({
+    
+      var _tmpMap = userCookies['cktoken'] == null ? {} : {
         "token": userCookies['cktoken']
-      }).then(response => {
+      }
+
+      ServiceAuth.getgeneralsettings(_tmpMap).then(response => {
         const dataB = response.data;
+        
         console.log(dataB);
         this.setState({
           sv_jackpot: dataB.data.settings.jackpot,
@@ -145,7 +146,7 @@ export default class Home extends React.Component {
           cryptoval: dataB.data.cryptoval
         })
         ServiceAuth.getfaucets({
-          "token": userCookies['cktoken']
+          // "token": userCookies['cktoken']
         }).then(response => {
           const dataC = response.data;
           console.log(dataC.data.faucets);
@@ -159,10 +160,10 @@ export default class Home extends React.Component {
         })
       }).catch(e => {
         console.log(e);
-        alert(e);
+        // alert(e);
         return;
       })
-    }
+    // }
   }
 
   completeFaucet = () => {
@@ -249,7 +250,11 @@ export default class Home extends React.Component {
               <img className='crypto-icon crownSvg' src='images/cryptodeep_asset_6.png' style={{
                 marginTop: '0px'
               }} />
+              <a style={{
+                fontSize: '14px'
+              }} href={this.state.userfaucetbalance.length == 0 ? '#' : '/faucetbalance'}>
               <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_faucetbalance', this.state.currentLang, this.state.translatorData)}</p>
+              </a>
     <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.state.currentLang, this.state.translatorData)}</h1>
             </div>
 
