@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 import ServiceAuth from '../services/ServiceAuth';
 import ServiceCookies from '../services/cookies';
+import Translator from '../services/translator';
 export default class Home extends React.Component {
 
   constructor() {
@@ -18,11 +19,35 @@ export default class Home extends React.Component {
         repeatPassword: '',
         email: ''
       },
+      //Lang
+      translatorData: [],
+      currentLang: 'en',
       refBy: ''
     }
   }
 
+  _loadLang = () => {
+    const langCookies = ServiceCookies.getLangCookies();
+    ServiceAuth.getlanguagedataset({
+      
+    }).then(response => {
+      const data = response.data;
+      console.log(data);
+      if(data.data.items != null) {
+          this.setState({
+            currentLang: langCookies['cklang'],
+              translatorData: data.data.items
+          })
+      }
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
+    })
+  }
+
   componentDidMount() {
+    this._loadLang();
     const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] != null && userCookies['cktoken'] != null) {
                 window.location.replace(`/account`)
@@ -101,42 +126,45 @@ export default class Home extends React.Component {
   render() {
 
   return (
-    <BasePage>
+    <BasePage
+        currentLang={this.state.currentLang}
+        translatorData={this.state.translatorData}
+      >
     <br/>
       <div className='bp-middle'>
         <div className='bp-middle-over'>
           <div className='bp-middle-all bp-blueshadow'>
-              <p className='loginTitle'>Register</p>
+              <p className='loginTitle'>{Translator.getStringTranslated('register_title', this.state.currentLang, this.state.translatorData)}</p>
             {/* <form autoComplete="off"> */}
 
               <div className='inputhold'>
-                <input  placeholder="Username" name='username' type='text' onChange={this.handleInputChange} value={this.state.formController.username}/>
+                <input  placeholder={Translator.getStringTranslated('login_username', this.state.currentLang, this.state.translatorData)} name='username' type='text' onChange={this.handleInputChange} value={this.state.formController.username}/>
                 <img  role="img" src="https://cdn.onlinewebfonts.com/svg/img_189000.png" />
               </div>
 
               <div className='inputhold'>
-                <input type='password' placeholder="Password" name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
+                <input type='password' placeholder={Translator.getStringTranslated('acc_currentpassword', this.state.currentLang, this.state.translatorData)} name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
                 <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
 
               <div className='inputhold'>
-                <input type='password' placeholder="Repeat Password" name='repeatPassword' onChange={this.handleInputChange} value={this.state.formController.repeatPassword}/>
+                <input type='password' placeholder={Translator.getStringTranslated('acc_repeatpass', this.state.currentLang, this.state.translatorData)} name='repeatPassword' onChange={this.handleInputChange} value={this.state.formController.repeatPassword}/>
                 <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
 
               <div className='inputhold'>
-                <input  placeholder="Email" name='email' type='email' onChange={this.handleInputChange} value={this.state.formController.email} />
+                <input  placeholder={Translator.getStringTranslated('login_email', this.state.currentLang, this.state.translatorData)} name='email' type='email' onChange={this.handleInputChange} value={this.state.formController.email} />
                 <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
               </div>
               
               <div className='inputhold terms'>
                 <input  type="checkbox" id="agree" />
                 <label className="loginTerms" htmlFor="agree">
-                  I agree with the <a href="">terms and conditions</a>
+                  <a href="">{Translator.getStringTranslated('register_acceptterms', this.state.currentLang, this.state.translatorData)}</a>
                 </label>
               </div>
               <input
-                value="Register"
+                value={Translator.getStringTranslated('register_button', this.state.currentLang, this.state.translatorData)}
                 type='submit'
                 onClick={() => this._regiserPressed()}
                 className='loginSubmit '
@@ -144,7 +172,7 @@ export default class Home extends React.Component {
 
 
             {/* </form> */}
-            <p className='loginSignup'>Already have an account? <a href="/login">Login!</a></p>
+            <p className='loginSignup'><a href="/login">{Translator.getStringTranslated('login_loginlink', this.state.currentLang, this.state.translatorData)}</a></p>
           </div>
           <div className='clearfix'/>
         </div>

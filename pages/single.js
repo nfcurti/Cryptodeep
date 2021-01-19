@@ -144,7 +144,10 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <BasePage>
+      <BasePage
+        currentLang={this.state.currentLang}
+        translatorData={this.state.translatorData}
+      >
       <br/>
         { this.state.item == null ? null : <div className='bp-middle'>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import ServiceCookies from '../services/cookies';
+import Translator from '../services/translator';
 export default class BasePage extends React.Component {
     
     constructor() {
@@ -85,15 +86,15 @@ export default class BasePage extends React.Component {
 </div>
 </li>
     {
-        this.state.logged ? <li><div className='bp-cbutton'><a href='/account'>My Account</a></div></li> :
-        <li><div className='bp-cbutton'><a href='/login'>Get started</a></div></li>
+        this.state.logged ? <li><div className='bp-cbutton'><a href='/account'>{Translator.getStringTranslated('menu_myaccount', this.props.currentLang, this.props.translatorData)}</a></div></li> :
+        <li><div className='bp-cbutton'><a href='/login'>{Translator.getStringTranslated('menu_getstarted', this.props.currentLang, this.props.translatorData)}</a></div></li>
     }
     
     
-    <li><div className='bp-cbutton'><a href='/faq'>FAQ</a></div></li>
-    <li><div className='bp-cbutton'><a href='/affiliate'>Affiliate</a></div></li>
-    <li><div className='bp-cbutton'><a href='/reviews'>Reviews</a></div></li>
-    <li><div className='bp-cbutton'><a href='/'>Faucet</a></div></li>
+    <li><div className='bp-cbutton'><a href='/faq'>{Translator.getStringTranslated('menu_faq', this.props.currentLang, this.props.translatorData)}</a></div></li>
+    <li><div className='bp-cbutton'><a href='/affiliate'>{Translator.getStringTranslated('menu_affiliate', this.props.currentLang, this.props.translatorData)}</a></div></li>
+    <li><div className='bp-cbutton'><a href='/reviews'>{Translator.getStringTranslated('menu_reviews', this.props.currentLang, this.props.translatorData)}</a></div></li>
+    <li><div className='bp-cbutton'><a href='/'>{Translator.getStringTranslated('menu_faucet', this.props.currentLang, this.props.translatorData)}</a></div></li>
   <li><div className='bp-spacer'></div></li>
   {/* <li><div className='bp-menu-item'></div></li> */}
   </ul>

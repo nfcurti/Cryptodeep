@@ -153,7 +153,10 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <BasePage>
+      <BasePage
+        currentLang={this.state.currentLang}
+        translatorData={this.state.translatorData}
+      >
         <div className='bp-middle'>
           <div className='bp-middle-over'>
 

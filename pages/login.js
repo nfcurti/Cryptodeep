@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 import ServiceAuth from '../services/ServiceAuth';
 import ServiceCookies from '../services/cookies';
+import Translator from '../services/translator';
 export default class Home extends React.Component {
   
   constructor() {
@@ -13,9 +14,32 @@ export default class Home extends React.Component {
       errorForm: null,
       formController: {
         username: '',
-        password: ''
-      }
+        password: '',
+      },
+      //Lang
+      translatorData: [],
+      currentLang: 'en'
     }
+  }
+
+  _loadLang = () => {
+    const langCookies = ServiceCookies.getLangCookies();
+    ServiceAuth.getlanguagedataset({
+      
+    }).then(response => {
+      const data = response.data;
+      console.log(data);
+      if(data.data.items != null) {
+          this.setState({
+            currentLang: langCookies['cklang'],
+              translatorData: data.data.items
+          })
+      }
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
+    })
   }
 
   componentDidMount() {
@@ -23,6 +47,7 @@ export default class Home extends React.Component {
             if(userCookies['ckuserid'] != null && userCookies['cktoken'] != null) {
                 window.location.replace(`/account`)
             };
+            this._loadLang();
   }
 
   handleInputChange = event => {
@@ -68,25 +93,28 @@ export default class Home extends React.Component {
   
   render() {
     return (
-      <BasePage>
+      <BasePage
+        currentLang={this.state.currentLang}
+        translatorData={this.state.translatorData}
+      >
       <br/>
         <div className='bp-middle'>
           <div className='bp-middle-over'>
             <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>Login</p>
+                <p className='loginTitle'>{Translator.getStringTranslated('login_title', this.state.currentLang, this.state.translatorData)}</p>
               {/* <form autoComplete="off"> */}
   
                 <div className='inputhold'>
-                  <input  placeholder="Username" name='username' type='text' value={this.state.formController.username} onChange={this.handleInputChange}/>
+                  <input  placeholder={Translator.getStringTranslated('login_username', this.state.currentLang, this.state.translatorData)} name='username' type='text' value={this.state.formController.username} onChange={this.handleInputChange}/>
                   <img  role="img" src="https://cdn.onlinewebfonts.com/svg/img_189000.png" />
                 </div>
                 <div className='inputhold'>
-                  <input type='password' placeholder="Password" name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
+                  <input type='password' placeholder={Translator.getStringTranslated('acc_currentpassword', this.state.currentLang, this.state.translatorData)} name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
                   <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
                 </div>
                 
                  <input
-                  value="Login"
+                  value={Translator.getStringTranslated('login_button', this.state.currentLang, this.state.translatorData)}
                   type='submit'
                   onClick={() => this._loginPressed()}
                   className='loginSubmit '
@@ -94,8 +122,8 @@ export default class Home extends React.Component {
   
   
               {/* </form> */}
-              <p className='loginSignup'>Don't have an account? <a href="/signup">Sign Up</a></p>
-              <p className='loginSignup'><a href="/pwdreset">I have forgotten my password</a></p>
+              <p className='loginSignup'><a href="/signup">{Translator.getStringTranslated('login_signuplink', this.state.currentLang, this.state.translatorData)}</a></p>
+              <p className='loginSignup'><a href="/pwdreset">{Translator.getStringTranslated('login_forgotpsswlink', this.state.currentLang, this.state.translatorData)}</a></p>
             </div>
             <div className='clearfix'/>
           </div>

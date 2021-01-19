@@ -4,7 +4,9 @@ import Marquee from 'react-double-marquee';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
+import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
+import Translator from '../services/translator';
 export default class Home extends React.Component {
 
 
@@ -14,8 +16,37 @@ export default class Home extends React.Component {
       errorForm: null,
       formController: {
         email: ''
-      }
+      },
+
+      //Lang
+      translatorData: [],
+      currentLang: 'en'
     }
+  }
+
+  _loadLang = () => {
+    const langCookies = ServiceCookies.getLangCookies();
+    ServiceAuth.getlanguagedataset({
+      
+    }).then(response => {
+      const data = response.data;
+      console.log(data);
+      if(data.data.items != null) {
+          this.setState({
+            currentLang: langCookies['cklang'],
+              translatorData: data.data.items
+          })
+      }
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
+    })
+  }
+
+  componentDidMount() {
+
+    this._loadLang();
   }
 
   handleInputChange = event => {
@@ -56,17 +87,20 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <BasePage>
+      <BasePage
+        currentLang={this.state.currentLang}
+        translatorData={this.state.translatorData}
+      >
       <br/>
         <div className='bp-middle'>
           <div className='bp-middle-over'>
             <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>Reset password</p>
+                <p className='loginTitle'>{Translator.getStringTranslated('rstp_title', this.state.currentLang, this.state.translatorData)}</p>
               {/* <form autoComplete="off"> */}
   
                 
                 <div className='inputhold'>
-                  <input  placeholder="Email" name='email' type='email' onChange={this.handleInputChange} value={this.state.formController.email}/>
+                  <input  placeholder={Translator.getStringTranslated('login_email', this.state.currentLang, this.state.translatorData)} name='email' type='email' onChange={this.handleInputChange} value={this.state.formController.email}/>
                   <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
                 </div>
                 
@@ -79,8 +113,8 @@ export default class Home extends React.Component {
   
   
               {/* </form> */}
-              <p className='loginSignup'>Don't have an account? <a href="/signup">Sign Up</a></p>
-              <p className='loginSignup'><a href="/login">Already have an account</a></p>
+              <p className='loginSignup'><a href="/signup">{Translator.getStringTranslated('login_signuplink', this.state.currentLang, this.state.translatorData)}</a></p>
+              <p className='loginSignup'><a href="/login">{Translator.getStringTranslated('login_loginlink', this.state.currentLang, this.state.translatorData)}</a></p>
             </div>
             <div className='clearfix'/>
           </div>
