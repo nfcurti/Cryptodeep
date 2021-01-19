@@ -810,3 +810,17 @@ a {
 	  .predictRules{    width: 20em;}
 	  .predictShow{    width: inherit !important;}
   }
+
+  .accordion-title {
+    font-size:0.9em !important;
+    color: #DC8614
+    }
+
+.accordion button .icon::before {
+        top: 10px!important;
+        left: 6px!important;
+      }
+      .accordion button .icon::after {
+        top: 6px!important;
+        left: 10px!important;
+      }
