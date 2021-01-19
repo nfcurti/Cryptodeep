@@ -1,4 +1,5 @@
 import React from 'react';
+import { PaginatedList } from 'react-paginated-list';
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
 import Translator from '../services/translator';
@@ -7,10 +8,29 @@ export default class WithdrawPopup extends React.Component {
   constructor() {
     super();
     this.state = {
+      history: [],
       formController: {
           targetprice: ''
       }
     }
+  }
+
+  componentDidMount() {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['cktoken'] == null) { return; }
+    ServiceAuth.getpredictions({
+      "token": userCookies['cktoken']
+    }).then(response => {
+      const dataC = response.data;
+      console.log(dataC.data.items);
+      this.setState({
+        history: dataC.data.items
+      })
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
+    })
   }
 
   handleInputChange = event => {
@@ -48,8 +68,8 @@ export default class WithdrawPopup extends React.Component {
             console.log(data);
             alert('Played successfuly! Wait until sunday to see your result');
           }).catch(e => {
-            var _content = 'One or more fields are empty';
-            console.log(e);
+            var _content = 'You already played this game! Wait until sunday to see your result';
+            console.log(e.message);
             if(e.response.status == 404 || e.response.status == 401) {
               _content = 'Error while playing prediction'
             }
@@ -77,39 +97,49 @@ export default class WithdrawPopup extends React.Component {
              <button onClick={() => this.sendPredPressed()} className='crypto-status-btn csb-withdraw withdrawFinal predictionFinal'>{Translator.getStringTranslated('prdct_sendpred', this.props.currentLang, this.props.translatorData)}</button>
  
             </div>
-            <table className='bp-table wallet-table predictTable'>
+            <PaginatedList
+              list={this.state.history}
+              itemsPerPage={5}
+              renderList={(list) => (
+                <table className='bp-table wallet-table predictTable'>
  
+              <thead>
               <tr>
                 <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_date', this.props.currentLang, this.props.translatorData)}</th>
                 <th className='fiat' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('prdct_targetprice', this.props.currentLang, this.props.translatorData)} </th>
                 <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('prdct_result', this.props.currentLang, this.props.translatorData)}</th>
               </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>01/01/2021 12:31</p></td>
-                <td className='textCenter fiat' style={{}}><p> 34565</p></td>
-                <td style={{}}><span className='crypto-status-btn  defeat'>{Translator.getStringTranslated('prdct_status_2', this.props.currentLang, this.props.translatorData)}</span></td>
-              </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>01/01/2021 12:31</p></td>
-                <td className='textCenter fiat' style={{}}><p> 34565</p></td>
-                <td style={{}}><span className='crypto-status-btn  victory'>{Translator.getStringTranslated('prdct_status_3', this.props.currentLang, this.props.translatorData)}</span></td>
-              </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>01/01/2021 12:31</p></td>
-                <td className='textCenter fiat' style={{}}><p> 34565</p></td>
-                <td style={{}}><span className='crypto-status-btn  inprogress'>{Translator.getStringTranslated('prdct_status_1', this.props.currentLang, this.props.translatorData)}</span></td>
-              </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>01/01/2021 12:31</p></td>
-                <td className='textCenter fiat' style={{}}><p> 34565</p></td>
-                <td style={{}}><span className='crypto-status-btn  defeat'>DEFEAT</span></td>
-              </tr>
-              <tr>
-                <td className='textCenter' style={{}}><p>01/01/2021 12:31</p></td>
-                <td className='textCenter fiat' style={{}}><p> 34565</p></td>
-                <td style={{}}><span className='crypto-status-btn  defeat'>DEFEAT</span></td>
-              </tr>
+              </thead>
+              <tbody>
+                {list.map((item, id) => {
+                  return (
+                    <tr key={id}>
+                      <td className='textCenter' style={{}}><p>{item.created_at.split('T').join(' ').substring(0, 16)}</p></td>
+                  <td className='textCenter fiat' style={{}}><p> {item.targetprice}</p></td>
+                  {
+                    item.result == 0 ?
+                    <td style={{}}><span className='crypto-status-btn  inprogress'>{Translator.getStringTranslated('prdct_status_1', this.props.currentLang, this.props.translatorData)}</span></td>
+                    : null
+                  }
+                  {
+                    item.result == 1 ?
+                    <td style={{}}><span className='crypto-status-btn  victory'>{Translator.getStringTranslated('prdct_status_3', this.props.currentLang, this.props.translatorData)}</span></td>
+                    : null
+                  }
+                  {
+                    item.result == 2 ?
+                    <td style={{}}><span className='crypto-status-btn  defeat'>{Translator.getStringTranslated('prdct_status_2', this.props.currentLang, this.props.translatorData)}</span></td>
+                    : null
+                  }
+                
+                    </tr>
+                  )
+                })}
+              </tbody>
               </table>
+              )}
+            />
+            
           <div className='clearfix'/>
           <style jsx>{`
  

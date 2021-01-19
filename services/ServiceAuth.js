@@ -917,6 +917,49 @@ return _http.get(`getpredictions`, qs.stringify({
 }));
 }
 
+///////
+const gamesettings = data => {
+  //   if(!data.token) {
+  //     return alert("");
+  // }
+  const _http = axios.create({
+    // baseURL: 'http://localhost:3002/api-cryptodeep/',
+    baseURL: finalUrl,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      'crossDomain': true,
+      'Content-Type': ' application/x-www-form-urlencoded',
+      'x-access-token': data.token
+    }
+  });
+  
+  return _http.get(`gamesettings`, qs.stringify({
+    
+  }));
+  }
+  
+  const updategamesettings = data => {
+    if(!data.token) {
+      return alert("");
+  }
+  const _http = axios.create({
+    // baseURL: 'http://localhost:3002/api-cryptodeep/',
+    baseURL: finalUrl,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      'crossDomain': true,
+      'Content-Type': ' application/x-www-form-urlencoded',
+      'x-access-token': data.token
+    }
+  });
+  
+  var _mapToSend = {};
+  
+  if(data.predictionaward != null) { _mapToSend.predictionaward = data.predictionaward; }
+  
+  return _http.post(`updategamesettings`, qs.stringify(_mapToSend));
+  }
+
 export default {
     login,
     signup,
@@ -954,6 +997,8 @@ export default {
     editlanguagedataset,
     addbulklanguagedataset,
     getpredictions,
-    playprediction
+    playprediction,
+    updategamesettings,
+    gamesettings
   }
   

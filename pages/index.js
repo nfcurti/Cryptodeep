@@ -49,8 +49,7 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     var date = new Date();
-    if(date.getDay() == 2) {
-      alert('Cambiar 2 por 1 linea 49');
+    if(date.getDay() == 1) {
       this.setState({
         isMonday: true
       })
