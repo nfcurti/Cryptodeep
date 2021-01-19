@@ -1,9 +1,22 @@
 import React from 'react';
 import ServiceCookies from '../services/cookies';
 import ReactStars from "react-rating-stars-component";
-export default class FeaturedReviews extends React.Component {
-    
+import Translator from '../services/translator';
 
+export default class FeaturedReviews extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {
+
+        }
+    }
+
+    componentDidMount() {
+        console.log('------')
+        console.log(this.props.currentLang);
+        console.log(this.props.translatorData);
+    }
 
     render() {
         return this.props.item == null || this.props.reviews == null ? <p>Error</p> : (
@@ -44,13 +57,13 @@ export default class FeaturedReviews extends React.Component {
                    window.location.replace(`/single?id=${this.props.item._id}`);
                }} className='ffrc ffrcleft'
                >
-                   <p className='ffrctext'>REVIEW</p>
+                   <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_review', this.props.currentLang, this.props.translatorData)}</p>
                </div>
                <div onClick={() => {
                    const tab = window.open(this.props.item.siteurl, '_blank');
                }} className='ffrc ffrcright'
                >
-                   <p className='ffrctext'>SITE</p>
+                   <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_site', this.props.currentLang, this.props.translatorData)}</p>
                </div>
                </> : 
                
@@ -60,13 +73,13 @@ export default class FeaturedReviews extends React.Component {
                    window.location.replace(`/single?id=${this.props.item._id}`);
                }} className='ffrc ffrcleftx'
                >
-                   <p className='ffrctext'>REVIEW</p>
+                   <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_review', this.props.currentLang, this.props.translatorData)}</p>
                </div>
                <div onClick={() => {
                    const tab = window.open(this.props.item.siteurl, '_blank');
                }} className='ffrc ffrcrightx'
                >
-                   <p className='ffrctext'>SITE</p>
+                   <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_site', this.props.currentLang, this.props.translatorData)}</p>
                </div>
                </>
                }

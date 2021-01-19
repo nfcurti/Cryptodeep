@@ -31,10 +31,12 @@ export default class BasePage extends React.Component {
     }
 
     _changeLang = data => {
+        if(data == this.state.currentLang) { return; }
         ServiceCookies.saveLangCookies({cklang: data});
         this.setState({
             currentLang: data
         })
+        window.location.reload();
     }
 
     render() {

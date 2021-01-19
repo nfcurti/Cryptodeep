@@ -1,6 +1,7 @@
 import React from 'react';
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
+import Translator from '../services/translator';
 export default class AffiliateSubTable extends React.Component {
 
     constructor() {
@@ -27,7 +28,7 @@ export default class AffiliateSubTable extends React.Component {
         return !this.state.logged ? null : (
             <>
             <div className='bp-center-text'>
-        <p style={{fontWeight: 700, fontSize: 16}}>Referral Banner and Display</p>
+        <p style={{fontWeight: 700, fontSize: 16}}>{Translator.getStringTranslated('aff_referralbanner', this.props.currentLang, this.props.translatorData)}</p>
       </div>
           
       <div className='bp-middle'>

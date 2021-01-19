@@ -10,6 +10,9 @@ import BasePage from '../components/BasePage';
 import { PaginatedList } from 'react-paginated-list';
 import Countdown from 'react-countdown';
 import FeaturedReviews from '../components/FeaturedReviews';
+import Translator from '../services/translator';
+
+
 export default class Home extends React.Component {
 
   constructor() {
@@ -32,12 +35,16 @@ export default class Home extends React.Component {
       userwallet: 0,
       cryptoval: null,
       reviewsites: [],
-      reviews: []
+      reviews: [],
+      //Lang
+      translatorData: [],
+      currentLang: 'en'
     }
   }
 
   componentDidMount() {
     this._initData();
+    this._loadLang();
     this._loadReviews();
   }
 
@@ -100,6 +107,26 @@ export default class Home extends React.Component {
               })
         // }
     };
+  }
+
+  _loadLang = () => {
+    const langCookies = ServiceCookies.getLangCookies();
+    ServiceAuth.getlanguagedataset({
+      
+    }).then(response => {
+      const data = response.data;
+      console.log(data);
+      if(data.data.items != null) {
+          this.setState({
+            currentLang: langCookies['cklang'],
+              translatorData: data.data.items
+          })
+      }
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
+    })
   }
 
   _initData = () => {
@@ -214,6 +241,8 @@ export default class Home extends React.Component {
                   item={rs}
                   featured={true}
                   reviews={this.state.reviews}
+                  currentLang={this.state.currentLang}
+                  translatorData={this.state.translatorData}
                  />
                
                })
@@ -225,8 +254,8 @@ export default class Home extends React.Component {
             
             <br/>
             <div className='over_robot_f'/>
-            <br/><p className='bp-title'>My Faucet</p>
-            <p>You can roll a faucet every {this.state.sv_faucetdelay} minutes</p>
+            <br/><p className='bp-title'>{Translator.getStringTranslated('fct_myfaucet', this.state.currentLang, this.state.translatorData)}</p>
+            <p>{Translator.getStringTranslated('fct_youcanroll', this.state.currentLang, this.state.translatorData).replace('%val%', this.state.sv_faucetdelay)}</p>
             <div 
               id='rdm'
               className = "randomNumber">
@@ -242,7 +271,7 @@ export default class Home extends React.Component {
             
             {
               (this.state.playing || this.state.remTime != null) ? null :
-              <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>ROLL & WIN</a></button></div>
+              <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>{Translator.getStringTranslated('fct_rollnwin', this.state.currentLang, this.state.translatorData)}</a></button></div>
             }
             {
               this.state.faucetmsg == '' ? null :
@@ -253,7 +282,7 @@ export default class Home extends React.Component {
                   renderer={({ hours, minutes, seconds, completed }) => {
                     if (completed) {
                       // Render a completed state
-                      return <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>ROLL & WIN</a></button></div>;
+                      return <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>{Translator.getStringTranslated('fct_rollnwin', this.state.currentLang, this.state.translatorData)}</a></button></div>;
                     } else {
                       // Render a countdown
                       return <p className="resultDisplay">You need to wait {("0" + hours).slice(-2)}:{("0" + minutes).slice(-2)}:{("0" + seconds).slice(-2)}</p>;
@@ -276,15 +305,15 @@ export default class Home extends React.Component {
             
             <div className='bp-middle-left-sub bp-blueshadow'>
               <img className='crypto-icon crownSvg' src={'https://images.vexels.com/media/users/3/143188/isolated/preview/5f44f3160a09b51b4fa4634ecdff62dd-money-icon-by-vexels.png'} />
-              <p style={{marginTop:-2}}>WALLET</p>
-    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userwallet} points</h1>
+              <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_wallet', this.state.currentLang, this.state.translatorData)}</p>
+    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userwallet} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</h1>
             </div>
             <div className='bp-middle-left-sub bp-blueshadow'>
               
               <span className='crypto-icon crownSvg' style={{backgroundImage: 'url("/images/robot_trophy.png")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '50px', height: '60px', border: 'none' }} />
-              <p style={{marginTop:-2}}>JACKPOT</p>
+              <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</p>
               <span className='crypto-icon' style={{position: 'absolute', marginLeft: '90px', marginTop: '-30px', backgroundImage: 'url("/images/robot_trophy.png")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '50px', height: '60px', border: 'none' }} />
-    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.sv_jackpot} points</h1>
+    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.sv_jackpot} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</h1>
     
             </div>
             
@@ -293,9 +322,9 @@ export default class Home extends React.Component {
                 <table>
                   <tbody><tr>
                   <td style={{width: '5em'}}><p className="numbering">1</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 0 - 999,500</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 0 - 999,500</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>{this.state.sv_roll_a} POINTS</div></td>
+                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_a} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody>
   
                 </table>
@@ -303,41 +332,41 @@ export default class Home extends React.Component {
             <div className='lotteryRange2'>
                <table><tbody> <tr>
                   <td style={{width: '5em'}}><p className="numbering">2</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,501 - 999,700</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,501 - 999,700</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>{this.state.sv_roll_b} POINTS</div></td>
+                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_b} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             <div className='lotteryRange3'>
                 <table><tbody><tr>
                   <td style={{width: '5em'}}><p className="numbering">3</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,701 - 999,850</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,701 - 999,850</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>{this.state.sv_roll_c} POINTS</div></td>
+                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_c} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             <div className='lotteryRange4'>
                 <table><tbody><tr>
                   <td style={{width: '5em'}}><p className="numbering">4</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,851 - 999,920</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,851 - 999,920</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>{this.state.sv_roll_d} POINTS</div></td>
+                  <td style={{width: '30%', paddingRight:'1em',}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform:'uppercase'}}>{this.state.sv_roll_d} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             <div className='lotteryRange4'>
                 <table><tbody><tr>
                   <td style={{width: '5em'}}><p className="numbering">5</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,921 - 999,998</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,921 - 999,998</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>{this.state.sv_roll_e} POINTS</div></td>
+                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_e} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             <div className='lotteryRange5'>
                 <table><tbody><tr>
                   <td style={{width: '5em'}}><p className="numbering">6</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>Roll 999,999</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,999</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em'}}>JACKPOT</div></td>
+                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             </div>
@@ -365,7 +394,7 @@ export default class Home extends React.Component {
           
         </div>
         <div className='bp-center-text'>
-        <p style={{fontWeight: 700, fontSize: 16}}>Faucet history</p>
+        <p style={{fontWeight: 700, fontSize: 16}}>{Translator.getStringTranslated('fct_history', this.state.currentLang, this.state.translatorData)}</p>
         </div>
             
         <div className='bp-middle'>
@@ -383,9 +412,9 @@ export default class Home extends React.Component {
                   <div className='over_robot_b'/>
                     <thead>
                     <tr className='bp-header'>
-                      <th style={{width: '30%'}}>DATE</th>
-                      <th style={{width: '30%'}}>AMOUNT</th>
-                      <th style={{width: '20%'}}>ROLLED NUMBER</th>
+                      <th style={{width: '30%', textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_date', this.state.currentLang, this.state.translatorData)}</th>
+                      <th style={{width: '30%', textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_amount', this.state.currentLang, this.state.translatorData)}</th>
+                      <th style={{width: '20%', textTransform: 'uppercase'}}>{Translator.getStringTranslated('fct_rollednumber', this.state.currentLang, this.state.translatorData)}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -393,7 +422,7 @@ export default class Home extends React.Component {
                       return (
                         <tr key={id}>
                   <td style={{width: '30%'}}>{item.created_at.split('T').join(' ').substring(0, 16)}</td>
-                  <td style={{width: '30%'}}><p style={{display: 'block', textAlign: 'center'}}>{item.amount} Points</p></td>
+                  <td style={{width: '30%'}}><p style={{display: 'block', textAlign: 'center'}}>{item.amount} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</p></td>
                   <td style={{width: '20%', textAlign: 'center', fontWeight: 'bold',  color: 'orange', paddingBottom: '1px'}}><p style={{display: 'block', textAlign: 'center', letterSpacing: '4px', color: 'orange'}}>{item.rollednumber}</p></td>
                 </tr>
                       );

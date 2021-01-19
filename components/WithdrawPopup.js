@@ -1,6 +1,8 @@
 import React from 'react';
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
+import Translator from '../services/translator';
+
 export default class WithdrawPopup extends React.Component {
 
     constructor() {
@@ -134,7 +136,7 @@ export default class WithdrawPopup extends React.Component {
     render() {
         return (
             <>
-            <h4 className='withdrawTitle'>Withdrawal</h4>
+            <h4 className='withdrawTitle'>{Translator.getStringTranslated('global_withdraw', this.props.currentLang, this.props.translatorData)}</h4>
             <form className="withdrawalForm">
               <select name="currency" id="currency" className='selectCrypto' onChange={(val) => {
                   console.log(val.target.value);
@@ -179,20 +181,38 @@ export default class WithdrawPopup extends React.Component {
                 }
                 
               <div className='inputhold' style={{marginBottom: '-1em'}}>
-                <label>Crypto Address</label>
-                <input type='text'  placeholder="Your Address" name='cryptoaddress' value={this.state.formController.cryptoaddress} onChange={this.handleInputChange}/>
+                <label>{Translator.getStringTranslated('acc_address', this.props.currentLang, this.props.translatorData)}</label>
+                <input type='text'  placeholder={Translator.getStringTranslated('acc_youraddress', this.props.currentLang, this.props.translatorData)} name='cryptoaddress' value={this.state.formController.cryptoaddress} onChange={this.handleInputChange}/>
                 <img className='walletSvg'  role="img" src="https://www.flaticon.com/svg/static/icons/svg/482/482541.svg" />
               </div>
               <div className='inputhold'>
-                <label>Points to withdraw</label>
+                <label>{Translator.getStringTranslated('acc_ptw', this.props.currentLang, this.props.translatorData)}</label>
                 <input type='number' value="0" name='points' value={this.state.formController.points} onChange={this.handleInputChange}/>
               </div>
-              <p className="minWith" style={{color:'#ffffff90'}}>Min. {this.state.minpoints} points
-             </p>
+              {
+                    this.state.formController.currency == 'BTC' ? 
+                    
+                    <p className="minWith" style={{color:'#ffffff90'}}>{Translator.getStringTranslated('acc_minpoints', this.props.currentLang, this.props.translatorData).replace('%val%', this.state.minbtc)}</p>: null
+                }
+                {
+                    this.state.formController.currency == 'ETH' ? 
+                    
+                    <p className="minWith" style={{color:'#ffffff90'}}>{Translator.getStringTranslated('acc_minpoints', this.props.currentLang, this.props.translatorData).replace('%val%', this.state.mineth)} </p>: null
+                }
+                {
+                    this.state.formController.currency == 'LTC' ? 
+                    
+                    <p className="minWith" style={{color:'#ffffff90'}}>{Translator.getStringTranslated('acc_minpoints', this.props.currentLang, this.props.translatorData).replace('%val%', this.state.minltc)} </p>: null
+                }
+                {
+                    this.state.formController.currency == 'TRX' ? 
+                    
+                    <p className="minWith" style={{color:'#ffffff90'}}>{Translator.getStringTranslated('acc_minpoints', this.props.currentLang, this.props.translatorData).replace('%val%', this.state.mintrx)} </p>: null
+                }
               <p className='terms' style={{opacity: '0.5'}}>{this.state.formController.currency}: { this.state.formController.points * this.state.usdperpoint / this.state.pointValIndex }</p>
             </form>
-              <p className="terms">Your withdrawal will be made from: <span style={{fontWeight:'bold'}}>next sunday</span></p>
-              <button onClick={() => this._withdrawPressed()} className='crypto-status-btn csb-withdraw withdrawFinal'>Withdraw</button>
+              <p className="terms">{Translator.getStringTranslated('acc_withnext', this.props.currentLang, this.props.translatorData)} <span style={{fontWeight:'bold'}}>next sunday</span></p>
+              <button onClick={() => this._withdrawPressed()} className='crypto-status-btn csb-withdraw withdrawFinal'>{Translator.getStringTranslated('global_withdraw', this.props.currentLang, this.props.translatorData)}</button>
           
           <div className='clearfix'/>
           <style jsx>{`

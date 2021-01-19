@@ -1,6 +1,8 @@
 import React from 'react';
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
+import Translator from '../services/translator';
+
 export default class WithdrawTable extends React.Component {
 
     constructor() {
@@ -50,14 +52,14 @@ export default class WithdrawTable extends React.Component {
             <table className='bp-table wallet-table'>
 
               <tr>
-                <th style={{}}>AMOUNT</th>
-                <th className='fiat' style={{}}>FIAT </th>
-                <th style={{}}>STATUS</th>
+                <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_amount', this.props.currentLang, this.props.translatorData)}</th>
+                <th className='fiat' style={{ textTransform: 'uppercase' }}>{Translator.getStringTranslated('global_fiat', this.props.currentLang, this.props.translatorData)} </th>
+                <th style={{ textTransform: 'uppercase' }}>{Translator.getStringTranslated('global_status', this.props.currentLang, this.props.translatorData)}</th>
               </tr>
               <tr>
-                <td className='textCenter' style={{}}><p>{this.state.amount} POINTS </p></td>
+                <td className='textCenter' style={{textTransform: 'uppercase'}}><p>{this.state.amount} {Translator.getStringTranslated('global_points', this.props.currentLang, this.props.translatorData)} </p></td>
                 <td className='textCenter fiat' style={{}}><p> {this.state.fiat} USD</p></td>
-                <td style={{}}><button onClick={this.props.openModal} className='crypto-status-btn csb-withdraw'>Withdraw</button></td>
+                <td style={{}}><button onClick={this.props.openModal} className='crypto-status-btn csb-withdraw'>{Translator.getStringTranslated('global_withdraw', this.props.currentLang, this.props.translatorData)}</button></td>
               </tr>
               
           

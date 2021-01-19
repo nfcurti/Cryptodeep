@@ -2,6 +2,7 @@ import React from 'react';
 import { PaginatedList } from 'react-paginated-list';
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
+import Translator from '../services/translator';
 export default class AffiliateTable extends React.Component {
 
     constructor() {
@@ -79,14 +80,14 @@ export default class AffiliateTable extends React.Component {
             <div className='bp-middle-left bp-blueshadow main'>
 
             <div className='over_robot_c'/>
-        <br/><p className='bp-title' style={{fontSize: '18px', textAlign:'start',padding:'1em',color:'#DC8614', fontWeight:"bold"}}>Your Referral Link: <span style={{color:'#ffffff80',fontWeight:"500"}}>https://cryptodeep.com/signup?ref={this.state.userid}</span></p>
+        <br/><p className='bp-title' style={{fontSize: '18px', textAlign:'start',padding:'1em',color:'#DC8614', fontWeight:"bold"}}>{Translator.getStringTranslated('aff_yourreflink', this.props.currentLang, this.props.translatorData)} <span style={{color:'#ffffff80',fontWeight:"500"}}>https://cryptodeep.com/signup?ref={this.state.userid}</span></p>
             <div style={{width:'fit-content',float:"left"}}>
-              <p style={{fontSize: '16px', textAlign:'start',paddingLeft:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>Total Referrals Lifetime:</span> {this.state.valstr.totalRef} ({this.state.valstr.totalRefSecondGen} second gen.)</p>
-              <p style={{fontSize: '16px',textAlign:'start',padding:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>Total Referrals This Week:</span>  {this.state.valstr.totalRefThisWeek} ({this.state.valstr.totalRefThisWeekSecondGen} second gen.)</p>
+              <p style={{fontSize: '16px', textAlign:'start',paddingLeft:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>{Translator.getStringTranslated('aff_totallifetime', this.props.currentLang, this.props.translatorData)}</span> {this.state.valstr.totalRef} ({this.state.valstr.totalRefSecondGen} {Translator.getStringTranslated('aff_secondgen', this.props.currentLang, this.props.translatorData)})</p>
+              <p style={{fontSize: '16px',textAlign:'start',padding:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>{Translator.getStringTranslated('aff_weeklyref', this.props.currentLang, this.props.translatorData)}</span>  {this.state.valstr.totalRefThisWeek} ({this.state.valstr.totalRefThisWeekSecondGen} {Translator.getStringTranslated('aff_secondgen', this.props.currentLang, this.props.translatorData)})</p>
             </div>
             <div className='rightEarning' style={{width:'fit-content',float:"right",marginRight:"15em"}}>
-              <p style={{fontSize: '16px',textAlign:'start',paddingLeft:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>Total Earnings:</span>  {this.state.valstr.totalEarnings} POINTS</p>
-              <p style={{fontSize: '16px',textAlign:'start',padding:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>Total Earnings Today:</span>  {this.state.valstr.totalEarningsToday} POINTS</p>
+              <p style={{fontSize: '16px',textAlign:'start',paddingLeft:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>{Translator.getStringTranslated('aff_totalearnings', this.props.currentLang, this.props.translatorData)}</span>  {this.state.valstr.totalEarnings} {Translator.getStringTranslated('global_points', this.props.currentLang, this.props.translatorData)}</p>
+              <p style={{fontSize: '16px',textAlign:'start',padding:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>{Translator.getStringTranslated('aff_todayearnings', this.props.currentLang, this.props.translatorData)}</span>  {this.state.valstr.totalEarningsToday} {Translator.getStringTranslated('global_points', this.props.currentLang, this.props.translatorData)}</p>
             </div>
             <PaginatedList
               list={this.state.affiliates}
@@ -95,10 +96,10 @@ export default class AffiliateTable extends React.Component {
                 <table className='bp-table wallet-table'>
                 <thead>
                 <tr>
-                  <th style={{}}>USERNAME</th>
-                  <th className='fiat' style={{}}>EARNINGS </th>
-                  <th style={{}}>REGISTRATION DATE</th>
-                  <th>GEN</th>
+                  <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_username', this.props.currentLang, this.props.translatorData)}</th>
+                  <th className='fiat' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_earnings', this.props.currentLang, this.props.translatorData)} </th>
+                  <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_regdate', this.props.currentLang, this.props.translatorData)}</th>
+                  <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_gen', this.props.currentLang, this.props.translatorData)}</th>
                 </tr>
                 </thead>
                 <tbody>

@@ -2,6 +2,7 @@ import React from 'react';
 import { PaginatedList } from 'react-paginated-list';
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
+import Translator from '../services/translator';
 export default class WithdrawalTable extends React.Component {
 
     constructor() {
@@ -48,6 +49,7 @@ export default class WithdrawalTable extends React.Component {
 
     render() {
         return (
+          <>
             <PaginatedList 
                 list={this.state.withdrawals}
                 itemsPerPage={25}
@@ -57,11 +59,11 @@ export default class WithdrawalTable extends React.Component {
           <div className='over_robot_b'/>
                         <thead>
                         <tr>
-                            <th style={{width: '20%'}}>DATE</th>
-                            <th style={{}}>AMOUNT</th>
-                            <th style={{}}>CURRENCY</th>
-                            <th style={{}}>POINTS</th>
-                            <th style={{}}>ACTION</th>
+                            <th style={{width: '20%', textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_date', this.props.currentLang, this.props.translatorData)}</th>
+                            <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_amount', this.props.currentLang, this.props.translatorData)}</th>
+                            <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_currency', this.props.currentLang, this.props.translatorData)}</th>
+                            <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_points', this.props.currentLang, this.props.translatorData)}</th>
+                            <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_action', this.props.currentLang, this.props.translatorData)}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -75,15 +77,15 @@ export default class WithdrawalTable extends React.Component {
                                         <td style={{width: '40%'}}>
                                             
                                             {
-                                                item.status == 2 ? <button className='crypto-status-btn csb-success'>Validated</button> : null
+                                                item.status == 2 ? <button className='crypto-status-btn csb-success'>{Translator.getStringTranslated('global_val', this.props.currentLang, this.props.translatorData)}</button> : null
                                             }
                                         
                                             {
-                                                item.status == 0 ? <button className='crypto-status-btn csb-in-process'>Pending</button> : null
+                                                item.status == 0 ? <button className='crypto-status-btn csb-in-process'>{Translator.getStringTranslated('global_pend', this.props.currentLang, this.props.translatorData)}</button> : null
                                             }
 
                                             {
-                                                item.status == 1 ? <button className='crypto-status-btn csb-rejected'>Rejected</button> : null
+                                                item.status == 1 ? <button className='crypto-status-btn csb-rejected'>{Translator.getStringTranslated('global_rej', this.props.currentLang, this.props.translatorData)}</button> : null
                                             }
 
                                         </td>
@@ -408,7 +410,7 @@ export default class WithdrawalTable extends React.Component {
             `}</style>
         
         </PaginatedList>
-      
+        </>
         )
     }
 }

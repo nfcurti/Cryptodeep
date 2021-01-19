@@ -9,6 +9,9 @@ import ServiceAuth from '../services/ServiceAuth';
 import ServiceCookies from '../services/cookies';
 import FeaturedReviews from '../components/FeaturedReviews';
 import { PaginatedList } from 'react-paginated-list';
+import Translator from '../services/translator';
+
+
 export default class Home extends React.Component {
 
 
@@ -24,8 +27,33 @@ export default class Home extends React.Component {
       selectedSubcategory: '',
       formController: {
         search: ''
-      }
+      },
+      //Lang
+      translatorData: [],
+      currentLang: 'en'
     }
+  }
+
+  _loadLang = () => {
+    const langCookies = ServiceCookies.getLangCookies();
+    this.setState({
+        currentLang: langCookies['cklang']
+    })
+    ServiceAuth.getlanguagedataset({
+      
+    }).then(response => {
+      const data = response.data;
+      console.log(data);
+      if(data.data.items != null) {
+          this.setState({
+              translatorData: data.data.items
+          })
+      }
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
+    })
   }
 
   handleInputChange = event => {
@@ -38,6 +66,7 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
+    this._loadLang();
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
         window.location.replace(`/account`)
@@ -119,6 +148,8 @@ export default class Home extends React.Component {
                  item={rs}
                  featured={true}
                  reviews={this.state.reviews}
+                 currentLang={this.state.currentLang}
+                 translatorData={this.state.translatorData}
                 />
                })
              } <br/>
@@ -128,8 +159,8 @@ export default class Home extends React.Component {
              </div>
              <div className='bp-middle-over'>
             <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>Reviews </p>
-                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Select Category </p>
+                <p className='loginTitle'>{Translator.getStringTranslated('rvws_reviews', this.state.currentLang, this.state.translatorData)} </p>
+                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>{Translator.getStringTranslated('rvws_selcat', this.state.currentLang, this.state.translatorData)} </p>
                 
                   {this.groupByN(5, this.state.categories).map(c => 
                     <div className='imgsm_box'>
@@ -163,7 +194,7 @@ export default class Home extends React.Component {
                           style={{
                             width: '60%'
                           }}
-                          placeholder="Search..."
+                          placeholder={Translator.getStringTranslated('global_search', this.state.currentLang, this.state.translatorData)}
                           name='search' 
                           type='text'
                            onChange={this.handleInputChange} 
@@ -177,7 +208,7 @@ export default class Home extends React.Component {
               this.state.selectedCategory == '' ? null :
               <div style={{transition: 'all 1s ease-in'}} className='bp-middle-all bp-blueshadow'>
               <br/><br/>
-                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Subcategories</p>
+                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>{Translator.getStringTranslated('rvws_subcat', this.state.currentLang, this.state.translatorData)}</p>
                 
                   {this.groupByN(5, this.state.subcategories.filter(s => s.parentcategoryid == this.state.selectedCategory)).map(c => 
                     <div className='imgsm_box'>
@@ -235,6 +266,8 @@ export default class Home extends React.Component {
                                return <FeaturedReviews 
                                item={rs}
                                reviews={this.state.reviews}
+                               currentLang={this.state.currentLang}
+                               translatorData={this.state.translatorData}
                               />
                              })
                            } <br/>

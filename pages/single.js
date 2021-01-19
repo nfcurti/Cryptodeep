@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 import ServiceAuth from '../services/ServiceAuth';
 import ServiceCookies from '../services/cookies';
+import Translator from '../services/translator';
 import { PaginatedList } from 'react-paginated-list';
 export default class Home extends React.Component {
 
@@ -20,11 +21,37 @@ export default class Home extends React.Component {
       formController: {
         scoregiven: 3.5,
         message: ''
-      }
+      },
+      //Lang
+      translatorData: [],
+      currentLang: 'en'
     }
   }
 
+  _loadLang = () => {
+    const langCookies = ServiceCookies.getLangCookies();
+    this.setState({
+        currentLang: langCookies['cklang']
+    })
+    ServiceAuth.getlanguagedataset({
+      
+    }).then(response => {
+      const data = response.data;
+      console.log(data);
+      if(data.data.items != null) {
+          this.setState({
+              translatorData: data.data.items
+          })
+      }
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
+    })
+  }
+
   componentDidMount() {
+    this._loadLang();
     const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
             window.location.replace(`/account`)
@@ -109,29 +136,29 @@ export default class Home extends React.Component {
         window.location.replace(`/single?id=${this.state.item._id}`);
       }).catch(e => {
         console.log(e);
-        alert('You already reviewed this site');
+        alert(Translator.getStringTranslated('sng_already', this.state.currentLang, this.state.translatorData));
         return;
       })
     }
   }
 
   render() {
-    return this.state.item == null ? null : (
+    return (
       <BasePage>
       <br/>
-        <div className='bp-middle'>
+        { this.state.item == null ? null : <div className='bp-middle'>
 
-        <div className='bp-middle-all bp-blueshadow' style={{
+       <div className='bp-middle-all bp-blueshadow' style={{
           textAlign: 'left'
         }}>
            <div style={{width:"fit-content", float: 'left'}}>
-              <img className='review-logo' style={{width: '100px'}} src={this.state.item.iconurl}/>
+              <img className='review-logo' style={{width: '100px'}} src={`data:image/png;base64,${this.state.item.iconurl}`}/>
               <p className='review-score' style={{fontSize: '12px'}}>{this.state.item.score}<img style={{width:"1.5em",height:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
             </div>
             <div style={{width:"80%", marginLeft: '10px', float: 'left'}}>
             <p style={{fontSize:"4em", fontWeight:"bold",  margin: "0"}}>{this.state.item.title} <a style={{
               fontSize: '16px'
-            }} href={this.state.item.siteurl} target='_blank'>[Visit]</a></p>
+            }} href={this.state.item.siteurl} target='_blank'>[{Translator.getStringTranslated('sng_visit', this.state.currentLang, this.state.translatorData)}]</a></p>
                <p style={{fontSize:"14px", maxWidth: '100%',  fontWeight:"normal"}}>{(this.state.item.shortdescription ?? "").length < 200 ? this.state.item.shortdescription : `${this.state.item.shortdescription.substring(0, 200)}...`}</p>
                     <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
                     <span style={{fontSize: '20px', marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item._id).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length})</span>
@@ -150,15 +177,11 @@ export default class Home extends React.Component {
               width: '100%',
               paddingLeft: '5px'
             }}>
-            <p className='qty_com'>{this.state.reviews.filter(r => r.message != '').length} Messages</p>
-            {/* <div onClick={() => {
-                    const tab = window.open(this.state.item.siteurl, '_blank');
-                  }} style={{backgroundColor:"#353535",    borderRadius: '1em',width: '10em', height: '40px'}} className="inside-end-review" >
-                    <p style={{textAlign:"right"}}>SITE</p>
-                  </div> */}
+            <p className='qty_com'>{this.state.reviews.filter(r => r.message != '').length} {Translator.getStringTranslated('sng_msgs', this.state.currentLang, this.state.translatorData)}</p>
+            
             <br/>
             <div className='clearfix'/></div>
-        </div>
+        </div> 
           
           <div className='bp-middle-over'>
           
@@ -182,7 +205,7 @@ export default class Home extends React.Component {
             <p className='loginTitle' style={{
               textAlign: 'center',
               color: '#A2ED96'
-            }}>Pros </p>
+            }}>{Translator.getStringTranslated('sng_pros', this.state.currentLang, this.state.translatorData)} </p>
             {
               this.state.item.pros == ''
               ? null :
@@ -201,7 +224,7 @@ export default class Home extends React.Component {
             <p className='loginTitle' style={{
               textAlign: 'center',
               color: '#ED9696'
-            }}>Cons </p>
+            }}>{Translator.getStringTranslated('sng_cons', this.state.currentLang, this.state.translatorData)} </p>
             {
               this.state.item.cons == ''
               ? null :
@@ -216,8 +239,8 @@ export default class Home extends React.Component {
         </div>
 
             <div className='bp-middle-all bp-blueshadow latest_rev'>
-            <p className='loginTitle'>Latest reviews </p>
-                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>This is what people think of this site </p>
+            <p className='loginTitle'>{Translator.getStringTranslated('sng_latestreviews', this.state.currentLang, this.state.translatorData)} </p>
+                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>{Translator.getStringTranslated('sng_latestreviewssub', this.state.currentLang, this.state.translatorData)} </p>
                 
             <PaginatedList
               list={this.state.reviews.filter(r => r.message != "")}
@@ -237,7 +260,7 @@ export default class Home extends React.Component {
                           isHalf={true}
                           activeColor="#ffd700"
                         />
-                      <p style={{marginTop:'1em'}}>By {item.username} - Date: {item.created_at.replace('T', ' ').substring(0, 16)}</p>
+                      <p style={{marginTop:'1em'}}>{Translator.getStringTranslated('sng_by', this.state.currentLang, this.state.translatorData)} {item.username} - {Translator.getStringTranslated('global_date', this.state.currentLang, this.state.translatorData)}: {item.created_at.replace('T', ' ').substring(0, 16)}</p>
                     </div>
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
                       
@@ -257,11 +280,11 @@ export default class Home extends React.Component {
             {
               this.state.reviews.filter(r => r.userid == this.state.userid).length == 0 ?
               <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>Leave a review </p>
-                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Let us know what you think about this site! </p>
+                <p className='loginTitle'>{Translator.getStringTranslated('sng_leavereview', this.state.currentLang, this.state.translatorData)} </p>
+                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>{Translator.getStringTranslated('sng_leavereviewsub', this.state.currentLang, this.state.translatorData)} </p>
                 {/* <form> */}
                 <div className='scores'>
-                    <label>Your Score</label>
+                    <label>{Translator.getStringTranslated('sng_score', this.state.currentLang, this.state.translatorData)}</label>
                     <ReactStars
                           onChange={(val) => {
                             var _fC = this.state.formController;
@@ -282,15 +305,15 @@ export default class Home extends React.Component {
                       <input type='text'  placeholder="info@cryptodeep.com" name='email' />
                     </div> */}
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
-                      <label>Your Comment (Optional)</label>
-                      <textarea type='text' style={{resize: 'none'}} placeholder="Leave your comment here" name='message' onChange={this.handleInputChange} value={this.state.formController.message} rows={5}/>
+                      <label>{Translator.getStringTranslated('sng_comm', this.state.currentLang, this.state.translatorData)}</label>
+                      <textarea type='text' style={{resize: 'none'}} placeholder={Translator.getStringTranslated('sng_comm_place', this.state.currentLang, this.state.translatorData)} name='message' onChange={this.handleInputChange} value={this.state.formController.message} rows={5}/>
                     </div>
-                    <input onClick={() => this.doReview()} type='submit' style={{textAlign:"right"}} value="SEND REVIEW" />
+                    <input onClick={() => this.doReview()} type='submit' style={{textAlign:"right", textTransform: 'uppercase'}} value={Translator.getStringTranslated('sng_send_rev', this.state.currentLang, this.state.translatorData)} />
                 {/* </form> */}
             </div> : 
             <div className='bp-middle-all bp-blueshadow'>
-            <p className='loginTitle'>You already reviewed this site! </p>
-            <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>Look for more sites to review and earn rewards! </p>
+            <p className='loginTitle'>{Translator.getStringTranslated('sng_already', this.state.currentLang, this.state.translatorData)} </p>
+            <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>{Translator.getStringTranslated('sng_alreadysub', this.state.currentLang, this.state.translatorData)} </p>
             {/* <form> */}
             {/* </form> */}
         </div>
@@ -303,7 +326,9 @@ export default class Home extends React.Component {
             
             <div className='clearfix'/>
           </div>
-        </div><br/><br/><br/>
+        </div> }
+        
+        <br/><br/><br/>
         {/* <p>Hola</p> */}
         <style jsx>{`
         
@@ -410,9 +435,9 @@ export default class Home extends React.Component {
                     .loginSignup {font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
                     .loginSignup a{font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
   
-                    .bp-middle-over{
-                      width:90% !important;
-                      margin:0 auto !important;
+                    .bp-middle-over {
+                      margin: 0% 10%;
+                      width: 80%;
                     }
   
                     inputhold{
@@ -617,10 +642,9 @@ export default class Home extends React.Component {
                       display:none
                     }
   
-                    .bp-middle-over{
-                      width:85% !important
-                    }
                   }
+
+                  
               `}</style>
       </BasePage>
     );

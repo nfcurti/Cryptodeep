@@ -1,6 +1,8 @@
 import React from 'react';
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
+import Translator from '../services/translator';
+
 export default class AccountSecurity extends React.Component {
 
     constructor() {
@@ -150,26 +152,26 @@ export default class AccountSecurity extends React.Component {
           <div className='bp-middle-left bp-blueshadow security'>
 
           <div className='over_robot_d'/>
-          <br/><p className='bp-title'>Security</p>
-          <p>Change your personal data periodically to secure your account</p>
+          <br/><p className='bp-title'>{Translator.getStringTranslated('acc_security', this.props.currentLang, this.props.translatorData)}</p>
+          <p>{Translator.getStringTranslated('acc_securitysub', this.props.currentLang, this.props.translatorData)}</p>
           <br/><br/><br/>
           <div className='bp-security'>
             {/* <form autoComplete="off"> */}
             <div className='inputhold'>
-                  <input  placeholder="Current email" name='email' type='email' onChange={this.handleInputChange} value={this.state.formController.email}/>
+                  <input  placeholder={Translator.getStringTranslated('acc_currentemail', this.props.currentLang, this.props.translatorData)} name='email' type='email' onChange={this.handleInputChange} value={this.state.formController.email}/>
                   <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
                 </div>
                 
                 <div className='inputhold'>
-                  <input  placeholder="New email" name='newEmail' type='email' onChange={this.handleInputChange} value={this.state.formController.newEmail}/>
+                  <input  placeholder={Translator.getStringTranslated('acc_newemail', this.props.currentLang, this.props.translatorData)} name='newEmail' type='email' onChange={this.handleInputChange} value={this.state.formController.newEmail}/>
                   <img  role="img" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/At_Sign_Nimbus.svg" />
                 </div>
                 <div className='inputhold'>
-                <input type='password' placeholder="Password" name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
+                <input type='password' placeholder={Translator.getStringTranslated('acc_currentpassword', this.props.currentLang, this.props.translatorData)} name='password' onChange={this.handleInputChange} value={this.state.formController.password}/>
                 <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
                 <input
-                  value="Save Email"
+                  value={Translator.getStringTranslated('acc_saveemail', this.props.currentLang, this.props.translatorData)}
                   onClick={() => this.changeEmailPressed()}
                   type='submit'
                   className='loginSubmit submitSecurity'
@@ -189,26 +191,26 @@ export default class AccountSecurity extends React.Component {
 
                 
                 <div className='inputhold'>
-                <input type='password' placeholder="Old Password" name='oldPassword' onChange={this.handleInputChange} value={this.state.formController.oldPassword}/>
+                <input type='password' placeholder={Translator.getStringTranslated('acc_oldpass', this.props.currentLang, this.props.translatorData)} name='oldPassword' onChange={this.handleInputChange} value={this.state.formController.oldPassword}/>
                 <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
               <div className='inputhold'>
-                <input type='password' placeholder="New Password" name='newPassword'  onChange={this.handleInputChange} value={this.state.formController.newPassword}/>
+                <input type='password' placeholder={Translator.getStringTranslated('acc_newpass', this.props.currentLang, this.props.translatorData)} name='newPassword'  onChange={this.handleInputChange} value={this.state.formController.newPassword}/>
                 <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
               <div className='inputhold'>
-                <input type='password' placeholder="Repeat Password" name='repeatPassword'  onChange={this.handleInputChange} value={this.state.formController.repeatPassword}/>
+                <input type='password' placeholder={Translator.getStringTranslated('acc_repeatpass', this.props.currentLang, this.props.translatorData)} name='repeatPassword'  onChange={this.handleInputChange} value={this.state.formController.repeatPassword}/>
                 <img role="img" src="https://cdn.onlinewebfonts.com/svg/img_398183.png" />
               </div>
                 
                 <input
-                  value="Save Password"
+                  value={Translator.getStringTranslated('acc_savepass', this.props.currentLang, this.props.translatorData)}
                   type='submit'
                   onClick={() => this.changePasswordPressed()}
                   className='loginSubmit submitSecurity'
                 />
                 <input
-                  value="Logout"
+                  value={Translator.getStringTranslated('acc_logout', this.props.currentLang, this.props.translatorData)}
                   onClick={() => this.logout()}
                   type='submit'
                   className='loginSubmit submitSecurity'

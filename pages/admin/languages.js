@@ -11,12 +11,16 @@ import { PaginatedList } from 'react-paginated-list';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
+import Translator from '../../services/translator';
+
 export default class Home extends React.Component {
 
   constructor() {
     super();
     this.state = {
       items: [],
+      translatorData: [],
+      currentLang: 'en',
       formController: {
         search: ''
       }
@@ -59,15 +63,18 @@ export default class Home extends React.Component {
     }
   }
 
+   
+
   _handleReaderLoaded = (readerEvt) => {
-    let bstr = readerEvt.target.result
-    const wb = XLSX.read(bstr, { type: "binary" });
+    var bstr = readerEvt.target.result
+    const wb = XLSX.read(bstr, { type: "binary", raw: true });
       /* Get first worksheet */
       const wsname = wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
       /* Convert array of arrays */
-      const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+      const data = XLSX.utils.sheet_to_csv(ws, { header: 1, strip: true, FS: '%%%' });
       /* Update state */
+      console.log(data);
       var result = JSON.parse(this.convertToJson(data));
       console.log(result.length);
       if(result.length == 0) {
@@ -89,14 +96,14 @@ export default class Home extends React.Component {
 
     var result = [];
 
-    var headers = lines[0].split(",");
+    var headers = lines[0].split('%%%');
 
     for (var i = 1; i < lines.length; i++) {
       var obj = {};
-      var currentline = lines[i].split(",");
+      var currentline = lines[i].split('%%%');
 
       for (var j = 0; j < headers.length; j++) {
-        obj[headers[j]] = currentline[j];
+        obj[headers[j]] = currentline[j]
       }
 
       result.push(obj);
@@ -104,6 +111,28 @@ export default class Home extends React.Component {
 
     //return result; //JavaScript object
     return JSON.stringify(result); //JSON
+  }
+
+  _loadLang = () => {
+    const langCookies = ServiceCookies.getLangCookies();
+    this.setState({
+        currentLang: langCookies['cklang']
+    })
+    ServiceAuth.getlanguagedataset({
+      
+    }).then(response => {
+      const data = response.data;
+      console.log(data);
+      if(data.data.items != null) {
+          this.setState({
+              translatorData: data.data.items
+          })
+      }
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
+    })
   }
 
   componentDidMount() {
@@ -124,6 +153,8 @@ export default class Home extends React.Component {
                             items: data.data.items
                         })
                     }
+
+                    this._loadLang();
                   }).catch(e => {
                     console.log(e);
                     alert(e);
@@ -169,7 +200,7 @@ export default class Home extends React.Component {
         <div className='bp-middle-over'>
         <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>Admin Languages</p>
-                
+                <p className='loginTitle'>LANG SEL: {Translator.getStringTranslated('code_test', this.state.currentLang, this.state.translatorData)}</p>
                 <input
                   value="Export"
                   type='submit'
