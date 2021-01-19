@@ -797,7 +797,7 @@ a {
   .predictionFinal:hover{
 	  opacity: 0.9
   }
-   
+  .inprogress{background-color: orange;border:1px solid orange;cursor: pointer}
   .defeat{background-color: red;border:1px solid red;cursor: pointer}
   .victory{background-color: green;border:1px solid green;cursor: pointer}
   .predictTable{overflow-y: scroll}

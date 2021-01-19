@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Marquee from 'react-double-marquee';
 import { RandomReveal } from "react-random-reveal";
 import ReactStars from "react-rating-stars-component";
-
+import PredictPopup from '../components/PredictPopup';
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
 import { useRouter } from 'next/router'
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
@@ -19,6 +21,8 @@ export default class Home extends React.Component {
     super();
 
     this.state = {
+      predictgameShow: false,
+      isMonday: false,
       faucets: [],
       faucetmsg: '',
       result: '000000',
@@ -44,6 +48,13 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
+    var date = new Date();
+    if(date.getDay() == 2) {
+      alert('Cambiar 2 por 1 linea 49');
+      this.setState({
+        isMonday: true
+      })
+    }
     this._initData();
     this._loadLang();
     this._loadReviews();
@@ -171,6 +182,10 @@ export default class Home extends React.Component {
   }
 
   _rollPressed = () => {
+    // if(this.state.userfaucetbalance <= 0) {
+    //   alert('')
+    //   return;
+    // }
     this.setState({
       playing: true
     })
@@ -216,7 +231,7 @@ export default class Home extends React.Component {
             playing: false
           })
        }.bind(this), 1000);
-        alert(e);
+        alert('Error. Check if you\'re logged and if you have faucets available');
         return;
       })
     }
@@ -309,7 +324,29 @@ export default class Home extends React.Component {
               )
               
             }
+            {
              
+              !this.state.isMonday ? null : 
+              <div style={{height:'2em', marginTop: '20px'}} className='bp-cbutton'><button onClick={() => {
+                this.setState({
+                  predictgameShow: true
+                })
+              }}><a id='roll'>{Translator.getStringTranslated('fct_extrafaucet', this.state.currentLang, this.state.translatorData)}</a></button></div>
+              }
+              <Modal  open={this.state.predictgameShow} onClose={() => {
+                this.setState({
+                  predictgameShow: false
+                })
+              }} classNames={{
+                overlay: 'customOverlay',
+                modal: 'customModal',
+              }}>
+                <PredictPopup
+                  btcprice={this.state.cryptoval == null ? 0 : this.state.cryptoval.BTC.last}
+                  currentLang={this.state.currentLang}
+                  translatorData={this.state.translatorData}
+                style="background-color:#252540"></PredictPopup>
+              </Modal>
             </div>
             
             

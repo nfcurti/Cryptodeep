@@ -876,6 +876,47 @@ var _mapToSend = {
 return _http.post(`addbulklanguagedataset`, qs.stringify(_mapToSend));
 }
 
+const playprediction = data => {
+  if(!data.token || !data.targetprice) {
+    return alert("");
+}
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "targetprice": data.targetprice,
+};
+
+return _http.post(`playprediction`, qs.stringify(_mapToSend));
+}
+
+//
+const getpredictions = data => {
+  
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL:finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+return _http.get(`getpredictions`, qs.stringify({
+  
+}));
+}
+
 export default {
     login,
     signup,
@@ -911,6 +952,8 @@ export default {
     editrevsubcategory,
     getlanguagedataset,
     editlanguagedataset,
-    addbulklanguagedataset
+    addbulklanguagedataset,
+    getpredictions,
+    playprediction
   }
   

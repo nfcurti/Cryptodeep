@@ -1,50 +1,103 @@
 import React from 'react';
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
+import Translator from '../services/translator';
 export default class WithdrawPopup extends React.Component {
  
+  constructor() {
+    super();
+    this.state = {
+      formController: {
+          targetprice: ''
+      }
+    }
+  }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    const controller = this.state.formController;
+    controller[name] = value;
+    this.setState({
+      formController: controller
+    })
+  }
+
+  sendPredPressed = () => {
+    if(this.state.formController.targetprice == '') {
+      return;
+    }
+
+    if(this.state.formController.targetprice == 0) {
+      return;
+    }
+
+    if(isNaN(this.state.formController.targetprice)) {
+      return alert('Price should be a number');
+    }
+
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
+    }else{
+
+        ServiceAuth.playprediction({
+            "token": userCookies['cktoken'],
+            "targetprice": this.state.formController.targetprice,
+          }).then(response => {
+            const data = response.data;
+            console.log(data);
+            alert('Played successfuly! Wait until sunday to see your result');
+          }).catch(e => {
+            var _content = 'One or more fields are empty';
+            console.log(e);
+            if(e.response.status == 404 || e.response.status == 401) {
+              _content = 'Error while playing prediction'
+            }
+            alert(_content);
+            return;
+          })
+    }
+  }
  
     render() {
         return (
             <>
-            <h4 className='withdrawTitle'>Predict Bitcoin Price!</h4>
-            <p className='withdrawTitle predictRules'>Every monday we will give the chance of having 2 more faucets to the person that gets the closer to the price of Bitcoin for the next Sunday at 00:00</p>
-            <form className="withdrawalForm">
+            <h4 className='withdrawTitle'>{Translator.getStringTranslated('prdct_title', this.props.currentLang, this.props.translatorData)}</h4>
+            <p className='withdrawTitle predictRules'>{Translator.getStringTranslated('prdct_desc', this.props.currentLang, this.props.translatorData)}</p>
+            <div className="withdrawalForm">
               <select disabled name="currency" id="currency" className='selectCrypto predictShow' >
-                  <option value="btc">43546.23 (EUR)</option>
+                  <option value="btc">{this.props.btcprice} (USD)</option>
                 </select>
                 <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png'} />
  
               <div className='inputhold'>
-                <label>Bitcoin Target Price</label>
-                <input   name='points' placeholder='Your Prediction' onChange={this.handleInputChange}/>
+                <label>{Translator.getStringTranslated('prdct_target', this.props.currentLang, this.props.translatorData)}</label>
+                <input   name='targetprice' placeholder={Translator.getStringTranslated('prdct_yourpred', this.props.currentLang, this.props.translatorData)} value={this.state.formController.targetprice} onChange={this.handleInputChange} type='number'/>
               </div>
-              <p className="minWith" style={{color:'#ffffff90'}}>Min. 5000 USD
-             </p>
-             <button  className='crypto-status-btn csb-withdraw withdrawFinal predictionFinal'>Send Prediction</button>
+             <button onClick={() => this.sendPredPressed()} className='crypto-status-btn csb-withdraw withdrawFinal predictionFinal'>{Translator.getStringTranslated('prdct_sendpred', this.props.currentLang, this.props.translatorData)}</button>
  
-            </form>
+            </div>
             <table className='bp-table wallet-table predictTable'>
  
               <tr>
-                <th style={{}}>DATE</th>
-                <th className='fiat' style={{}}>TARGET PRICE </th>
-                <th style={{}}>RESULT</th>
+                <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_date', this.props.currentLang, this.props.translatorData)}</th>
+                <th className='fiat' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('prdct_targetprice', this.props.currentLang, this.props.translatorData)} </th>
+                <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('prdct_result', this.props.currentLang, this.props.translatorData)}</th>
               </tr>
               <tr>
                 <td className='textCenter' style={{}}><p>01/01/2021 12:31</p></td>
                 <td className='textCenter fiat' style={{}}><p> 34565</p></td>
-                <td style={{}}><span className='crypto-status-btn  defeat'>DEFEAT</span></td>
+                <td style={{}}><span className='crypto-status-btn  defeat'>{Translator.getStringTranslated('prdct_status_2', this.props.currentLang, this.props.translatorData)}</span></td>
               </tr>
               <tr>
                 <td className='textCenter' style={{}}><p>01/01/2021 12:31</p></td>
                 <td className='textCenter fiat' style={{}}><p> 34565</p></td>
-                <td style={{}}><span className='crypto-status-btn  defeat'>DEFEAT</span></td>
+                <td style={{}}><span className='crypto-status-btn  victory'>{Translator.getStringTranslated('prdct_status_3', this.props.currentLang, this.props.translatorData)}</span></td>
               </tr>
               <tr>
                 <td className='textCenter' style={{}}><p>01/01/2021 12:31</p></td>
                 <td className='textCenter fiat' style={{}}><p> 34565</p></td>
-                <td style={{}}><span className='crypto-status-btn  defeat'>DEFEAT</span></td>
+                <td style={{}}><span className='crypto-status-btn  inprogress'>{Translator.getStringTranslated('prdct_status_1', this.props.currentLang, this.props.translatorData)}</span></td>
               </tr>
               <tr>
                 <td className='textCenter' style={{}}><p>01/01/2021 12:31</p></td>

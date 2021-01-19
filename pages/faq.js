@@ -9,7 +9,6 @@ import ServiceAuth from '../services/ServiceAuth';
 import ServiceCookies from '../services/cookies';
 import FeaturedReviews from '../components/FeaturedReviews';
 import PredictPopup from '../components/PredictPopup';
-import { PaginatedList } from 'react-paginated-list';
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
  
