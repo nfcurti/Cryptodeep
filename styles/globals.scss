@@ -780,3 +780,33 @@ a {
 	margin-top: -0.2em;
 	border: none;
   }
+
+  .customModal {
+	background: #252540 !important;
+  }
+   
+  .predictRules{
+   
+	  width: 28em;
+	  margin: auto;
+	  margin-bottom: 2em;
+	  font-weight: 400;
+	  font-size: 0.8em;
+  }
+   
+  .predictionFinal:hover{
+	  opacity: 0.9
+  }
+   
+  .defeat{background-color: red;border:1px solid red;cursor: pointer}
+  .victory{background-color: green;border:1px solid green;cursor: pointer}
+  .predictTable{overflow-y: scroll}
+  .predictTable th{text-align: center;font-size: 0.8em}
+  .predictTable td{text-align: center;font-size: 0.2em}
+
+  @media screen and (max-width: 800px){
+	  .customModal{    width: 80%;
+		  }
+	  .predictRules{    width: 20em;}
+	  .predictShow{    width: inherit !important;}
+  }

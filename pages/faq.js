@@ -8,7 +8,13 @@ import BasePage from '../components/BasePage';
 import ServiceAuth from '../services/ServiceAuth';
 import ServiceCookies from '../services/cookies';
 import FeaturedReviews from '../components/FeaturedReviews';
+import PredictPopup from '../components/PredictPopup';
 import { PaginatedList } from 'react-paginated-list';
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
+ 
+ 
+ 
 export default class Home extends React.Component {
  
  
@@ -18,6 +24,18 @@ export default class Home extends React.Component {
  
     }
   }
+ 
+  state = {
+    open: false
+  };
+ 
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+ 
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
  
   componentDidMount() {
     const items = document.querySelectorAll(".accordion button");
@@ -35,12 +53,24 @@ export default class Home extends React.Component {
     }
  
     items.forEach(item => item.addEventListener('click', toggleAccordion));
+ 
+ 
   }
  
   render() {
+    const { open } = this.state;
     return (
       <BasePage>
  
+      <div>
+        <button onClick={this.onOpenModal}>Open modal</button>
+        <Modal  open={open} onClose={this.onCloseModal} classNames={{
+          overlay: 'customOverlay',
+          modal: 'customModal',
+        }}>
+          <PredictPopup style="background-color:#252540"></PredictPopup>
+        </Modal>
+      </div>
         <div className='bp-middle'>
              <div className='bp-middle-over'>
             <div className='bp-middle-all bp-blueshadow' style={{marginTop:'2em'}}>
@@ -86,7 +116,14 @@ export default class Home extends React.Component {
         </div><br/><br/><br/>
         {/* <p>Hola</p> */}
         <style jsx>{`
- 
+                    .customOverlay {
+                      background: rgba(36, 123, 160, 0.7);
+                    }
+                    .customModal {
+                      background: #b2dbbf;
+                      max-width: 500px;
+                      width: 100%;
+                    }
                     .qty_com{
                           font-size: 0.6em;
                     position: absolute;

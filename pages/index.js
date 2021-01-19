@@ -253,11 +253,8 @@ export default class Home extends React.Component {
               <img className='crypto-icon crownSvg' src='images/cryptodeep_asset_6.png' style={{
                 marginTop: '0px'
               }} />
-              <a style={{
-                fontSize: '14px'
-              }} href={this.state.userfaucetbalance.length == 0 ? '#' : '/faucetbalance'}>
               <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_faucetbalance', this.state.currentLang, this.state.translatorData)}</p>
-              </a>
+              
     <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.state.currentLang, this.state.translatorData)}</h1>
             </div>
 
