@@ -33,6 +33,7 @@ export default class Home extends React.Component {
       sv_roll_e: 0,
       remTime: null,
       userwallet: 0,
+      userfaucetbalance: 0,
       cryptoval: null,
       reviewsites: [],
       reviews: [],
@@ -68,45 +69,37 @@ export default class Home extends React.Component {
   }
 
   _loadReviews = () => {
-    const userCookies = ServiceCookies.getUserCookies();
-    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-        window.location.replace(`/account`)
-    }else{
-        // if(userCookies['ckpl'] != '999') {
-        // window.location.replace(`/account`)
-        // }else{
-            ServiceAuth.getreviewitems({
-                "token": userCookies['cktoken']
-              }).then(response => {
-                const data = response.data;
-                console.log(data);
-                if(data.data.items != null) {
-                    var _pool = data.data.items;
-                    console.log(_pool);
-                    _pool = _pool.filter(p => p.enabled == true && p.featured == true);
+    
+    ServiceAuth.getreviewitems({
+        
+      }).then(response => {
+        const data = response.data;
+        console.log(data);
+        if(data.data.items != null) {
+            var _pool = data.data.items;
+            console.log(_pool);
+            _pool = _pool.filter(p => p.enabled == true && p.featured == true);
 
-                  ServiceAuth.getreviews({
-                    "token": userCookies['cktoken']
-                  }).then(response => {
-                    const dataz = response.data;
-                    console.log(dataz);
-                    _pool = this.shuffle(_pool);
+          ServiceAuth.getreviews({
+            // "token": userCookies['cktoken']
+          }).then(response => {
+            const dataz = response.data;
+            console.log(dataz);
+            _pool = this.shuffle(_pool);
 
-                    this.setState({
-                      reviewsites: _pool.length <= 5 ? _pool : _pool.slice(0, 5),
-                      reviews: dataz.data.items
-                  })
-                  })
+            this.setState({
+              reviewsites: _pool.length <= 5 ? _pool : _pool.slice(0, 5),
+              reviews: dataz.data.items
+          })
+          })
 
-                    
-                }
-              }).catch(e => {
-                console.log(e);
-                alert(e);
-                return;
-              })
-        // }
-    };
+            
+        }
+      }).catch(e => {
+        console.log(e);
+        alert(e);
+        return;
+      })
   }
 
   _loadLang = () => {
@@ -148,6 +141,7 @@ export default class Home extends React.Component {
           sv_roll_d: dataB.data.settings.roll_d,
           sv_roll_e: dataB.data.settings.roll_e,
           userwallet: dataB.data.userwallet,
+          userfaucetbalance: dataB.data.userfaucetbalance,
           cryptoval: dataB.data.cryptoval
         })
         ServiceAuth.getfaucets({
@@ -249,7 +243,18 @@ export default class Home extends React.Component {
              } 
              
             </div>
-            
+            <div className='bp-middle-left-sub bp-blueshadow' style={{
+              width: '97%'
+            }}>
+              <img className='crypto-icon crownSvg' src='images/cryptodeep_asset_6.png' style={{
+                marginTop: '0px'
+              }} />
+              <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_faucetbalance', this.state.currentLang, this.state.translatorData)}</p>
+    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.state.currentLang, this.state.translatorData)}</h1>
+            </div>
+
+            <div className='clearfix'/>
+
             <div className='bp-middle-left bp-blueshadow'>
             
             <br/>
@@ -373,7 +378,7 @@ export default class Home extends React.Component {
             <div className='clearfix'/>
           </div>
         </div>
-        
+
         <div className='bp-center-text'>
         <div style={{ width: '80%',whiteSpace: 'nowrap',margin:'auto'}}>
           {this.state.cryptoval == null ? null : <Marquee >

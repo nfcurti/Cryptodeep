@@ -67,12 +67,12 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     this._loadLang();
-    const userCookies = ServiceCookies.getUserCookies();
-    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-        window.location.replace(`/account`)
-    }else{
+    // const userCookies = ServiceCookies.getUserCookies();
+    // if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+    //     window.location.replace(`/account`)
+    // }else{
             ServiceAuth.getreviewitems({
-                "token": userCookies['cktoken']
+                // "token": userCookies['cktoken']
               }).then(response => {
                 const data = response.data;
                 console.log(data);
@@ -82,7 +82,7 @@ export default class Home extends React.Component {
                     _pool = _pool.filter(p => p.enabled == true);
 
                     ServiceAuth.getrevcategory({
-                      "token": userCookies['cktoken']
+                      // "token": userCookies['cktoken']
                     }).then(response => {
                       const datacc = response.data;
                       console.log(datacc);
@@ -91,7 +91,7 @@ export default class Home extends React.Component {
                     })
 
                       ServiceAuth.getrevsubcategory({
-                        "token": userCookies['cktoken']
+                        // "token": userCookies['cktoken']
                       }).then(response => {
                         const datass = response.data;
                         console.log(datass);
@@ -100,7 +100,7 @@ export default class Home extends React.Component {
                       })
 
                       ServiceAuth.getreviews({
-                        "token": userCookies['cktoken']
+                        // "token": userCookies['cktoken']
                       }).then(response => {
                         const dataz = response.data;
                         console.log(dataz);
@@ -123,7 +123,7 @@ export default class Home extends React.Component {
                 return;
               })
         
-    };
+    // };
   }
 
   groupByN = (n, data) => {

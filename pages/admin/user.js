@@ -17,6 +17,7 @@ export default class Home extends React.Component {
         username: '',
         email: '',
         points: '',
+        faucetbalance: '',
         firstgen: '',
         secondgen: '',
         privilegeLevel: ''
@@ -63,6 +64,7 @@ export default class Home extends React.Component {
                           _fC.username = _tUser.username;
                           _fC.email = _tUser.email;
                           _fC.points = _tUser.points;
+                          _fC.faucetbalance = _tUser.faucetbalance ?? 0;
                           _fC.firstgen = _tUser.firstgen ?? 20;
                           _fC.secondgen = _tUser.secondgen ?? 2;
                           _fC.privilegeLevel = _tUser.privilegeLevel;
@@ -90,7 +92,7 @@ export default class Home extends React.Component {
   _editPressed = () => {
     var error = false;
     [
-      'username', 'email', 'points', 'firstgen', 'secondgen'
+      'username', 'email', 'points', 'firstgen', 'secondgen', 'faucetbalance'
     ].forEach(mtc => {
       if(this.state.formController[mtc] == '' && !error) {
         error = true;
@@ -103,6 +105,11 @@ export default class Home extends React.Component {
 
     if(isNaN(this.state.formController.points)) {
       return alert('Points should be a number');
+    }
+
+    //
+    if(isNaN(this.state.formController.faucetbalance)) {
+      return alert('Faucet Balance should be a number');
     }
 
     if(isNaN(this.state.formController.firstgen)) {
@@ -125,6 +132,7 @@ export default class Home extends React.Component {
         'username': this.state.formController.username,
         'email': this.state.formController.email,
         'points': this.state.formController.points,
+        'faucetbalance': this.state.formController.faucetbalance,
         'firstgen': this.state.formController.firstgen,
         'secondgen': this.state.formController.secondgen,
         'privilegeLevel': this.state.formController.privilegeLevel
@@ -172,6 +180,9 @@ export default class Home extends React.Component {
                   </div>
                   <div className='inputhold'>
                     <p style={{fontSize: '18px'}}>Points: <input name='points' style={{height: '10px'}} type='number' onChange={this.handleInputChange} value={this.state.formController.points}/></p>
+                  </div>
+                  <div className='inputhold'>
+                    <p style={{fontSize: '18px'}}>Balance Faucet: <input name='faucetbalance' style={{height: '10px'}} type='number' onChange={this.handleInputChange} value={this.state.formController.faucetbalance}/></p>
                   </div>
                   <div className='inputhold'>
                     <p style={{fontSize: '18px'}}>1st Gen %: <input name='firstgen' style={{height: '10px'}} type='number' onChange={this.handleInputChange} value={this.state.formController.firstgen}/></p>

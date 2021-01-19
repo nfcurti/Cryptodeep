@@ -52,13 +52,13 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     this._loadLang();
-    const userCookies = ServiceCookies.getUserCookies();
-        if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-            window.location.replace(`/account`)
-        }else{
-          this.setState({
-            userid: userCookies['ckuserid']
-          })
+    // const userCookies = ServiceCookies.getUserCookies();
+        // if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+        //     window.location.replace(`/account`)
+        // }else{
+          // this.setState({
+          //   userid: userCookies['ckuserid']
+          // })
           const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
 
@@ -68,7 +68,7 @@ export default class Home extends React.Component {
                 }
                 var _idToFetch = urlParams.get('id'); 
                 ServiceAuth.getreviewitems({
-                    "token": userCookies['cktoken']
+                    // "token": userCookies['cktoken']
                   }).then(response => {
                     const data = response.data;
                     console.log(data);
@@ -80,7 +80,7 @@ export default class Home extends React.Component {
                         var _itemX = data.data.items.filter(i => i._id == _idToFetch)[0];
                         
                         ServiceAuth.getreviews({
-                          "token": userCookies['cktoken'],
+                          // "token": userCookies['cktoken'],
                           'reviewid': _itemX._id
                         }).then(response => {
                           const dataz = response.data;
@@ -97,7 +97,7 @@ export default class Home extends React.Component {
                     alert(e);
                     return;
                   })
-        };
+        // };
 
        
   }
