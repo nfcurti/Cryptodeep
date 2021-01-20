@@ -11,6 +11,7 @@ export default class WithdrawPopup extends React.Component {
     super();
     this.state = {
       item: null,
+      questionsaward: '',
       formController: {
           targetprice: ''
       }
@@ -28,6 +29,15 @@ export default class WithdrawPopup extends React.Component {
       this.setState({
         item: dataC.data.item
       })
+
+      ServiceAuth.gamesettings({
+        "token": userCookies['cktoken']
+      }).then(response => {
+        const data = response.data.data;
+        this.setState({
+          questionsaward: data.questionsaward
+        })
+      });
     }).catch(e => {
       console.log(e);
       alert(e);
@@ -47,13 +57,11 @@ export default class WithdrawPopup extends React.Component {
       }
       console.log(_mTSZ);
       ServiceAuth.playgamequestion(_mTSZ).then(async response => {
+        var _d = new Date();
+        await Cookies.set('lastquestionplayed', _d);
         const data = response.data;
         console.log(data);
         var a = alert(data.message);
-        if(option.toUpperCase() == this.state.item.correctoption) {
-          var _d = new Date();
-          await Cookies.set('lastquestionplayed', _d);
-        }
         window.location.reload();
       }).catch(e => {
         console.log(e);
@@ -76,7 +84,7 @@ export default class WithdrawPopup extends React.Component {
         return (
             <>
             <h4 className='withdrawTitle'>{Translator.getStringTranslated('qst_title', this.props.currentLang, this.props.translatorData)}</h4>
-            <p className='withdrawTitle predictRules'>{Translator.getStringTranslated('qst_messagea', this.props.currentLang, this.props.translatorData)} <br /> {Translator.getStringTranslated('qst_messageb', this.props.currentLang, this.props.translatorData)}</p>
+            <p className='withdrawTitle predictRules'>{Translator.getStringTranslated('qst_messagea', this.props.currentLang, this.props.translatorData)} <br /> {Translator.getStringTranslated('qst_messageb', this.props.currentLang, this.props.translatorData).replace('%val%', this.state.questionsaward)}</p>
             {
               this.state.item == null ? null :
               <>
