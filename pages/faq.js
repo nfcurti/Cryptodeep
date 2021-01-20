@@ -8,7 +8,7 @@ import BasePage from '../components/BasePage';
 import ServiceAuth from '../services/ServiceAuth';
 import ServiceCookies from '../services/cookies';
 import FeaturedReviews from '../components/FeaturedReviews';
-import GamblePopup from '../components/gamblePopup';
+import QuestionPopup from '../components/QuestionPopup';
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
  
@@ -67,7 +67,7 @@ export default class Home extends React.Component {
           overlay: 'customOverlay',
           modal: 'customModal',
         }}>
-          <GamblePopup style="background-color:#252540"></GamblePopup>
+          <QuestionPopup style="background-color:#252540"></QuestionPopup>
         </Modal>
       </div>
         <div className='bp-middle'>

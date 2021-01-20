@@ -82,50 +82,35 @@ export default class WithdrawPopup extends React.Component {
     render() {
         return (
             <>
-            <h4 className='withdrawTitle'>Gamble your Faucet</h4>
-            <p className='withdrawTitle predictRules'>Try your luck and win 2 additional faucets!</p>
-            <div className='wheeler' style={{marginBottom:'2em'}}>
-                <div style={{float:'left'}} className="withdrawalForm">
-                  <select disabled name="currency" id="currency" className='selectCrypto predictShow' >
-                      <option value="faucetQty">2 Faucets</option>
-                    </select>
-                    <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'images/cryptodeep_asset_6.png'} />
-                    
-                    <div className="toggle-container">
-
-                      <input type="checkbox" />
-                      <div className="slider round"></div>
-                    </div>   
-                 <button onClick={() => this.sendPredPressed()} className='crypto-status-btn csb-withdraw withdrawFinal predictionFinal'>Gamble your faucet -></button>
-     
-                </div>
-                <div style={{float:'left'}} className="wheelContainer"></div>
-            </div>
-            <table className='bp-table wallet-table predictTable gambleT'>
- 
-              <thead>
-              <tr>
-                <th style={{textTransform: 'uppercase'}}>DATE</th>
-                <th style={{textTransform: 'uppercase'}}>RESULT</th>
-              </tr>
-              </thead>
-              <tbody>
-                                <tr>
-                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (M)</p></td>
-                  </tr>
-                                <tr>
-                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn defeat'>Defeat (M)</p></td>
-                  </tr>
-                                <tr>
-                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (H)</p></td>
-                  </tr>
-              </tbody>
-              </table>
+            <h4 className='withdrawTitle'>Quiz Time</h4>
+            <p className='withdrawTitle predictRules'>Quickly, you have just 15 seconds! <br /> Answer correctly and win X faucets!</p>
+             <p className='  qQuestion'>After his last defeat, Napoleon was exiled to which city?</p>
+            <img src="images/robot_faq.png" width='100'/>
+            <div className='qChoice'>Waterloo</div>
+            <div className='qChoice'>Saint Helens</div>
+            <div className='qChoice'>Konigsberg, Prussia</div>
+            <div className='qChoice'>London</div>
+            
           <div className='clearfix'/>
           <style jsx>{`
+          	img{    display: block;
+    margin: auto;
+    margin-bottom: 1em;}
+          	.qQuestion{font-size:1.1em;color:#DC8614 !important;font-weight:bold;text-align:center;font-family:Nunito}
+          	.qChoice{font-size: 0.8em;
+    font-family: 'Nunito';
+    padding: 0.3em 1em;
+    border: 1px solid #DC8614;
+    color: white;
+    border-radius: 3px;
+    margin-bottom: 2em;}
+
+    		.qChoice:hover{
+    			background-color: #DC8614;
+    			color:white;
+    			font-weight:bold;
+    			cursor:pointer
+    		}
             .defeat{    width: fit-content;
     padding: 0.5em 1em;
     margin: auto;cursor:default}
@@ -305,14 +290,6 @@ input:checked + .slider:after {
                 .bp-security{
                   display:inline-block;
                 }
-                img{
-                  width:2em;
-                  position: absolute;
-                  margin-left: -4em;
-                  padding: 6px 12px;
-                  pointer-events: none;
-                  opacity:0.3;
-                  }
                 .selectCrypto{
                   outline:none;
                   width: 15.2em;
