@@ -11,7 +11,6 @@ import AffiliateSubTable from '../components/AffiliateSubTable';
 import ServiceAuth from '../services/ServiceAuth';
 import Translator from '../services/translator';
 import Countdown from 'react-countdown';
-import Moment from 'react-moment';
 
 export default class Home extends React.Component {
   constructor() {
