@@ -184,19 +184,7 @@ export default class Home extends React.Component {
              <div className='bp-middle-over'>
 
 
-             <div className='bp-middle-left-sub bp-blueshadow' style={{
-              width: '100%',
-              marginBottom: '40px'
-            }}>
-              <img className='crypto-icon crownSvg' src='images/cryptodeep_asset_6.png' style={{
-                marginTop: '0px'
-              }} />
-              <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_faucetbalance', this.state.currentLang, this.state.translatorData)}</p>
-              
-    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.state.currentLang, this.state.translatorData)}</h1>
-            </div>
-
-            <div className='clearfix'/>
+             
 
             <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>{Translator.getStringTranslated('rvws_reviews', this.state.currentLang, this.state.translatorData)} </p>
@@ -221,7 +209,7 @@ export default class Home extends React.Component {
                               filteredList: this.state.items.filter(i => (_subcategoriesAvailables.map(s => s._id).indexOf(i.subcategoryid) != -1) )
                             })
                           }}>
-                            <img className='imgsm' src={cx.iconurlx}/>
+                            <img className='imgsm' src={`data:image/png;base64,${cx.iconurlx}`}/>
                             <p>{cx.title.toUpperCase()}</p>
                           </div>
                         })
@@ -262,7 +250,7 @@ export default class Home extends React.Component {
                             filteredList: this.state.items.filter(i => i.subcategoryid == cx._id )
                           })
                         }}>
-                          <img className='imgsm' src={cx.iconurlx}/>
+                          <img className='imgsm' src={`data:image/png;base64,${cx.iconurlx}`}/>
                           <p>{cx.title.toUpperCase()}</p>
                         </div>
                        })
