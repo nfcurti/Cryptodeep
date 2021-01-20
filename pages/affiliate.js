@@ -10,6 +10,8 @@ import AffiliateTable from '../components/AffiliateTable';
 import AffiliateSubTable from '../components/AffiliateSubTable';
 import ServiceAuth from '../services/ServiceAuth';
 import Translator from '../services/translator';
+import Countdown from 'react-countdown';
+import Moment from 'react-moment';
 
 export default class Home extends React.Component {
   constructor() {
@@ -28,6 +30,8 @@ export default class Home extends React.Component {
     this._loadLang();
     const userCookies = ServiceCookies.getUserCookies();
     
+
+
     var _tmpMap = userCookies['cktoken'] == null ? {} : {
       "token": userCookies['cktoken']
     }
@@ -83,7 +87,7 @@ export default class Home extends React.Component {
         <div className='bp-middle-over'>
 
         <div className='bp-middle-left-sub bp-blueshadow' style={{
-              width: '100%',
+              width: '97%',
               marginBottom: '40px'
             }}>
               <img className='crypto-icon crownSvg' src='images/cryptodeep_asset_6.png' style={{
@@ -93,6 +97,60 @@ export default class Home extends React.Component {
               
     <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.state.currentLang, this.state.translatorData)}</h1>
             </div>
+
+            <div className='bp-middle-left-sub bp-blueshadow' style={{
+              width: '97%',
+              marginBottom: '40px'
+            }}>
+            <p className='withdrawTitle ' style={{fontSize:'1.5em'}}>Earn points when the users you invite do for a chance to win fantastic prizes! </p>
+            
+            <h4 className='withdrawTitle' style={{fontSize:'2em'}}>Leaderboard</h4>
+            <div className='countdown' >
+              <Countdown className='countdown' date={Date.now() + 10000} />
+            </div>
+            <div className="toggle-container">
+
+                      <input type="checkbox" />
+                      <div className="slider round"></div>
+                    </div> 
+                    <div className='contestContainer'>
+                      <table className='bp-table'>
+
+                          <div className='over_robot_b'/>
+                          <thead>
+                          <tr>
+                              <th style={{textTransform: 'uppercase'}}>Player</th>
+                              <th style={{textTransform: 'uppercase'}}> Points</th>
+                              <th style={{textTransform: 'uppercase'}}>Earnings </th>
+                          </tr>
+                          </thead>
+                          <tbody style={{overflowY:'scroll'}}>
+                                      <tr >
+                                          <td style={{width: '20%'}}>Papirola</td>
+                                          <td className='textCenter' style={{}}><p>1500 </p></td>
+                                  <td className='textCenter' style={{}}><p> 500  USD</p></td>
+                                      </tr>
+                                      <tr >
+                                          <td style={{width: '20%'}}>Papirola</td>
+                                          <td className='textCenter' style={{}}><p>1500 </p></td>
+                                  <td className='textCenter' style={{}}><p> 500  USD</p></td>
+                                      </tr>
+                                      <tr >
+                                          <td style={{width: '20%'}}>Papirola</td>
+                                          <td className='textCenter' style={{}}><p>1500 </p></td>
+                                  <td className='textCenter' style={{}}><p> 500  USD</p></td>
+                                      </tr>
+                                      <tr >
+                                          <td style={{width: '20%'}}>Papirola</td>
+                                          <td className='textCenter' style={{}}><p>1500 </p></td>
+                                  <td className='textCenter' style={{}}><p> 500  USD</p></td>
+                                      </tr>
+                                  
+                          </tbody>
+                          <div className='clearfix'/>
+                      </table>
+                    </div>
+               </div>
 
             <div className='clearfix'/>
 
@@ -170,6 +228,94 @@ export default class Home extends React.Component {
         <br/>
         {/* <p>Hola</p> */}
         <style jsx>{`
+          .countdown{    font-weight: 900;
+    font-size: 2em;
+    color: #DC8614;
+    letter-spacing: 5px;margin-top:-0.5em;margin-bottom:1em}
+          .contestContainer{height: 27em;
+    overflow: auto;}
+          .toggle-container {
+    position: relative;
+    width: 12.8em;
+    height: 40px;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin:auto;
+    margin-bottom:1em;
+}
+
+.toggle-container input {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: all;
+}
+
+.slider {
+      font-size: 0.9em;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #161526;
+  transition: 0.4s;
+  pointer-events: none;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 8px;
+  bottom: 8px;
+  background-color: #fff;
+  transition: 0.2s;
+  pointer-events: none;
+}
+.slider::after {
+  position: absolute;
+  content: "This Week";
+  height: 24px;
+  width: auto;
+  right: 1em;
+  bottom: 4px;
+  transition: 0.2s;
+  color: #fff;
+  pointer-events: none;
+  font-family:"Nunito";
+  font-weight:bold
+}
+
+input:checked + .slider {
+  background-color:#fff;
+  color:#161526 
+}
+
+input:checked + .slider:before {
+  transform: translateX(10.5em);
+  background-color: #161526
+}
+
+input:checked + .slider:after {
+  content: "Last Week";
+  left: -6em;
+  color:#161526;
+  font-weight:bold
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
                   .bp-title span:hover{border-bottom:1px solid #DC8614;cursor:default}
                   .rules:hover{background-color:transparent}
                   label{
