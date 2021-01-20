@@ -6,82 +6,74 @@ import { useRouter } from 'next/router'
 import BaseAdminPage from '../../components/BaseAdminPage';
 import ServiceAuth from '../../services/ServiceAuth';
 import ServiceCookies from '../../services/cookies';
+import { PaginatedList } from 'react-paginated-list';
 export default class Home extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      settings: null,
-      errorUpdateGeneralSettings: null,
-      formController: {
-        predictionaward: '',
-        questionshoura: '',
-        questionshourb: '',
-        questionsaward: ''
-      }
+      items: []
     }
-  }
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    const controller = this.state.formController;
-    controller[name] = value;
-    this.setState({
-      formController: controller
-    })
   }
 
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
-            if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-                window.location.replace(`/account`)
+        if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+            window.location.replace(`/account`)
+        }else{
+            if(userCookies['ckpl'] != '999') {
+            window.location.replace(`/account`)
             }else{
-              if(userCookies['ckpl'] != '999') {
-                window.location.replace(`/account`)
-              }else{
-                ServiceAuth.gamesettings({
-                  "token": userCookies['cktoken']
-                }).then(response => {
-                  const data = response.data;
-                  console.log(data);
-                  var _formC = this.state.formController;
-                  _formC.predictionaward = data.data.gamesettings.predictionaward;
-                  _formC.questionshoura = data.data.gamesettings.questionshoura;
-                  _formC.questionshourb = data.data.gamesettings.questionshourb;
-                  _formC.questionsaward = data.data.gamesettings.questionsaward;
-
-                  this.setState({
-                    settings: data.data.gamesettings,
-                    formController: _formC
+                ServiceAuth.getgamequestions({
+                    "token": userCookies['cktoken']
+                  }).then(response => {
+                    const data = response.data;
+                    console.log(data);
+                    if(data.data.items != null) {
+                        this.setState({
+                            items: data.data.items
+                        })
+                    }
+                  }).catch(e => {
+                    console.log(e);
+                    alert(e);
+                    return;
                   })
-                }).catch(e => {
-                  console.log(e);
-                  alert(e);
-                  return;
-                })
-              }
-            };
+            }
+        };
+
+       
   }
 
-  _editGeneralSettings = () => {
-
-    [
-      'predictionaward',
-      'questionshoura',
-      'questionshourb',
-      'questionsaward'
-    ].forEach(i => {
-      if(this.state.formController[i].length == 0) {
-        return alert(`${i} is empty`);
+  editEnabled = (id, targetEnabled) => {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
+    }else{
+      if(userCookies['ckpl'] != '999') { return; }
+      
+      const _mTSZ = {
+        'gamequestionid': id,
+        'token': userCookies['cktoken'],
+        'enabled': targetEnabled ? 'true' : 'false',
       }
-  
-      if(isNaN(this.state.formController[i])) {
-        return alert(`${i} should be a number`);
-      }
-    })
+      console.log(_mTSZ);
+      ServiceAuth.editgamequestion(_mTSZ).then(response => {
+        const data = response.data;
+        console.log(data);
+        window.location.replace('/admin/gamequestions');
+      }).catch(e => {
+        console.log(e);
+        alert('There was an error with the request.');
+        return;
+      })
+    }
+  }
 
-    
 
+  removeReviewItem = (id) => {
+    var _a = confirm('You sure you want to delete the item? ');
+    if(!_a) { return; }
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
@@ -89,22 +81,18 @@ export default class Home extends React.Component {
     }else{
       if(userCookies['ckpl'] != '999') { return; }
 
-      ServiceAuth.updategamesettings({
-        "token": userCookies['cktoken'],
-        "predictionaward": this.state.formController.predictionaward,
-        "questionshoura": this.state.formController.questionshoura,
-        "questionshourb": this.state.formController.questionshourb,
-        "questionsaward": this.state.formController.questionsaward
-      }).then(response => {
+      var _mTSZ = {
+        'token': userCookies['cktoken'],
+        'gamequestionid': id
+      }
+      console.log(_mTSZ);
+      ServiceAuth.removegamequestion(_mTSZ).then(response => {
         const data = response.data;
         console.log(data);
-        var _a = alert('Changes saved.');
-        if(_a) {
-            window.location.replace('/admin/game');
-        }
+        window.location.replace('/admin/gamequestions');
       }).catch(e => {
         console.log(e);
-        alert(e);
+        alert('There was an error with the request.');
         return;
       })
     }
@@ -118,64 +106,75 @@ export default class Home extends React.Component {
             <br/>
         <div className='bp-middle-over'>
         <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>Game Admin</p>
-                {
-                  this.state.settings == null ?
-                  <p>Loading...</p> :
-                  <div>
-                    <h2>Questions Game Settings</h2>
-                  <div className='inputhold'>
-                    <p>Today's hour A: At <input  placeholder="0" name='questionshoura' type='number' onChange={this.handleInputChange} value={this.state.formController.questionshoura}/> hours</p>
-                  </div>
-                  <div className='inputhold'>
-                    <p>Today's hour B: At <input  placeholder="0" name='questionshourb' type='number' onChange={this.handleInputChange} value={this.state.formController.questionshourb}/> hours</p>
-                  </div>
-                  <div className='inputhold'>
-                    <p>Award amount (In faucets): <input  placeholder="Faucets" name='questionsaward' type='number' onChange={this.handleInputChange} value={this.state.formController.questionsaward}/> faucets</p>
-                  </div>
-                  <input
-                  value="Save"
-                  type='submit'
-                  onClick={() => this._editGeneralSettings()}
-                  className='loginSubmit '
+                <p className='loginTitle'>Admin Game Questions</p>
+
+                <PaginatedList
+                    list={this.state.items}
+                    itemsPerPage={25}
+                    renderList={(list) => (
+                        <>
+                        <table className='admin-table'>
+                            <thead>
+                                <tr>
+                                    <td><p>#</p></td>
+                                    <td><p>Title</p></td>
+                                    <td><p>Correct<br/>Option </p></td>
+                                    <td><p>Option A</p></td>
+                                    <td><p>Option B</p></td>
+                                    <td><p>Option C</p></td>
+                                    <td><p>Option D</p></td>
+                                    <td><p>Enabled</p></td>
+                                    <td><p>Actions</p></td>
+                                </tr>
+                            </thead>
+                            <tbody >
+                            {list.map((item, id) => {
+                                return (
+                                        <tr className='admin-bodytr' key={id}>
+                <td style={{width: '5em'}}><p className="numbering">{this.state.items.indexOf(item) + 1}</p></td>
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.title}</p></td>
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.correctoption}</p></td>
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.optiona.length < 100 ? item.optiona : item.optiona.substring(0, 100)}</p></td>
+                
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.optionb.length < 100 ? item.optionb : item.optionb.substring(0, 100)}</p></td>
+                
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.optionc.length < 100 ? item.optionc : item.optionc.substring(0, 100)}</p></td>
+                
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.optiond.length < 100 ? item.optiond : item.optiond.substring(0, 100)}</p></td>
+                <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
+                    this.editEnabled(item._id, !item.enabled);
+                }} className={`admin-actiob ${item.enabled ? "admin-actiob-validate" : "admin-actiob-reject"}`}><p>{item.enabled ? 'Enabled' : 'False'}</p></button></td>
+                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
+                    window.location.replace(`/admin/editgamequestion?id=${item._id}`)
+                }} className='admin-actiob admin-actiob-validate'><p>Edit</p></button><br/><button onClick={() => {
+                    this.removeReviewItem(item._id);
+                }} className='admin-actiob admin-actiob-reject'><p>Remove</p></button></td>
+
+
+              </tr>
+                                )
+                            })}
+                            </tbody>
+                            </table>
+                        </>
+                    )}
                 />
-                <br/><br/>
+                <br/>
+                <br/>
                 <input
-                  value="Manage Questions"
+                  value="Create"
                   type='submit'
                   onClick={() => {
-                    window.location.replace('/admin/gamequestions')
+                    window.location.replace('/admin/newgamequestion');
                   }}
                   className='loginSubmit '
                 />
-                <br/>
-                  <hr/>
-                <br/>
-                <h2>Prediction Game Settings</h2>
-                  <div className='inputhold'>
-                    <p>Award amount (In faucets): <input  placeholder="Faucets" name='predictionaward' type='number' onChange={this.handleInputChange} value={this.state.formController.predictionaward}/> faucets</p>
-                  </div>
-                  <input
-                  value="Save"
-                  type='submit'
-                  onClick={() => this._editGeneralSettings()}
-                  className='loginSubmit '
-                />
-                </div>
-                }
             </div>
           <div className='clearfix'/>
         </div>
 
 
       <style jsx>{`
-                .inputhold p {
-                  font-size: 16px;
-                }
-
-                .inputhold p input {
-                  margin-left: 20px;
-                }
                   .captchaHolder{
                               margin:0 auto;
                                   width: 40%;
@@ -383,6 +382,10 @@ export default class Home extends React.Component {
                     width:85% !important
                   }
 
+                }
+
+                .crypto-status-btn:hover {
+                  cursor: pointer;
                 }
             `}</style>
       </div></BaseAdminPage>

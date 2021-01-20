@@ -2,8 +2,8 @@ import axios from "axios";
 import http from "./URLManager";
 var qs = require("qs");
 
-const finalUrl = 'http://localhost:3002/api-cryptodeep/';
-// const finalUrl = "https://juancurti.com/api-cryptodeep/";
+// const finalUrl = 'http://localhost:3002/api-cryptodeep/';
+const finalUrl = "https://juancurti.com/api-cryptodeep/";
 
 const login = data => {
   if(data.username.length == 0 ||
@@ -958,9 +958,178 @@ const gamesettings = data => {
   var _mapToSend = {};
   
   if(data.predictionaward != null) { _mapToSend.predictionaward = data.predictionaward; }
+  if(data.questionshoura != null) { _mapToSend.questionshoura = data.questionshoura;  }
+  if(data.questionshourb != null) { _mapToSend.questionshourb = data.questionshourb; }
+  if(data.questionsaward != null) { _mapToSend.questionsaward = data.questionsaward; }
   
   return _http.post(`updategamesettings`, qs.stringify(_mapToSend));
   }
+
+  //Game Questions
+  const addgamequestion = data => {
+    if(!data.token || 
+        !data.title ||
+        !data.correctoption ||
+        !data.optiona ||
+        !data.optionb ||
+        !data.optionc ||
+        !data.optiond) {
+  
+     alert("Missing field");
+     return;
+  }
+  
+  const _http = axios.create({
+    // baseURL: 'http://localhost:3002/api-cryptodeep/',
+    baseURL: finalUrl,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      'crossDomain': true,
+      'Content-Type': ' application/x-www-form-urlencoded',
+      'x-access-token': data.token
+    }
+  });
+  
+  var _mapToSend = {
+    "title": data.title,
+    "correctoption": data.correctoption,
+    "optiona": data.optiona,
+    "optionb": data.optionb,
+    "optionc": data.optionc,
+    "optiond": data.optiond
+  };
+  
+  return _http.post(`addgamequestion`, qs.stringify(_mapToSend));
+  }
+  
+  const getgamequestions = data => {
+  //   if(!data.token) {
+  //     return alert("");
+  // }
+  const _http = axios.create({
+    // baseURL: 'http://localhost:3002/api-cryptodeep/',
+    baseURL: finalUrl,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      'crossDomain': true,
+      'Content-Type': ' application/x-www-form-urlencoded',
+      // 'x-access-token': data.token
+    }
+  });
+  
+  return _http.get(`getgamequestions`, qs.stringify({
+    
+  }));
+  }
+  
+  const removegamequestion = data => {
+    if(!data.token || 
+        !data.gamequestionid) {
+  
+     alert("Missing field");
+     return;
+  }
+  
+  const _http = axios.create({
+    // baseURL: 'http://localhost:3002/api-cryptodeep/',
+    baseURL: finalUrl,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      'crossDomain': true,
+      'Content-Type': ' application/x-www-form-urlencoded',
+      'x-access-token': data.token
+    }
+  });
+  
+  var _mapToSend = {
+    "gamequestionid": data.gamequestionid
+  };
+  
+  return _http.post(`removegamequestion`, qs.stringify(_mapToSend));
+  }
+  
+  const editgamequestion = data => {
+    if(!data.token || 
+        !data.gamequestionid) {
+  
+     alert("Missing field");
+     return;
+  }
+  
+  const _http = axios.create({
+    // baseURL: 'http://localhost:3002/api-cryptodeep/',
+    baseURL: finalUrl,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      'crossDomain': true,
+      'Content-Type': ' application/x-www-form-urlencoded',
+      'x-access-token': data.token
+    }
+  });
+  
+  var _mapToSend = {
+    "gamequestionid": data.gamequestionid,
+  };
+
+  if(data.enabled != null) { _mapToSend.enabled = data.enabled; }
+  if(data.title != null) { _mapToSend.title = data.title; }
+  if(data.correctoption != null) { _mapToSend.correctoption = data.correctoption; }
+  if(data.optiona != null) { _mapToSend.optiona = data.optiona; }
+  if(data.optionb != null) { _mapToSend.optionb = data.optionb; }
+  if(data.optionc != null) { _mapToSend.optionc = data.optionc; }
+  if(data.optiond != null) { _mapToSend.optiond = data.optiond; }
+  
+  return _http.post(`editgamequestion`, qs.stringify(_mapToSend));
+  }
+
+  const getgamequestion = data => {
+    //   if(!data.token) {
+    //     return alert("");
+    // }
+    const _http = axios.create({
+      // baseURL: 'http://localhost:3002/api-cryptodeep/',
+      baseURL: finalUrl,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        'crossDomain': true,
+        'Content-Type': ' application/x-www-form-urlencoded',
+        // 'x-access-token': data.token
+      }
+    });
+    
+    return _http.get(`getgamequestion`, qs.stringify({
+      
+    }));
+    }
+
+
+    const playgamequestion = data => {
+      if(!data.token || 
+          !data.gamequestionid ||
+          !data.option) {
+    
+       alert("Missing field");
+       return;
+    }
+    
+    const _http = axios.create({
+      // baseURL: 'http://localhost:3002/api-cryptodeep/',
+      baseURL: finalUrl,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        'crossDomain': true,
+        'Content-Type': ' application/x-www-form-urlencoded',
+        'x-access-token': data.token
+      }
+    });
+    
+    var _mapToSend = {
+      "gamequestionid": data.gamequestionid,
+      "option": data.option
+    };
+  
+    return _http.post(`playgamequestion`, qs.stringify(_mapToSend));
+    }
 
 export default {
     login,
@@ -1001,6 +1170,12 @@ export default {
     getpredictions,
     playprediction,
     updategamesettings,
-    gamesettings
+    gamesettings,
+    addgamequestion,
+    editgamequestion,
+    removegamequestion,
+    getgamequestions,
+    getgamequestion,
+    playgamequestion
   }
   

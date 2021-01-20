@@ -3,12 +3,14 @@ import { PaginatedList } from 'react-paginated-list';
 import ServiceCookies from '../services/cookies';
 import ServiceAuth from '../services/ServiceAuth';
 import Translator from '../services/translator';
+import * as Cookies from "js-cookie";
+
 export default class WithdrawPopup extends React.Component {
  
   constructor() {
     super();
     this.state = {
-      history: [],
+      item: null,
       formController: {
           targetprice: ''
       }
@@ -18,19 +20,47 @@ export default class WithdrawPopup extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['cktoken'] == null) { return; }
-    ServiceAuth.getpredictions({
+    ServiceAuth.getgamequestion({
       "token": userCookies['cktoken']
     }).then(response => {
       const dataC = response.data;
       console.log(dataC.data.items);
       this.setState({
-        history: dataC.data.items
+        item: dataC.data.item
       })
     }).catch(e => {
       console.log(e);
       alert(e);
       return;
     })
+  }
+
+  playQuestion = (option) => {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+        window.location.replace(`/account`)
+    }else{
+      const _mTSZ = {
+        'token': userCookies['cktoken'],
+        'gamequestionid': this.state.item._id,
+        'option': option,
+      }
+      console.log(_mTSZ);
+      ServiceAuth.playgamequestion(_mTSZ).then(async response => {
+        const data = response.data;
+        console.log(data);
+        var a = alert(data.message);
+        if(option.toUpperCase() == this.state.item.correctoption) {
+          var _d = new Date();
+          await Cookies.set('lastquestionplayed', _d);
+        }
+        window.location.reload();
+      }).catch(e => {
+        console.log(e);
+        alert('There was an error with the request.');
+        return;
+      })
+    }
   }
 
   handleInputChange = event => {
@@ -41,55 +71,24 @@ export default class WithdrawPopup extends React.Component {
       formController: controller
     })
   }
-
-  sendPredPressed = () => {
-    if(this.state.formController.targetprice == '') {
-      return;
-    }
-
-    if(this.state.formController.targetprice == 0) {
-      return;
-    }
-
-    if(isNaN(this.state.formController.targetprice)) {
-      return alert('Price should be a number');
-    }
-
-    const userCookies = ServiceCookies.getUserCookies();
-    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
-    }else{
-
-        ServiceAuth.playprediction({
-            "token": userCookies['cktoken'],
-            "targetprice": this.state.formController.targetprice,
-          }).then(response => {
-            const data = response.data;
-            console.log(data);
-            alert('Played successfuly! Wait until sunday to see your result');
-          }).catch(e => {
-            var _content = 'You already played this game! Wait until sunday to see your result';
-            console.log(e.message);
-            if(e.response.status == 404 || e.response.status == 401) {
-              _content = 'Error while playing prediction'
-            }
-            alert(_content);
-            return;
-          })
-    }
-  }
  
     render() {
         return (
             <>
-            <h4 className='withdrawTitle'>Quiz Time</h4>
-            <p className='withdrawTitle predictRules'>Quickly, you have just 15 seconds! <br /> Answer correctly and win X faucets!</p>
-             <p className='  qQuestion'>After his last defeat, Napoleon was exiled to which city?</p>
+            <h4 className='withdrawTitle'>{Translator.getStringTranslated('qst_title', this.props.currentLang, this.props.translatorData)}</h4>
+            <p className='withdrawTitle predictRules'>{Translator.getStringTranslated('qst_messagea', this.props.currentLang, this.props.translatorData)} <br /> {Translator.getStringTranslated('qst_messageb', this.props.currentLang, this.props.translatorData)}</p>
+            {
+              this.state.item == null ? null :
+              <>
+<p className='  qQuestion'>{this.state.item.title}</p>
             <img src="images/robot_faq.png" width='100'/>
-            <div className='qChoice'>Waterloo</div>
-            <div className='qChoice'>Saint Helens</div>
-            <div className='qChoice'>Konigsberg, Prussia</div>
-            <div className='qChoice'>London</div>
+            <div onClick={() => this.playQuestion('A')} className='qChoice'>{this.state.item.optiona}</div>
+            <div onClick={() => this.playQuestion('B')} className='qChoice'>{this.state.item.optionb}</div>
+            <div onClick={() => this.playQuestion('C')} className='qChoice'>{this.state.item.optionc}</div>
+            <div onClick={() => this.playQuestion('D')} className='qChoice'>{this.state.item.optiond}</div>
+              </>
+            }
+            
             
           <div className='clearfix'/>
           <style jsx>{`

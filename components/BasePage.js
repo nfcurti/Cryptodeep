@@ -1,11 +1,18 @@
 import React from 'react';
 import ServiceCookies from '../services/cookies';
+import ServiceAuth from '../services/ServiceAuth';
 import Translator from '../services/translator';
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
+import QuestionPopup from '../components/QuestionPopup';
+import * as Cookies from "js-cookie";
 export default class BasePage extends React.Component {
     
     constructor() {
         super();
         this.state = {
+            displayQuizPopup: false,
+            questionGameShow: false,
             currentLang: 'en',
             langmenuOpen: false,
             logged: false
@@ -14,6 +21,7 @@ export default class BasePage extends React.Component {
 
     componentDidMount() {
         this._checkCookies();
+        this._shouldDisplayQuiz();
     }
 
     _checkCookies = async () => {
@@ -38,6 +46,61 @@ export default class BasePage extends React.Component {
             currentLang: data
         })
         window.location.reload();
+    }
+
+    _shouldDisplayQuiz = () => {
+        const userCookies = ServiceCookies.getUserCookies();
+        if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+            
+        }else{
+            const _lastQcook = Cookies.get('lastquestionplayed');
+            var _lastQcooki = new Date(_lastQcook);
+
+            ServiceAuth.gamesettings({
+                "token": userCookies['cktoken']
+              }).then(response => {
+                const data = response.data.data;
+                console.log(data);
+                console.log('END DATA');
+                Date.prototype.addHours = function(h) {
+                    this.setTime(this.getTime() + (h*60*60*1000));
+                    return this;
+                }
+
+                Date.prototype.addMinutes = function(minutes) {
+                    this.setMinutes(this.getMinutes() + minutes);
+                    return this;
+                };
+
+
+                var _now = new Date();
+                var _dateA = new Date(_now.getFullYear(), _now.getMonth(), _now.getDate(), data.gamesettings.questionshoura, 0, 0, 0);
+                var _dateB = new Date(_now.getFullYear(), _now.getMonth(), _now.getDate(), data.gamesettings.questionshourb, 0, 0, 0);
+                var _dateAfin = new Date(_now.getFullYear(), _now.getMonth(), _now.getDate(), data.gamesettings.questionshoura, 0, 0, 0);
+                var _dateBfin = new Date(_now.getFullYear(), _now.getMonth(), _now.getDate(), data.gamesettings.questionshourb, 0, 0, 0);
+                _dateAfin = _dateAfin.addMinutes(15)
+                _dateBfin = _dateBfin.addMinutes(15)
+
+                var _cookiedVal = _lastQcooki.addMinutes(15);
+                if(_now < _cookiedVal) {
+                    return false;
+                }
+
+                if((_now > _dateA && _now < _dateAfin) || (_now > _dateB && _now < _dateBfin)) {
+                    this.setState({
+                        displayQuizPopup: true
+                    })
+                    return true;
+                }else{
+                    return false;
+                }
+                
+                
+              }).catch(e => {
+                console.log(e)
+                return false;
+              })
+        }
     }
 
     render() {
@@ -107,10 +170,33 @@ export default class BasePage extends React.Component {
   {/* <li><div className='bp-menu-item'></div></li> */}
   </ul>
 </nav>
-<div className="questions-pu">
-<img src="images/robot_faq.png" width='100'/>
-<h4 className='withdrawTitle'>Quiz Time</h4>
-</div>
+{
+    this.state.displayQuizPopup ? 
+    <div onClick={() =>{
+        this.setState({
+            questionGameShow: true
+        })
+    }} className="questions-pu">
+    <img src="images/robot_faq.png" width='100'/>
+    <h4 className='withdrawTitle'>{Translator.getStringTranslated('qst_popup', this.props.currentLang, this.props.translatorData)}</h4>
+    
+    </div>
+    : null
+}
+
+<Modal  open={this.state.questionGameShow} onClose={() => {
+    this.setState({
+        questionGameShow: false
+    })
+}} classNames={{
+          overlay: 'customOverlay',
+          modal: 'customModal',
+        }}>
+          <QuestionPopup
+            currentLang={this.props.currentLang}
+            translatorData={this.props.translatorData}
+          style="background-color:#252540"></QuestionPopup>
+        </Modal>
                 </div>
                 {this.props.children}
             <style jsx>{`
