@@ -35,7 +35,7 @@ export default class WithdrawPopup extends React.Component {
       }).then(response => {
         const data = response.data.data;
         this.setState({
-          questionsaward: data.questionsaward
+          questionsaward: data.gamesettings.questionsaward
         })
       });
     }).catch(e => {
