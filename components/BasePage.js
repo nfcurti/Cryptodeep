@@ -107,9 +107,11 @@ export default class BasePage extends React.Component {
   {/* <li><div className='bp-menu-item'></div></li> */}
   </ul>
 </nav>
+<div className="questions-pu">
+<img src="images/robot_faq.png" width='100'/>
+<h4 className='withdrawTitle'>Quiz Time</h4>
+</div>
                 </div>
-
-
                 {this.props.children}
             <style jsx>{`
                 .basepage {

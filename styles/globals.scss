@@ -733,6 +733,7 @@ a {
   }
   
   .lang-select {
+	margin-top: 4px;
 	border: 1px solid white;
 	display: block;
 	width: 30px;
@@ -823,4 +824,36 @@ a {
       .accordion button .icon::after {
         top: 6px!important;
         left: 10px!important;
-      }
+	  }
+	  
+	  .questions-pu {
+		  z-index: 9999;
+		  position: absolute;
+		  width: 140px;
+		  height: 180px;
+		  top: 60px;
+		  left: 10px;
+		  background-color: #252540;
+		  border: 1px solid orange;
+		  border-radius: 4px;
+
+		  &:hover {
+			  background-color: lighten(#252540, 10%);
+			  cursor: pointer;
+		  }
+
+		  img {
+			margin-top: 20px;
+			margin-left: 20px;
+		  }
+
+		  h4 {
+			font-family: 'Nunito';
+			margin: 0px;
+			margin-top: 10px;
+			color: orange;
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+		  }
+	  }

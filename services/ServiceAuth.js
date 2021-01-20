@@ -2,8 +2,8 @@ import axios from "axios";
 import http from "./URLManager";
 var qs = require("qs");
 
-// const finalUrl = 'http://localhost:3002/api-cryptodeep/';
-const finalUrl = "https://juancurti.com/api-cryptodeep/";
+const finalUrl = 'http://localhost:3002/api-cryptodeep/';
+// const finalUrl = "https://juancurti.com/api-cryptodeep/";
 
 const login = data => {
   if(data.username.length == 0 ||
