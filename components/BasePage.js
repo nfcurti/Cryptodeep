@@ -82,6 +82,14 @@ export default class BasePage extends React.Component {
   <img src="https://cdn.countryflags.com/thumbs/india/flag-round-250.png"
        class={`flag-img ${this.state.currentLang == 'hi' ? 'lang-selected' : ''} ${this.state.langmenuOpen ? 'lang-show' : ''}`}/>
   </a>
+  <a href="#" onClick={() => this._changeLang('pt')}> 
+  <img src="https://cdn.countryflags.com/thumbs/portugal/flag-round-250.png"
+       class={`flag-img ${this.state.currentLang == 'pt' ? 'lang-selected' : ''} ${this.state.langmenuOpen ? 'lang-show' : ''}`}/>
+  </a>
+  <a href="#" onClick={() => this._changeLang('fr')}>
+  <img src="https://cdn.countryflags.com/thumbs/france/flag-round-250.png"
+       class={`flag-img ${this.state.currentLang == 'fr' ? 'lang-selected' : ''} ${this.state.langmenuOpen ? 'lang-show' : ''}`}/>
+  </a>
   </div>
 </div>
 </li>

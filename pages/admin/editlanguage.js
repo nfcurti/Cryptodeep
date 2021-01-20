@@ -23,7 +23,9 @@ export default class Home extends React.Component {
           es: '',
           it: '',
           ru: '',
-          hi: ''
+          hi: '',
+          fr: '',
+          pt: ''
       }
     }
   }
@@ -61,6 +63,8 @@ export default class Home extends React.Component {
                         _fC.it = _itemX.it;
                         _fC.ru = _itemX.ru;
                         _fC.hi = _itemX.hi;
+                        _fC.pt = _itemX.pt ?? '';
+                        _fC.fr = _itemX.fr ?? '';
                         this.setState({
                             item: _itemX,
                             formController: _fC
@@ -116,7 +120,9 @@ export default class Home extends React.Component {
         'es': this.state.formController.es,
         'it': this.state.formController.it,
         'ru': this.state.formController.ru,
-        'hi': this.state.formController.hi
+        'hi': this.state.formController.hi,
+        'pt': this.state.formController.pt,
+        'fr': this.state.formController.fr
       }
       console.log(_mTSZ);
       ServiceAuth.editlanguagedataset(_mTSZ).then(response => {
@@ -166,6 +172,16 @@ export default class Home extends React.Component {
             <p style={{fontSize: '18px'}}>It: <br/><input name='it' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.it}/></p>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Pt: <br/><input name='pt' style={{height: '10px',
+            width: '90%'
+        }} type='text' onChange={this.handleInputChange} value={this.state.formController.pt}/></p>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Fr: <br/><input name='fr' style={{height: '10px',
+            width: '90%'
+        }} type='text' onChange={this.handleInputChange} value={this.state.formController.fr}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Ru: <br/><input name='ru' style={{height: '10px',

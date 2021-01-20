@@ -840,7 +840,9 @@ var _mapToSend = {
   'es',
   'it',
   'ru',
-  'hi'
+  'hi',
+  'pt',
+  'fr'
 ].forEach((v) => {
   if(data[v] != null) {
     _mapToSend[v] = data[v];

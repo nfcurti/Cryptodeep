@@ -175,7 +175,9 @@ export default class Home extends React.Component {
         'es': e.es ?? '',
         'it': e.it ?? '',
         'ru': e.ru ?? '',
-        'hi': e.hi ?? ''
+        'hi': e.hi ?? '',
+        'pt': e.pt ?? '',
+        'fr': e.fr ?? ''
       }
     })
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -260,6 +262,8 @@ export default class Home extends React.Component {
                         || r.it.toUpperCase().includes(this.state.formController.search.toUpperCase())
                         || r.ru.toUpperCase().includes(this.state.formController.search.toUpperCase())
                         || r.hi.toUpperCase().includes(this.state.formController.search.toUpperCase())
+                        || r.pt.toUpperCase().includes(this.state.formController.search.toUpperCase())
+                        || r.fr.toUpperCase().includes(this.state.formController.search.toUpperCase())
                         )}
                     itemsPerPage={25}
                     renderList={(list) => (
@@ -273,6 +277,8 @@ export default class Home extends React.Component {
                                     <td><p>en</p></td>
                                     <td><p>es</p></td>
                                     <td><p>it</p></td>
+                                    <td><p>pt </p></td>
+                                    <td><p>fr </p></td>
                                     <td><p>ru </p></td>
                                     <td><p>hi </p></td>
                                     <td><p>Actions</p></td>
@@ -288,6 +294,8 @@ export default class Home extends React.Component {
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{(item.en ?? "").length < 100 ? item.en : `${item.en.substring(0, 100)}...`}</p></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{(item.es ?? "").length < 100 ? item.es : `${item.es.substring(0, 100)}...`}</p></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{(item.it ?? "").length < 100 ? item.it : `${item.it.substring(0, 100)}...`}</p></td>
+                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{(item.pt ?? "").length < 100 ? item.pt : `${item.pt.substring(0, 100)}...`}</p></td>
+                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{(item.fr ?? "").length < 100 ? item.fr : `${item.fr.substring(0, 100)}...`}</p></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{(item.ru ?? "").length < 100 ? item.ru : `${item.ru.substring(0, 100)}...`}</p></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{(item.hi ?? "").length < 100 ? item.hi : `${item.hi.substring(0, 100)}...`}</p></td>
                                 
