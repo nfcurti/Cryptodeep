@@ -17,7 +17,8 @@ export default class Home extends React.Component {
         predictionaward: '',
         questionshoura: '',
         questionshourb: '',
-        questionsaward: ''
+        questionsaward: '',
+        findtherobotaward: ''
       }
     }
   }
@@ -49,6 +50,7 @@ export default class Home extends React.Component {
                   _formC.questionshoura = data.data.gamesettings.questionshoura;
                   _formC.questionshourb = data.data.gamesettings.questionshourb;
                   _formC.questionsaward = data.data.gamesettings.questionsaward;
+                  _formC.findtherobotaward = data.data.gamesettings.findtherobotaward;
 
                   this.setState({
                     settings: data.data.gamesettings,
@@ -69,7 +71,8 @@ export default class Home extends React.Component {
       'predictionaward',
       'questionshoura',
       'questionshourb',
-      'questionsaward'
+      'questionsaward',
+      'findtherobotaward'
     ].forEach(i => {
       if(this.state.formController[i].length == 0) {
         return alert(`${i} is empty`);
@@ -94,7 +97,8 @@ export default class Home extends React.Component {
         "predictionaward": this.state.formController.predictionaward,
         "questionshoura": this.state.formController.questionshoura,
         "questionshourb": this.state.formController.questionshourb,
-        "questionsaward": this.state.formController.questionsaward
+        "questionsaward": this.state.formController.questionsaward,
+        'findtherobotaward': this.state.formController.findtherobotaward
       }).then(response => {
         const data = response.data;
         console.log(data);
@@ -149,6 +153,19 @@ export default class Home extends React.Component {
                   className='loginSubmit '
                 />
                 <br/>
+                <hr/>
+                <br/>
+                <h2>Find The Robot Game Settings</h2>
+                <div className='inputhold'>
+                    <p>Award amount (In faucets): <input  placeholder="Faucets" name='findtherobotaward' type='number' onChange={this.handleInputChange} value={this.state.formController.findtherobotaward}/> faucets</p>
+                  </div>
+                  <input
+                  value="Save"
+                  type='submit'
+                  onClick={() => this._editGeneralSettings()}
+                  className='loginSubmit '
+                />
+                <br/>
                   <hr/>
                 <br/>
                 <h2>Prediction Game Settings</h2>
@@ -161,6 +178,7 @@ export default class Home extends React.Component {
                   onClick={() => this._editGeneralSettings()}
                   className='loginSubmit '
                 />
+                <br/>
                 </div>
                 }
             </div>

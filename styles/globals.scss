@@ -857,3 +857,53 @@ a {
 			text-align: center;
 		  }
 	  }
+
+.findtherobot-pos-0 {
+	position: absolute;
+	bottom: 0px;
+	z-index: 9999;
+	right: 3%;
+	bottom: 17%;
+
+	&:hover { cursor: pointer; }
+}
+
+.findtherobot-pos-1 {
+	position: absolute;
+	bottom: 0px;
+	z-index: 9999;
+	left: 3%;
+	bottom: 17%;
+
+	&:hover { cursor: pointer; }
+}
+
+.findtherobot-pos-2 {
+	position: absolute;
+	bottom: 0px;
+	z-index: 9999;
+	left: 10%;
+	bottom: -35%;
+
+	&:hover { cursor: pointer; }
+}
+
+.findtherobot-pos-3 {
+	position: absolute;
+	bottom: 0px;
+	z-index: 9999;
+	right: 48%;
+	top: 31%;
+
+	&:hover { cursor: pointer; }
+}
+
+.findtherobot-pos-4 {
+	position: absolute;
+	bottom: 0px;
+	z-index: 9999;
+	right: 10%;
+	top: 68%;
+
+	&:hover { cursor: pointer; }
+}

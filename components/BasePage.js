@@ -11,6 +11,8 @@ export default class BasePage extends React.Component {
     constructor() {
         super();
         this.state = {
+            displayFTR: false,
+            ftrPosition: 0,
             displayQuizPopup: false,
             questionGameShow: false,
             currentLang: 'en',
@@ -22,6 +24,7 @@ export default class BasePage extends React.Component {
     componentDidMount() {
         this._checkCookies();
         this._shouldDisplayQuiz();
+        this._shouldDisplayFTR();
     }
 
     _checkCookies = async () => {
@@ -48,6 +51,38 @@ export default class BasePage extends React.Component {
         window.location.reload();
     }
 
+    _pressFTR = () => {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+      window.location.replace('/account');  
+    }else{
+        ServiceAuth.playfindtherobot({
+            "token": userCookies['cktoken']
+          }).then(async response => {
+            var _d = new Date();
+            await Cookies.set('lastftrplayed', _d);
+            const data = response.data;
+            console.log(data);
+            alert(data.message);
+            window.location.reload();
+          });
+    }
+    }
+
+    _shouldDisplayFTR = () => {
+        var _now = new Date();
+        const _lastQcook = Cookies.get('lastftrplayed');
+        var _lastQcooki = new Date(_lastQcook);
+
+        var _sawToday = (_lastQcooki.getDate() == _now.getDate()) &&
+                        (_lastQcooki.getMonth() == _now.getMonth()) &&
+                        (_lastQcooki.getFullYear() == _now.getFullYear()); 
+        
+        this.setState({
+            displayFTR: !_sawToday
+        })
+    }
+
     _shouldDisplayQuiz = () => {
         const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
@@ -61,7 +96,9 @@ export default class BasePage extends React.Component {
               }).then(response => {
                 const data = response.data.data;
                 console.log(data);
-                console.log('END DATA');
+                this.setState({
+                    ftrPosition: data.gamesettings.findtherobotposition
+                })
                 Date.prototype.addHours = function(h) {
                     this.setTime(this.getTime() + (h*60*60*1000));
                     return this;
@@ -182,6 +219,13 @@ export default class BasePage extends React.Component {
     
     </div>
     : null
+}
+{
+    this.state.displayFTR ? <div onClick={() => {
+        this._pressFTR();
+    }} className={`findtherobot-pos-${this.state.ftrPosition}`}>
+    <img src="images/robot_findtherobot.png" width='100'/>
+    </div> : null
 }
 
 <Modal  open={this.state.questionGameShow} onClose={() => {

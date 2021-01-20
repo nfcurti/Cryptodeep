@@ -961,6 +961,7 @@ const gamesettings = data => {
   if(data.questionshoura != null) { _mapToSend.questionshoura = data.questionshoura;  }
   if(data.questionshourb != null) { _mapToSend.questionshourb = data.questionshourb; }
   if(data.questionsaward != null) { _mapToSend.questionsaward = data.questionsaward; }
+  if(data.findtherobotaward != null) { _mapToSend.findtherobotaward = data.findtherobotaward; }
   
   return _http.post(`updategamesettings`, qs.stringify(_mapToSend));
   }
@@ -1131,6 +1132,31 @@ const gamesettings = data => {
     return _http.post(`playgamequestion`, qs.stringify(_mapToSend));
     }
 
+    const playfindtherobot = data => {
+      if(!data.token) {
+    
+       alert("Missing field");
+       return;
+    }
+    
+    const _http = axios.create({
+      // baseURL: 'http://localhost:3002/api-cryptodeep/',
+      baseURL: finalUrl,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        'crossDomain': true,
+        'Content-Type': ' application/x-www-form-urlencoded',
+        'x-access-token': data.token
+      }
+    });
+    
+    var _mapToSend = {
+      
+    };
+  
+    return _http.post(`playfindtherobot`, qs.stringify(_mapToSend));
+    }
+
 export default {
     login,
     signup,
@@ -1176,6 +1202,7 @@ export default {
     removegamequestion,
     getgamequestions,
     getgamequestion,
-    playgamequestion
+    playgamequestion,
+    playfindtherobot
   }
   
