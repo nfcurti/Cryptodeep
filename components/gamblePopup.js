@@ -135,7 +135,7 @@ export default class WithdrawPopup extends React.Component {
             </div>
             <PaginatedList
               list={this.state.history}
-              itemsPerPage={2}
+              itemsPerPage={5}
               renderList={(list) => (
                 <table className='bp-table wallet-table predictTable gambleT'>
  
