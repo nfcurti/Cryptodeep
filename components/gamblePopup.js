@@ -84,6 +84,7 @@ export default class WithdrawPopup extends React.Component {
             <>
             <h4 className='withdrawTitle'>Gamble your Faucet</h4>
             <p className='withdrawTitle predictRules'>Try your luck and win 2 additional faucets!</p>
+             <p className='withdrawTitle predictRules' style={{fontWeight:'bold', color:"#DC8614"}}>Here goes the very useful instructions (bold for emphasis)</p>
             <div className='wheeler' style={{marginBottom:'2em'}}>
                 <div style={{float:'left'}} className="withdrawalForm">
                   <select disabled name="currency" id="currency" className='selectCrypto predictShow' >
@@ -121,95 +122,108 @@ export default class WithdrawPopup extends React.Component {
                                 <tr>
                   <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
                   <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (H)</p></td>
+                  </tr>    
+                  <tr>
+                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
+                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (H)</p></td>
+                  </tr>    
+                  <tr>
+                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
+                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (H)</p></td>
+                  </tr>    
+                  <tr>
+                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
+                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (H)</p></td>
                   </tr>
               </tbody>
               </table>
           <div className='clearfix'/>
           <style jsx>{`
             .defeat{    width: fit-content;
-    padding: 0.5em 1em;
-    margin: auto;cursor:default}
-    .victory{    width: fit-content;
-    padding: 0.5em 1em;
-    margin: auto;cursor:default}
-            .gambleT{margin-top:1em}
-                .wheelContainer{background:#161526;width:15em;height:10em}
-.toggle-container {
-    position: relative;
-    width: 12.8em;
-    height: 40px;
-    pointer-events: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    margin-bottom:1em;
-}
+                padding: 0.5em 1em;
+                margin: auto;cursor:default}
+                .victory{    width: fit-content;
+                padding: 0.5em 1em;
+                margin: auto;cursor:default}
+                        .gambleT{margin-top:1em}
+                            .wheelContainer{background:#161526;width:24em;height:16em;
+    margin-bottom: 2em;}
+            .toggle-container {
+                position: relative;
+                width: 12.8em;
+                height: 40px;
+                pointer-events: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                margin-bottom:1em;
+            }
 
-.toggle-container input {
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: all;
-}
+            .toggle-container input {
+              opacity: 0;
+              width: 100%;
+              height: 100%;
+              pointer-events: all;
+            }
 
-.slider {
-      font-size: 0.9em;
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #161526;
-  transition: 0.4s;
-  pointer-events: none;
-}
+            .slider {
+                  font-size: 0.9em;
+              position: absolute;
+              cursor: pointer;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: #161526;
+              transition: 0.4s;
+              pointer-events: none;
+            }
 
-.slider::before {
-  position: absolute;
-  content: "";
-  height: 24px;
-  width: 24px;
-  left: 8px;
-  bottom: 8px;
-  background-color: #fff;
-  transition: 0.2s;
-  pointer-events: none;
-}
-.slider::after {
-  position: absolute;
-  content: "Medium Risk";
-  height: 24px;
-  width: auto;
-  right: 1em;
-  bottom: 6px;
-  transition: 0.2s;
-  color: #fff;
-  pointer-events: none;
-  font-family:"Nunito"
-}
+            .slider::before {
+              position: absolute;
+              content: "";
+              height: 24px;
+              width: 24px;
+              left: 8px;
+              bottom: 8px;
+              background-color: #fff;
+              transition: 0.2s;
+              pointer-events: none;
+            }
+            .slider::after {
+              position: absolute;
+              content: "Medium Risk";
+              height: 24px;
+              width: auto;
+              right: 1em;
+              bottom: 6px;
+              transition: 0.2s;
+              color: #fff;
+              pointer-events: none;
+              font-family:"Nunito"
+            }
 
-input:checked + .slider {
-  background-color:red;
-}
+            input:checked + .slider {
+              background-color:red;
+            }
 
-input:checked + .slider:before {
-  transform: translateX(10.5em);
-}
+            input:checked + .slider:before {
+              transform: translateX(10.5em);
+            }
 
-input:checked + .slider:after {
-  content: "High Risk";
-  left: 1em;
-}
+            input:checked + .slider:after {
+              content: "High Risk";
+              left: 1em;
+            }
 
-.slider.round {
-  border-radius: 34px;
-}
+            .slider.round {
+              border-radius: 34px;
+            }
 
-.slider.round:before {
-  border-radius: 50%;
-}
+            .slider.round:before {
+              border-radius: 50%;
+            }
 
                 label{
                   font-family:Nunito;
@@ -340,7 +354,7 @@ input:checked + .slider:after {
  
                 }
                 .wallet-table{
-                  margin-top:2em
+                  margin-top:7em
                 }
                 .csb-withdraw{
                   background-color:transparent;
