@@ -11,32 +11,23 @@ import FeaturedReviews from '../components/FeaturedReviews';
 import GamblePopup from '../components/gamblePopup';
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
- 
+import Translator from '../services/translator';
  
  
 export default class Home extends React.Component {
- 
- 
-  constructor() {
+
+  constructor(){
     super();
     this.state = {
- 
+
+      //Lang
+      translatorData: [],
+      currentLang: 'en'
     }
   }
  
-  state = {
-    open: false
-  };
- 
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
- 
-  onCloseModal = () => {
-    this.setState({ open: false });
-  };
- 
   componentDidMount() {
+    this._loadLang();
     const items = document.querySelectorAll(".accordion button");
     var i;
     function toggleAccordion() {
@@ -55,21 +46,34 @@ export default class Home extends React.Component {
  
  
   }
+
+  _loadLang = () => {
+    const langCookies = ServiceCookies.getLangCookies();
+    ServiceAuth.getlanguagedataset({
+      
+    }).then(response => {
+      const data = response.data;
+      console.log(data);
+      if(data.data.items != null) {
+          this.setState({
+            currentLang: langCookies['cklang'],
+              translatorData: data.data.items
+          })
+      }
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
+    })
+  }
  
   render() {
-    const { open } = this.state;
     return (
-      <BasePage>
+      <BasePage 
+      currentLang={this.state.currentLang}
+      translatorData={this.state.translatorData}>
  
-      <div>
-        <button onClick={this.onOpenModal}>Open modal</button>
-        <Modal  open={open} onClose={this.onCloseModal} classNames={{
-          overlay: 'customOverlay',
-          modal: 'customModal',
-        }}>
-          <GamblePopup style="background-color:#252540"></GamblePopup>
-        </Modal>
-      </div>
+     
         <div className='bp-middle'>
              <div className='bp-middle-over'>
             <div className='bp-middle-all bp-blueshadow' style={{marginTop:'2em'}}>

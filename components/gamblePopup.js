@@ -82,13 +82,13 @@ export default class WithdrawPopup extends React.Component {
     render() {
         return (
             <>
-            <h4 className='withdrawTitle'>Gamble your Faucet</h4>
-            <p className='withdrawTitle predictRules'>Try your luck and win 2 additional faucets!</p>
-             <p className='withdrawTitle predictRules' style={{fontWeight:'bold', color:"#DC8614"}}>Here goes the very useful instructions (bold for emphasis)</p>
+            <h4 className='withdrawTitle'>{Translator.getStringTranslated('gmbl_title', this.props.currentLang, this.props.translatorData)}</h4>
+            <p className='withdrawTitle predictRules'>{Translator.getStringTranslated('gmbl_messagea', this.props.currentLang, this.props.translatorData)}</p>
+             <p className='withdrawTitle predictRules' style={{fontWeight:'bold', color:"#DC8614"}}>{Translator.getStringTranslated('gmbl_messageb', this.props.currentLang, this.props.translatorData)}</p>
             <div className='wheeler' style={{marginBottom:'2em'}}>
                 <div style={{float:'left'}} className="withdrawalForm">
                   <select disabled name="currency" id="currency" className='selectCrypto predictShow' >
-                      <option value="faucetQty">2 Faucets</option>
+                      <option value="faucetQty">{this.props.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.props.currentLang, this.props.translatorData)}</option>
                     </select>
                     <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'images/cryptodeep_asset_6.png'} />
                     
@@ -97,7 +97,7 @@ export default class WithdrawPopup extends React.Component {
                       <input type="checkbox" />
                       <div className="slider round"></div>
                     </div>   
-                 <button onClick={() => this.sendPredPressed()} className='crypto-status-btn csb-withdraw withdrawFinal predictionFinal'>Gamble your faucet -></button>
+                 <button onClick={() => this.sendPredPressed()} className='crypto-status-btn csb-withdraw withdrawFinal predictionFinal'>{Translator.getStringTranslated('global_gamble', this.props.currentLang, this.props.translatorData)}</button>
      
                 </div>
                 <div style={{float:'left'}} className="wheelContainer"></div>
@@ -106,35 +106,20 @@ export default class WithdrawPopup extends React.Component {
  
               <thead>
               <tr>
-                <th style={{textTransform: 'uppercase'}}>DATE</th>
-                <th style={{textTransform: 'uppercase'}}>RESULT</th>
+                <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_date', this.props.currentLang, this.props.translatorData)}</th>
+                <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('prdct_result', this.props.currentLang, this.props.translatorData)}</th>
               </tr>
               </thead>
               <tbody>
                                 <tr>
                   <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (M)</p></td>
+                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>{Translator.getStringTranslated('prdct_status_3', this.props.currentLang, this.props.translatorData)}</p></td>
                   </tr>
                                 <tr>
                   <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn defeat'>Defeat (M)</p></td>
+                  <td className='textCenter ' style={{}}><p className='crypto-status-btn defeat'>{Translator.getStringTranslated('prdct_status_2', this.props.currentLang, this.props.translatorData)}</p></td>
                   </tr>
-                                <tr>
-                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (H)</p></td>
-                  </tr>    
-                  <tr>
-                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (H)</p></td>
-                  </tr>    
-                  <tr>
-                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (H)</p></td>
-                  </tr>    
-                  <tr>
-                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>Victory (H)</p></td>
-                  </tr>
+                              
               </tbody>
               </table>
           <div className='clearfix'/>

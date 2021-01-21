@@ -13,7 +13,7 @@ import { PaginatedList } from 'react-paginated-list';
 import Countdown from 'react-countdown';
 import FeaturedReviews from '../components/FeaturedReviews';
 import Translator from '../services/translator';
-
+import GamblePopup from '../components/gamblePopup';
 
 export default class Home extends React.Component {
 
@@ -21,6 +21,7 @@ export default class Home extends React.Component {
     super();
 
     this.state = {
+      gamblegameShow: false,
       predictgameShow: false,
       isMonday: false,
       faucets: [],
@@ -332,6 +333,11 @@ export default class Home extends React.Component {
                 })
               }}><a id='roll'>{Translator.getStringTranslated('fct_extrafaucet', this.state.currentLang, this.state.translatorData)}</a></button></div>
               }
+              <div style={{height:'2em', marginTop: '20px'}} className='bp-cbutton'><button onClick={() => {
+                this.setState({
+                  gamblegameShow: true
+                })
+              }}><a id='rolla'>{Translator.getStringTranslated('global_gamble', this.state.currentLang, this.state.translatorData)}</a></button></div>
               <Modal  open={this.state.predictgameShow} onClose={() => {
                 this.setState({
                   predictgameShow: false
@@ -345,6 +351,20 @@ export default class Home extends React.Component {
                   currentLang={this.state.currentLang}
                   translatorData={this.state.translatorData}
                 style="background-color:#252540"></PredictPopup>
+              </Modal>
+              <Modal  open={this.state.gamblegameShow} onClose={() => {
+                this.setState({
+                  gamblegameShow: false
+                })
+              }} classNames={{
+                overlay: 'customOverlay',
+                modal: 'customModal',
+              }}>
+                <GamblePopup
+                  userfaucetbalance={this.state.userfaucetbalance}
+                  currentLang={this.state.currentLang}
+                  translatorData={this.state.translatorData}
+                style="background-color:#252540"></GamblePopup>
               </Modal>
             </div>
             
