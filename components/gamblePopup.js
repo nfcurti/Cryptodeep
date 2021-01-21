@@ -11,20 +11,24 @@ export default class WithdrawPopup extends React.Component {
       history: [],
       formController: {
           targetprice: ''
-      }
+      },
+      mediumRisk: true,
+      playing: false,
+      won: false,
+      done: false
     }
   }
 
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['cktoken'] == null) { return; }
-    ServiceAuth.getpredictions({
+    ServiceAuth.historygamblefaucet({
       "token": userCookies['cktoken']
     }).then(response => {
       const dataC = response.data;
-      console.log(dataC.data.items);
+      console.log(dataC.data.history);
       this.setState({
-        history: dataC.data.items
+        history: dataC.data.history
       })
     }).catch(e => {
       console.log(e);
@@ -43,40 +47,54 @@ export default class WithdrawPopup extends React.Component {
   }
 
   sendPredPressed = () => {
-    if(this.state.formController.targetprice == '') {
+    if(this.props.userfaucetbalance == 0) {
+      alert('Insufficient faucets');
       return;
     }
 
-    if(this.state.formController.targetprice == 0) {
-      return;
-    }
+    var _resultGamble = false;
+    var _gambleFactor = this.state.mediumRisk ? Math.floor(Math.random() * 2) + 1 : Math.floor(Math.random() * 4) + 1;
+    _resultGamble = this.state.mediumRisk ? _gambleFactor % 2 == 0 : _gambleFactor == 2;
+    // alert(_resultGamble);
+    this.setState({
+      playing: true,
+      won: _resultGamble
+    })
+    setTimeout(() => {
+      this.setState({
+        playing: false,
+        done: true
+      })
 
-    if(isNaN(this.state.formController.targetprice)) {
-      return alert('Price should be a number');
-    }
+      setTimeout(async () => {
+        const userCookies = ServiceCookies.getUserCookies();
+        if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+            alert('You need to be logged to play this game');
+        }else{
+            ServiceAuth.playgamblefaucet({
+                "token": userCookies['cktoken'],
+                'userid': userCookies['ckuserid'],
+                'mediumrisk': this.state.mediumRisk ? 'true' : 'false',
+                'won': _resultGamble == true ? 'true' : 'false'
+              }).then(response => {
+                const data = response.data;
+                console.log(data);
+                alert(data.message);
+                window.location.reload();
+              }).catch(e => {
+                var _content = 'No faucets available';
+                console.log(e.message);
+                if(e.response.status == 404 || e.response.status == 401) {
+                  _content = 'Error while playing gambling'
+                }
+                alert(_content);
+                return;
+              })
+        }
+      }, 1000)
+    }, 7000)
 
-    const userCookies = ServiceCookies.getUserCookies();
-    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
-    }else{
-
-        ServiceAuth.playprediction({
-            "token": userCookies['cktoken'],
-            "targetprice": this.state.formController.targetprice,
-          }).then(response => {
-            const data = response.data;
-            console.log(data);
-            alert('Played successfuly! Wait until sunday to see your result');
-          }).catch(e => {
-            var _content = 'You already played this game! Wait until sunday to see your result';
-            console.log(e.message);
-            if(e.response.status == 404 || e.response.status == 401) {
-              _content = 'Error while playing prediction'
-            }
-            alert(_content);
-            return;
-          })
-    }
+    
   }
  
     render() {
@@ -90,19 +108,36 @@ export default class WithdrawPopup extends React.Component {
                   <select disabled name="currency" id="currency" className='selectCrypto predictShow' >
                       <option value="faucetQty">{this.props.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.props.currentLang, this.props.translatorData)}</option>
                     </select>
-                    <img className='wallet-svg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'images/cryptodeep_asset_6.png'} />
+                    <img className='wallet-svg ximg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'images/cryptodeep_asset_6.png'} />
                     
                     <div className="toggle-container">
 
-                      <input type="checkbox" />
+                      <input type="checkbox" onChange={(val) => {
+                        this.setState({
+                          mediumRisk: !val.target.checked
+                        })
+                      }} />
                       <div className="slider round"></div>
                     </div>   
                  <button onClick={() => this.sendPredPressed()} className='crypto-status-btn csb-withdraw withdrawFinal predictionFinal'>{Translator.getStringTranslated('global_gamble', this.props.currentLang, this.props.translatorData)}</button>
      
                 </div>
-                <div style={{float:'left'}} className="wheelContainer"></div>
+                <div style={{float:'left'}} className="wheelContainer">
+                  <img src='images/gamble_layer0.png' className='wheel-base'/>
+                  {
+                    this.state.mediumRisk ?
+                    <img src={`images/gamble_layer1_medium.png`} className={`wheel-medium ${this.state.done ? (this.state.won ? 'wheelWin' : 'wheelLose') : ''}  ${this.state.playing ? 'shouldspin' : ''}`}/>
+                    :
+                    <img src={`images/gamble_layer1_hard.png`} className={`wheel-medium ${this.state.done ? (this.state.won ? 'wheelWin' : 'wheelLose') : ''} ${this.state.playing ? 'shouldspin' : ''}`}/>
+                  }
+                  <img src='images/gamble_layer2.png' className='wheel-top'/>
+                </div>
             </div>
-            <table className='bp-table wallet-table predictTable gambleT'>
+            <PaginatedList
+              list={this.state.history}
+              itemsPerPage={5}
+              renderList={(list) => (
+                <table className='bp-table wallet-table predictTable gambleT'>
  
               <thead>
               <tr>
@@ -111,17 +146,21 @@ export default class WithdrawPopup extends React.Component {
               </tr>
               </thead>
               <tbody>
-                                <tr>
-                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn victory'>{Translator.getStringTranslated('prdct_status_3', this.props.currentLang, this.props.translatorData)}</p></td>
-                  </tr>
-                                <tr>
-                  <td className='textCenter ' style={{}}><p>01/01/2021</p></td>
-                  <td className='textCenter ' style={{}}><p className='crypto-status-btn defeat'>{Translator.getStringTranslated('prdct_status_2', this.props.currentLang, this.props.translatorData)}</p></td>
-                  </tr>
-                              
+                {
+                  list.map((item, id) => {
+                    return (
+                      <tr>
+                      <td className='textCenter ' style={{}}><p>{item.created_at.split('T').join(' ').substring(0, 16)}</p></td>
+                      <td className='textCenter ' style={{}}><p className={`crypto-status-btn ${item.won ? 'victory' : 'defeat'}`}>{item.won ? Translator.getStringTranslated('prdct_status_3', this.props.currentLang, this.props.translatorData) : Translator.getStringTranslated('prdct_status_2', this.props.currentLang, this.props.translatorData)} ({item.mediumRisk ? Translator.getStringTranslated('gmbl_medium', this.props.currentLang, this.props.translatorData) : Translator.getStringTranslated('gmbl_high', this.props.currentLang, this.props.translatorData) })</p></td>
+                      </tr>
+                    )
+                  })
+                }  
               </tbody>
               </table>
+              )}
+            />
+            
           <div className='clearfix'/>
           <style jsx>{`
             .defeat{    width: fit-content;
@@ -304,7 +343,7 @@ export default class WithdrawPopup extends React.Component {
                 .bp-security{
                   display:inline-block;
                 }
-                img{
+                .ximg{
                   width:2em;
                   position: absolute;
                   margin-left: -4em;

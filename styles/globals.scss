@@ -907,3 +907,81 @@ a {
 
 	&:hover { cursor: pointer; }
 }
+
+.wheelContainer {
+	.wheel-base{
+		position: absolute;
+		right: 80px;
+		top: 250px;
+		width: 40%;
+		height: 25%;
+	}
+
+	.wheel-medium{
+		position: absolute;
+		right: 37px;
+		top: 175px;
+		width: 220px;
+		height: 220px;
+		transition: 1s all ease-out;
+	}
+
+	.wheel-top{
+		position: absolute;
+		right: 90px;
+		top: 280px;
+		width: 33%;
+		height: 20%;
+	}
+}
+
+
+@media screen and (max-width: 800px){
+	.wheelContainer {
+		.wheel-base {
+			position: absolute;
+			right: 80px;
+			top: 250px;
+			width: 80%;
+			height: 50%;
+		}
+
+		.wheel-medium{
+			position: absolute;
+			right: 37px;
+			top: 175px;
+			width: 220px;
+			height: 220px;
+		}
+
+		.wheel-top{
+			position: absolute;
+			right: 90px;
+			top: 280px;
+			width: 66%;
+			height: 40%;
+		}
+	}
+}
+
+.shouldspin {
+    // -webkit-transform: rotate(1deg);
+    -webkit-animation:  spin 7s linear;
+}
+
+.wheelWin {
+	-webkit-transform: rotate(45deg);
+}
+
+.wheelLose {
+	-webkit-transform: rotate(22deg);
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    10% { -webkit-transform: rotate(360deg); }
+    20% { -webkit-transform: rotate(720deg); }
+    40% { -webkit-transform: rotate(1080deg); }
+    70% { -webkit-transform: rotate(1440deg); }
+    100% { -webkit-transform: rotate(1800deg); }
+}

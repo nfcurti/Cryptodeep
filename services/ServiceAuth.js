@@ -1156,6 +1156,55 @@ const gamesettings = data => {
   
     return _http.post(`playfindtherobot`, qs.stringify(_mapToSend));
     }
+    //
+
+    const playgamblefaucet = data => {
+      if(!data.token || !data.userid) {
+    
+       alert("Missing field");
+       return;
+    }
+    
+    const _http = axios.create({
+      // baseURL: 'http://localhost:3002/api-cryptodeep/',
+      baseURL: finalUrl,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        'crossDomain': true,
+        'Content-Type': ' application/x-www-form-urlencoded',
+        'x-access-token': data.token
+      }
+    });
+    
+    var _mapToSend = {
+      'userid': data.userid,
+      'mediumrisk': data.mediumrisk == 'true' ? 'true' : 'false',
+      'won': data.won == 'true' ? 'true' : 'false'
+      
+    };
+  
+    return _http.post(`playgamblefaucet`, qs.stringify(_mapToSend));
+    }
+
+    const historygamblefaucet = data => {
+        if(!data.token) {
+          return alert("");
+      }
+      const _http = axios.create({
+        // baseURL: 'http://localhost:3002/api-cryptodeep/',
+        baseURL: finalUrl,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'crossDomain': true,
+          'Content-Type': ' application/x-www-form-urlencoded',
+          'x-access-token': data.token
+        }
+      });
+      
+      return _http.get(`historygamblefaucet`, qs.stringify({
+        
+      }));
+      }
 
 export default {
     login,
@@ -1203,6 +1252,8 @@ export default {
     getgamequestions,
     getgamequestion,
     playgamequestion,
-    playfindtherobot
+    playfindtherobot,
+    playgamblefaucet,
+    historygamblefaucet
   }
   

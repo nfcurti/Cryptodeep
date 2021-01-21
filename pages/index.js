@@ -497,23 +497,6 @@ export default class Home extends React.Component {
               </table>
     )}
                 />
-                
-                {/* <tr>
-                  <td style={{width: '20%'}}>11/17/2020 - 11:15</td>
-                  <td style={{width: '30%'}}><p>315 Points</p></td>
-                  <td style={{width: '30%'}}><button className='crypto-status-btn csb-success'>Successful</button></td>
-                </tr>
-                <tr>
-                  <td style={{width: '20%'}}>11/11/2020 - 11:15</td>
-                  <td style={{width: '30%'}}><p>275 Points</p></td>
-                  <td style={{width: '30%'}}><button className='crypto-status-btn csb-in-process'>In Process</button></td>
-                </tr>
-                <tr>
-                  <td style={{width: '20%'}}>11/14/2020 - 11:15</td>
-                  <td style={{width: '30%'}}><p>250 Points</p></td>
-                  <td style={{width: '30%'}}><button className='crypto-status-btn csb-success'>Successful</button></td>
-                </tr>
-                </tbody> */}
             </div>
             <div className='clearfix'/>
           </div>
