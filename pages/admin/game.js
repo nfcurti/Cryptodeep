@@ -18,7 +18,9 @@ export default class Home extends React.Component {
         questionshoura: '',
         questionshourb: '',
         questionsaward: '',
-        findtherobotaward: ''
+        findtherobotaward: '',
+        affiliateaward: '',
+        affiliatewinners: ''
       }
     }
   }
@@ -51,6 +53,8 @@ export default class Home extends React.Component {
                   _formC.questionshourb = data.data.gamesettings.questionshourb;
                   _formC.questionsaward = data.data.gamesettings.questionsaward;
                   _formC.findtherobotaward = data.data.gamesettings.findtherobotaward;
+                  _formC.affiliateaward = data.data.gamesettings.affiliateaward ?? '100';
+                  _formC.affiliatewinners = data.data.gamesettings.affiliatewinners ?? '20';
 
                   this.setState({
                     settings: data.data.gamesettings,
@@ -72,7 +76,9 @@ export default class Home extends React.Component {
       'questionshoura',
       'questionshourb',
       'questionsaward',
-      'findtherobotaward'
+      'findtherobotaward',
+      'affiliateaward',
+      'affiliatewinners'
     ].forEach(i => {
       if(this.state.formController[i].length == 0) {
         return alert(`${i} is empty`);
@@ -98,7 +104,9 @@ export default class Home extends React.Component {
         "questionshoura": this.state.formController.questionshoura,
         "questionshourb": this.state.formController.questionshourb,
         "questionsaward": this.state.formController.questionsaward,
-        'findtherobotaward': this.state.formController.findtherobotaward
+        'findtherobotaward': this.state.formController.findtherobotaward,
+        'affiliateaward': this.state.formController.affiliateaward,
+        'affiliatewinners': this.state.formController.affiliatewinners
       }).then(response => {
         const data = response.data;
         console.log(data);
@@ -149,6 +157,31 @@ export default class Home extends React.Component {
                   type='submit'
                   onClick={() => {
                     window.location.replace('/admin/gamequestions')
+                  }}
+                  className='loginSubmit '
+                />
+                <br/>
+                <hr/>
+                <br/>
+                <h2>Affiliation Contest Game Settings</h2>
+                <div className='inputhold'>
+                    <p>Award amount (In points): <input  placeholder="Points" name='affiliationaward' type='number' onChange={this.handleInputChange} value={this.state.formController.affiliateaward}/> points</p>
+                  </div>
+                  <div className='inputhold'>
+                    <p>Number of winners: <input  placeholder="Number of winners" name='affiliatewinners' type='number' onChange={this.handleInputChange} value={this.state.formController.affiliatewinners}/> users</p>
+                  </div>
+                  <input
+                  value="Save"
+                  type='submit'
+                  onClick={() => this._editGeneralSettings()}
+                  className='loginSubmit '
+                />
+                <br/><br/>
+                <input
+                  value="Manage Points"
+                  type='submit'
+                  onClick={() => {
+                    window.location.replace('/admin/affcontest')
                   }}
                   className='loginSubmit '
                 />

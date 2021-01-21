@@ -11,16 +11,21 @@ import AffiliateSubTable from '../components/AffiliateSubTable';
 import ServiceAuth from '../services/ServiceAuth';
 import Translator from '../services/translator';
 import Countdown from 'react-countdown';
+import { PaginatedList } from 'react-paginated-list';
 
 export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
+      date: null,
+      thisweek: true,
       isOpen: false,
+      items: [],
+      originalitems: [],
       //Lang
       translatorData: [],
       currentLang: 'en',
-
+      usdperpoint: 0,
       userfaucetbalance: 0,
     }
   }
@@ -28,8 +33,13 @@ export default class Home extends React.Component {
   componentDidMount() {
     this._loadLang();
     const userCookies = ServiceCookies.getUserCookies();
-    
-
+    var r = new Date();
+    var d = new Date();
+    d.setDate(d.getDate() + (1 + 7 - d.getDay()) % 7);
+    var ms = (d.getTime() - r.getTime());
+    this.setState({
+      date: d
+    })
 
     var _tmpMap = userCookies['cktoken'] == null ? {} : {
       "token": userCookies['cktoken']
@@ -40,9 +50,46 @@ export default class Home extends React.Component {
       console.log(dataB);
       this.setState({
         userfaucetbalance: dataB.data.userfaucetbalance,
-        
+        usdperpoint: dataB.data.settings.usdperpoint
       })
     
+    })
+
+    ServiceAuth.getaffcontesthistory({
+      "token": userCookies['cktoken']
+    }).then(response => {
+      const data = response.data;
+      console.log(data);
+      var _now = new Date();
+        Date.prototype.getWeekNumber = function () {
+          var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+          var dayNum = d.getUTCDay() || 7;
+          d.setUTCDate(d.getUTCDate() + 4 - dayNum );
+          var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+          return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+      };
+      if(data.data.items != null) {
+          this.setState({
+              originalitems: data.data.items
+          })
+
+          var _val = false;
+          var _now = new Date();
+          Date.prototype.getWeekNumber = function () {
+            var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+            var dayNum = d.getUTCDay() || 7;
+            d.setUTCDate(d.getUTCDate() + 4 - dayNum );
+            var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+            return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+        };
+          this.setState({
+            items: !_val ? this.state.originalitems.filter(i => i.weeknum == _now.getWeekNumber()) : this.state.originalitems.filter(i => i.weeknum == (_now.getWeekNumber() - 1))
+          })
+      }
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
     })
   }
 
@@ -101,53 +148,69 @@ export default class Home extends React.Component {
               width: '97%',
               marginBottom: '40px'
             }}>
-            <p className='withdrawTitle ' style={{fontSize:'1.5em'}}>Earn points when the users you invite do for a chance to win fantastic prizes! </p>
+            <p className='withdrawTitle ' style={{fontSize:'1.5em'}}>{Translator.getStringTranslated('affc_title', this.state.currentLang, this.state.translatorData)} </p>
             
-            <h4 className='withdrawTitle' style={{fontSize:'2em'}}>Leaderboard</h4>
+            <h4 className='withdrawTitle' style={{fontSize:'2em'}}>{Translator.getStringTranslated('affc_leaderboard', this.state.currentLang, this.state.translatorData)}</h4>
             <div className='countdown' >
-              <Countdown className='countdown' date={Date.now() + 10000} />
+              {
+                this.state.date == null ? null : <Countdown className='countdown' date={this.state.date} />
+              }
+              
             </div>
             <div className="toggle-container">
 
-                      <input type="checkbox" />
+                      <input type="checkbox" onChange={(val) => {
+                        var _val = val.target.checked;
+                        var _now = new Date();
+                        Date.prototype.getWeekNumber = function () {
+                          var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+                          var dayNum = d.getUTCDay() || 7;
+                          d.setUTCDate(d.getUTCDate() + 4 - dayNum );
+                          var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+                          return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+                      };
+                        this.setState({
+                          items: !_val ? this.state.originalitems.filter(i => i.weeknum == _now.getWeekNumber()) : this.state.originalitems.filter(i => i.weeknum == (_now.getWeekNumber() - 1))
+                        })
+                      }} />
                       <div className="slider round"></div>
                     </div> 
                     <div className='contestContainer'>
-                      <table className='bp-table'>
+                      <PaginatedList 
+                        list={this.state.items}
+                        itemsPerPage={10}
+                        renderList={(list) => (
+                          <>
+                            <table className='bp-table'>
 
-                          <div className='over_robot_b'/>
-                          <thead>
-                          <tr>
-                              <th style={{textTransform: 'uppercase'}}>Player</th>
-                              <th style={{textTransform: 'uppercase'}}> Points</th>
-                              <th style={{textTransform: 'uppercase'}}>Earnings </th>
-                          </tr>
-                          </thead>
-                          <tbody style={{overflowY:'scroll'}}>
-                                      <tr >
-                                          <td style={{width: '20%'}}>Papirola</td>
-                                          <td className='textCenter' style={{}}><p>1500 </p></td>
-                                  <td className='textCenter' style={{}}><p> 500  USD</p></td>
-                                      </tr>
-                                      <tr >
-                                          <td style={{width: '20%'}}>Papirola</td>
-                                          <td className='textCenter' style={{}}><p>1500 </p></td>
-                                  <td className='textCenter' style={{}}><p> 500  USD</p></td>
-                                      </tr>
-                                      <tr >
-                                          <td style={{width: '20%'}}>Papirola</td>
-                                          <td className='textCenter' style={{}}><p>1500 </p></td>
-                                  <td className='textCenter' style={{}}><p> 500  USD</p></td>
-                                      </tr>
-                                      <tr >
-                                          <td style={{width: '20%'}}>Papirola</td>
-                                          <td className='textCenter' style={{}}><p>1500 </p></td>
-                                  <td className='textCenter' style={{}}><p> 500  USD</p></td>
-                                      </tr>
-                                  
-                          </tbody>
-                          <div className='clearfix'/>
-                      </table>
+<div className='over_robot_b'/>
+<thead>
+<tr>
+    <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('affc_player', this.state.currentLang, this.state.translatorData)}</th>
+    <th style={{textTransform: 'uppercase'}}> {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</th>
+    <th style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('affc_earnings', this.state.currentLang, this.state.translatorData)} </th>
+</tr>
+</thead>
+<tbody style={{overflowY:'scroll'}}>
+  {
+    list.map((item, id) => {
+      return (
+        <tr key={id}>
+                <td style={{width: '20%'}}>{item.username}</td>
+                <td className='textCenter' style={{}}><p>{item.totalpoints} </p></td>
+        <td className='textCenter' style={{}}><p> {this.state.usdperpoint * item.totalpoints}  USD</p></td>
+            </tr>
+      )
+    })
+  }
+        
+</tbody>
+<div className='clearfix'/>
+</table>
+                          </>
+                        )}
+                      />
+                      
                     </div>
                </div>
 

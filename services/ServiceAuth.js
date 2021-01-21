@@ -962,6 +962,8 @@ const gamesettings = data => {
   if(data.questionshourb != null) { _mapToSend.questionshourb = data.questionshourb; }
   if(data.questionsaward != null) { _mapToSend.questionsaward = data.questionsaward; }
   if(data.findtherobotaward != null) { _mapToSend.findtherobotaward = data.findtherobotaward; }
+  if(data.affiliateaward != null) { _mapToSend.affiliateaward = data.affiliateaward; }
+  if(data.affiliatewinners != null) { _mapToSend.affiliatewinners = data.affiliatewinners; }
   
   return _http.post(`updategamesettings`, qs.stringify(_mapToSend));
   }
@@ -1206,6 +1208,77 @@ const gamesettings = data => {
       }));
       }
 
+      const getaffcontesthistory = data => {
+      //   if(!data.token) {
+      //     return alert("");
+      // }
+      const _http = axios.create({
+        // baseURL: 'http://localhost:3002/api-cryptodeep/',
+        baseURL: finalUrl,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'crossDomain': true,
+          'Content-Type': ' application/x-www-form-urlencoded',
+          // 'x-access-token': data.token
+        }
+      });
+      
+      return _http.get(`getaffcontesthistory`, qs.stringify({
+        
+      }));
+      }
+
+      const editaffcontesthistory = data => {
+        if(!data.token || !data.affcontestid) {
+      
+         alert("Missing field");
+         return;
+      }
+      
+      const _http = axios.create({
+        // baseURL: 'http://localhost:3002/api-cryptodeep/',
+        baseURL: finalUrl,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'crossDomain': true,
+          'Content-Type': ' application/x-www-form-urlencoded',
+          'x-access-token': data.token
+        }
+      });
+      
+      var _mapToSend = {
+        'affcontestid': data.affcontestid,
+        'totalpoints': data.totalpoints
+      };
+    
+      return _http.post(`editaffcontesthistory`, qs.stringify(_mapToSend));
+      }
+      //
+      const testafconaction = data => {
+        if(!data.token) {
+      
+         alert("Missing field");
+         return;
+      }
+      
+      const _http = axios.create({
+        // baseURL: 'http://localhost:3002/api-cryptodeep/',
+        baseURL: finalUrl,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'crossDomain': true,
+          'Content-Type': ' application/x-www-form-urlencoded',
+          'x-access-token': data.token
+        }
+      });
+      
+      var _mapToSend = {
+        
+      };
+    
+      return _http.post(`testafconaction`, qs.stringify(_mapToSend));
+      }
+
 export default {
     login,
     signup,
@@ -1254,6 +1327,9 @@ export default {
     playgamequestion,
     playfindtherobot,
     playgamblefaucet,
-    historygamblefaucet
+    historygamblefaucet,
+    getaffcontesthistory,
+    editaffcontesthistory,
+    testafconaction
   }
   
