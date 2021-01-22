@@ -19,6 +19,7 @@ export default class Home extends React.Component {
       formController: {
           title: '',
           iconurlx: '',
+          importance: ''
       }
     }
   }
@@ -61,7 +62,8 @@ export default class Home extends React.Component {
     var error = false;
     [
       'iconurlx',
-      'title'
+      'title',
+      'importance'
     ].forEach(mtc => {
       if(this.state.formController[mtc] == '' && !error) {
         error = true;
@@ -82,7 +84,8 @@ export default class Home extends React.Component {
       var _mTSZ = {
         'token': userCookies['cktoken'],
         'iconurlx': this.state.formController.iconurlx,
-        'title': this.state.formController.title
+        'title': this.state.formController.title,
+        'importance': this.state.formController.importance
       }
       console.log(_mTSZ);
       ServiceAuth.addrevcategory(_mTSZ).then(response => {
@@ -117,6 +120,11 @@ export default class Home extends React.Component {
             <p style={{fontSize: '18px'}}>Title: <br/><input name='title' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.title}/></p>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Importance: <br/><input name='importance' style={{height: '10px',
+            width: '90%'
+        }} type='number' onChange={this.handleInputChange} value={this.state.formController.importance}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Icon (URL)

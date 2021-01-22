@@ -120,7 +120,10 @@ export default class Home extends React.Component {
           }).then(response => {
             const dataz = response.data;
             console.log(dataz);
-            _pool = this.shuffle(_pool);
+            // _pool = this.shuffle(_pool);
+            _pool = _pool.sort(function(a, b) {
+              return parseFloat(b.importance) - parseFloat(a.importance);
+          })
 
             this.setState({
               reviewsites: _pool.length <= 5 ? _pool : _pool.slice(0, 5),

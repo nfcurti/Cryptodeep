@@ -71,6 +71,7 @@ export default class Home extends React.Component {
         'title': item.title,
         'description': item.description,
         'siteurl': item.siteurl,
+        'importance': item.importance,
         'subcategoryid': item.subcategoryid,
         'enabled': newval ? 'true' : 'false',
         'featured': item.featured == null ? 'false' : (item.featured ? 'true' : 'false'),
@@ -106,6 +107,7 @@ export default class Home extends React.Component {
         'title': item.title,
         'description': item.description,
         'siteurl': item.siteurl,
+        'importance': item.importance,
         'subcategoryid': item.subcategoryid,
         'enabled': item.enabled ? 'true' : 'false',
         'featured': newval ? 'true' : 'false',
@@ -187,6 +189,7 @@ export default class Home extends React.Component {
                                 <tr>
                                     <td><p>#</p></td>
                                     <td><p>Title</p></td>
+                                    <td><p>Importance</p></td>
                                     <td><p>Site Url</p></td>
                                     <td><p>Short<br/>Description</p></td>
                                     <td><p>Icon Url </p></td>
@@ -201,6 +204,7 @@ export default class Home extends React.Component {
                                         <tr className='admin-bodytr' key={id}>
                 <td style={{width: '5em'}}><p className="numbering">{this.state.items.indexOf(item) + 1}</p></td>
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.title}</p></td>
+                <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>{item.importance}</p></td>
                 <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>{item.siteurl}</p></td>
                                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{(item.shortdescription ?? "").length < 10 ? item.shortdescription : `${item.shortdescription.substring(0, 10)}...`}</p></td>
                                 <td style={{width: '100px'}}><div>

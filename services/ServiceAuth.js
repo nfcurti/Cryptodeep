@@ -417,6 +417,7 @@ const addreviewitem = data => {
       !data.title ||
       !data.description ||
       !data.siteurl ||
+      !data.importance ||
       !data.score ||
       !data.pros ||
       !data.cons ||
@@ -443,6 +444,7 @@ var _mapToSend = {
   "title": data.title,
   "description": data.description,
   "siteurl": data.siteurl,
+  "importance": data.importance,
   "subcategoryid": data.subcategoryid,
   "score": data.score,
   "pros": data.pros,
@@ -489,6 +491,7 @@ const updatereviewitem = data => {
       !data.title ||
       !data.description ||
       !data.siteurl ||
+      !data.importance ||
       !data.score ||
       !data.pros ||
       !data.shortdescription ||
@@ -522,7 +525,8 @@ var _mapToSend = {
   "score": data.score,
   "pros": data.pros,
   "cons": data.cons,
-  "shortdescription": data.shortdescription
+  "shortdescription": data.shortdescription,
+  "importance": data.importance
 };
 
 return _http.post(`updatereviewitem`, qs.stringify(_mapToSend));
@@ -585,6 +589,7 @@ return _http.get(url, qs.stringify({
 const addrevcategory = data => {
   if(!data.token || 
       !data.iconurlx ||
+      !data.importance ||
       !data.title) {
 
    alert("Missing field");
@@ -604,6 +609,7 @@ const _http = axios.create({
 
 var _mapToSend = {
   "iconurlx": data.iconurlx,
+  "importance": data.importance,
   "title": data.title
 };
 
@@ -660,6 +666,7 @@ const editrevcategory = data => {
   if(!data.token || 
       !data.categoryid ||
       !data.iconurlx ||
+      !data.importance ||
       !data.title) {
 
    alert("Missing field");
@@ -680,6 +687,7 @@ const _http = axios.create({
 var _mapToSend = {
   "categoryid": data.categoryid,
   "iconurlx": data.iconurlx,
+  "importance": data.importance,
   "title": data.title
 };
 
@@ -690,6 +698,7 @@ const addrevsubcategory = data => {
   if(!data.token || 
       !data.iconurlx ||
       !data.parentcategoryid ||
+      !data.importance ||
       !data.title) {
 
    alert("Missing field");
@@ -710,6 +719,7 @@ const _http = axios.create({
 var _mapToSend = {
   "iconurlx": data.iconurlx,
   "title": data.title,
+  "importance": data.importance,
   'parentcategoryid': data.parentcategoryid
 };
 
@@ -766,6 +776,7 @@ const editrevsubcategory = data => {
   if(!data.token || 
       !data.subcategoryid ||
       !data.iconurlx ||
+      !data.importance ||
       !data.title) {
 
    alert("Missing field");
@@ -786,6 +797,7 @@ const _http = axios.create({
 var _mapToSend = {
   "subcategoryid": data.subcategoryid,
   "iconurlx": data.iconurlx,
+  "importance": data.importance,
   "title": data.title
 };
 

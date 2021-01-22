@@ -22,6 +22,7 @@ export default class Home extends React.Component {
           iconurl: '',
           description: '',
           siteurl: '',
+          importance: '',
           subcategoryid: '',
           pros: '',
           shortdescription: '',
@@ -83,6 +84,7 @@ export default class Home extends React.Component {
       'title',
       'description',
       'siteurl',
+      'importance',
       'subcategoryid',
       'pros',
       'shortdescription',
@@ -116,6 +118,7 @@ export default class Home extends React.Component {
         'title': this.state.formController.title,
         'description': this.state.formController.description,
         'siteurl': this.state.formController.siteurl,
+        'importance': this.state.formController.importance,
         'subcategoryid': this.state.formController.subcategoryid,
         'score': this.state.formController.score,
         'pros': this.state.formController.pros,
@@ -160,6 +163,11 @@ export default class Home extends React.Component {
             <p style={{fontSize: '18px'}}>Title: <br/><input name='title' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.title}/></p>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Importance: <br/><input name='importance' style={{height: '10px',
+            width: '90%'
+        }} type='number' onChange={this.handleInputChange} value={this.state.formController.importance}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Short Description: <br/><input name='shortdescription' style={{height: '10px',

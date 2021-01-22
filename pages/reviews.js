@@ -89,7 +89,9 @@ export default class Home extends React.Component {
                       const datacc = response.data;
                       console.log(datacc);
                       this.setState({
-                        categories: datacc.data.items
+                        categories: datacc.data.items.sort(function(a, b) {
+                          return parseFloat(b.importance) - parseFloat(a.importance);
+                      })
                     })
 
                       ServiceAuth.getrevsubcategory({
@@ -98,7 +100,9 @@ export default class Home extends React.Component {
                         const datass = response.data;
                         console.log(datass);
                         this.setState({
-                          subcategories: datass.data.items
+                          subcategories: datass.data.items.sort(function(a, b) {
+                            return parseFloat(b.importance) - parseFloat(a.importance);
+                        })
                       })
 
                       ServiceAuth.getreviews({
@@ -106,6 +110,9 @@ export default class Home extends React.Component {
                       }).then(response => {
                         const dataz = response.data;
                         console.log(dataz);
+                        _pool = _pool.sort(function(a, b) {
+                            return parseFloat(b.importance) - parseFloat(a.importance);
+                        })
                         this.setState({
                           items: _pool,
                           filteredList: _pool,

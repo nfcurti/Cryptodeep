@@ -20,6 +20,7 @@ export default class Home extends React.Component {
       formController: {
           title: '',
           iconurlx: '',
+          importance: ''
       }
     }
   }
@@ -63,6 +64,7 @@ export default class Home extends React.Component {
                         var _fC = this.state.formController;
                         _fC.title = _itemX.title;
                         _fC.iconurlx = _itemX.iconurlx;
+                        _fC.importance = _itemX.importance;
                         this.setState({
                             item: _itemX,
                             formController: _fC
@@ -92,7 +94,8 @@ export default class Home extends React.Component {
     var error = false;
     [
       'iconurlx',
-      'title'
+      'title',
+      'importance'
     ].forEach(mtc => {
       if(this.state.formController[mtc] == '' && !error) {
         error = true;
@@ -113,6 +116,7 @@ export default class Home extends React.Component {
       const _mTSZ = {
         'token': userCookies['cktoken'],
         'iconurlx': this.state.formController.iconurlx,
+        'importance': this.state.formController.importance,
         'title': this.state.formController.title,
         'subcategoryid': this.state.item._id
       }
@@ -149,6 +153,11 @@ export default class Home extends React.Component {
             <p style={{fontSize: '18px'}}>Title: <br/><input name='title' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.title}/></p>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Importance: <br/><input name='importance' style={{height: '10px',
+            width: '90%'
+        }} type='number' onChange={this.handleInputChange} value={this.state.formController.importance}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Icon (URL)

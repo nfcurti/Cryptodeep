@@ -108,6 +108,7 @@ export default class Home extends React.Component {
                                 <tr>
                                     <td><p>#</p></td>
                                     <td><p>Title</p></td>
+                                    <td><p>Importance</p></td>
                                     <td><p>Icon Url </p></td>
                                     <td><p>Actions</p></td>
                                 </tr>
@@ -118,6 +119,7 @@ export default class Home extends React.Component {
                                         <tr className='admin-bodytr' key={id}>
                 <td style={{width: '5em'}}><p className="numbering">{this.state.items.indexOf(item) + 1}</p></td>
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.title}</p></td>
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.importance}</p></td>
                 <td style={{width: '100px'}}><div>
                                 <img style={{
                                   margin: '-35px -35px',

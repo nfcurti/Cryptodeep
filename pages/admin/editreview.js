@@ -24,6 +24,7 @@ export default class Home extends React.Component {
           iconurl: '',
           description: '',
           siteurl: '',
+          importance: '',
           subcategoryid: '',
           pros: '',
           cons: '',
@@ -79,6 +80,7 @@ export default class Home extends React.Component {
                         _fC.siteurl = _itemX.siteurl;
                         _fC.subcategoryid = _itemX.subcategoryid;
                         _fC.shortdescription = _itemX.shortdescription;
+                        _fC.importance = _itemX.importance;
                         
                         this.setState({
                             item: _itemX,
@@ -122,6 +124,7 @@ export default class Home extends React.Component {
       'title',
       'description',
       'siteurl',
+      'importance',
       'subcategoryid',
       'pros',
       'shortdescription',
@@ -157,6 +160,7 @@ export default class Home extends React.Component {
         'pros': this.state.formController.pros,
         'cons': this.state.formController.cons,
         'siteurl': this.state.formController.siteurl,
+        'importance': this.state.formController.importance,
         'subcategoryid': this.state.formController.subcategoryid,
         'enabled': this.state.item.enabled ? 'true' : 'false',
         'featured': this.state.item.featured ? 'true' : 'false',
@@ -201,6 +205,11 @@ export default class Home extends React.Component {
             <p style={{fontSize: '18px'}}>Title: <br/><input name='title' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.title}/></p>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Importance: <br/><input name='importance' style={{height: '10px',
+            width: '90%'
+        }} type='number' onChange={this.handleInputChange} value={this.state.formController.importance}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Short Description: <br/><input name='shortdescription' style={{height: '10px',
