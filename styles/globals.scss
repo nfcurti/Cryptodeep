@@ -493,10 +493,10 @@ a {
 	background-image: url('/images/robot_hidden.png');
 	background-size: contain;
 	background-repeat: no-repeat;
-	left: 2%;
-	margin-left: 3%;
+	left: 12%;
+	margin-left: -90px;
 	width: 20%;
-	height: 19%;
+	height: 21%;
 }
 
 .over_robot_g {
@@ -506,8 +506,8 @@ a {
 	background-repeat: no-repeat;
 	right: 20%;
 	margin-top: -110px;
-	width: 15%;
-	height: 19%;
+	width: 200px;
+	height: 60px;
 }
 
 @media screen and (max-width: 800px){
@@ -533,8 +533,9 @@ a {
 	}
 
 	.over_robot_f {
-		left: 0%;
-		width: 5em;
+		left: 14%;
+		margin-left: -90px;
+		width: 20%;
 	}
 
 	.over_robot_g {
@@ -769,6 +770,13 @@ a {
   }
 
   .innerhtmlx {
+	  color: #252540;
+	  font-size: 16px;
+
+	  a {
+		color: #252540;
+	  }
+
 	  img {
 		  width: 100%;
 	  }
@@ -964,6 +972,18 @@ a {
 	}
 }
 
+.affimagevv {
+	width: 80%;
+}
+
+.lastresult {
+	font-family: 'Nunito';
+	font-weight: 600;
+	font-size: 16px;
+	color: white;
+	margin-left: 30px;
+}
+
 .shouldspin {
     // -webkit-transform: rotate(1deg);
     -webkit-animation:  spin 7s linear;
@@ -985,3 +1005,8 @@ a {
     70% { -webkit-transform: rotate(1440deg); }
     100% { -webkit-transform: rotate(1800deg); }
 }
+
+.bgc {
+	background-color: white;
+}
+

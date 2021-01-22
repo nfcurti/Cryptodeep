@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Marquee from 'react-double-marquee';
 
-import Modal from 'react-modal';
+import { Modal } from "react-responsive-modal";
 import { useRouter } from 'next/router'
 import BasePage from '../components/BasePage';
 import ServiceCookies from '../services/cookies';
@@ -132,20 +132,17 @@ export default class Home extends React.Component {
               })
             }} />
             </div>
-            <Modal ariaHideApp={false} isOpen={this.state.isOpen} onAfterOpen={() => {}} onRequestClose={() => {
+            
+            <div className='clearfix'/>
+          </div>
+        </div>
+        <Modal ariaHideApp={false} open={this.state.isOpen} onAfterOpen={() => {}} onClose={() => {
               this.setState({
                 isOpen: false
               })
-            }} style={{
-              content : {
-                top                   : '50%',
-                left                  : '50%',
-                right                 : 'auto',
-                bottom                : 'auto',
-                marginRight           : '-50%',
-                transform             : 'translate(-50%, -50%)',
-                backgroundColor       : '#000000'
-              }
+            }} classNames={{
+              overlay: 'customOverlay',
+              modal: 'customModal',
             }} contentLabel="Example Modal" >
    
               <WithdrawPopup 
@@ -153,9 +150,6 @@ export default class Home extends React.Component {
                 translatorData={this.state.translatorData}
               />
             </Modal>
-            <div className='clearfix'/>
-          </div>
-        </div>
         <AccountSecurity 
           currentLang={this.state.currentLang}
           translatorData={this.state.translatorData}

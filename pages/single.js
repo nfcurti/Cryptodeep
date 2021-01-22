@@ -147,11 +147,12 @@ export default class Home extends React.Component {
       <BasePage
         currentLang={this.state.currentLang}
         translatorData={this.state.translatorData}
+        bgc={'white'}
       >
       <br/>
         { this.state.item == null ? null : <div className='bp-middle'>
 
-       <div className='bp-middle-all bp-blueshadow' style={{
+       <div className='bp-middle-all bp-blueshadow bgc' style={{
           textAlign: 'left'
         }}>
            <div style={{width:"fit-content", float: 'left'}}>
@@ -186,11 +187,13 @@ export default class Home extends React.Component {
             <div className='clearfix'/></div>
         </div> 
           
-          <div className='bp-middle-over'>
+        <div className='bp-middle-over bgc'>
           
 
-            <div className='bp-middle-all bp-blueshadow' style={{
-          textAlign: 'left'
+            <div className='bp-middle-all bp-blueshadow bgc' style={{
+          textAlign: 'left',
+          backgroundColor: 'white',
+          boxShadow: 'null'
         }}>
             {
               this.state.item.description == ''
@@ -204,17 +207,19 @@ export default class Home extends React.Component {
         </div>
 
         <div className='bp-middle-all bp-blueshadow' style={{
-          textAlign: 'left'
+          textAlign: 'left',
+          backgroundColor: 'white'
         }}>
             <p className='loginTitle' style={{
               textAlign: 'center',
-              color: '#A2ED96'
+              color: 'green'
             }}>{Translator.getStringTranslated('sng_pros', this.state.currentLang, this.state.translatorData)} </p>
             {
               this.state.item.pros == ''
               ? null :
-              <div style={{
-                color: '#A2ED96'
+              <div
+              className='innerhtmlx' style={{
+                color: 'green'
               }}
               dangerouslySetInnerHTML={{
                 __html: this.state.item.pros
@@ -223,18 +228,20 @@ export default class Home extends React.Component {
         </div>
 
         <div className='bp-middle-all bp-blueshadow' style={{
-          textAlign: 'left'
+          textAlign: 'left',
+          backgroundColor: 'white'
         }}>
             <p className='loginTitle' style={{
               textAlign: 'center',
-              color: '#ED9696'
+              color: 'red'
             }}>{Translator.getStringTranslated('sng_cons', this.state.currentLang, this.state.translatorData)} </p>
             {
               this.state.item.cons == ''
               ? null :
               <div
+              className='innerhtmlx'
               style={{
-                color: '#ED9696'
+                color: 'red'
               }}
               dangerouslySetInnerHTML={{
                 __html: this.state.item.cons
@@ -242,9 +249,11 @@ export default class Home extends React.Component {
             }
         </div>
 
-            <div className='bp-middle-all bp-blueshadow latest_rev'>
-            <p className='loginTitle'>{Translator.getStringTranslated('sng_latestreviews', this.state.currentLang, this.state.translatorData)} </p>
-                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>{Translator.getStringTranslated('sng_latestreviewssub', this.state.currentLang, this.state.translatorData)} </p>
+            <div className='bp-middle-all bp-blueshadow latest_rev bgc' style={{
+              backgroundColor: 'white'
+            }}>
+            <p className='loginTitle' style={{color: '#252540'}}>{Translator.getStringTranslated('sng_latestreviews', this.state.currentLang, this.state.translatorData)} </p>
+                <p className='loginTitle' style={{color: '#252540', fontSize:'1em',marginTop:'-2em'}}>{Translator.getStringTranslated('sng_latestreviewssub', this.state.currentLang, this.state.translatorData)} </p>
                 
             <PaginatedList
               list={this.state.reviews.filter(r => r.message != "")}
@@ -264,7 +273,7 @@ export default class Home extends React.Component {
                           isHalf={true}
                           activeColor="#ffd700"
                         />
-                      <p style={{marginTop:'1em'}}>{Translator.getStringTranslated('sng_by', this.state.currentLang, this.state.translatorData)} {item.username} - {Translator.getStringTranslated('global_date', this.state.currentLang, this.state.translatorData)}: {item.created_at.replace('T', ' ').substring(0, 16)}</p>
+                      <p style={{marginTop:'1em', color: '#252540'}}>{Translator.getStringTranslated('sng_by', this.state.currentLang, this.state.translatorData)} {item.username} - {Translator.getStringTranslated('global_date', this.state.currentLang, this.state.translatorData)}: {item.created_at.replace('T', ' ').substring(0, 16)}</p>
                     </div>
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
                       
@@ -335,6 +344,10 @@ export default class Home extends React.Component {
         <br/><br/><br/>
         {/* <p>Hola</p> */}
         <style jsx>{`
+
+  html {
+    background-color: white;
+  }
         
           input[type="submit"]:hover{opacity:0.8}
           input[type="submit"]{text-align:center !important;cursor: pointer;
@@ -440,8 +453,8 @@ export default class Home extends React.Component {
                     .loginSignup a{font-size:1em;margin-top:2em!important;font-weight:600;color:white;}
   
                     .bp-middle-over {
-                      margin: 0% 10%;
-                      width: 80%;
+                      padding: 0% 0%;
+                      width: 100%;
                     }
   
                     inputhold{
@@ -517,8 +530,9 @@ export default class Home extends React.Component {
                   }
   
                   .bp-middle-over {
-                    margin: 0% 10%;
-                    width: 80%;
+                    // margin: 0% 10%;
+                    margin: 0px;
+                    width: 100%;
                   }
                   .bp-middle-left p, .bp-middle-all p {
                     margin: 0px;
@@ -622,7 +636,7 @@ export default class Home extends React.Component {
                   .bp-blueshadow {
                     margin-left: 5%;
                     background: #252540;
-                    box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+                    // box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
                     border-radius: 4px;
                   }
   

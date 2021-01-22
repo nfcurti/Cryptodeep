@@ -8,6 +8,8 @@ export default class WithdrawPopup extends React.Component {
   constructor() {
     super();
     this.state = {
+      lastresult: '',
+      userfaucetbalance: 0,
       history: [],
       formController: {
           targetprice: ''
@@ -20,6 +22,9 @@ export default class WithdrawPopup extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({
+      userfaucetbalance: this.props.userfaucetbalance
+    })
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['cktoken'] == null) { return; }
     ServiceAuth.historygamblefaucet({
@@ -47,7 +52,7 @@ export default class WithdrawPopup extends React.Component {
   }
 
   sendPredPressed = () => {
-    if(this.props.userfaucetbalance == 0) {
+    if(this.state.userfaucetbalance == 0) {
       alert('Insufficient faucets');
       return;
     }
@@ -56,9 +61,10 @@ export default class WithdrawPopup extends React.Component {
     var _gambleFactor = this.state.mediumRisk ? Math.floor(Math.random() * 2) + 1 : Math.floor(Math.random() * 4) + 1;
     _resultGamble = this.state.mediumRisk ? _gambleFactor % 2 == 0 : _gambleFactor == 2;
     // alert(_resultGamble);
+    var _nvv = this.state.mediumRisk ? 2 :4;
     this.setState({
       playing: true,
-      won: _resultGamble
+      won: _resultGamble,
     })
     setTimeout(() => {
       this.setState({
@@ -79,8 +85,24 @@ export default class WithdrawPopup extends React.Component {
               }).then(response => {
                 const data = response.data;
                 console.log(data);
-                alert(data.message);
-                window.location.reload();
+
+                const userCookies = ServiceCookies.getUserCookies();
+                if(userCookies['cktoken'] == null) { return; }
+                ServiceAuth.historygamblefaucet({
+                  "token": userCookies['cktoken']
+                }).then(response => {
+                  const dataC = response.data;
+                  console.log(dataC.data.history);
+                  this.setState({
+                    history: dataC.data.history,
+                    lastresult: data.message,
+                    userfaucetbalance: _resultGamble == true ? this.state.userfaucetbalance + _nvv : this.state.userfaucetbalance - 1
+                  })
+                }).catch(e => {
+                  console.log(e);
+                  alert(e);
+                  return;
+                })
               }).catch(e => {
                 var _content = 'No faucets available';
                 console.log(e.message);
@@ -106,7 +128,7 @@ export default class WithdrawPopup extends React.Component {
             <div className='wheeler' style={{marginBottom:'2em'}}>
                 <div style={{float:'left'}} className="withdrawalForm">
                   <select disabled name="currency" id="currency" className='selectCrypto predictShow' >
-                      <option value="faucetQty">{this.props.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.props.currentLang, this.props.translatorData)}</option>
+                      <option value="faucetQty">{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.props.currentLang, this.props.translatorData)}</option>
                     </select>
                     <img className='wallet-svg ximg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'images/cryptodeep_asset_6.png'} />
                     
@@ -120,7 +142,7 @@ export default class WithdrawPopup extends React.Component {
                       <div className="slider round"></div>
                     </div>   
                  <button onClick={() => this.sendPredPressed()} className='crypto-status-btn csb-withdraw withdrawFinal predictionFinal'>{Translator.getStringTranslated('global_gamble', this.props.currentLang, this.props.translatorData)}</button>
-     
+                    <p className='lastresult'>{this.state.lastresult}</p>
                 </div>
                 <div style={{float:'left'}} className="wheelContainer">
                   <img src='images/gamble_layer0.png' className='wheel-base'/>
@@ -199,7 +221,7 @@ export default class WithdrawPopup extends React.Component {
               left: 0;
               right: 0;
               bottom: 0;
-              background-color: #161526;
+              background-color:green;
               transition: 0.4s;
               pointer-events: none;
             }
@@ -226,6 +248,10 @@ export default class WithdrawPopup extends React.Component {
               color: #fff;
               pointer-events: none;
               font-family:"Nunito"
+            }
+
+            input:unchecked + .slider {
+              background-color:green;
             }
 
             input:checked + .slider {

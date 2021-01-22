@@ -21,6 +21,8 @@ export default class Home extends React.Component {
     super();
 
     this.state = {
+      play: false,
+      audio: null,
       gamblegameShow: false,
       predictgameShow: false,
       isMonday: false,
@@ -44,7 +46,8 @@ export default class Home extends React.Component {
       reviews: [],
       //Lang
       translatorData: [],
-      currentLang: 'en'
+      currentLang: 'en',
+      usdperpoint: 0
     }
   }
 
@@ -58,6 +61,27 @@ export default class Home extends React.Component {
     this._initData();
     this._loadLang();
     this._loadReviews();
+    
+    this.setState({
+      audio: new Audio('/skype-notification-sound.mp3')
+    }, () => {
+      this.state.audio.addEventListener('ended', () => {
+        this.setState({
+          play: false
+        })
+      })
+    })
+    
+  }
+
+  componentWillUnmount() {
+    if(this.state.audio != null) {
+      this.state.audio.removeEventListener('ended', () => {
+        this.setState({
+          play: false
+        })
+      })
+    }
   }
 
    shuffle = (array) => {
@@ -154,7 +178,8 @@ export default class Home extends React.Component {
           sv_roll_e: dataB.data.settings.roll_e,
           userwallet: dataB.data.userwallet,
           userfaucetbalance: dataB.data.userfaucetbalance,
-          cryptoval: dataB.data.cryptoval
+          cryptoval: dataB.data.cryptoval,
+          usdperpoint: dataB.data.settings.usdperpoint
         })
         ServiceAuth.getfaucets({
           // "token": userCookies['cktoken']
@@ -280,7 +305,9 @@ export default class Home extends React.Component {
             <br/>
             <div className='over_robot_f'/>
             <br/><p className='bp-title'>{Translator.getStringTranslated('fct_myfaucet', this.state.currentLang, this.state.translatorData)}</p>
-            <p>{Translator.getStringTranslated('fct_youcanroll', this.state.currentLang, this.state.translatorData).replace('%val%', this.state.sv_faucetdelay)}</p>
+            <p style={{
+              fontSize: '12px'
+            }}>{Translator.getStringTranslated('fct_youcanroll', this.state.currentLang, this.state.translatorData).replace('%val%', this.state.sv_faucetdelay)}</p>
             <div 
               id='rdm'
               className = "randomNumber">
@@ -302,10 +329,15 @@ export default class Home extends React.Component {
               this.state.faucetmsg == '' ? null :
               (
                 this.state.remTime == null ? 
-                <p id='resultDisplay' className="resultDisplay">{this.state.faucetmsg}</p> 
+                <p id='resultDisplay' className="resultDisplay" style={{marginTop: '0px', marginBottom: '0px'}}>{this.state.faucetmsg}</p> 
                 : <Countdown
                   renderer={({ hours, minutes, seconds, completed }) => {
                     if (completed) {
+                      if(this.state.audio != null) {
+                        this.setState({ play: !this.state.play }, () => {
+                          this.state.play ? this.state.audio.play() : this.state.audio.pause();
+                        });
+                      }
                       // Render a completed state
                       return <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>{Translator.getStringTranslated('fct_rollnwin', this.state.currentLang, this.state.translatorData)}</a></button></div>;
                     } else {
@@ -337,7 +369,9 @@ export default class Home extends React.Component {
                 this.setState({
                   gamblegameShow: true
                 })
-              }}><a id='rolla'>{Translator.getStringTranslated('global_gamble', this.state.currentLang, this.state.translatorData)}</a></button></div>
+              }}><a style={{
+                color: 'red'
+              }} id='rolla'>{Translator.getStringTranslated('global_gamble', this.state.currentLang, this.state.translatorData)}</a></button></div>
               <Modal  open={this.state.predictgameShow} onClose={() => {
                 this.setState({
                   predictgameShow: false
@@ -390,7 +424,7 @@ export default class Home extends React.Component {
                   <td style={{width: '5em'}}><p className="numbering">1</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 0 - 999,500</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_a} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_a} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody>
   
                 </table>
@@ -400,7 +434,7 @@ export default class Home extends React.Component {
                   <td style={{width: '5em'}}><p className="numbering">2</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,501 - 999,700</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_b} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_b} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             <div className='lotteryRange3'>
@@ -408,7 +442,7 @@ export default class Home extends React.Component {
                   <td style={{width: '5em'}}><p className="numbering">3</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,701 - 999,850</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_c} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_c} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             <div className='lotteryRange4'>
@@ -416,7 +450,7 @@ export default class Home extends React.Component {
                   <td style={{width: '5em'}}><p className="numbering">4</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,851 - 999,920</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em',}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform:'uppercase'}}>{this.state.sv_roll_d} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{width: '30%', paddingRight:'1em',}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform:'uppercase'}}>{this.state.sv_roll_d} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             <div className='lotteryRange4'>
@@ -424,7 +458,7 @@ export default class Home extends React.Component {
                   <td style={{width: '5em'}}><p className="numbering">5</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,921 - 999,998</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_e} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_e} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             <div className='lotteryRange5'>
@@ -432,7 +466,7 @@ export default class Home extends React.Component {
                   <td style={{width: '5em'}}><p className="numbering">6</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,999</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{backgroundColor:'rgba(0,0,0,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             </div>
@@ -488,7 +522,7 @@ export default class Home extends React.Component {
                       return (
                         <tr key={id}>
                   <td style={{width: '30%'}}>{item.created_at.split('T').join(' ').substring(0, 16)}</td>
-                  <td style={{width: '30%'}}><p style={{display: 'block', textAlign: 'center'}}>{item.amount} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</p></td>
+                  <td style={{width: '30%'}}><p style={{display: 'block', textAlign: 'center'}}>{item.amount * this.state.usdperpoint} USD</p></td>
                   <td style={{width: '20%', textAlign: 'center', fontWeight: 'bold',  color: 'orange', paddingBottom: '1px'}}><p style={{display: 'block', textAlign: 'center', letterSpacing: '4px', color: 'orange'}}>{item.rollednumber}</p></td>
                 </tr>
                       );
@@ -593,8 +627,9 @@ export default class Home extends React.Component {
                     border: none;
                   }
                   .numbering{
+                    color: green; 
+                    background-color:rgba(255,255,255,0.4);
                     font-weight:800;
-                    background: #ffbf00;
                     width: 1.5em;
                     margin: auto;
                     padding: 0.4em;
@@ -675,8 +710,8 @@ export default class Home extends React.Component {
                     margin-bottom: 30px;
                     width: 38%;
                     float: left;
-                    height: 340px;
                     padding: 0 14px;
+                    padding-bottom: 30px;
   
                     font-family: 'Nunito';
                     color: #FFFFFF;

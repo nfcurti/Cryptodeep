@@ -214,46 +214,16 @@ export default class Home extends React.Component {
                     </div>
                </div>
 
-            <div className='clearfix'/>
+<div className='clearfix'/>
 
             <AffiliateTable 
               currentLang={this.state.currentLang}
               translatorData={this.state.translatorData}
             />
-            <Modal ariaHideApp={false} isOpen={this.state.isOpen} onAfterOpen={() => {}} onRequestClose={() => {
-              this.setState({
-                isOpen: false
-              })
-            }} style={{
-              content : {
-                top                   : '50%',
-                left                  : '50%',
-                right                 : 'auto',
-                bottom                : 'auto',
-                marginRight           : '-50%',
-                transform             : 'translate(-50%, -50%)',
-                backgroundColor       : '#000000'
-              }
-            }} contentLabel="Example Modal" >
-   
-              <div className='withdrawalForm' style={{float:'left', textAlign:'left',fontSize:"1.1em"}}>
-                  <h1 className='withdrawTitle' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_rules', this.state.currentLang, this.state.translatorData)}</h1>
-                  <p>{Translator.getStringTranslated('aff_rule_1', this.state.currentLang, this.state.translatorData)}</p>
-                  <br />
-                  <p>{Translator.getStringTranslated('aff_rule_2', this.state.currentLang, this.state.translatorData)}</p><br />
-                  <p>{Translator.getStringTranslated('aff_rule_3', this.state.currentLang, this.state.translatorData)}</p><br />
-                  <button onClick={() => {
-                    this.setState({
-                      isOpen: false
-                    })
-                  }} className='crypto-status-btn csb-withdraw withdrawFinal'>{Translator.getStringTranslated('global_close', this.state.currentLang, this.state.translatorData)}</button>
-           
-                </div>
-            </Modal>
-            <div className='clearfix'/>
           </div>
         <div className='bp-center-text'>
-          <p style={{fontWeight: 700, fontSize: 16}}>{Translator.getStringTranslated('aff_programtitle', this.state.currentLang, this.state.translatorData)}</p>
+          <p style={{fontWeight: 700, fontSize: 32}}>{Translator.getStringTranslated('aff_programtitle', this.state.currentLang, this.state.translatorData)}</p>
+          <img className='affimagevv' src='images/aff_img.png' />
         </div>
             
         <div className='bp-middle'>
@@ -261,14 +231,17 @@ export default class Home extends React.Component {
 
             <div className='bp-middle-all bp-blueshadow affiliateProgram' style={{padding:"3em"}}>
               <p style={{textAlign:'initial',width:'80%',marginTop:"1em",fontSize:"1.2em"}}>{Translator.getStringTranslated('aff_offer', this.state.currentLang, this.state.translatorData)}</p>
-              <button onClick={() => {
-                this.setState({
-                  isOpen: true
-                })
-              }} style={{marginTop:"2em"}} className='crypto-status-btn csb-withdraw withdrawFinal rules'>{Translator.getStringTranslated('aff_seerules', this.state.currentLang, this.state.translatorData)}</button>
-              <div style={{width:'80%'}}>
+              <div className='withdrawalForm' style={{float:'left', textAlign:'left',fontSize:"1.1em"}}>
+                  <h1 className='withdrawTitle' style={{color: 'orange', textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_rules', this.state.currentLang, this.state.translatorData)}</h1>
+                  <p>{Translator.getStringTranslated('aff_rule_1', this.state.currentLang, this.state.translatorData)}</p>
+                  <br />
+                  <p>{Translator.getStringTranslated('aff_rule_2', this.state.currentLang, this.state.translatorData)}</p><br />
+                  <p>{Translator.getStringTranslated('aff_rule_3', this.state.currentLang, this.state.translatorData)}</p><br />
+                  
+                </div>
+               <div style={{width:'80%'}}>
                 <div style={{float:'left', textAlign:'left',fontSize:"1.1em",marginTop:"3em"}}>
-                  <h1 style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_howitworks', this.state.currentLang, this.state.translatorData)}</h1>
+                <h1 className='withdrawTitle' style={{color: 'orange', textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_howitworks', this.state.currentLang, this.state.translatorData)}</h1>
                   <p>{Translator.getStringTranslated('aff_hiw_intro', this.state.currentLang, this.state.translatorData)}</p>
                   <br />
                   <p>{Translator.getStringTranslated('aff_hiw_1', this.state.currentLang, this.state.translatorData)}</p><br />
@@ -388,7 +361,7 @@ input:checked + .slider:after {
                     margin-left:0.4em;
                   }
                   .withdrawalForm{
-                    width: 30em;
+                    width: 80%;
                     margin: auto;
                   }
                   .withdrawalForm p{

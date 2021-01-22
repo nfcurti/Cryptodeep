@@ -15,6 +15,9 @@ const getStringTranslated = (id, lang, langmap) => {
         if(_temp.charAt(0) == "\"") {
             _temp = _temp.substring(1, _temp.length);
         }
+        if(_temp.charAt(_temp.length - 1) == "\"") {
+            _temp = _temp.substring(0, _temp.length - 1);
+        }
         return _temp
     }
 }

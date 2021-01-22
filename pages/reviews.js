@@ -188,6 +188,21 @@ export default class Home extends React.Component {
 
             <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>{Translator.getStringTranslated('rvws_reviews', this.state.currentLang, this.state.translatorData)} </p>
+                
+                <div>
+                    <p>
+                      <input 
+                          style={{
+                            width: '60%'
+                          }}
+                          placeholder={Translator.getStringTranslated('global_search', this.state.currentLang, this.state.translatorData)}
+                          name='search' 
+                          type='text'
+                           onChange={this.handleInputChange} 
+                          value={this.state.formController.search}
+                      />
+                     </p>
+                  </div><br/>
                 <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>{Translator.getStringTranslated('rvws_selcat', this.state.currentLang, this.state.translatorData)} </p>
                 
                   {this.groupByN(5, this.state.categories).map(c => 
@@ -216,20 +231,7 @@ export default class Home extends React.Component {
                       }
                     </div>
                   )}
-                <div>
-                    <p>
-                      <input 
-                          style={{
-                            width: '60%'
-                          }}
-                          placeholder={Translator.getStringTranslated('global_search', this.state.currentLang, this.state.translatorData)}
-                          name='search' 
-                          type='text'
-                           onChange={this.handleInputChange} 
-                          value={this.state.formController.search}
-                      />
-                     </p>
-                  </div>
+                
             </div>
 
             {

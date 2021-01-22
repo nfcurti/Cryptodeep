@@ -142,7 +142,7 @@ export default class BasePage extends React.Component {
 
     render() {
         return (
-            <div className='basepage'>
+            <div className={`basepage ${this.props.bgc ? 'bgc' : ''}`}>
                 <div className='bp-header'>
                <a href='/'><div style={{cursor: 'pointer'}} className='bp-logo'></div></a> 
                 <nav id='menu'>
@@ -214,7 +214,7 @@ export default class BasePage extends React.Component {
             questionGameShow: true
         })
     }} className="questions-pu">
-    <img src="images/robot_faq.png" width='100'/>
+    <img src="images/robot_questions.png" width='100'/>
     <h4 className='withdrawTitle'>{Translator.getStringTranslated('qst_popup', this.props.currentLang, this.props.translatorData)}</h4>
     
     </div>

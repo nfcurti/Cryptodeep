@@ -89,7 +89,7 @@ export default class WithdrawPopup extends React.Component {
               this.state.item == null ? null :
               <>
 <p className='  qQuestion'>{this.state.item.title}</p>
-            <img src="images/robot_faq.png" width='100'/>
+            <img src="images/robot_questions.png" width='100'/>
             <div onClick={() => this.playQuestion('A')} className='qChoice'>{this.state.item.optiona}</div>
             <div onClick={() => this.playQuestion('B')} className='qChoice'>{this.state.item.optionb}</div>
             <div onClick={() => this.playQuestion('C')} className='qChoice'>{this.state.item.optionc}</div>
