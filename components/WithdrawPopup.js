@@ -118,7 +118,8 @@ export default class WithdrawPopup extends React.Component {
                     "token": userCookies['cktoken'],
                     "currency": this.state.formController.currency,
                     "points": this.state.formController.points,
-                    "cryptoaddress": this.state.formController.cryptoaddress
+                    "cryptoaddress": this.state.formController.cryptoaddress,
+                    "originalquant": this.state.formController.points * this.state.usdperpoint / this.state.pointValIndex 
                 }).then(response => {
                     const data = response.data;
                     console.log(data);

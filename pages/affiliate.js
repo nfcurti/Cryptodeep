@@ -231,14 +231,7 @@ export default class Home extends React.Component {
 
             <div className='bp-middle-all bp-blueshadow affiliateProgram' style={{padding:"3em"}}>
               <p style={{textAlign:'initial',width:'80%',marginTop:"1em",fontSize:"1.2em"}}>{Translator.getStringTranslated('aff_offer', this.state.currentLang, this.state.translatorData)}</p>
-              <div className='withdrawalForm' style={{float:'left', textAlign:'left',fontSize:"1.1em"}}>
-                  <h1 className='withdrawTitle' style={{color: 'orange', textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_rules', this.state.currentLang, this.state.translatorData)}</h1>
-                  <p>{Translator.getStringTranslated('aff_rule_1', this.state.currentLang, this.state.translatorData)}</p>
-                  <br />
-                  <p>{Translator.getStringTranslated('aff_rule_2', this.state.currentLang, this.state.translatorData)}</p><br />
-                  <p>{Translator.getStringTranslated('aff_rule_3', this.state.currentLang, this.state.translatorData)}</p><br />
-                  
-                </div>
+              
                <div style={{width:'80%'}}>
                 <div style={{float:'left', textAlign:'left',fontSize:"1.1em",marginTop:"3em"}}>
                 <h1 className='withdrawTitle' style={{color: 'orange', textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_howitworks', this.state.currentLang, this.state.translatorData)}</h1>
@@ -249,6 +242,14 @@ export default class Home extends React.Component {
                   <p>{Translator.getStringTranslated('aff_hiw_3', this.state.currentLang, this.state.translatorData)}</p><br />
                 </div>
               </div>
+              <div className='withdrawalForm' style={{float:'left', textAlign:'left',fontSize:"1.1em"}}>
+                  <h1 className='withdrawTitle' style={{color: 'orange', textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_rules', this.state.currentLang, this.state.translatorData)}</h1>
+                  <p>{Translator.getStringTranslated('aff_rule_1', this.state.currentLang, this.state.translatorData)}</p>
+                  <br />
+                  <p>{Translator.getStringTranslated('aff_rule_2', this.state.currentLang, this.state.translatorData)}</p><br />
+                  <p>{Translator.getStringTranslated('aff_rule_3', this.state.currentLang, this.state.translatorData)}</p><br />
+                  
+                </div>
             </div>
             <div className='clearfix'/>
           </div>

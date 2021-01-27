@@ -12,8 +12,7 @@ export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-    usdperpoint: 0,
-      withdraws: []
+      items: []
     }
   }
 
@@ -25,29 +24,16 @@ export default class Home extends React.Component {
             if(userCookies['ckpl'] != '999') {
             window.location.replace(`/account`)
             }else{
-                ServiceAuth.getglobalwithdraws({
+                ServiceAuth.getfaqitems({
                     "token": userCookies['cktoken']
                   }).then(response => {
                     const data = response.data;
                     console.log(data);
-                    if(data.data.withdrawals != null) {
+                    if(data.data.items != null) {
                         this.setState({
-                            withdraws: data.data.withdrawals
+                            items: data.data.items
                         })
                     }
-                    ServiceAuth.getgeneralsettings({
-                        "token": userCookies['cktoken']
-                      }).then(response => {
-                        const dataB = response.data;
-                        
-                        this.setState({
-                            usdperpoint: dataB.data.settings.usdperpoint
-                        })
-                      }).catch(e => {
-                        console.log(e);
-                        alert(e);
-                        return;
-                      })
                   }).catch(e => {
                     console.log(e);
                     alert(e);
@@ -60,57 +46,33 @@ export default class Home extends React.Component {
   }
 
 
+  removeReviewItem = (id) => {
+    var _a = confirm('You sure you want to delete the item? ');
+    if(!_a) { return; }
 
-  _validateWithdraw = (id) => {
     const userCookies = ServiceCookies.getUserCookies();
-    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-        window.location.replace(`/account`)
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
     }else{
-        if(userCookies['ckpl'] != '999') {
-        window.location.replace(`/account`)
-        }else{
-            ServiceAuth.validatewithdraw({
-                "token": userCookies['cktoken'],
-                "withdrawId": id
-            }).then(response => {
-                const data = response.data;
-                console.log(data);
-                window.location.reload();
-              }).catch(e => {
-                console.log(e);
-                alert(e);
-                return;
-              })
-        }
-    }
-    
-}
+      if(userCookies['ckpl'] != '999') { return; }
 
-_rejectWithdraw = (id) => {
-    const userCookies = ServiceCookies.getUserCookies();
-    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-        window.location.replace(`/account`)
-    }else{
-        if(userCookies['ckpl'] != '999') {
-        window.location.replace(`/account`)
-        }else{
-            ServiceAuth.rejectwithdraw({
-                "token": userCookies['cktoken'],
-                "withdrawId": id
-            }).then(response => {
-                const data = response.data;
-                console.log(data);
-                window.location.reload();
-              }).catch(e => {
-                console.log(e);
-                alert(e);
-                return;
-              })
-        }
+      var _mTSZ = {
+        'token': userCookies['cktoken'],
+        'faqitemid': id
+      }
+      console.log(_mTSZ);
+      ServiceAuth.removefaqitem(_mTSZ).then(response => {
+        const data = response.data;
+        console.log(data);
+        window.location.replace('/admin/faqs');
+      }).catch(e => {
+        console.log(e);
+        alert('There was an error with the request.');
+        return;
+      })
     }
-    
-}
-  
+  }
+
   render() {
 
   return (
@@ -119,10 +81,10 @@ _rejectWithdraw = (id) => {
             <br/>
         <div className='bp-middle-over'>
         <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>Admin Withdrawals</p>
+                <p className='loginTitle'>Admin FAQ items</p>
 
                 <PaginatedList
-                    list={this.state.withdraws}
+                    list={this.state.items}
                     itemsPerPage={25}
                     renderList={(list) => (
                         <>
@@ -130,13 +92,9 @@ _rejectWithdraw = (id) => {
                             <thead>
                                 <tr>
                                     <td><p>#</p></td>
-                                    <td><p>Date</p></td>
-                                    <td><p>Amount</p></td>
-                                    <td><p>Cryptocurrency</p></td>
-                                    <td><p>Original Amount<br/> of Crypto</p></td>
-                                    <td><p>Address</p></td>
-                                    <td><p>Points </p></td>
-                                    <td><p>Status </p></td>
+                                    <td><p>Question</p></td>
+                                    <td><p>Answer</p></td>
+                                    <td><p>Importance</p></td>
                                     <td><p>Actions</p></td>
                                 </tr>
                             </thead>
@@ -144,41 +102,16 @@ _rejectWithdraw = (id) => {
                             {list.map((item, id) => {
                                 return (
                                         <tr className='admin-bodytr' key={id}>
-                <td style={{width: '5em'}}><p className="numbering">{this.state.withdraws.indexOf(item) + 1}</p></td>
-                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.created_at.substring(0, 10)}</p></td>
-                <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>${this.state.usdperpoint * item.points}</p></td>
-                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.currency}</p></td>
-                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.originalquant}</p></td>
-                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.cryptoaddress}</p></td>
-                                
-                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.points}</p></td>
-                                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}>
-                                {
-                                                item.status == 2 ? <button className='crypto-status-btn csb-success'>Validated</button> : null
-                                            }
-                                        
-                                            {
-                                                item.status == 0 ? <button className='crypto-status-btn csb-in-process'>Pending</button> : null
-                                            }
-
-                                            {
-                                                item.status == 1 ? <button className='crypto-status-btn csb-rejected'>Rejected</button> : null
-                                            }
-                                </td>
+                <td style={{width: '5em'}}><p className="numbering">{this.state.items.indexOf(item) + 1}</p></td>
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.question}</p></td>
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.answer}</p></td>
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.importance}</p></td>
+                
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
-                    if(item.status != 0) {
-                        alert('An action was already taken for this event')
-                    }else{
-                        this._validateWithdraw(item._id);
-                    }
-                }} className='admin-actiob admin-actiob-validate'><p>Validate</p></button><br/><button onClick={() => {
-                    
-                    if(item.status != 0) {
-                        alert('An action was already taken for this event')
-                    }else{
-                        this._rejectWithdraw(item._id)
-                    }
-                }} className='admin-actiob admin-actiob-reject'><p>Reject</p></button></td>
+                    window.location.replace(`/admin/editfaqitem?id=${item._id}`)
+                }} className='admin-actiob admin-actiob-validate'><p>Edit</p></button><br/><button onClick={() => {
+                    this.removeReviewItem(item._id);
+                }} className='admin-actiob admin-actiob-reject'><p>Remove</p></button></td>
 
 
               </tr>
@@ -188,6 +121,16 @@ _rejectWithdraw = (id) => {
                             </table>
                         </>
                     )}
+                />
+                <br/>
+                <br/>
+                <input
+                  value="Create"
+                  type='submit'
+                  onClick={() => {
+                    window.location.replace('/admin/newfaqitem');
+                  }}
+                  className='loginSubmit '
                 />
             </div>
           <div className='clearfix'/>
@@ -402,6 +345,10 @@ _rejectWithdraw = (id) => {
                     width:85% !important
                   }
 
+                }
+
+                .crypto-status-btn:hover {
+                  cursor: pointer;
                 }
             `}</style>
       </div></BaseAdminPage>

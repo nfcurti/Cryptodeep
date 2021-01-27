@@ -326,7 +326,7 @@ export default class Home extends React.Component {
             
             {
               (this.state.playing || this.state.remTime != null) ? null :
-              <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>{Translator.getStringTranslated('fct_rollnwin', this.state.currentLang, this.state.translatorData)}</a></button></div>
+              <div style={{height:'2em'}} className='bp-cbuttonxxx'><button onClick={() => this._rollPressed()}><a id='roll'>{Translator.getStringTranslated('fct_rollnwin', this.state.currentLang, this.state.translatorData)}</a></button></div>
             }
             {
               this.state.faucetmsg == '' ? null :
@@ -342,7 +342,7 @@ export default class Home extends React.Component {
                         });
                       }
                       // Render a completed state
-                      return <div style={{height:'2em'}} className='bp-cbutton'><button onClick={() => this._rollPressed()}><a id='roll'>{Translator.getStringTranslated('fct_rollnwin', this.state.currentLang, this.state.translatorData)}</a></button></div>;
+                      return <div style={{height:'2em'}} className='bp-cbuttonxxx'><button onClick={() => this._rollPressed()}><a id='roll'>{Translator.getStringTranslated('fct_rollnwin', this.state.currentLang, this.state.translatorData)}</a></button></div>;
                     } else {
                       // Render a countdown
                       return <p className="resultDisplay">You need to wait {("0" + hours).slice(-2)}:{("0" + minutes).slice(-2)}:{("0" + seconds).slice(-2)}</p>;
@@ -362,18 +362,17 @@ export default class Home extends React.Component {
             {
              
               !this.state.isMonday ? null : 
-              <div style={{height:'2em', marginTop: '20px'}} className='bp-cbutton'><button onClick={() => {
+              <div style={{height:'2em', marginTop: '20px'}} className='bp-cbuttonxxx'><button onClick={() => {
                 this.setState({
                   predictgameShow: true
                 })
               }}><a id='roll'>{Translator.getStringTranslated('fct_extrafaucet', this.state.currentLang, this.state.translatorData)}</a></button></div>
               }
-              <div style={{height:'2em', marginTop: '20px'}} className='bp-cbutton'><button onClick={() => {
+              <div style={{height:'2em', marginTop: '20px'}} className='bp-cbuttonxxx'><button onClick={() => {
                 this.setState({
                   gamblegameShow: true
                 })
               }}><a style={{
-                color: 'red'
               }} id='rolla'>{Translator.getStringTranslated('global_gamble', this.state.currentLang, this.state.translatorData)}</a></button></div>
               <Modal  open={this.state.predictgameShow} onClose={() => {
                 this.setState({
@@ -416,60 +415,90 @@ export default class Home extends React.Component {
               <span className='crypto-icon crownSvg' style={{backgroundImage: 'url("/images/robot_trophy.png")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '50px', height: '60px', border: 'none' }} />
               <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</p>
               <span className='crypto-icon' style={{position: 'absolute', marginLeft: '90px', marginTop: '-30px', backgroundImage: 'url("/images/robot_trophy.png")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '50px', height: '60px', border: 'none' }} />
-    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.sv_jackpot} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</h1>
+    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.sv_jackpot * this.state.usdperpoint} USD</h1>
     
             </div>
             
             <div className='bp-middle-left-sub bp-blueshadow' style={{}}>
-            <div className='lotteryRange1'>
-                <table>
+            <div className='lotteryRangeN'>
+                <table style={{
+                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                  margin: '0px'
+                }}>
                   <tbody><tr>
-                  <td style={{width: '5em'}}><p className="numbering">1</p></td>
+                  <td style={{width: '5em', marginLeft: '20px'}}><p className="numbering">1</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 0 - 999,500</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_a} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_a} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody>
   
                 </table>
                 </div>
-            <div className='lotteryRange2'>
-               <table><tbody> <tr>
+                <div className='lotteryRangeN'>
+                <table style={{
+                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                  margin: '0px'
+                }}><tbody> <tr>
                   <td style={{width: '5em'}}><p className="numbering">2</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,501 - 999,700</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_b} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_b} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
-            <div className='lotteryRange3'>
-                <table><tbody><tr>
+                <div className='lotteryRangeN'>
+                <table style={{
+                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                  margin: '0px'
+                }}><tbody><tr>
                   <td style={{width: '5em'}}><p className="numbering">3</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,701 - 999,850</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_c} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{ paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_c} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
-            <div className='lotteryRange4'>
-                <table><tbody><tr>
+                <div className='lotteryRangeN'>
+                <table style={{
+                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                  margin: '0px'
+                }}><tbody><tr>
                   <td style={{width: '5em'}}><p className="numbering">4</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,851 - 999,920</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em',}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform:'uppercase'}}>{this.state.sv_roll_d} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{paddingRight:'1em',}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform:'uppercase'}}>{this.state.sv_roll_d} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
-            <div className='lotteryRange4'>
-                <table><tbody><tr>
+                <div className='lotteryRangeN'>
+                <table style={{
+                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                  margin: '0px'
+                }}><tbody><tr>
                   <td style={{width: '5em'}}><p className="numbering">5</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,921 - 999,998</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_e} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{this.state.sv_roll_e} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
-            <div className='lotteryRange5'>
-                <table><tbody><tr>
+                <div className='lotteryRangeN'>
+                <table style={{
+                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                  margin: '0px'
+                }}><tbody><tr>
                   <td style={{width: '5em'}}><p className="numbering">6</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,999</p></td>
   
-                  <td style={{width: '30%', paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
             </div>
@@ -637,20 +666,22 @@ export default class Home extends React.Component {
                     margin: auto;
                     padding: 0.4em;
                     border-radius: 50%;
+                    margin-left: 40px;
+                    margin-right: 30px;
                         }
                   .cryptoMarquee{
                     margin-left:3em
                   }
+                  .lotteryRangeN{
+                    font-weight:600;
+                    height:4em;
+                    width: revert;
+                  }
                   .lotteryRange1{
                     font-weight:600;
                     height:4em;
-                    background-color: #CB5C0D;
                     border-top-left-radius: 0.4em;
                     width: revert;
-                    margin-left: -1.2em;
-                    margin-top: -1em;
-                    border-top-right-radius: 0.4em;
-                    margin-right: -1em;
                   }
                   .lotteryRange2{
                     font-weight:600;

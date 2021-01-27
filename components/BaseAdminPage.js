@@ -112,6 +112,7 @@ export default class BaseAdminPage extends React.Component {
 </li>
     <li><div className='bp-cbutton'><a href='/admin/languages'>Languages</a></div></li>
     <li><div className='bp-cbutton'><a href='/admin/game'>Game</a></div></li>
+    <li><div className='bp-cbutton'><a href='/admin/faqs'>FAQ</a></div></li>
 
     
   <li><div className='bp-spacer'></div></li>

@@ -232,7 +232,7 @@ export default class Home extends React.Component {
                             })
                           }}>
                             <img className='imgsm' src={`data:image/png;base64,${cx.iconurlx}`}/>
-                            <p>{cx.title.toUpperCase()}</p>
+                            <p style={{fontSize: '14px', fontWeight: 'bold'}}>{cx.title.toUpperCase()}</p>
                           </div>
                         })
                       }
@@ -260,7 +260,7 @@ export default class Home extends React.Component {
                           })
                         }}>
                           <img className='imgsm' src={`data:image/png;base64,${cx.iconurlx}`}/>
-                          <p>{cx.title.toUpperCase()}</p>
+                          <p style={{fontSize: '14px', fontWeight: 'bold'}}>{cx.title.toUpperCase()}</p>
                         </div>
                        })
                      }
@@ -427,8 +427,9 @@ export default class Home extends React.Component {
                       position:relative
                     }
                     .imgsm{
-                          width: 4em;
-                          height: 4em;
+                          width: 8em;
+                          height: 6em;
+                          object-fit: contain;
                     }
   
                    form{

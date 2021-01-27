@@ -56,6 +56,9 @@ export default class FeaturedReviews extends React.Component {
                     <div onClick={() => {
                    window.location.replace(`/single?id=${this.props.item._id}`);
                }} className='ffrc ffrcleft'
+               style={{
+                   backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item._id).length == 0 ? 'red' : 'orange'
+               }}
                >
                    <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_review', this.props.currentLang, this.props.translatorData)}</p>
                </div>
@@ -72,6 +75,9 @@ export default class FeaturedReviews extends React.Component {
                     <div onClick={() => {
                    window.location.replace(`/single?id=${this.props.item._id}`);
                }} className='ffrc ffrcleftx'
+               style={{
+                backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item._id).length == 0 ? 'red' : 'orange'
+            }}
                >
                    <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_review', this.props.currentLang, this.props.translatorData)}</p>
                </div>

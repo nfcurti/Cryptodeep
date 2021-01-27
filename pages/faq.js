@@ -12,6 +12,7 @@ import GamblePopup from '../components/gamblePopup';
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Translator from '../services/translator';
+import { PaginatedList } from 'react-paginated-list';
  
  
 export default class Home extends React.Component {
@@ -19,6 +20,7 @@ export default class Home extends React.Component {
   constructor(){
     super();
     this.state = {
+      items: [],
 
       //Lang
       translatorData: [],
@@ -28,7 +30,24 @@ export default class Home extends React.Component {
  
   componentDidMount() {
     this._loadLang();
-    const items = document.querySelectorAll(".accordion button");
+
+    ServiceAuth.getfaqitems({
+      
+    }).then(response => {
+      const data = response.data;
+      console.log(data);
+      if(data.data.items != null) {
+          this.setState({
+              items: data.data.items
+          })
+      }
+    }).catch(e => {
+      console.log(e);
+      alert(e);
+      return;
+    })
+
+    const items = document.querySelectorAll(".accordion-button");
     var i;
     function toggleAccordion() {
       const itemToggle = this.getAttribute('aria-expanded');
@@ -44,7 +63,7 @@ export default class Home extends React.Component {
  
     items.forEach(item => item.addEventListener('click', toggleAccordion));
  
- 
+    
   }
 
   _loadLang = () => {
@@ -78,39 +97,25 @@ export default class Home extends React.Component {
              <div className='bp-middle-over'>
             <div className='bp-middle-all bp-blueshadow' style={{marginTop:'2em'}}>
                 <div class="container">
-                  <h2>Frequently Asked Questions</h2>
-                  <div class="accordion">
-                    <div class="accordion-item">
-                      <button id="accordion-button-1" aria-expanded="false"><span class="accordion-title">Why is the moon white?</span><span class="icon" aria-hidden="true"></span></button>
-                      <div class="accordion-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <button id="accordion-button-2" aria-expanded="false"><span class="accordion-title">Why is the sky blue?</span><span class="icon" aria-hidden="true"></span></button>
-                      <div class="accordion-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <button id="accordion-button-3" aria-expanded="false"><span class="accordion-title">Will we ever discover aliens?</span><span class="icon" aria-hidden="true"></span></button>
-                      <div class="accordion-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <button id="accordion-button-4" aria-expanded="false"><span class="accordion-title">How much does the Earth weigh?</span><span class="icon" aria-hidden="true"></span></button>
-                      <div class="accordion-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <button id="accordion-button-5" aria-expanded="false"><span class="accordion-title">How do airplanes stay up?</span><span class="icon" aria-hidden="true"></span></button>
-                      <div class="accordion-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
-                      </div>
-                    </div>
+                  <h2 className='faq-header'>Frequently Asked Questions</h2>
+                 
+                  
+
+                  <div class="faq-content">
+                   {
+                    this.state.items.sort(function(a, b) {
+                        return parseFloat(b.importance) - parseFloat(a.importance);
+                    }).map(i => {
+                      return <div className='faqx'>
+                        <h2>{i.question ?? ""}</h2>
+                    <p>{i.answer ?? ""}</p>
+                    <br/>
+                        </div>
+                    })
+                  }
                   </div>
+                  
+                  
                 </div>
             </div>
  
@@ -422,6 +427,89 @@ export default class Home extends React.Component {
                       width: 73% !important;
                     }
                   }
+
+                  
+body {
+  color: #333;
+  background: #fcfcfc;
+  font-family: 'Raleway', sans-serif;
+  overflow-x: hidden;
+}
+
+.faq-header{
+  font-size: 42px;
+  border-bottom: 1px dotted #ccc;
+  padding: 24px;
+}
+
+.faq-content {
+  margin: 0 auto;
+}
+
+.faq-question {
+  padding: 20px 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+.panel-title {
+  font-size: 24px;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 10px 10px 0 48px;
+  display: block;
+  cursor: pointer;
+}
+
+.panel-content {
+  font-size: 20px;
+  padding: 0px 14px;
+  margin: 0 40px;
+  height: 0;
+  overflow: hidden;
+  z-index: -1;
+  position: relative;
+  opacity: 0;
+  -webkit-transition: .4s ease;
+  -moz-transition: .4s ease;
+  -o-transition: .4s ease;
+  transition: .4s ease;
+}
+
+.panel:checked ~ .panel-content{
+  height: auto;
+  opacity: 1;
+  padding: 14px;
+}
+
+.plus {
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 4px;
+  z-index: 5;
+  font-size: 42px;
+  line-height: 100%;
+  -webkit-user-select: none;    
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-transition: .2s ease;
+  -moz-transition: .2s ease;
+  -o-transition: .2s ease;
+  transition: .2s ease;
+}
+
+.panel:checked ~ .plus {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.panel {
+  display: none;
+}
               `}</style>
       </BasePage>
     );

@@ -206,7 +206,7 @@ return _http.get(`withdrawals`, qs.stringify({
 }
 
 const dowithdraw = data => {
-  if(!data.token || !data.currency || !data.cryptoaddress || !data.points) {
+  if(!data.token || !data.currency || !data.cryptoaddress || !data.originalquant || !data.points) {
     return alert("");
 }
 const _http = axios.create({
@@ -223,6 +223,7 @@ const _http = axios.create({
 var _mapToSend = {
   "currency": data.currency,
   "cryptoaddress": data.cryptoaddress,
+  "originalquant": data.originalquant,
   "points": data.points
 };
 
@@ -413,16 +414,7 @@ return _http.get(`getreviewitems`, qs.stringify({
 
 const addreviewitem = data => {
   if(!data.token || 
-      !data.iconurl ||
-      !data.title ||
-      !data.description ||
-      !data.siteurl ||
-      !data.importance ||
-      !data.score ||
-      !data.pros ||
-      !data.cons ||
-      !data.shortdescription ||
-      !data.subcategoryid) {
+      !data.iconurl) {
 
    alert("Missing field");
    return;
@@ -440,17 +432,18 @@ const _http = axios.create({
 });
 
 var _mapToSend = {
-  "iconurl": data.iconurl,
-  "title": data.title,
-  "description": data.description,
-  "siteurl": data.siteurl,
-  "importance": data.importance,
-  "subcategoryid": data.subcategoryid,
-  "score": data.score,
-  "pros": data.pros,
-  "cons": data.cons,
-  "shortdescription": data.shortdescription
+  "iconurl": data.iconurl
 };
+
+if(data.title != null) { _mapToSend['title'] = data.title; }
+if(data.description != null) { _mapToSend['description'] = data.description; }
+if(data.siteurl != null) { _mapToSend['siteurl'] = data.siteurl; }
+if(data.importance != null) { _mapToSend['importance'] = data.importance; }
+if(data.subcategoryid != null) { _mapToSend['subcategoryid'] = data.subcategoryid; }
+if(data.score != null) { _mapToSend['score'] = data.score; }
+if(data.pros != null) { _mapToSend['pros'] = data.pros; }
+if(data.cons != null) { _mapToSend['cons'] = data.cons; }
+if(data.shortdescription != null) { _mapToSend['shortdescription'] = data.shortdescription; }
 
 return _http.post(`addreviewitem`, qs.stringify(_mapToSend));
 }
@@ -890,6 +883,32 @@ var _mapToSend = {
 return _http.post(`addbulklanguagedataset`, qs.stringify(_mapToSend));
 }
 
+const addbulkreviews = data => {
+  if(!data.token || 
+      !data.items) {
+
+   alert("Missing field");
+   return;
+}
+
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "items": data.items,
+};
+
+return _http.post(`addbulkreviews`, qs.stringify(_mapToSend));
+}
+
 const playprediction = data => {
   if(!data.token || !data.targetprice) {
     return alert("");
@@ -1291,6 +1310,111 @@ const gamesettings = data => {
       return _http.post(`testafconaction`, qs.stringify(_mapToSend));
       }
 
+
+      const addfaqitem = data => {
+        if(!data.token) {
+      
+         alert("Missing field");
+         return;
+      }
+      
+      const _http = axios.create({
+        // baseURL: 'http://localhost:3002/api-cryptodeep/',
+        baseURL: finalUrl,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'crossDomain': true,
+          'Content-Type': ' application/x-www-form-urlencoded',
+          'x-access-token': data.token
+        }
+      });
+      
+      var _mapToSend = {
+        
+      };
+      if(data.question != null) { _mapToSend['question'] = data.question; }
+      if(data.answer != null) { _mapToSend['answer'] = data.answer; }
+      if(data.importance != null) { _mapToSend['importance'] = data.importance; }
+      
+      return _http.post(`addfaqitem`, qs.stringify(_mapToSend));
+      }
+      
+      const getfaqitems = data => {
+      //   if(!data.token) {
+      //     return alert("");
+      // }
+      const _http = axios.create({
+        // baseURL: 'http://localhost:3002/api-cryptodeep/',
+        baseURL: finalUrl,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'crossDomain': true,
+          'Content-Type': ' application/x-www-form-urlencoded',
+          // 'x-access-token': data.token
+        }
+      });
+      
+      return _http.get(`getfaqitems`, qs.stringify({
+        
+      }));
+      }
+      
+      const removefaqitem = data => {
+        if(!data.token || 
+            !data.faqitemid) {
+      
+         alert("Missing field");
+         return;
+      }
+      
+      const _http = axios.create({
+        // baseURL: 'http://localhost:3002/api-cryptodeep/',
+        baseURL: finalUrl,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'crossDomain': true,
+          'Content-Type': ' application/x-www-form-urlencoded',
+          'x-access-token': data.token
+        }
+      });
+      
+      var _mapToSend = {
+        "faqitemid": data.faqitemid
+      };
+      
+      return _http.post(`removefaqitem`, qs.stringify(_mapToSend));
+      }
+      
+      const editfaqitem = data => {
+        if(!data.token || 
+            !data.faqitemid) {
+      
+         alert("Missing field");
+         return;
+      }
+      
+      const _http = axios.create({
+        // baseURL: 'http://localhost:3002/api-cryptodeep/',
+        baseURL: finalUrl,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'crossDomain': true,
+          'Content-Type': ' application/x-www-form-urlencoded',
+          'x-access-token': data.token
+        }
+      });
+      
+      var _mapToSend = {
+        "faqitemid": data.faqitemid,
+      };
+    
+      if(data.question != null) { _mapToSend.question = data.question; }
+      if(data.answer != null) { _mapToSend.answer = data.answer; }
+      if(data.importance != null) { _mapToSend.importance = data.importance; }
+      
+      return _http.post(`editfaqitem`, qs.stringify(_mapToSend));
+      }
+
 export default {
     login,
     signup,
@@ -1342,6 +1466,11 @@ export default {
     historygamblefaucet,
     getaffcontesthistory,
     editaffcontesthistory,
-    testafconaction
+    testafconaction,
+    addfaqitem,
+    addbulkreviews,
+    editfaqitem,
+    removefaqitem,
+    getfaqitems
   }
   

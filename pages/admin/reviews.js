@@ -7,6 +7,10 @@ import BaseAdminPage from '../../components/BaseAdminPage';
 import ServiceAuth from '../../services/ServiceAuth';
 import ServiceCookies from '../../services/cookies';
 import { PaginatedList } from 'react-paginated-list';
+
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+
 export default class Home extends React.Component {
 
   constructor() {
@@ -26,6 +30,115 @@ export default class Home extends React.Component {
     this.setState({
       formController: controller
     })
+  }
+
+  _addBulkData = data => {
+    console.log('Bulk data')
+    var _finalToSend = data.filter(d => d.id != '').map(e => {
+      var _e = e;
+      _e.enabled = e.enabled == 'true' ? true : false;
+      _e.featured = e.featured == 'true' ? true : false;
+      return _e;
+    });
+
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/login`)
+    }else{
+      if(userCookies['ckpl'] != '999') { return; }
+      
+      const _mTSZ = {
+        'token': userCookies['cktoken'],
+        'items': _finalToSend,
+      }
+      console.log(_mTSZ);
+      ServiceAuth.addbulkreviews(_mTSZ).then(response => {
+        const data = response.data;
+        console.log(data);
+        window.location.replace(`/admin/reviews`);
+      }).catch(e => {
+        console.log(e);
+        alert('There was an error with the request.');
+        return;
+      })
+    }
+  }
+
+   
+
+  _handleReaderLoaded = (readerEvt) => {
+    var bstr = readerEvt.target.result
+    const wb = XLSX.read(bstr, { type: "binary", raw: true });
+      /* Get first worksheet */
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      /* Convert array of arrays */
+      const data = XLSX.utils.sheet_to_csv(ws, { header: 1, strip: true, FS: '%%%' });
+      /* Update state */
+      console.log(data);
+      var result = JSON.parse(this.convertToJson(data));
+      console.log(result.length);
+      if(result.length == 0) {
+        alert('Invalid data');
+        return;
+      }
+      if(!result[0].hasOwnProperty('id')) {
+        alert('Invalid data');
+        return;
+      }
+      var _mConf = confirm('The data is valid. Import?')
+      if(_mConf) {
+        this._addBulkData(result);
+      }
+  }
+
+  convertToJson = csv => {
+    var lines = csv.split("\n");
+
+    var result = [];
+
+    var headers = lines[0].split('%%%');
+
+    for (var i = 1; i < lines.length; i++) {
+      var obj = {};
+      var currentline = lines[i].split('%%%');
+
+      for (var j = 0; j < headers.length; j++) {
+        obj[headers[j]] = currentline[j]
+      }
+
+      result.push(obj);
+    }
+
+    //return result; //JavaScript object
+    return JSON.stringify(result); //JSON
+  }
+
+  exportPressed = () => {
+    const csvData = this.state.items.map((e) => {
+      return {
+        'id': e._id,
+        'score': e.score ?? '',
+        'importance': e.importance ?? '',
+        'enabled': e.enabled ?? '',
+        'featured': e.featured ?? '',
+        'siteurl': e.siteurl ?? '',
+        'iconurl': e.iconurl ?? '',
+        'description': e.description ?? '',
+        'title': e.title ?? '',
+        'subcategoryid': e.subcategoryid ?? '',
+        'shortdescription': e.shortdescription ?? '',
+        'pros': e.pros ?? '',
+        'cons': e.cons ?? '',
+      }
+    })
+    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const fileExtension = '.xlsx';
+    const ws = XLSX.utils.json_to_sheet(csvData);
+    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], {type: fileType});
+    FileSaver.saveAs(data, 'cryptodeep_reviews' + fileExtension);
   }
 
   componentDidMount() {
@@ -165,6 +278,44 @@ export default class Home extends React.Component {
         <div className='bp-middle-over'>
         <div className='bp-middle-all bp-blueshadow'>
                 <p className='loginTitle'>Admin Reviews</p>
+                <input
+                  value="Export"
+                  type='submit'
+                  onClick={() => this.exportPressed()}
+                  className='loginSubmit '
+                  style={{
+                    marginBottom: '10px'
+                  }}
+                /> 
+                <hr style={{
+                  marginBottom: '15px',
+                  opacity: '0'
+                }}/>
+                 <input
+                value="Import"
+                type='submit'
+                onClick={() => {}}
+                className='loginSubmit '
+                style={{
+                  marginBottom: '10px'
+                }}
+              /><input 
+            type='file'
+            name='image'
+            id='file'
+            accept='.xls, .xlsx'
+            onChange={(val) => {
+              var file = val.target.files[0];
+
+              if(file) {
+                const reader = new FileReader();
+                reader.onload = this._handleReaderLoaded.bind(this);
+                reader.readAsBinaryString(file);
+              }
+            }}
+          /><br/>
+                  <br/>
+                
                 <div>
                     <p>
                       <input 
