@@ -156,8 +156,8 @@ export default class Home extends React.Component {
           textAlign: 'left',
           backgroundColor: 'white'
         }}>
-           <div style={{width:"fit-content", float: 'left'}}>
-              <img className='review-logo' style={{width: '200px', marginTop: '20px'}} src={`data:image/png;base64,${this.state.item.iconurl}`}/>
+           <div style={{width:"10%", float: 'left'}}>
+              <img className='review-logo' style={{width: '100px', marginTop: '20px'}} src={`data:image/png;base64,${this.state.item.iconurl}`}/>
               <p className='review-score' style={{fontSize: '12px', color: 'orange'}}>{this.state.item.score}<img style={{width:"1.5em",height:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
             </div>
             <div style={{width:"80%", marginLeft: '10px', float: 'left'}}>

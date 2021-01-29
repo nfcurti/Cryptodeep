@@ -38,11 +38,11 @@ export default class FeaturedReviews extends React.Component {
                        </div>
                    </div>
                    <div className='ffrrate'>
-                   <span className='ffrratep'>{this.props.reviews.filter(r => r.reviewid == this.props.item._id).length} ({this.props.reviews.filter(r => r.reviewid == this.props.item._id).length == 0 ? '-' : this.props.reviews.filter(r => r.reviewid == this.props.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.props.reviews.filter(r => r.reviewid == this.props.item._id).length})</span>
+                   <span className='ffrratep'>{this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length} ({this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length == 0 ? '-' : this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).reduce((acc, r) => acc+r.scoregiven, 0) / this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length})</span>
                     <ReactStars
                         count={5}
                         size={16}
-                        value={this.props.reviews.filter(r => r.reviewid == this.props.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.props.reviews.filter(r => r.reviewid == this.props.item._id).length}
+                        value={this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).reduce((acc, r) => acc+r.scoregiven, 0) / this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length}
                         edit={false}
                         isHalf={true}
                         activeColor="#ffd700"
@@ -57,7 +57,7 @@ export default class FeaturedReviews extends React.Component {
                    window.location.replace(`/single?id=${this.props.item._id}`);
                }} className='ffrc ffrcleft'
                style={{
-                   backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item._id).length == 0 ? 'red' : 'orange'
+                   backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length == 0 ? 'red' : 'orange'
                }}
                >
                    <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_review', this.props.currentLang, this.props.translatorData)}</p>
