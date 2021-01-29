@@ -513,6 +513,17 @@ a {
 	height: 60px;
 }
 
+.over_robot_h {
+	position: absolute;
+	background-image: url('/images/robot_rocket.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	right: -1%;
+	margin-top: -70px;
+	width: 200px;
+	height: 400px;
+}
+
 @media screen and (max-width: 800px){
 	.over_robot_b {
 		right: 0%;
@@ -560,13 +571,14 @@ a {
 }
 
 .ffreview {
-	height: 160px;
+	height: 200px;
 	width: 20%;
 	margin: 2px 2px;
+	margin-bottom: 40px;
 
 	.ffrcont {
 		background-color: #252540;
-		height: 70%;
+		height: 180px;
 		margin-left: 5%;
 		margin-top: 5%;
 		border-radius: 4px;
@@ -582,15 +594,25 @@ a {
 				float: left;
 				margin-top: 5%;
 				margin-left: 5%;
-				width: 25%;
-				height: 60%;
+				width: 90%;
+				text-align: center;
+				height: 40%;
 
 				img {
-					width: 100%;
+					max-width: 100%;
 					height: 100%;
 				}
 
 
+
+			}
+
+			.ffrida {
+				float: left;
+				width: 100%;
+				margin-left: 0%;
+				margin-top: 0%;
+				height: 60%;
 
 				.ffreviewscoreset {
 					width: 32px;
@@ -599,26 +621,18 @@ a {
 					padding: 4px;
 					font-family: 'Nunito';
 					margin: 0px;
-					float: left;
+					float: right;
 					margin-left: 4px;
 					font-size: 12px;
 					text-align: center;
 				}
-			}
-
-			.ffrida {
-				float: left;
-				width: 65%;
-				margin-left: 3%;
-				margin-top: 5%;
-				height: 80%;
-
 				.ffrevtit {
 					font-family: 'Nunito';
 					margin: 0px;
 					float: left;
 					font-weight: bold;
 					font-size: 18px;
+					width: 100%;
 				}
 
 				.ffrevdesc {
@@ -636,7 +650,8 @@ a {
 			width: 95%;
 			height: 30%;
 			padding-left: 15%;
-			padding-top: 4px;
+			padding-top: 12px;
+			float: left;
 
 			.ffrratep {
 				line-height: 26px;
@@ -665,6 +680,7 @@ a {
 	}
 
 	.ffrcleft {
+		margin-top: -25px;
 		margin-left: 5%;
 		width: 45%;
 		height: 20%;
@@ -678,6 +694,7 @@ a {
 	}
 
 	.ffrcright {
+		margin-top: -25px;
 		width: 45%;
 		height: 20%;
 		border-radius: 0 0 50% 0;
@@ -690,6 +707,7 @@ a {
 	}
 
 	.ffrcleftx {
+		margin-top: -25px;
 		margin-left: 5%;
 		width: 45%;
 		height: 20%;
@@ -703,6 +721,7 @@ a {
 	}
 
 	.ffrcrightx {
+		margin-top: -25px;
 		width: 45%;
 		height: 20%;
 		border-radius: 0 0 4px 0;
@@ -1160,5 +1179,19 @@ details {
 
 	  p {
 		  font-size: 1.1em;
+	  }
+  }
+
+  .icon_copy {
+	  background-image: url('/images/icon_copy.png');
+	  background-size: contain;
+	  background-repeat: no-repeat;
+	  width: 30px;
+	  height: 30px;
+	  float: left;
+	  margin-top: 10px;
+
+	  &:hover {
+		  cursor: pointer;
 	  }
   }

@@ -392,7 +392,6 @@ export default class Home extends React.Component {
                   .bp-reviewbox{
                     display: flex;
                     width:95%;
-                    height:10.5em;
                     border-top:none;
                     margin: 0 auto;
                   }
@@ -580,7 +579,6 @@ export default class Home extends React.Component {
                     .bp-reviewbox{
                       display: block;
                       width: 80%;
-                      height: 52.5em;
                       border: 5px solid #1E1D32;
                       border-top: none;
                       margin: auto;

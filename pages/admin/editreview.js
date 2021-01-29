@@ -29,7 +29,8 @@ export default class Home extends React.Component {
           pros: '',
           cons: '',
           score: null,
-          shortdescription: ''
+          shortdescription: '',
+          uniqueid: ''
       }
     }
   }
@@ -81,6 +82,7 @@ export default class Home extends React.Component {
                         _fC.subcategoryid = _itemX.subcategoryid;
                         _fC.shortdescription = _itemX.shortdescription;
                         _fC.importance = _itemX.importance;
+                        _fC.uniqueid = _itemX.uniqueid ?? (_itemX.siteurl ?? "");
                         
                         this.setState({
                             item: _itemX,
@@ -128,6 +130,7 @@ export default class Home extends React.Component {
       'subcategoryid',
       'pros',
       'shortdescription',
+      'uniqueid',
       'cons',
       'score',
     ].forEach(mtc => {
@@ -165,7 +168,8 @@ export default class Home extends React.Component {
         'enabled': this.state.item.enabled ? 'true' : 'false',
         'featured': this.state.item.featured ? 'true' : 'false',
         'score': this.state.formController.score,
-        'shortdescription': this.state.formController.shortdescription
+        'shortdescription': this.state.formController.shortdescription,
+        'uniqueid': this.state.formController.uniqueid
       }
       console.log(_mTSZ);
       ServiceAuth.updatereviewitem(_mTSZ).then(response => {
@@ -205,6 +209,11 @@ export default class Home extends React.Component {
             <p style={{fontSize: '18px'}}>Title: <br/><input name='title' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.title}/></p>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Unique ID: <br/><input name='uniqueid' style={{height: '10px',
+            width: '90%'
+        }} type='text' onChange={this.handleInputChange} value={this.state.formController.uniqueid}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Importance: <br/><input name='importance' style={{height: '10px',

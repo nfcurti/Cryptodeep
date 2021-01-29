@@ -80,7 +80,14 @@ export default class AffiliateTable extends React.Component {
             <div className='bp-middle-left bp-blueshadow main'>
 
             <div className='over_robot_c'/>
-        <br/><p className='bp-title' style={{fontSize: '18px', textAlign:'start',padding:'1em',color:'#DC8614', fontWeight:"bold"}}>{Translator.getStringTranslated('aff_yourreflink', this.props.currentLang, this.props.translatorData)} <span style={{color:'#ffffff80',fontWeight:"500"}}>https://cryptodeep.com/signup?ref={this.state.userid}</span></p>
+        <br/><p className='bp-title' style={{float: 'left', fontSize: '18px', textAlign:'start',padding:'1em',color:'#DC8614', fontWeight:"bold"}}>{Translator.getStringTranslated('aff_yourreflink', this.props.currentLang, this.props.translatorData)} <span style={{color:'#ffffff80',fontWeight:"500"}}>https://cryptodeep.com/signup?ref={this.state.userid} </span></p>
+        <div onClick={() => {
+          navigator.clipboard.writeText(`https://cryptodeep.com/signup?ref=${this.state.userid}`)
+          alert('Copied to clipboard!')
+        }}  className='icon_copy'/>
+        <div className='clearfix'/>
+
+
             <div style={{width:'fit-content',float:"left"}}>
               <p style={{fontSize: '16px', textAlign:'start',paddingLeft:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>{Translator.getStringTranslated('aff_totallifetime', this.props.currentLang, this.props.translatorData)}</span> {this.state.valstr.totalRef} ({this.state.valstr.totalRefSecondGen} {Translator.getStringTranslated('aff_secondgen', this.props.currentLang, this.props.translatorData)})</p>
               <p style={{fontSize: '16px',textAlign:'start',padding:'1.2em'}}><span style={{color: 'orange', fontWeight: 'bold'}}>{Translator.getStringTranslated('aff_weeklyref', this.props.currentLang, this.props.translatorData)}</span>  {this.state.valstr.totalRefThisWeek} ({this.state.valstr.totalRefThisWeekSecondGen} {Translator.getStringTranslated('aff_secondgen', this.props.currentLang, this.props.translatorData)})</p>

@@ -435,6 +435,7 @@ var _mapToSend = {
   "iconurl": data.iconurl
 };
 
+if(data.uniqueid != null) { _mapToSend['uniqueid'] = data.uniqueid; }
 if(data.title != null) { _mapToSend['title'] = data.title; }
 if(data.description != null) { _mapToSend['description'] = data.description; }
 if(data.siteurl != null) { _mapToSend['siteurl'] = data.siteurl; }
@@ -487,6 +488,7 @@ const updatereviewitem = data => {
       !data.importance ||
       !data.score ||
       !data.pros ||
+      !data.uniqueid ||
       !data.shortdescription ||
       !data.cons ||
       !data.subcategoryid) {
@@ -507,6 +509,7 @@ const _http = axios.create({
 });
 
 var _mapToSend = {
+  "uniqueid": data.uniqueid,
   "reviewid": data.reviewid,
   "enabled": data.enabled,
   "featured": data.featured,

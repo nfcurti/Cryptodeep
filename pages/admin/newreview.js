@@ -18,6 +18,7 @@ export default class Home extends React.Component {
     this.state = {
       subcategories: [],
       formController: {
+          uniqueid: '',
           title: '',
           iconurl: '',
           description: '',
@@ -104,6 +105,7 @@ export default class Home extends React.Component {
 
       var _mTSZ = {
         'token': userCookies['cktoken'],
+        'uniqueid': this.state.formController.uniqueid,
         'iconurl': this.state.formController.iconurl,
         'siteurl': this.state.formController.siteurl,
         'importance': this.state.formController.importance,
@@ -147,7 +149,7 @@ export default class Home extends React.Component {
             <br/>
         <div className='bp-middle-over'>
         <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>New Category</p>
+                <p className='loginTitle'>New Review</p>
                 <div className='eucont'>
               <div
               style={{
@@ -164,6 +166,11 @@ export default class Home extends React.Component {
             <p style={{fontSize: '18px'}}>Title: <br/><input name='title' style={{height: '10px',
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.title}/></p>
+        </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Unique ID: <br/><input name='uniqueid' style={{height: '10px',
+            width: '90%'
+        }} type='text' onChange={this.handleInputChange} value={this.state.formController.uniqueid}/></p>
         </div>
         <div className='inputhold'>
             <p style={{fontSize: '18px'}}>Importance: <br/><input name='importance' style={{height: '10px',

@@ -34,10 +34,10 @@ export default class Home extends React.Component {
 
   _addBulkData = data => {
     console.log('Bulk data')
-    var _finalToSend = data.filter(d => d.id != '').map(e => {
+    var _finalToSend = data.filter(d => d.uniqueid != '').map(e => {
       var _e = e;
-      _e.enabled = e.enabled == 'true' ? true : false;
-      _e.featured = e.featured == 'true' ? true : false;
+      _e.enabled = e.enabled.toUpperCase() == 'TRUE' ? true : false;
+      _e.featured = e.featured.toUpperCase() == 'TRUE' ? true : false;
       return _e;
     });
 
@@ -82,7 +82,7 @@ export default class Home extends React.Component {
         alert('Invalid data');
         return;
       }
-      if(!result[0].hasOwnProperty('id')) {
+      if(!result[0].hasOwnProperty('uniqueid')) {
         alert('Invalid data');
         return;
       }
@@ -117,7 +117,7 @@ export default class Home extends React.Component {
   exportPressed = () => {
     const csvData = this.state.items.map((e) => {
       return {
-        'id': e._id,
+        'uniqueid': e.uniqueid ?? (e.siteurl ?? ''),
         'score': e.score ?? '',
         'importance': e.importance ?? '',
         'enabled': e.enabled ?? '',
@@ -179,6 +179,7 @@ export default class Home extends React.Component {
       
       const _mTSZ = {
         'token': userCookies['cktoken'],
+        'uniqueid': item.uniqueid ?? (item.siteurl ?? ""),
         'reviewid': item._id,
         'iconurl': item.iconurl,
         'title': item.title,
@@ -215,6 +216,7 @@ export default class Home extends React.Component {
       
       const _mTSZ = {
         'token': userCookies['cktoken'],
+        'uniqueid': item.uniqueid ?? (item.siteurl ?? ""),
         'reviewid': item._id,
         'iconurl': item.iconurl,
         'title': item.title,
@@ -339,6 +341,7 @@ export default class Home extends React.Component {
                             <thead>
                                 <tr>
                                     <td><p>#</p></td>
+                                    <td><p>Unique ID</p></td>
                                     <td><p>Title</p></td>
                                     <td><p>Importance</p></td>
                                     <td><p>Site Url</p></td>
@@ -354,6 +357,8 @@ export default class Home extends React.Component {
                                 return (
                                         <tr className='admin-bodytr' key={id}>
                 <td style={{width: '5em'}}><p className="numbering">{this.state.items.indexOf(item) + 1}</p></td>
+                
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.uniqueid}</p></td>
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.title}</p></td>
                 <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>{item.importance}</p></td>
                 <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>{item.siteurl}</p></td>

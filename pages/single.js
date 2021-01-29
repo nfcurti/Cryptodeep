@@ -81,7 +81,7 @@ export default class Home extends React.Component {
                         
                         ServiceAuth.getreviews({
                           // "token": userCookies['cktoken'],
-                          'reviewid': _itemX._id
+                          'reviewid': _itemX.uniqueid
                         }).then(response => {
                           const dataz = response.data;
                           console.log(dataz);
@@ -124,7 +124,7 @@ export default class Home extends React.Component {
       
       const _mTSZ = {
         'token': userCookies['cktoken'],
-        'reviewid': this.state.item._id,
+        'reviewid': this.state.item.uniqueid,
         'userid': userCookies['ckuserid'],
         'message': this.state.formController.message,
         'scoregiven': this.state.formController.scoregiven
@@ -153,19 +153,20 @@ export default class Home extends React.Component {
         { this.state.item == null ? null : <div className='bp-middle'>
 
        <div className='bp-middle-all bp-blueshadow bgc' style={{
-          textAlign: 'left'
+          textAlign: 'left',
+          backgroundColor: 'white'
         }}>
            <div style={{width:"fit-content", float: 'left'}}>
-              <img className='review-logo' style={{width: '100px'}} src={`data:image/png;base64,${this.state.item.iconurl}`}/>
-              <p className='review-score' style={{fontSize: '12px'}}>{this.state.item.score}<img style={{width:"1.5em",height:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
+              <img className='review-logo' style={{width: '200px', marginTop: '20px'}} src={`data:image/png;base64,${this.state.item.iconurl}`}/>
+              <p className='review-score' style={{fontSize: '12px', color: 'orange'}}>{this.state.item.score}<img style={{width:"1.5em",height:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
             </div>
             <div style={{width:"80%", marginLeft: '10px', float: 'left'}}>
-            <p style={{fontSize:"4em", fontWeight:"bold",  margin: "0"}}>{this.state.item.title} <a style={{
+            <p style={{fontSize:"4em", fontWeight:"bold",  margin: "0", color: 'orange'}}>{this.state.item.title} <a style={{
               fontSize: '16px'
             }} href={this.state.item.siteurl} target='_blank'>[{Translator.getStringTranslated('sng_visit', this.state.currentLang, this.state.translatorData)}]</a></p>
-               <p style={{fontSize:"14px", maxWidth: '100%',  fontWeight:"normal"}}>{(this.state.item.shortdescription ?? "").length < 200 ? this.state.item.shortdescription : `${this.state.item.shortdescription.substring(0, 200)}...`}</p>
+               <p style={{fontSize:"14px", maxWidth: '100%',  fontWeight:"normal", color: 'black'}}>{(this.state.item.shortdescription ?? "").length < 200 ? this.state.item.shortdescription : `${this.state.item.shortdescription.substring(0, 200)}...`}</p>
                     <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
-                    <span style={{fontSize: '20px', marginRight:'0.2em',fontWeight:'bold'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item._id).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length})</span>
+                    <span style={{fontSize: '20px', marginRight:'0.2em',fontWeight:'bold', color: 'black'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item._id).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length})</span>
                    <ReactStars
                        count={5}
                        size={18}
@@ -208,7 +209,7 @@ export default class Home extends React.Component {
 
         <div className='bp-middle-all bp-blueshadow' style={{
           textAlign: 'left',
-          backgroundColor: 'white'
+          backgroundColor: 'rgba(0, 255, 0, 0.3)'
         }}>
             <p className='loginTitle' style={{
               textAlign: 'center',
@@ -229,7 +230,8 @@ export default class Home extends React.Component {
 
         <div className='bp-middle-all bp-blueshadow' style={{
           textAlign: 'left',
-          backgroundColor: 'white'
+          
+          backgroundColor: 'rgba(255, 0, 0, 0.3)'
         }}>
             <p className='loginTitle' style={{
               textAlign: 'center',

@@ -29,11 +29,11 @@ export default class FeaturedReviews extends React.Component {
                    <div className='ffrinfo'>
                        <div className='ffrlogo'>
                        <img src={`data:image/png;base64,${this.props.item.iconurl}`}/>
-                       <p className='ffreviewscoreset'>{this.props.item.score}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
                        
                        </div>
                        <div className='ffrida'>
-                       <p className='ffrevtit'>{this.props.item.title}</p>
+                       
+                       <p className='ffreviewscoreset'>{this.props.item.score}<img style={{width:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p><p className='ffrevtit'>{this.props.item.title}</p>
                        <p className='ffrevdesc'>{(this.props.item.shortdescription ?? "").length < 70 ? this.props.item.shortdescription : `${this.props.item.shortdescription.substring(0, 70)}...`}</p>
                        </div>
                    </div>
