@@ -15,6 +15,7 @@ export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
+      showingpros: true,
       userid: '',
       item: null,
       reviews: [],
@@ -78,6 +79,14 @@ export default class Home extends React.Component {
                         }
 
                         var _itemX = data.data.items.filter(i => i._id == _idToFetch)[0];
+                        var _temp = _itemX.description
+                        if(_temp.charAt(0) == "\"") {
+                          _temp = _temp.substring(1, _temp.length);
+                      }
+                      if(_temp.charAt(_temp.length - 1) == "\"") {
+                          _temp = _temp.substring(0, _temp.length - 1);
+                      }
+                      _itemX.description = _temp
                         
                         ServiceAuth.getreviews({
                           // "token": userCookies['cktoken'],
@@ -149,54 +158,89 @@ export default class Home extends React.Component {
         translatorData={this.state.translatorData}
         bgc={'white'}
       >
-      <br/>
-        { this.state.item == null ? null : <div className='bp-middle'>
-
-       <div className='bp-middle-all bp-blueshadow bgc' style={{
-          textAlign: 'left',
+        {
+          this.state.item == null ? null :
+          <>
+            <div 
+        style={{
+          width: '100%',
+          height: '170px',
+          backgroundColor: '#1E1D32'
+        }}
+      />
+      <div 
+        style={{
+          width: '100%',
+          height: '60px',
           backgroundColor: 'white'
-        }}>
-           <div style={{width:"10%", float: 'left'}}>
-              <img className='review-logo' style={{width: '100px', marginTop: '20px'}} src={`data:image/png;base64,${this.state.item.iconurl}`}/>
-              <p className='review-score' style={{fontSize: '12px', color: 'orange'}}>{this.state.item.score}<img style={{width:"1.5em",height:"1em",margin:"auto",marginLeft:"0.2em"}} className='crypto-icon' src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} /></p>
-            </div>
-            <div style={{width:"80%", marginLeft: '10px', float: 'left'}}>
-            <p style={{fontSize:"4em", fontWeight:"bold",  margin: "0", color: 'orange'}}>{this.state.item.title} <a style={{
-              fontSize: '16px'
-            }} href={this.state.item.siteurl} target='_blank'>[{Translator.getStringTranslated('sng_visit', this.state.currentLang, this.state.translatorData)}]</a></p>
-               <p style={{fontSize:"14px", maxWidth: '100%',  fontWeight:"normal", color: 'black'}}>{(this.state.item.shortdescription ?? "").length < 200 ? this.state.item.shortdescription : `${this.state.item.shortdescription.substring(0, 200)}...`}</p>
-                    <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'initial'}}>
-                    <span style={{fontSize: '20px', marginRight:'0.2em',fontWeight:'bold', color: 'black'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item._id).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item._id).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length})</span>
+        }}
+      />
+      <div
+        style={{
+          height: '150px',
+          border: '3px solid orange',
+          position: 'absolute',
+          width: '300px',
+          top: '120px',
+          left: '100px',
+          backgroundColor: 'white',
+        }}
+      >
+        <img style={{
+          textAlign: 'center',
+          margin: 'auto',
+          marginTop: '5%',
+          height: '80%',
+          display: 'block'
+        }} src={`data:image/png;base64,${this.state.item.iconurl}`}/>
+      </div>
+      <p style={{
+        fontWeight: 'bold',
+        color: 'orange',
+        position: 'absolute',
+        left: '430px',
+        top: '100px',
+        fontSize: '36px',
+        fontFamily: 'Nunito'
+      }}>
+        {this.state.item.title} ({this.state.item.score}<img style={{height:"30px", marginTop: '2px'}}src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} />)
+      </p>
+      <div style={{
+        color: '#1E1D32',
+        marginLeft: '5%',
+        marginRight: '5%',
+        fontFamily: 'Nunito',
+        fontSize: '16px'
+      }}>
+         <a href={this.state.item.siteurl}><input onClick={() => {
+
+         }} type='submit' style={{textAlign:"right", textTransform: 'uppercase'}} value={Translator.getStringTranslated('sng_visit', this.state.currentLang, this.state.translatorData)} /></a>
+          <input onClick={() => {
+            window.scrollTo(0,document.body.scrollHeight);
+}} type='submit' style={{marginLeft: '20px', textAlign:"right", textTransform: 'uppercase'}} value={Translator.getStringTranslated('sng_leavereview', this.state.currentLang, this.state.translatorData)} />
+
+      <br/>
+
+      <h2 style={{
+        fontSize: '36px'
+      }}>{Translator.getStringTranslated('srv_overallrating', this.state.currentLang, this.state.translatorData)}</h2>
+      
+      <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'-40px'}}>
+                    <span style={{marginTop: '20px',fontSize: '30px', marginRight:'0.2em',fontWeight:'bold', color: 'black'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length})</span>
                    <ReactStars
                        count={5}
-                       size={18}
-                       value={this.state.reviews.filter(r => r.reviewid == this.state.item._id).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item._id).length}
+                       size={50}
+                       value={this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length}
                        edit={false}
                        isHalf={true}
                        activeColor="#ffd700"
                      />
                   </div>
-            </div>
-            <div style={{
-              float: 'left',
-              width: '100%',
-              paddingLeft: '5px'
-            }}>
-            <p className='qty_com'>{this.state.reviews.filter(r => r.message != '').length} {Translator.getStringTranslated('sng_msgs', this.state.currentLang, this.state.translatorData)}</p>
-            
-            <br/>
-            <div className='clearfix'/></div>
-        </div> 
-          
-        <div className='bp-middle-over bgc'>
-          
-
-            <div className='bp-middle-all bp-blueshadow bgc' style={{
-          textAlign: 'left',
-          backgroundColor: 'white',
-          boxShadow: 'null'
-        }}>
-            {
+                  <br/>
+      <h2 style={{
+        fontSize: '36px'
+      }}>{Translator.getStringTranslated('global_description', this.state.currentLang, this.state.translatorData)}</h2>
+      {
               this.state.item.description == ''
               ? null :
               <div
@@ -205,57 +249,111 @@ export default class Home extends React.Component {
                 __html: this.state.item.description
               }}></div>
             }
-        </div>
-
-        <div className='bp-middle-all bp-blueshadow' style={{
-          textAlign: 'left',
-          backgroundColor: 'rgba(0, 255, 0, 0.3)'
-        }}>
-            <p className='loginTitle' style={{
-              textAlign: 'center',
-              color: 'green'
-            }}>{Translator.getStringTranslated('sng_pros', this.state.currentLang, this.state.translatorData)} </p>
-            {
-              this.state.item.pros == ''
+            <br/>
+            <div
+            className='clickablee'
+            onClick={() => {
+              this.setState({
+                showingpros: true
+              })
+            }}
+              style={{
+                float: 'left',
+                width: '200px',
+                border: '2px solid #252540',
+                paddingLeft: '20px',
+                lineHeight: 'null',
+                paddingTop: '10px',
+                paddingBottom: '4px',
+                borderTopLeftRadius: '10px',
+                borderTopRightRadius: '10px',
+                backgroundColor: this.state.showingpros ? 'orange' : 'white'
+              }}
+            >
+            <h2 style={{
+        fontSize: '36px',
+        margin: '0px'
+      }}>{Translator.getStringTranslated('sng_pros', this.state.currentLang, this.state.translatorData)}</h2>
+      
+            </div>
+            <div
+            className='clickablee'
+            onClick={() => {
+              this.setState({
+                showingpros: false
+              })
+            }}
+              style={{
+                float: 'left',
+                width: '200px',
+                border: '2px solid #252540',
+                paddingLeft: '20px',
+                lineHeight: 'null',
+                paddingTop: '10px',
+                paddingBottom: '4px',
+                borderTopLeftRadius: '10px',
+                borderTopRightRadius: '10px',
+                backgroundColor: !this.state.showingpros ? 'orange' : 'white'
+              }}
+            >
+            <h2 style={{
+        fontSize: '36px',
+        margin: '0px'
+      }}>{Translator.getStringTranslated('sng_cons', this.state.currentLang, this.state.translatorData)}</h2>
+      
+            </div>
+            <div className='clearfix'/>
+            <div
+              style={{
+                width: '100%',
+                border: '2px solid #252540',
+                paddingLeft: '20px',
+              }}
+            >
+              {
+                this.state.showingpros ?
+                this.state.item.pros == ''
               ? null :
               <div
-              className='innerhtmlx' style={{
-                color: 'green'
-              }}
+              className='innerhtmlxpros'
               dangerouslySetInnerHTML={{
                 __html: this.state.item.pros
               }}></div>
-            }
-        </div>
-
-        <div className='bp-middle-all bp-blueshadow' style={{
-          textAlign: 'left',
-          
-          backgroundColor: 'rgba(255, 0, 0, 0.3)'
-        }}>
-            <p className='loginTitle' style={{
-              textAlign: 'center',
-              color: 'red'
-            }}>{Translator.getStringTranslated('sng_cons', this.state.currentLang, this.state.translatorData)} </p>
-            {
+              : 
               this.state.item.cons == ''
               ? null :
               <div
-              className='innerhtmlx'
-              style={{
-                color: 'red'
-              }}
+              className='innerhtmlxcons'
               dangerouslySetInnerHTML={{
                 __html: this.state.item.cons
               }}></div>
-            }
-        </div>
-
+              }
+            </div>
+            <br/>
+            <div className='clearfix'/>
+     
+            <br/>
+      </div>
+          </>
+        }
+      
+      <br/>
+      
+        { this.state.item == null ? null : <div className='bp-middle'>
+          
+        <div className='bp-middle-over bgc'>
+        <h2 style={{
+        fontSize: '36px',
+        color: '#252540',
+        textAlign: 'left',
+        fontFamily: 'Nunito',
+        marginLeft: '5%'
+      }}>{Translator.getStringTranslated('sng_latestreviews', this.state.currentLang, this.state.translatorData)}</h2>
+       
             <div className='bp-middle-all bp-blueshadow latest_rev bgc' style={{
               backgroundColor: 'white'
             }}>
-            <p className='loginTitle' style={{color: '#252540'}}>{Translator.getStringTranslated('sng_latestreviews', this.state.currentLang, this.state.translatorData)} </p>
-                <p className='loginTitle' style={{color: '#252540', fontSize:'1em',marginTop:'-2em'}}>{Translator.getStringTranslated('sng_latestreviewssub', this.state.currentLang, this.state.translatorData)} </p>
+         <p className='loginTitle' style={{color: '#252540', fontSize:'17px', textAlign: 'left', marginTop: '-20px'}}>{Translator.getStringTranslated('sng_latestreviewssub', this.state.currentLang, this.state.translatorData)} </p>
                 
             <PaginatedList
               list={this.state.reviews.filter(r => r.message != "")}
@@ -275,7 +373,7 @@ export default class Home extends React.Component {
                           isHalf={true}
                           activeColor="#ffd700"
                         />
-                      <p style={{marginTop:'1em', color: '#252540'}}>{Translator.getStringTranslated('sng_by', this.state.currentLang, this.state.translatorData)} {item.username} - {Translator.getStringTranslated('global_date', this.state.currentLang, this.state.translatorData)}: {item.created_at.replace('T', ' ').substring(0, 16)}</p>
+                      <p style={{marginTop:'1.3em', fontSize: '14px',  color: '#252540'}}>{Translator.getStringTranslated('sng_by', this.state.currentLang, this.state.translatorData)} {item.username} - {Translator.getStringTranslated('global_date', this.state.currentLang, this.state.translatorData)}: {item.created_at.replace('T', ' ').substring(0, 16)}</p>
                     </div>
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
                       
@@ -294,12 +392,18 @@ export default class Home extends React.Component {
 
             {
               this.state.reviews.filter(r => r.userid == this.state.userid).length == 0 ?
-              <div className='bp-middle-all bp-blueshadow'>
-                <p className='loginTitle'>{Translator.getStringTranslated('sng_leavereview', this.state.currentLang, this.state.translatorData)} </p>
-                <p className='loginTitle' style={{fontSize:'1em',marginTop:'-2em'}}>{Translator.getStringTranslated('sng_leavereviewsub', this.state.currentLang, this.state.translatorData)} </p>
+              <div className='bp-middle-all bp-blueshadow' style={{
+                backgroundColor: 'white',
+                border: '1px solid #161526'
+              }}>
+                <p style={{color: '#161526', fontSize: '36px', textAlign: 'left'}} className='loginTitle'>{Translator.getStringTranslated('sng_leavereview', this.state.currentLang, this.state.translatorData)} </p>
+                <p className='loginTitle' style={{color: '#161526', fontSize:'17px', textAlign: 'left',marginTop:'-2em'}}>{Translator.getStringTranslated('sng_leavereviewsub', this.state.currentLang, this.state.translatorData)} </p>
                 {/* <form> */}
                 <div className='scores'>
-                    <label>{Translator.getStringTranslated('sng_score', this.state.currentLang, this.state.translatorData)}</label>
+                    <label style={{
+                      color: '#161526',
+                      fontSize: '14px'
+                    }}>{Translator.getStringTranslated('sng_score', this.state.currentLang, this.state.translatorData)}</label>
                     <ReactStars
                           onChange={(val) => {
                             var _fC = this.state.formController;
@@ -320,7 +424,10 @@ export default class Home extends React.Component {
                       <input type='text'  placeholder="info@cryptodeep.com" name='email' />
                     </div> */}
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
-                      <label>{Translator.getStringTranslated('sng_comm', this.state.currentLang, this.state.translatorData)}</label>
+                      <label style={{
+                        fontSize: '14px',
+                        color: '#161526'
+                      }}>{Translator.getStringTranslated('sng_comm', this.state.currentLang, this.state.translatorData)}</label>
                       <textarea type='text' style={{resize: 'none'}} placeholder={Translator.getStringTranslated('sng_comm_place', this.state.currentLang, this.state.translatorData)} name='message' onChange={this.handleInputChange} value={this.state.formController.message} rows={5}/>
                     </div>
                     <input onClick={() => this.doReview()} type='submit' style={{textAlign:"right", textTransform: 'uppercase'}} value={Translator.getStringTranslated('sng_send_rev', this.state.currentLang, this.state.translatorData)} />
@@ -477,11 +584,10 @@ export default class Home extends React.Component {
                   width: fill-available;
                   padding: 10px;
                   margin-bottom: 2em;
-                  color:white;
+                  color:#161526;
                   border-radius:3px;
                   border-style:solid;
-                  border: none;
-                  background-color:#161526;
+                  border: 1px solid #161526;
                   margin-top:0.3em}
                   input::placeholder{
                   color:gray;

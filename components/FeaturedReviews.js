@@ -76,7 +76,7 @@ export default class FeaturedReviews extends React.Component {
                    window.location.replace(`/single?id=${this.props.item._id}`);
                }} className='ffrc ffrcleftx'
                style={{
-                backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item._id).length == 0 ? 'red' : 'orange'
+                backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length == 0 ? 'red' : 'orange'
             }}
                >
                    <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_review', this.props.currentLang, this.props.translatorData)}</p>

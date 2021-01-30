@@ -793,7 +793,7 @@ a {
 
   .innerhtmlx {
 	  color: #252540;
-	  font-size: 16px;
+	  font-size: 20px;
 
 	  a {
 		color: #252540;
@@ -802,6 +802,62 @@ a {
 	  img {
 		  width: 100%;
 	  }
+  }
+
+  .innerhtmlxpros {
+	ul {
+		list-style: none;
+	}
+	
+	li {
+		position: relative;
+		line-height: 40px;
+	}
+	li:before {
+		/*
+		The desired width gets defined in two places: The element width, and background size.
+		The height only gets defined once, in background size.
+		*/
+		position: absolute;
+		display: block;
+		content: '\2022'; /* bullet point, for screen readers */
+		text-indent: -999999px; /* move the bullet point out of sight */
+		left: -45px;
+		width: 40px; /* desired width of the image */
+		height: 40px; /* unrelated to image height; this is so it gets snipped */
+		background-repeat: no-repeat;
+		background-image: url('/images/icon_ok.png');
+		background-size: 30px 30px;
+		background-position: 0 .3em;
+	}
+  }
+
+  .innerhtmlxcons  {
+	ul {
+		list-style: none;
+	}
+	
+	li {
+		position: relative;
+		line-height: 40px;
+	}
+	li:before {
+		/*
+		The desired width gets defined in two places: The element width, and background size.
+		The height only gets defined once, in background size.
+		*/
+		position: absolute;
+		display: block;
+		content: '\2022'; /* bullet point, for screen readers */
+		text-indent: -999999px; /* move the bullet point out of sight */
+		left: -45px;
+		width: 40px; /* desired width of the image */
+		height: 40px; /* unrelated to image height; this is so it gets snipped */
+		background-repeat: no-repeat;
+		background-image: url('/images/icon_nok.png');
+		background-size: 30px 30px;
+		background-position: 0 .3em;
+	}
   }
 
   .crownSvg{
@@ -1193,5 +1249,13 @@ details {
 
 	  &:hover {
 		  cursor: pointer;
+	  }
+  }
+
+  .clickablee {
+	  transition: 0.3s all ease-out;
+	  &:hover {
+		  cursor: pointer;
+		  background-color: rgba(255, 166, 0, 0.3);
 	  }
   }
