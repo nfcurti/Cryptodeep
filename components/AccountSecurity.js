@@ -9,6 +9,7 @@ export default class AccountSecurity extends React.Component {
         super();
         this.state = {
           errorForm: null,
+          faucetAlertSound: false,
           formController: {
             oldPassword: '',
             newPassword: '',
@@ -33,7 +34,8 @@ export default class AccountSecurity extends React.Component {
                 var _fCon = this.state.formController;
                 _fCon.email = data.user.email;
                 this.setState({
-                  formController: _fCon
+                  formController: _fCon,
+                  faucetAlertSound: data.user.faucetalertsound ? true : false
                 })
 
               }).catch(e => {
@@ -56,6 +58,32 @@ export default class AccountSecurity extends React.Component {
      logout = () => {
         ServiceCookies.removeUserCookies();
         window.location.replace('/');
+      }
+
+      changeFaucetAlertPressed = () => {
+        const userCookies = ServiceCookies.getUserCookies();
+            if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+                window.location.replace(`/login`)
+            }else{
+                this.setState({logged: true});
+    
+                ServiceAuth.changefaucetalertsound({
+                    "token": userCookies['cktoken']
+                  }).then(response => {
+                    const data = response.data;
+                    console.log(data);
+                    var _a = alert('Faucet Alert Sound changed.');
+                    window.location.replace(`/account`);
+                  }).catch(e => {
+                    var _content = e.message;
+                    console.log(e);
+                    if(e.response.status == 404 || e.response.status == 401) {
+                      _content = 'Invalid password or email'
+                    }
+                    alert(_content);
+                    return;
+                  })
+            }
       }
 
       changeEmailPressed = () => {
@@ -177,8 +205,8 @@ export default class AccountSecurity extends React.Component {
                   className='loginSubmit submitSecurity'
                 />
                 <input
-                  style={{opacity: '0'}}
-                  value="Settings"
+                  value={`${Translator.getStringTranslated('acc_savefaucetalert', this.props.currentLang, this.props.translatorData)} (${this.state.faucetAlertSound ? Translator.getStringTranslated('global_on', this.props.currentLang, this.props.translatorData) : Translator.getStringTranslated('global_off', this.props.currentLang, this.props.translatorData)})`}
+                  onClick={() => this.changeFaucetAlertPressed()}
                   type='submit'
                   className='loginSubmit submitSecurity'
                 />

@@ -21,6 +21,7 @@ export default class Home extends React.Component {
     super();
 
     this.state = {
+      faucetAlertSound: true,
       play: false,
       audio: null,
       gamblegameShow: false,
@@ -179,6 +180,7 @@ export default class Home extends React.Component {
           sv_roll_c: dataB.data.settings.roll_c,
           sv_roll_d: dataB.data.settings.roll_d,
           sv_roll_e: dataB.data.settings.roll_e,
+          faucetAlertSound: dataB.data.faucetalertsound,
           userwallet: dataB.data.userwallet,
           userfaucetbalance: dataB.data.userfaucetbalance,
           cryptoval: dataB.data.cryptoval,
@@ -336,7 +338,7 @@ export default class Home extends React.Component {
                 : <Countdown
                   renderer={({ hours, minutes, seconds, completed }) => {
                     if (completed) {
-                      if(this.state.audio != null) {
+                      if(this.state.audio != null && this.state.faucetAlertSound) {
                         this.setState({ play: !this.state.play }, () => {
                           this.state.play ? this.state.audio.play() : this.state.audio.pause();
                         });

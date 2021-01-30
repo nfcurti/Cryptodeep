@@ -67,6 +67,24 @@ return _http.post(`changepassword`, qs.stringify({
 }));
 }
 
+const changefaucetalertsound = data => {
+  if(!data.token) {
+    return alert("");
+}
+const _http = axios.create({
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+return _http.post(`changefaucetalertsound`, qs.stringify({
+  
+}));
+}
 
 const changeemail = data => {
   if(!data.token || !data.email || !data.newEmail || !data.password) {
@@ -1337,6 +1355,7 @@ const gamesettings = data => {
       };
       if(data.question != null) { _mapToSend['question'] = data.question; }
       if(data.answer != null) { _mapToSend['answer'] = data.answer; }
+      if(data.image != null) { _mapToSend['image'] = data.image; }
       if(data.importance != null) { _mapToSend['importance'] = data.importance; }
       
       return _http.post(`addfaqitem`, qs.stringify(_mapToSend));
@@ -1413,6 +1432,7 @@ const gamesettings = data => {
     
       if(data.question != null) { _mapToSend.question = data.question; }
       if(data.answer != null) { _mapToSend.answer = data.answer; }
+      if(data.image != null) { _mapToSend.image = data.image; }
       if(data.importance != null) { _mapToSend.importance = data.importance; }
       
       return _http.post(`editfaqitem`, qs.stringify(_mapToSend));
@@ -1424,6 +1444,7 @@ export default {
     resetpassword,
     changepassword,
     changeemail,
+    changefaucetalertsound,
     getusers,
     getgeneralsettings,
     updategeneralsettings,

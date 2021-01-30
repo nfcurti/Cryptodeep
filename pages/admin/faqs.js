@@ -94,6 +94,7 @@ export default class Home extends React.Component {
                                     <td><p>#</p></td>
                                     <td><p>Question</p></td>
                                     <td><p>Answer</p></td>
+                                    <td><p>Image</p></td>
                                     <td><p>Importance</p></td>
                                     <td><p>Actions</p></td>
                                 </tr>
@@ -105,6 +106,13 @@ export default class Home extends React.Component {
                 <td style={{width: '5em'}}><p className="numbering">{this.state.items.indexOf(item) + 1}</p></td>
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.question}</p></td>
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.answer}</p></td>
+                <td style={{width: '100px'}}><div>
+                                <img style={{
+                                  margin: '-35px -35px',
+                                  width: '40px',
+                                  height: '40px',
+                                  opacity: '1',
+                                }} src={`data:image/png;base64,${item.image}`}/></div></td>
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.importance}</p></td>
                 
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {

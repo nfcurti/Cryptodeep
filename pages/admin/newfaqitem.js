@@ -19,6 +19,7 @@ export default class Home extends React.Component {
       formController: {
           question: '',
           answer: '',
+          image: '',
           importance: ''
       }
     }
@@ -37,6 +38,16 @@ export default class Home extends React.Component {
         };
 
        
+  }
+
+  _handleReaderLoaded = (readerEvt) => {
+    let binaryString = readerEvt.target.result
+    
+    var _fC = this.state.formController;
+    _fC.image = btoa(binaryString)
+    this.setState({
+      formController: _fC
+    })
   }
 
   handleInputChange = event => {
@@ -66,6 +77,9 @@ export default class Home extends React.Component {
       if(this.state.formController.answer.length > 0) {
           _mTSZ.answer = this.state.formController.answer;
       }
+      if(this.state.formController.image.length > 0) {
+        _mTSZ.image = this.state.formController.image;
+    }
       if(this.state.formController.importance.length > 0) {
           _mTSZ.importance = this.state.formController.importance;
       }
@@ -113,6 +127,41 @@ export default class Home extends React.Component {
             width: '90%'
         }} type='text' onChange={this.handleInputChange} value={this.state.formController.importance}/></p>
         </div>
+        <div className='inputhold'>
+            <p style={{fontSize: '18px'}}>Image
+
+            <input 
+            type='file'
+            name='image'
+            id='file'
+            accept='.png'
+            onChange={(val) => {
+              var file = val.target.files[0];
+
+              if(file) {
+                const reader = new FileReader();
+                reader.onload = this._handleReaderLoaded.bind(this);
+                reader.readAsBinaryString(file);
+              }
+            }}
+          /><br/>
+            <img
+              style={{
+                opacity: '100% !important',
+                width: '90px',
+                height: '90px',
+                border: '1px solid white',
+              }} 
+              src={`data:image/png;base64,${this.state.formController.image}`} 
+            />
+            {/* <input name='iconurlx' style={{height: '10px',
+            width: '90%'
+        }} type='text' onChange={this.handleInputChange} value={this.state.formController.iconurlx}/> */}
+        </p>
+        <div className='clearfix'/>
+        </div>
+        <div className='clearfix'/>
+        
 
                   </div>
                   </div>

@@ -109,6 +109,10 @@ export default class Home extends React.Component {
                       return <div className='faqx'>
                         <h2>{i.question ?? ""}</h2>
                     <p>{i.answer ?? ""}</p>
+                    {
+                      i.image == '' ? null :
+                      <img  src={`data:image/png;base64,${i.image}`}/>
+                    }
                     <br/>
                         </div>
                     })
