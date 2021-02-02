@@ -71,6 +71,7 @@ export default class Home extends React.Component {
                                     <td><p>Points</p></td>
                                     <td><p>Faucet Balance</p></td>
                                     <td><p>Referred </p></td>
+                                    <td><p>IP</p></td>
                                     {/* <td><p>Actions</p></td> */}
                                 </tr>
                             </thead>
@@ -86,6 +87,7 @@ export default class Home extends React.Component {
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.points}</p></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.faucetbalance}</p></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.referredBy == null ? 'No' : item.referredBy.length == 0 ? 'No' : 'Yes'}</p></td>
+                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.ip}</p></td>
                 {/* <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>-</p></td> */}
 
               </tr>

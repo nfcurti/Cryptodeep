@@ -6,6 +6,8 @@ import BasePage from '../components/BasePage';
 import ServiceAuth from '../services/ServiceAuth';
 import ServiceCookies from '../services/cookies';
 import Translator from '../services/translator';
+const publicIp = require('public-ip');
+
 export default class Home extends React.Component {
   
   constructor() {
@@ -59,16 +61,18 @@ export default class Home extends React.Component {
     })
   }
 
-  _loginPressed = () => {
+  _loginPressed = async () => {
     console.log(this.state.formController);
     if(this.state.formController.username.length < 3 || this.state.formController.password.length < 3) {
       alert('One or more fields are missing or invalid.');
       return;
     }
 
+    const _ip = await publicIp.v4();
     ServiceAuth.login({
       "username": this.state.formController.username,
-      "password": this.state.formController.password
+      "password": this.state.formController.password,
+      "ip": _ip
     }).then(response => {
       const data = response.data;
       // console.log(data.data.user);

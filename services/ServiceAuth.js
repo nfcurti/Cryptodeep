@@ -2,8 +2,8 @@ import axios from "axios";
 import http from "./URLManager";
 var qs = require("qs");
 
-// const finalUrl = 'http://localhost:3002/api-cryptodeep/';
-const finalUrl = "https://juancurti.com/api-cryptodeep/";
+const finalUrl = 'http://localhost:3002/api-cryptodeep/';
+// const finalUrl = "https://juancurti.com/api-cryptodeep/";
 
 const login = data => {
   if(data.username.length == 0 ||
@@ -12,7 +12,8 @@ const login = data => {
     }
   return http.post(`login`, qs.stringify({
     username: data.username,
-    password: data.password
+    password: data.password,
+    ip: data.ip
   }));
 }
 
@@ -404,6 +405,7 @@ var _mapToSend = {
   "email": data.email,
   "points": data.points,
   "faucetbalance": data.faucetbalance,
+  "ip": data.id,
   "firstgen": data.firstgen,
   "secondgen": data.secondgen,
   "privilegeLevel": data.privilegeLevel
