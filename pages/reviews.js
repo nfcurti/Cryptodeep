@@ -10,7 +10,7 @@ import ServiceCookies from '../services/cookies';
 import FeaturedReviews from '../components/FeaturedReviews';
 import { PaginatedList } from 'react-paginated-list';
 import Translator from '../services/translator';
-
+import Footer from '../components/Footer';
 
 export default class Home extends React.Component {
 
@@ -161,6 +161,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <BasePage
+        ftr={1}
         currentLang={this.state.currentLang}
         translatorData={this.state.translatorData}
       >
@@ -321,6 +322,8 @@ export default class Home extends React.Component {
           </div>
         </div><br/><br/><br/>
         {/* <p>Hola</p> */}
+          <div className='clearfix'/>
+        <Footer/>
         <style jsx>{`
                     .qty_com{
                           font-size: 0.6em;

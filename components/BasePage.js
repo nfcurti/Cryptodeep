@@ -221,11 +221,11 @@ export default class BasePage extends React.Component {
     : null
 }
 {
-    this.state.displayFTR ? <div onClick={() => {
+    this.state.displayFTR && (this.props.ftr != null) ? (this.props.ftr == this.state.ftrPosition ? <div onClick={() => {
         this._pressFTR();
     }} className={`findtherobot-pos-${this.state.ftrPosition}`}>
     <img src="images/robot_findtherobot.png" width='100'/>
-    </div> : null
+    </div> : null) : null
 }
 
 <Modal  open={this.state.questionGameShow} onClose={() => {

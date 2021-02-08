@@ -13,6 +13,7 @@ import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Translator from '../services/translator';
 import { PaginatedList } from 'react-paginated-list';
+import Footer from '../components/Footer';
  
  
 export default class Home extends React.Component {
@@ -89,6 +90,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <BasePage 
+      ftr={4}
       currentLang={this.state.currentLang}
       translatorData={this.state.translatorData}>
  
@@ -127,6 +129,8 @@ export default class Home extends React.Component {
           </div>
         </div><br/><br/><br/>
         {/* <p>Hola</p> */}
+          <div className='clearfix'/>
+        <Footer/>
         <style jsx>{`
                     .customOverlay {
                       background: rgba(36, 123, 160, 0.7);

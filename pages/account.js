@@ -11,6 +11,7 @@ import WithdrawPopup from '../components/WithdrawPopup';
 import WithdrawalTable from '../components/WithdrawalTable';
 import ServiceAuth from '../services/ServiceAuth';
 import Translator from '../services/translator';
+import Footer from '../components/Footer';
 
 export default class Home extends React.Component {
   // const customStyles = {
@@ -96,6 +97,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <BasePage
+        ftr={2}
         currentLang={this.state.currentLang}
         translatorData={this.state.translatorData}
       >
@@ -170,6 +172,8 @@ export default class Home extends React.Component {
           </div>
         </div><br/>
         {/* <p>Hola</p> */}
+          <div className='clearfix'/>
+        <Footer/>
         <style jsx>{`
                   label{
                     font-family:Nunito;

@@ -14,6 +14,7 @@ import Countdown from 'react-countdown';
 import FeaturedReviews from '../components/FeaturedReviews';
 import Translator from '../services/translator';
 import GamblePopup from '../components/gamblePopup';
+import Footer from '../components/Footer';
 
 export default class Home extends React.Component {
 
@@ -270,6 +271,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <BasePage
+        ftr={"0"}
         currentLang={this.state.currentLang}
         translatorData={this.state.translatorData}
       >
@@ -413,7 +415,7 @@ export default class Home extends React.Component {
             
             
             <div className='bp-middle-left-sub bp-blueshadow'>
-              <img className='crypto-icon crownSvg' src={'https://images.vexels.com/media/users/3/143188/isolated/preview/5f44f3160a09b51b4fa4634ecdff62dd-money-icon-by-vexels.png'} />
+              <img className='crypto-icon crownSvg' src={'images/robot_withdraw.png'} />
               <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_wallet', this.state.currentLang, this.state.translatorData)}</p>
     <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userwallet} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</h1>
             </div>
@@ -429,7 +431,7 @@ export default class Home extends React.Component {
             <div className='bp-middle-left-sub bp-blueshadow' style={{}}>
             <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundImage: 'url(\'images/jackpotline_1.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -447,7 +449,7 @@ export default class Home extends React.Component {
             <div className='over_robot_h'/>
                 <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundImage: 'url(\'images/jackpotline_2.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -461,7 +463,7 @@ export default class Home extends React.Component {
                 </div>
                 <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundImage: 'url(\'images/jackpotline_3.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -475,7 +477,7 @@ export default class Home extends React.Component {
                 </div>
                 <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundImage: 'url(\'images/jackpotline_4.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -489,7 +491,7 @@ export default class Home extends React.Component {
                 </div>
                 <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundImage: 'url(\'images/jackpotline_5.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -503,13 +505,13 @@ export default class Home extends React.Component {
                 </div>
                 <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline.png\')',
+                  backgroundImage: 'url(\'images/jackpotline_6.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
                   width: '100%'
                 }}><tbody><tr>
-                  <td style={{width: '5em'}}><p className="numbering">6</p></td>
+                  <td style={{width: '5em'}}><p className="numbering" style={{opacity: '0'}}>6</p></td>
                   <td style={{width: '25em', textAlign:'left',letterSpacing:'2px', fontWeight: 'bold', fontSize: '14px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,999</p></td>
   
                   <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</div></td>
@@ -582,6 +584,8 @@ export default class Home extends React.Component {
           </div>
         </div><br/><br/><br/>
         {/* <p>Hola</p> */}
+          <div className='clearfix'/>
+        <Footer/>
         <style jsx>{`
                   .stars-review{
                     width:8em;
@@ -680,8 +684,8 @@ export default class Home extends React.Component {
                     margin: auto;
                     padding: 0.4em;
                     border-radius: 50%;
-                    margin-left: 60px;
-                    margin-right: 30px;
+                    margin-left: 110px;
+                    margin-right: 10px;
                         }
                   .cryptoMarquee{
                     margin-left:3em

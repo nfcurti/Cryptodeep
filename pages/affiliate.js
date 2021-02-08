@@ -12,6 +12,7 @@ import ServiceAuth from '../services/ServiceAuth';
 import Translator from '../services/translator';
 import Countdown from 'react-countdown';
 import { PaginatedList } from 'react-paginated-list';
+import Footer from '../components/Footer';
 
 export default class Home extends React.Component {
   constructor() {
@@ -125,6 +126,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <BasePage
+        ftr={3}
         currentLang={this.state.currentLang}
         translatorData={this.state.translatorData}
       >
@@ -263,6 +265,8 @@ export default class Home extends React.Component {
         </div>
         <br/>
         {/* <p>Hola</p> */}
+          <div className='clearfix'/>
+        <Footer/>
         <style jsx>{`
           .countdown{    font-weight: 900;
     font-size: 2em;
