@@ -20,7 +20,7 @@ export default class Home extends React.Component {
         faucetbalance: '',
         firstgen: '',
         secondgen: '',
-        privilegeLevel: ''
+        privilegeLevel: '',
       },
     }
   }

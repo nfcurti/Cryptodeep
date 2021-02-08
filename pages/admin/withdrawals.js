@@ -25,6 +25,12 @@ export default class Home extends React.Component {
             if(userCookies['ckpl'] != '999') {
             window.location.replace(`/account`)
             }else{
+              const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+
+                if(urlParams.has('accept')) {
+                    this._acceptWithdraw(urlParams.get('accept'))
+                }
                 ServiceAuth.getglobalwithdraws({
                     "token": userCookies['cktoken']
                   }).then(response => {
@@ -59,7 +65,30 @@ export default class Home extends React.Component {
        
   }
 
-
+  _acceptWithdraw = (id) => {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+        window.location.replace(`/account`)
+    }else{
+        if(userCookies['ckpl'] != '999') {
+        window.location.replace(`/account`)
+        }else{
+            ServiceAuth.acceptwithdraw({
+                "token": userCookies['cktoken'],
+                "withdrawId": id
+            }).then(response => {
+                const data = response.data;
+                console.log(data);
+                alert('Withdraw validated!');
+                
+              }).catch(e => {
+                console.log(e);
+                alert(e);
+                return;
+              })
+        }
+    }
+  }
 
   _validateWithdraw = (id) => {
     const userCookies = ServiceCookies.getUserCookies();
@@ -75,7 +104,15 @@ export default class Home extends React.Component {
             }).then(response => {
                 const data = response.data;
                 console.log(data);
-                window.location.reload();
+                if(data.infoerror != null) {
+                  alert(data.infoerror)
+                }else{
+                  // window.location.reload();
+                  if(data.info.checkout_url != null) {
+                    window.open(data.info.checkout_url, "_blank") || window.location.replace(data.info.checkout_url);
+                  }
+                }
+                
               }).catch(e => {
                 console.log(e);
                 alert(e);

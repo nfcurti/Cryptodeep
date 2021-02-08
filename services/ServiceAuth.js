@@ -291,6 +291,28 @@ var _mapToSend = {
 return _http.post(`validatewithdraw`, qs.stringify(_mapToSend));
 }
 
+const acceptwithdraw = data => {
+  if(!data.token || !data.withdrawId) {
+    return alert("");
+}
+const _http = axios.create({
+  // baseURL: 'http://localhost:3002/api-cryptodeep/',
+  baseURL: finalUrl,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    'crossDomain': true,
+    'Content-Type': ' application/x-www-form-urlencoded',
+    'x-access-token': data.token
+  }
+});
+
+var _mapToSend = {
+  "withdrawId": data.withdrawId
+};
+
+return _http.post(`acceptwithdraw`, qs.stringify(_mapToSend));
+}
+
 const rejectwithdraw = data => {
   if(!data.token || !data.withdrawId) {
     return alert("");
@@ -378,16 +400,12 @@ return _http.get(`getaffiliates`, qs.stringify({
 
 //
 const edituserasadmin = data => {
-  if(!data.token || !data.userid || !data.username || !data.email || !data.points || !data.firstgen || !data.secondgen) {
+  if(!data.token || !data.userid) {
 
    alert("Missing field");
    return;
 }
 
-if(data.privilegeLevel == null) {
-  alert("Missing field...");
-   return;
-}
 const _http = axios.create({
   // baseURL: 'http://localhost:3002/api-cryptodeep/',
   baseURL: finalUrl,
@@ -400,16 +418,18 @@ const _http = axios.create({
 });
 
 var _mapToSend = {
-  "userid": data.userid,
-  "username": data.username,
-  "email": data.email,
-  "points": data.points,
-  "faucetbalance": data.faucetbalance,
-  "ip": data.id,
-  "firstgen": data.firstgen,
-  "secondgen": data.secondgen,
-  "privilegeLevel": data.privilegeLevel
+  "userid": data.userid
 };
+
+if(data.username != null) { _mapToSend['username'] = data.username; }
+if(data.email != null) { _mapToSend['email'] = data.email; }
+if(data.points != null) { _mapToSend['points'] = data.points; }
+if(data.faucetbalance != null) { _mapToSend['faucetbalance'] = data.faucetbalance; }
+if(data.ip != null) { _mapToSend['ip'] = data.ip; }
+if(data.firstgen != null) { _mapToSend['firstgen'] = data.firstgen; }
+if(data.secondgen != null) { _mapToSend['secondgen'] = data.secondgen; }
+if(data.privilegeLevel != null) { _mapToSend['privilegeLevel'] = data.privilegeLevel; }
+if(data.blocked != null) { _mapToSend['blocked'] = data.blocked; }
 
 return _http.post(`edituserasadmin`, qs.stringify(_mapToSend));
 }
@@ -1455,6 +1475,7 @@ export default {
     getwithdrawals,
     getglobalwithdraws,
     validatewithdraw,
+    acceptwithdraw,
     rejectwithdraw,
     doexecutefaucet,
     getfaucets,

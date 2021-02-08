@@ -45,6 +45,33 @@ export default class Home extends React.Component {
        
   }
 
+  toggleBlockUser = (user, blocked) => {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
+        window.location.replace(`/account`)
+    }else{
+        if(userCookies['ckpl'] != '999') {
+        window.location.replace(`/account`)
+        }else{
+          var _mTSZ = {
+            'token': userCookies['cktoken'],
+            'userid': user._id,
+            'blocked': blocked ? 'true' : 'false'
+          }
+          console.log(_mTSZ);
+          ServiceAuth.edituserasadmin(_mTSZ).then(response => {
+            const data = response.data;
+            console.log(data);
+            var _a = alert('User updated.');
+            window.location.reload();
+          }).catch(e => {
+            console.log(e);
+            alert(e);
+            return;
+          })
+        }
+      }
+  }
   
   render() {
 
@@ -72,6 +99,7 @@ export default class Home extends React.Component {
                                     <td><p>Faucet Balance</p></td>
                                     <td><p>Referred </p></td>
                                     <td><p>IP</p></td>
+                                    <td><p>Blocked</p></td>
                                     {/* <td><p>Actions</p></td> */}
                                 </tr>
                             </thead>
@@ -88,6 +116,16 @@ export default class Home extends React.Component {
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.faucetbalance}</p></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.referredBy == null ? 'No' : item.referredBy.length == 0 ? 'No' : 'Yes'}</p></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.ip}</p></td>
+                <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}>
+                                {
+                                    !item.blocked ? <button className='crypto-status-btn csb-success clickablee' onClick={() => {
+                                      this.toggleBlockUser(item, true);
+                                    }}>Not Blocked</button> 
+                                    : <button className='crypto-status-btn csb-in-process clickablee' onClick={() => {
+                                      this.toggleBlockUser(item, false);
+                                    }}>Blocked</button>  
+                                }
+                                </td>
                 {/* <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>-</p></td> */}
 
               </tr>

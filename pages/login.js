@@ -76,14 +76,20 @@ export default class Home extends React.Component {
     }).then(response => {
       const data = response.data;
       // console.log(data.data.user);
-      const saveCookie = ServiceCookies.saveUserCookies({
-        ckuserid: data.data.user._id,
-        cktoken: data.data.token,
-        ckprivilege: data.data.user.privilegeLevel
-      })
-      if(saveCookie) {
-        window.location.replace(`/account`)
+      if(data.block) {
+        alert('User is banned');
+        return;
+      }else{
+        const saveCookie = ServiceCookies.saveUserCookies({
+          ckuserid: data.data.user._id,
+          cktoken: data.data.token,
+          ckprivilege: data.data.user.privilegeLevel
+        })
+        if(saveCookie) {
+          window.location.replace(`/account`)
+        }
       }
+      
     }).catch(e => {
       console.log(e);
       var _content = 'One or more fields are empty';
