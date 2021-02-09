@@ -127,10 +127,10 @@ export default class Home extends React.Component {
  
             <div className='clearfix'/>
           </div>
-        </div><br/><br/><br/>
-        {/* <p>Hola</p> */}
           <div className='clearfix'/>
         <Footer/>
+        </div><br/><br/><br/>
+        {/* <p>Hola</p> */}
         <style jsx>{`
                     .customOverlay {
                       background: rgba(36, 123, 160, 0.7);

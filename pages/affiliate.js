@@ -262,11 +262,11 @@ export default class Home extends React.Component {
                 translatorData={this.state.translatorData}
               />
           
+          <div className='clearfix'/>
+        <Footer/>
         </div>
         <br/>
         {/* <p>Hola</p> */}
-          <div className='clearfix'/>
-        <Footer/>
         <style jsx>{`
           .countdown{    font-weight: 900;
     font-size: 2em;

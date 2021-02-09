@@ -170,10 +170,10 @@ export default class Home extends React.Component {
             </div>
             <div className='clearfix'/>
           </div>
-        </div><br/>
-        {/* <p>Hola</p> */}
           <div className='clearfix'/>
         <Footer/>
+        </div><br/>
+        {/* <p>Hola</p> */}
         <style jsx>{`
                   label{
                     font-family:Nunito;
