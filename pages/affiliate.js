@@ -116,7 +116,7 @@ export default class Home extends React.Component {
 
   logout = () => {
     ServiceCookies.removeUserCookies();
-    window.location.replace('/');
+    window.location.replace('/cryptodeep/');
   }
 
   
@@ -138,7 +138,7 @@ export default class Home extends React.Component {
               width: '97%',
               marginBottom: '40px'
             }}>
-              <img className='crypto-icon crownSvg' src='images/cryptodeep_asset_6.png' style={{
+              <img className='crypto-icon crownSvg' src='/cryptodeep/images/cryptodeep_asset_6.png' style={{
                 marginTop: '0px'
               }} />
               <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_faucetbalance', this.state.currentLang, this.state.translatorData)}</p>
@@ -225,7 +225,7 @@ export default class Home extends React.Component {
           </div>
         <div className='bp-center-text'>
           <p style={{fontWeight: 700, fontSize: 32}}>{Translator.getStringTranslated('aff_programtitle', this.state.currentLang, this.state.translatorData)}</p>
-          <img className='affimagevv' src='images/aff_img.png' />
+          <img className='affimagevv' src='/cryptodeep/images/aff_img.png' />
         </div>
             
         <div className='bp-middle'>
@@ -505,7 +505,7 @@ input:checked + .slider:after {
                   }
                   .bp-h-bg {
   
-                    background-image: url("/images/texture_a.png");
+                    background-image: url("/cryptodeep/images/texture_a.png");
                     background-size: contain;
                     background-repeat: no-repeat;
                   }
@@ -652,7 +652,7 @@ input:checked + .slider:after {
                   }
   
                   .bp-crypto-pass {
-                    content:url('images/arrow_up.png');
+                    content:url('/cryptodeep/images/arrow_up.png');
                     width: 0.7em;
                     float: left;
                     margin-top: 7px;
@@ -660,7 +660,7 @@ input:checked + .slider:after {
                   }
   
                   .bp-crypto-pasf {
-                    content:url('images/arrow_down.png');
+                    content:url('/cryptodeep/images/arrow_down.png');
                     width: 0.7em;
                     float: left;
                     margin-top: 7px;

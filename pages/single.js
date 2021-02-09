@@ -64,7 +64,7 @@ export default class Home extends React.Component {
                 const urlParams = new URLSearchParams(queryString);
 
                 if(!urlParams.has('id')) {
-                    window.location.replace(`/reviews`)
+                    window.location.replace(`/cryptodeep/reviews`)
                     return;
                 }
                 var _idToFetch = urlParams.get('id'); 
@@ -75,7 +75,7 @@ export default class Home extends React.Component {
                     console.log(data);
                     if(data.data.items != null) {
                         if(data.data.items.filter(i => i._id == _idToFetch).length == 0) {
-                            window.location.replace(`/reviews`)
+                            window.location.replace(`/cryptodeep/reviews`)
                         }
 
                         var _itemX = data.data.items.filter(i => i._id == _idToFetch)[0];
@@ -128,7 +128,7 @@ export default class Home extends React.Component {
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
+        window.location.replace(`/cryptodeep/login`)
     }else{
       
       const _mTSZ = {
@@ -142,7 +142,7 @@ export default class Home extends React.Component {
       ServiceAuth.doreview(_mTSZ).then(response => {
         const data = response.data;
         console.log(data);
-        window.location.replace(`/single?id=${this.state.item._id}`);
+        window.location.replace(`/cryptodeep/single?id=${this.state.item._id}`);
       }).catch(e => {
         console.log(e);
         alert(Translator.getStringTranslated('sng_already', this.state.currentLang, this.state.translatorData));
@@ -627,7 +627,7 @@ export default class Home extends React.Component {
   
                   .bp-h-bg {
   
-                    background-image: url("/images/texture_a.png");
+                    background-image: url("/cryptodeep/images/texture_a.png");
                     background-size: contain;
                     background-repeat: no-repeat;
                   }

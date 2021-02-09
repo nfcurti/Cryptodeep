@@ -42,10 +42,10 @@ export default class Home extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-                window.location.replace(`/account`)
+                window.location.replace(`/cryptodeep/account`)
             }else{
               if(userCookies['ckpl'] != '999') {
-                window.location.replace(`/account`)
+                window.location.replace(`/cryptodeep/account`)
               }else{
                 ServiceAuth.getgeneralsettings({
                   "token": userCookies['cktoken']
@@ -130,7 +130,7 @@ export default class Home extends React.Component {
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
+        window.location.replace(`/cryptodeep/login`)
     }else{
       if(userCookies['ckpl'] != '999') { return; }
 
@@ -147,7 +147,7 @@ export default class Home extends React.Component {
         console.log(data);
         var _a = alert('Changes saved.');
         if(_a) {
-            window.location.replace('/admin/home');
+            window.location.replace('/cryptodeep/admin/home');
         }
       }).catch(e => {
         console.log(e);
@@ -209,7 +209,7 @@ export default class Home extends React.Component {
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
+        window.location.replace(`/cryptodeep/login`)
     }else{
       if(userCookies['ckpl'] != '999') { return; }
 
@@ -227,7 +227,7 @@ export default class Home extends React.Component {
         console.log(data);
         var _a = alert('Changes saved.');
         if(_a) {
-            window.location.replace('/admin/home');
+            window.location.replace('/cryptodeep/admin/home');
         }
       }).catch(e => {
         console.log(e);
@@ -408,7 +408,7 @@ export default class Home extends React.Component {
 
                 .bp-h-bg {
 
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }

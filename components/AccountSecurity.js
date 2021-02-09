@@ -24,7 +24,7 @@ export default class AccountSecurity extends React.Component {
       componentDidMount() {
         const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-                window.location.replace(`/login`)
+                window.location.replace(`/cryptodeep/login`)
             }else{
               ServiceAuth.getprofile({
                 "token": userCookies['cktoken']
@@ -57,13 +57,13 @@ export default class AccountSecurity extends React.Component {
     
      logout = () => {
         ServiceCookies.removeUserCookies();
-        window.location.replace('/');
+        window.location.replace('/cryptodeep/');
       }
 
       changeFaucetAlertPressed = () => {
         const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-                window.location.replace(`/login`)
+                window.location.replace(`/cryptodeep/login`)
             }else{
                 this.setState({logged: true});
     
@@ -73,7 +73,7 @@ export default class AccountSecurity extends React.Component {
                     const data = response.data;
                     console.log(data);
                     var _a = alert('Faucet Alert Sound changed.');
-                    window.location.replace(`/account`);
+                    window.location.replace(`/cryptodeep/account`);
                   }).catch(e => {
                     var _content = e.message;
                     console.log(e);
@@ -100,7 +100,7 @@ export default class AccountSecurity extends React.Component {
     
         const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-                window.location.replace(`/login`)
+                window.location.replace(`/cryptodeep/login`)
             }else{
                 this.setState({logged: true});
     
@@ -114,7 +114,7 @@ export default class AccountSecurity extends React.Component {
                     console.log(data);
                     var _a = alert('Email changed.');
                     if(_a) {
-                        window.location.replace(`/account`);
+                        window.location.replace(`/cryptodeep/account`);
                     }
                   }).catch(e => {
                     var _content = 'One or more fields are empty';
@@ -143,7 +143,7 @@ export default class AccountSecurity extends React.Component {
 
     const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-            window.location.replace(`/login`)
+            window.location.replace(`/cryptodeep/login`)
         }else{
             console.log({
                 "token": userCookies['cktoken'],
@@ -374,7 +374,7 @@ export default class AccountSecurity extends React.Component {
                 }
                 .bp-h-bg {
 
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }
@@ -511,7 +511,7 @@ export default class AccountSecurity extends React.Component {
                 }
 
                 .bp-crypto-pass {
-                  content:url('images/arrow_up.png');
+                  content:url('/cryptodeep/images/arrow_up.png');
                   width: 0.7em;
                   float: left;
                   margin-top: 7px;
@@ -519,7 +519,7 @@ export default class AccountSecurity extends React.Component {
                 }
 
                 .bp-crypto-pasf {
-                  content:url('images/arrow_down.png');
+                  content:url('/cryptodeep/images/arrow_down.png');
                   width: 0.7em;
                   float: left;
                   margin-top: 7px;

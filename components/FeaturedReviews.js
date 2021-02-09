@@ -21,7 +21,7 @@ export default class FeaturedReviews extends React.Component {
     render() {
         return this.props.item == null || this.props.reviews == null ? <p>Error</p> : (
             <div onClick={() => {
-                window.location.replace(`/single?id=${this.props.item._id}`);
+                window.location.replace(`/cryptodeep/single?id=${this.props.item._id}`);
                }} className="ffreview">
 
                <div className='ffrcont'
@@ -54,7 +54,7 @@ export default class FeaturedReviews extends React.Component {
                    this.props.featured ?
                     <>
                     <div onClick={() => {
-                   window.location.replace(`/single?id=${this.props.item._id}`);
+                   window.location.replace(`/cryptodeep/single?id=${this.props.item._id}`);
                }} className='ffrc ffrcleft'
                style={{
                    backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length == 0 ? 'red' : 'orange'
@@ -73,7 +73,7 @@ export default class FeaturedReviews extends React.Component {
 
                <>
                     <div onClick={() => {
-                   window.location.replace(`/single?id=${this.props.item._id}`);
+                   window.location.replace(`/cryptodeep/single?id=${this.props.item._id}`);
                }} className='ffrc ffrcleftx'
                style={{
                 backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length == 0 ? 'red' : 'orange'

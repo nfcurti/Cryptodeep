@@ -19,10 +19,10 @@ export default class Home extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
         }else{
             if(userCookies['ckpl'] != '999') {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
             }else{
                 ServiceAuth.getrevcategory({
                     "token": userCookies['cktoken']
@@ -52,7 +52,7 @@ export default class Home extends React.Component {
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
+        window.location.replace(`/cryptodeep/login`)
     }else{
       if(userCookies['ckpl'] != '999') { return; }
 
@@ -64,7 +64,7 @@ export default class Home extends React.Component {
       ServiceAuth.removerevcategory(_mTSZ).then(response => {
         const data = response.data;
         console.log(data);
-        window.location.replace('/admin/categories');
+        window.location.replace('/cryptodeep/admin/categories');
       }).catch(e => {
         console.log(e);
         alert('There was an error with the request. If you\'re filling Rich Text, please reduce your characters in order to avoid memory usage');
@@ -114,10 +114,10 @@ export default class Home extends React.Component {
                                   opacity: '1',
                                 }} src={`data:image/png;base64,${item.iconurlx}`}/></div></td>
                                 <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
-                    window.location.replace(`/admin/subcategories?id=${item._id}&name=${item.title}`);
+                    window.location.replace(`/cryptodeep/admin/subcategories?id=${item._id}&name=${item.title}`);
                 }} className='admin-actiob admin-actiob-reject'><p>Enter</p></button></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
-                    window.location.replace(`/admin/editcategory?id=${item._id}`)
+                    window.location.replace(`/cryptodeep/admin/editcategory?id=${item._id}`)
                 }} className='admin-actiob admin-actiob-validate'><p>Edit</p></button><br/><button onClick={() => {
                     this.removeReviewItem(item._id);
                 }} className='admin-actiob admin-actiob-reject'><p>Remove</p></button></td>
@@ -137,7 +137,7 @@ export default class Home extends React.Component {
                   value="Create"
                   type='submit'
                   onClick={() => {
-                    window.location.replace('/admin/newcategory');
+                    window.location.replace('/cryptodeep/admin/newcategory');
                   }}
                   className='loginSubmit '
                 />
@@ -235,7 +235,7 @@ export default class Home extends React.Component {
 
                 .bp-h-bg {
 
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }

@@ -48,7 +48,7 @@ export default class WithdrawPopup extends React.Component {
   playQuestion = (option) => {
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-        window.location.replace(`/account`)
+        window.location.replace(`/cryptodeep/account`)
     }else{
       const _mTSZ = {
         'token': userCookies['cktoken'],
@@ -89,7 +89,7 @@ export default class WithdrawPopup extends React.Component {
               this.state.item == null ? null :
               <>
 <p className='  qQuestion'>{this.state.item.title}</p>
-            <img src="images/robot_questions.png" width='100'/>
+            <img src="cryptodeep/images/robot_questions.png" width='100'/>
             <div onClick={() => this.playQuestion('A')} className='qChoice'>{this.state.item.optiona}</div>
             <div onClick={() => this.playQuestion('B')} className='qChoice'>{this.state.item.optionb}</div>
             <div onClick={() => this.playQuestion('C')} className='qChoice'>{this.state.item.optionc}</div>
@@ -340,7 +340,7 @@ input:checked + .slider:after {
                 }
                 .bp-h-bg {
  
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }
@@ -490,7 +490,7 @@ input:checked + .slider:after {
                 }
  
                 .bp-crypto-pass {
-                  content:url('images/arrow_up.png');
+                  content:url('/cryptodeep/images/arrow_up.png');
                   width: 0.7em;
                   float: left;
                   margin-top: 7px;
@@ -498,7 +498,7 @@ input:checked + .slider:after {
                 }
  
                 .bp-crypto-pasf {
-                  content:url('images/arrow_down.png');
+                  content:url('/cryptodeep/images/arrow_down.png');
                   width: 0.7em;
                   float: left;
                   margin-top: 7px;

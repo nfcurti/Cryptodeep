@@ -69,7 +69,7 @@ export default class AffiliateTable extends React.Component {
 
               }).catch(e => {
                 console.log(e);
-                alert(e);
+                // alert(e);
                 return;
               })
             };
@@ -288,7 +288,7 @@ export default class AffiliateTable extends React.Component {
                  }
                  .bp-h-bg {
  
-                   background-image: url("/images/texture_a.png");
+                   background-image: url("/cryptodeep/images/texture_a.png");
                    background-size: contain;
                    background-repeat: no-repeat;
                  }
@@ -435,7 +435,7 @@ export default class AffiliateTable extends React.Component {
                  }
  
                  .bp-crypto-pass {
-                   content:url('images/arrow_up.png');
+                   content:url('/cryptodeep/images/arrow_up.png');
                    width: 0.7em;
                    float: left;
                    margin-top: 7px;
@@ -443,7 +443,7 @@ export default class AffiliateTable extends React.Component {
                  }
  
                  .bp-crypto-pasf {
-                   content:url('images/arrow_down.png');
+                   content:url('/cryptodeep/images/arrow_down.png');
                    width: 0.7em;
                    float: left;
                    margin-top: 7px;

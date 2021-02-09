@@ -50,7 +50,7 @@ export default class Home extends React.Component {
     this._loadLang();
     const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] != null && userCookies['cktoken'] != null) {
-                window.location.replace(`/account`)
+                window.location.replace(`/cryptodeep/account`)
             };
 
             const queryString = window.location.search;
@@ -111,7 +111,7 @@ export default class Home extends React.Component {
         ckprivilege: data.data.user.privilegeLevel
       })
       if(saveCookie) {
-        window.location.replace(`/account`)
+        window.location.replace(`/cryptodeep/account`)
       }
     }).catch(e => {
       var _content = 'One or more fields are empty';
@@ -172,7 +172,7 @@ export default class Home extends React.Component {
 
 
             {/* </form> */}
-            <p className='loginSignup'><a href="/login">{Translator.getStringTranslated('login_loginlink', this.state.currentLang, this.state.translatorData)}</a></p>
+            <p className='loginSignup'><a href="/cryptodeep/login">{Translator.getStringTranslated('login_loginlink', this.state.currentLang, this.state.translatorData)}</a></p>
           </div>
           <div className='clearfix'/>
         </div>
@@ -267,7 +267,7 @@ export default class Home extends React.Component {
 
                 .bp-h-bg {
 
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }

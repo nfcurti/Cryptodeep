@@ -19,10 +19,10 @@ export default class Home extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
         }else{
             if(userCookies['ckpl'] != '999') {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
             }else{
                 ServiceAuth.getaffcontesthistory({
                     "token": userCookies['cktoken']
@@ -101,7 +101,7 @@ export default class Home extends React.Component {
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.year}</p></td>
                 <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><p>{item.weeknum}</p></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
-                    window.location.replace(`/admin/editaffcontest?id=${item._id}`)
+                    window.location.replace(`/cryptodeep/admin/editaffcontest?id=${item._id}`)
                 }} className='admin-actiob admin-actiob-validate'><p>Edit</p></button></td>
 
 
@@ -208,7 +208,7 @@ export default class Home extends React.Component {
 
                 .bp-h-bg {
 
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }

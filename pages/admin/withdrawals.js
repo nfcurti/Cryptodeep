@@ -20,10 +20,10 @@ export default class Home extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
         }else{
             if(userCookies['ckpl'] != '999') {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
             }else{
               const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
@@ -68,10 +68,10 @@ export default class Home extends React.Component {
   _acceptWithdraw = (id) => {
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-        window.location.replace(`/account`)
+        window.location.replace(`/cryptodeep/account`)
     }else{
         if(userCookies['ckpl'] != '999') {
-        window.location.replace(`/account`)
+        window.location.replace(`/cryptodeep/account`)
         }else{
             ServiceAuth.acceptwithdraw({
                 "token": userCookies['cktoken'],
@@ -93,10 +93,10 @@ export default class Home extends React.Component {
   _validateWithdraw = (id) => {
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-        window.location.replace(`/account`)
+        window.location.replace(`/cryptodeep/account`)
     }else{
         if(userCookies['ckpl'] != '999') {
-        window.location.replace(`/account`)
+        window.location.replace(`/cryptodeep/account`)
         }else{
             ServiceAuth.validatewithdraw({
                 "token": userCookies['cktoken'],
@@ -126,10 +126,10 @@ export default class Home extends React.Component {
 _rejectWithdraw = (id) => {
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-        window.location.replace(`/account`)
+        window.location.replace(`/cryptodeep/account`)
     }else{
         if(userCookies['ckpl'] != '999') {
-        window.location.replace(`/account`)
+        window.location.replace(`/cryptodeep/account`)
         }else{
             ServiceAuth.rejectwithdraw({
                 "token": userCookies['cktoken'],
@@ -320,7 +320,7 @@ _rejectWithdraw = (id) => {
 
                 .bp-h-bg {
 
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }

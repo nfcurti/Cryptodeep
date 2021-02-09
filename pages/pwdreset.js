@@ -72,7 +72,7 @@ export default class Home extends React.Component {
       // console.log(data);
       const alertAcc = alert('We\'ve sent you an email to recover your password')
       if(alertAcc) {
-        window.location.replace(`/`)
+        window.location.replace(`/cryptodeep/`)
       }
     }).catch(e => {
       var _content = 'One or more fields are empty';
@@ -113,8 +113,8 @@ export default class Home extends React.Component {
   
   
               {/* </form> */}
-              <p className='loginSignup'><a href="/signup">{Translator.getStringTranslated('login_signuplink', this.state.currentLang, this.state.translatorData)}</a></p>
-              <p className='loginSignup'><a href="/login">{Translator.getStringTranslated('login_loginlink', this.state.currentLang, this.state.translatorData)}</a></p>
+              <p className='loginSignup'><a href="/cryptodeep/signup">{Translator.getStringTranslated('login_signuplink', this.state.currentLang, this.state.translatorData)}</a></p>
+              <p className='loginSignup'><a href="/cryptodeep/login">{Translator.getStringTranslated('login_loginlink', this.state.currentLang, this.state.translatorData)}</a></p>
             </div>
             <div className='clearfix'/>
           </div>
@@ -196,7 +196,7 @@ export default class Home extends React.Component {
   
                   .bp-h-bg {
   
-                    background-image: url("/images/texture_a.png");
+                    background-image: url("/cryptodeep/images/texture_a.png");
                     background-size: contain;
                     background-repeat: no-repeat;
                   }

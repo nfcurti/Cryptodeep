@@ -21,10 +21,10 @@ export default class Home extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
         }else{
             if(userCookies['ckpl'] != '999') {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
             }else{
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
@@ -67,7 +67,7 @@ export default class Home extends React.Component {
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
+        window.location.replace(`/cryptodeep/login`)
     }else{
       if(userCookies['ckpl'] != '999') { return; }
 
@@ -128,7 +128,7 @@ export default class Home extends React.Component {
                                   opacity: '1',
                                 }} src={`data:image/png;base64,${item.iconurlx}`}/></div></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
-                    window.location.replace(`/admin/editsubcategory?id=${item._id}`)
+                    window.location.replace(`/cryptodeep/admin/editsubcategory?id=${item._id}`)
                 }} className='admin-actiob admin-actiob-validate'><p>Edit</p></button><br/><button onClick={() => {
                     this.removeReviewItem(item._id);
                 }} className='admin-actiob admin-actiob-reject'><p>Remove</p></button></td>
@@ -148,7 +148,7 @@ export default class Home extends React.Component {
                   value="Create"
                   type='submit'
                   onClick={() => {
-                    window.location.replace(`/admin/newsubcategory?parentcategoryid=${this.state.parentid}`);
+                    window.location.replace(`/cryptodeep/admin/newsubcategory?parentcategoryid=${this.state.parentid}`);
                   }}
                   className='loginSubmit '
                 />
@@ -246,7 +246,7 @@ export default class Home extends React.Component {
 
                 .bp-h-bg {
 
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }

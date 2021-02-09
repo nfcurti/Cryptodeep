@@ -130,7 +130,7 @@ export default class WithdrawPopup extends React.Component {
                   <select disabled name="currency" id="currency" className='selectCrypto predictShow' >
                       <option value="faucetQty">{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.props.currentLang, this.props.translatorData)}</option>
                     </select>
-                    <img className='wallet-svg ximg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'images/cryptodeep_asset_6.png'} />
+                    <img className='wallet-svg ximg' style={{width:'1.2em', padding:'8px 35px', opacity:'1'}} src={'/cryptodeep/images/cryptodeep_asset_6.png'} />
                     
                     <div className="toggle-container">
 
@@ -145,14 +145,14 @@ export default class WithdrawPopup extends React.Component {
                     <p className='lastresult'>{this.state.lastresult}</p>
                 </div>
                 <div style={{float:'left'}} className="wheelContainer">
-                  <img src='images/gamble_layer0.png' className='wheel-base'/>
+                  <img src='/cryptodeep/images/gamble_layer0.png' className='wheel-base'/>
                   {
                     this.state.mediumRisk ?
-                    <img src={`images/gamble_layer1_medium.png`} className={`wheel-medium ${this.state.done ? (this.state.won ? 'wheelWin' : 'wheelLose') : ''}  ${this.state.playing ? 'shouldspin' : ''}`}/>
+                    <img src={`/cryptodeep/images/gamble_layer1_medium.png`} className={`wheel-medium ${this.state.done ? (this.state.won ? 'wheelWin' : 'wheelLose') : ''}  ${this.state.playing ? 'shouldspin' : ''}`}/>
                     :
-                    <img src={`images/gamble_layer1_hard.png`} className={`wheel-medium ${this.state.done ? (this.state.won ? 'wheelWin' : 'wheelLose') : ''} ${this.state.playing ? 'shouldspin' : ''}`}/>
+                    <img src={`/cryptodeep/images/gamble_layer1_hard.png`} className={`wheel-medium ${this.state.done ? (this.state.won ? 'wheelWin' : 'wheelLose') : ''} ${this.state.playing ? 'shouldspin' : ''}`}/>
                   }
-                  <img src='images/gamble_layer2.png' className='wheel-top'/>
+                  <img src='/cryptodeep/images/gamble_layer2.png' className='wheel-top'/>
                 </div>
             </div>
             <PaginatedList
@@ -420,7 +420,7 @@ export default class WithdrawPopup extends React.Component {
                 }
                 .bp-h-bg {
  
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }
@@ -570,7 +570,7 @@ export default class WithdrawPopup extends React.Component {
                 }
  
                 .bp-crypto-pass {
-                  content:url('images/arrow_up.png');
+                  content:url('/cryptodeep/images/arrow_up.png');
                   width: 0.7em;
                   float: left;
                   margin-top: 7px;
@@ -578,7 +578,7 @@ export default class WithdrawPopup extends React.Component {
                 }
  
                 .bp-crypto-pasf {
-                  content:url('images/arrow_down.png');
+                  content:url('/cryptodeep/images/arrow_down.png');
                   width: 0.7em;
                   float: left;
                   margin-top: 7px;

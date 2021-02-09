@@ -227,7 +227,7 @@ export default class Home extends React.Component {
     })
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
+        window.location.replace(`/cryptodeep/login`)
     }else{
       ServiceAuth.doexecutefaucet({
         "token": userCookies['cktoken'],
@@ -297,7 +297,7 @@ export default class Home extends React.Component {
             <div className='bp-middle-left-sub bp-blueshadow' style={{
               width: '97%'
             }}>
-              <img className='crypto-icon crownSvg' src='images/cryptodeep_asset_6.png' style={{
+              <img className='crypto-icon crownSvg' src='/cryptodeep/images/cryptodeep_asset_6.png' style={{
                 marginTop: '0px'
               }} />
               <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_faucetbalance', this.state.currentLang, this.state.translatorData)}</p>
@@ -380,7 +380,7 @@ export default class Home extends React.Component {
                   gamblegameShow: true
                 })
               }} style={{
-                backgroundImage: 'url(\'/images/buttonbgb.png\')'
+                backgroundImage: 'url(\'/cryptodeep/images/buttonbgb.png\')'
               }}><a style={{
               }} id='rolla'>{Translator.getStringTranslated('global_gamble', this.state.currentLang, this.state.translatorData)}</a></button></div>
               <Modal  open={this.state.predictgameShow} onClose={() => {
@@ -415,13 +415,13 @@ export default class Home extends React.Component {
             
             
             <div className='bp-middle-left-sub bp-blueshadow'>
-              <img className='crypto-icon crownSvg' src={'images/robot_withdraw.png'} />
+              <img className='crypto-icon crownSvg' src={'/cryptodeep/images/robot_withdraw.png'} />
               <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_wallet', this.state.currentLang, this.state.translatorData)}</p>
     <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userwallet} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</h1>
             </div>
             <div className='bp-middle-left-sub bp-blueshadow'>
               
-              <span className='crypto-icon crownSvg' style={{backgroundImage: 'url("/images/robot_trophy.png")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '50px', height: '60px', border: 'none' }} />
+              <span className='crypto-icon crownSvg' style={{backgroundImage: 'url("/cryptodeep/images/robot_trophy.png")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '50px', height: '60px', border: 'none' }} />
               <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</p>
               <span className='crypto-icon' style={{position: 'absolute', marginLeft: '90px', marginTop: '-30px', backgroundImage: 'url("/images/robot_trophy.png")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '50px', height: '60px', border: 'none' }} />
     <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.sv_jackpot * this.state.usdperpoint} USD</h1>
@@ -431,7 +431,7 @@ export default class Home extends React.Component {
             <div className='bp-middle-left-sub bp-blueshadow' style={{}}>
             <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline_1.png\')',
+                  backgroundImage: 'url(\'/cryptodeep/images/jackpotline_1.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -449,7 +449,7 @@ export default class Home extends React.Component {
             <div className='over_robot_h'/>
                 <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline_2.png\')',
+                  backgroundImage: 'url(\'/cryptodeep/images/jackpotline_2.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -463,7 +463,7 @@ export default class Home extends React.Component {
                 </div>
                 <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline_3.png\')',
+                  backgroundImage: 'url(\'/cryptodeep/images/jackpotline_3.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -477,7 +477,7 @@ export default class Home extends React.Component {
                 </div>
                 <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline_4.png\')',
+                  backgroundImage: 'url(\'/cryptodeep/images/jackpotline_4.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -491,7 +491,7 @@ export default class Home extends React.Component {
                 </div>
                 <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline_5.png\')',
+                  backgroundImage: 'url(\'/cryptodeep/images/jackpotline_5.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -505,7 +505,7 @@ export default class Home extends React.Component {
                 </div>
                 <div className='lotteryRangeN'>
                 <table style={{
-                  backgroundImage: 'url(\'images/jackpotline_6.png\')',
+                  backgroundImage: 'url(\'/cryptodeep/images/jackpotline_6.png\')',
                   backgroundSize: '100% 50px',
                   backgroundRepeat: 'no-repeat',
                   margin: '0px',
@@ -738,7 +738,7 @@ export default class Home extends React.Component {
                   }
                   .bp-h-bg {
   
-                    background-image: url("/images/texture_a.png");
+                    background-image: url("/cryptodeep/images/texture_a.png");
                     background-size: contain;
                     background-repeat: no-repeat;
                   }
@@ -920,7 +920,7 @@ export default class Home extends React.Component {
                   }
   
                   .bp-crypto-pass {
-                    content:url('images/arrow_up.png');
+                    content:url('/cryptodeep/images/arrow_up.png');
                     width: 0.7em;
                     float: left;
                     margin-top: 7px;
@@ -928,7 +928,7 @@ export default class Home extends React.Component {
                   }
   
                   .bp-crypto-pasf {
-                    content:url('images/arrow_down.png');
+                    content:url('/cryptodeep/images/arrow_down.png');
                     width: 0.7em;
                     float: left;
                     margin-top: 7px;

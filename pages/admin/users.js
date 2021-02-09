@@ -19,10 +19,10 @@ export default class Home extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
         }else{
             if(userCookies['ckpl'] != '999') {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
             }else{
                 ServiceAuth.getusers({
                     "token": userCookies['cktoken']
@@ -48,10 +48,10 @@ export default class Home extends React.Component {
   toggleBlockUser = (user, blocked) => {
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-        window.location.replace(`/account`)
+        window.location.replace(`/cryptodeep/account`)
     }else{
         if(userCookies['ckpl'] != '999') {
-        window.location.replace(`/account`)
+        window.location.replace(`/cryptodeep/account`)
         }else{
           var _mTSZ = {
             'token': userCookies['cktoken'],
@@ -109,7 +109,7 @@ export default class Home extends React.Component {
                                         <tr className='admin-bodytr' key={id}>
                                           
                 <td style={{width: '5em'}}><p className="numbering">{this.state.users.indexOf(item) + 1}</p></td>
-                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><a href={`/admin/user?id=${item._id}`}><p style={{color: 'orange'}}>{item.username}</p></a></td>
+                <td style={{width: '15em', textAlign:'left',letterSpacing:'2px'}}><a href={`/cryptodeep/admin/user?id=${item._id}`}><p style={{color: 'orange'}}>{item.username}</p></a></td>
                 <td style={{width: '20em', textAlign:'left',letterSpacing:'2px'}}><p>{item.email}</p></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.created_at.substring(0, 10)}</p></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><p>{item.points}</p></td>
@@ -230,7 +230,7 @@ export default class Home extends React.Component {
 
                 .bp-h-bg {
 
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }

@@ -47,7 +47,7 @@ export default class Home extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] != null && userCookies['cktoken'] != null) {
-                window.location.replace(`/account`)
+                window.location.replace(`/cryptodeep/account`)
             };
             this._loadLang();
   }
@@ -86,7 +86,7 @@ export default class Home extends React.Component {
           ckprivilege: data.data.user.privilegeLevel
         })
         if(saveCookie) {
-          window.location.replace(`/account`)
+          window.location.replace(`/cryptodeep/account`)
         }
       }
       
@@ -132,8 +132,8 @@ export default class Home extends React.Component {
   
   
               {/* </form> */}
-              <p className='loginSignup'><a href="/signup">{Translator.getStringTranslated('login_signuplink', this.state.currentLang, this.state.translatorData)}</a></p>
-              <p className='loginSignup'><a href="/pwdreset">{Translator.getStringTranslated('login_forgotpsswlink', this.state.currentLang, this.state.translatorData)}</a></p>
+              <p className='loginSignup'><a href="/cryptodeep/signup">{Translator.getStringTranslated('login_signuplink', this.state.currentLang, this.state.translatorData)}</a></p>
+              <p className='loginSignup'><a href="/cryptodeep/pwdreset">{Translator.getStringTranslated('login_forgotpsswlink', this.state.currentLang, this.state.translatorData)}</a></p>
             </div>
             <div className='clearfix'/>
           </div>
@@ -232,7 +232,7 @@ export default class Home extends React.Component {
   
                   .bp-h-bg {
   
-                    background-image: url("/images/texture_a.png");
+                    background-image: url("/cryptodeep/images/texture_a.png");
                     background-size: contain;
                     background-repeat: no-repeat;
                   }

@@ -7,7 +7,7 @@ export default class Footer extends React.Component {
            <div className='clearfix'/>
             <a href='https://twitter.com/CryptoDeep2'><p style={{
                 textAlign: 'center'
-            }}><img className='footerimg' role="img" src='/images/Twitter-icon.png' />
+            }}><img className='footerimg' role="img" src='/cryptodeep/images/Twitter-icon.png' />
             </p></a>
           <div className='clearfix'/>
           <style jsx>{`

@@ -19,10 +19,10 @@ export default class Home extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
         }else{
             if(userCookies['ckpl'] != '999') {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
             }else{
                 ServiceAuth.getgamequestions({
                     "token": userCookies['cktoken']
@@ -48,7 +48,7 @@ export default class Home extends React.Component {
   editEnabled = (id, targetEnabled) => {
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
+        window.location.replace(`/cryptodeep/login`)
     }else{
       if(userCookies['ckpl'] != '999') { return; }
       
@@ -61,7 +61,7 @@ export default class Home extends React.Component {
       ServiceAuth.editgamequestion(_mTSZ).then(response => {
         const data = response.data;
         console.log(data);
-        window.location.replace('/admin/gamequestions');
+        window.location.replace('/cryptodeep/admin/gamequestions');
       }).catch(e => {
         console.log(e);
         alert('There was an error with the request.');
@@ -77,7 +77,7 @@ export default class Home extends React.Component {
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
+        window.location.replace(`/cryptodeep/login`)
     }else{
       if(userCookies['ckpl'] != '999') { return; }
 
@@ -89,7 +89,7 @@ export default class Home extends React.Component {
       ServiceAuth.removegamequestion(_mTSZ).then(response => {
         const data = response.data;
         console.log(data);
-        window.location.replace('/admin/gamequestions');
+        window.location.replace('/cryptodeep/admin/gamequestions');
       }).catch(e => {
         console.log(e);
         alert('There was an error with the request.');
@@ -145,7 +145,7 @@ export default class Home extends React.Component {
                     this.editEnabled(item._id, !item.enabled);
                 }} className={`admin-actiob ${item.enabled ? "admin-actiob-validate" : "admin-actiob-reject"}`}><p>{item.enabled ? 'Enabled' : 'False'}</p></button></td>
                 <td style={{width: '10em', textAlign:'left',letterSpacing:'2px'}}><button onClick={() => {
-                    window.location.replace(`/admin/editgamequestion?id=${item._id}`)
+                    window.location.replace(`/cryptodeep/admin/editgamequestion?id=${item._id}`)
                 }} className='admin-actiob admin-actiob-validate'><p>Edit</p></button><br/><button onClick={() => {
                     this.removeReviewItem(item._id);
                 }} className='admin-actiob admin-actiob-reject'><p>Remove</p></button></td>
@@ -165,7 +165,7 @@ export default class Home extends React.Component {
                   value="Create"
                   type='submit'
                   onClick={() => {
-                    window.location.replace('/admin/newgamequestion');
+                    window.location.replace('/cryptodeep/admin/newgamequestion');
                   }}
                   className='loginSubmit '
                 />
@@ -263,7 +263,7 @@ export default class Home extends React.Component {
 
                 .bp-h-bg {
 
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }

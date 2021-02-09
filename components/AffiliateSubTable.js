@@ -38,7 +38,7 @@ export default class AffiliateSubTable extends React.Component {
             <div style={{width:'80%',margin:'auto'}}>
               <div className='inputhold'>
               {/* https://registry.screencraft.org/wp-content/uploads/sites/3/2015/06/placeholder-image-250.png */}
-                <img className='banner' src={'images/imageFN_1.png' } style={{width: '250px',height: '250px', position: 'inherit',margin: 'auto'}} />
+                <img className='banner' src={'/cryptodeep/images/imageFN_1.png' } style={{width: '250px',height: '250px', position: 'inherit',margin: 'auto'}} />
                 <label style={{    display: 'block',fontSize: '1em',marginBottom: '3em'}}>250 x 250 px - Static PNG</label>
               </div>
               <div className='inputhold'>
@@ -218,7 +218,7 @@ export default class AffiliateSubTable extends React.Component {
                  }
                  .bp-h-bg {
  
-                   background-image: url("/images/texture_a.png");
+                   background-image: url("/cryptodeep/images/texture_a.png");
                    background-size: contain;
                    background-repeat: no-repeat;
                  }
@@ -365,7 +365,7 @@ export default class AffiliateSubTable extends React.Component {
                  }
  
                  .bp-crypto-pass {
-                   content:url('images/arrow_up.png');
+                   content:url('/cryptodeep/images/arrow_up.png');
                    width: 0.7em;
                    float: left;
                    margin-top: 7px;
@@ -373,7 +373,7 @@ export default class AffiliateSubTable extends React.Component {
                  }
  
                  .bp-crypto-pasf {
-                   content:url('images/arrow_down.png');
+                   content:url('/cryptodeep/images/arrow_down.png');
                    width: 0.7em;
                    float: left;
                    margin-top: 7px;

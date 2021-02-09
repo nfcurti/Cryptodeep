@@ -37,10 +37,10 @@ export default class Home extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
             if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-                window.location.replace(`/account`)
+                window.location.replace(`/cryptodeep/account`)
             }else{
               if(userCookies['ckpl'] != '999') {
-                window.location.replace(`/account`)
+                window.location.replace(`/cryptodeep/account`)
               }else{
                 ServiceAuth.gamesettings({
                   "token": userCookies['cktoken']
@@ -94,7 +94,7 @@ export default class Home extends React.Component {
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
+        window.location.replace(`/cryptodeep/login`)
     }else{
       if(userCookies['ckpl'] != '999') { return; }
 
@@ -112,7 +112,7 @@ export default class Home extends React.Component {
         console.log(data);
         var _a = alert('Changes saved.');
         if(_a) {
-            window.location.replace('/admin/game');
+            window.location.replace('/cryptodeep/admin/game');
         }
       }).catch(e => {
         console.log(e);
@@ -156,7 +156,7 @@ export default class Home extends React.Component {
                   value="Manage Questions"
                   type='submit'
                   onClick={() => {
-                    window.location.replace('/admin/gamequestions')
+                    window.location.replace('/cryptodeep/admin/gamequestions')
                   }}
                   className='loginSubmit '
                 />
@@ -181,7 +181,7 @@ export default class Home extends React.Component {
                   value="Manage Points"
                   type='submit'
                   onClick={() => {
-                    window.location.replace('/admin/affcontest')
+                    window.location.replace('/cryptodeep/admin/affcontest')
                   }}
                   className='loginSubmit '
                 />
@@ -315,7 +315,7 @@ export default class Home extends React.Component {
 
                 .bp-h-bg {
 
-                  background-image: url("/images/texture_a.png");
+                  background-image: url("/cryptodeep/images/texture_a.png");
                   background-size: contain;
                   background-repeat: no-repeat;
                 }

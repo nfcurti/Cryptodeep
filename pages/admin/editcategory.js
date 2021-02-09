@@ -38,10 +38,10 @@ export default class Home extends React.Component {
   componentDidMount() {
     const userCookies = ServiceCookies.getUserCookies();
         if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
         }else{
             if(userCookies['ckpl'] != '999') {
-            window.location.replace(`/account`)
+            window.location.replace(`/cryptodeep/account`)
             }else{
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
@@ -57,7 +57,7 @@ export default class Home extends React.Component {
                     console.log(data);
                     if(data.data.items != null) {
                         if(data.data.items.filter(i => i._id == _idToFetch).length == 0) {
-                            window.location.replace(`/admin/categories`)
+                            window.location.replace(`/cryptodeep/admin/categories`)
                         }
 
                         var _itemX = data.data.items.filter(i => i._id == _idToFetch)[0];
@@ -110,7 +110,7 @@ export default class Home extends React.Component {
 
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
-        window.location.replace(`/login`)
+        window.location.replace(`/cryptodeep/login`)
     }else{
       if(userCookies['ckpl'] != '999') { return; }
       
@@ -125,7 +125,7 @@ export default class Home extends React.Component {
       ServiceAuth.editrevcategory(_mTSZ).then(response => {
         const data = response.data;
         console.log(data);
-        window.location.replace('/admin/categories');
+        window.location.replace('/cryptodeep/admin/categories');
       }).catch(e => {
         console.log(e);
         alert('There was an error with the request.');
@@ -210,7 +210,7 @@ export default class Home extends React.Component {
                   value="Back"
                   type='submit'
                   onClick={() => {
-                    window.location.replace('/admin/categories');
+                    window.location.replace('/cryptodeep/admin/categories');
                   }}
                   className='loginSubmit '
                 />
@@ -318,7 +318,7 @@ export default class Home extends React.Component {
             
                             .bp-h-bg {
             
-                              background-image: url("/images/texture_a.png");
+                              background-image: url("/cryptodeep/images/texture_a.png");
                               background-size: contain;
                               background-repeat: no-repeat;
                             }

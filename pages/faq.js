@@ -298,7 +298,7 @@ export default class Home extends React.Component {
  
                   .bp-h-bg {
  
-                    background-image: url("/images/texture_a.png");
+                    background-image: url("/cryptodeep/images/texture_a.png");
                     background-size: contain;
                     background-repeat: no-repeat;
                   }

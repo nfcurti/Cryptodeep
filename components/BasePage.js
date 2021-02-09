@@ -54,7 +54,7 @@ export default class BasePage extends React.Component {
     _pressFTR = () => {
     const userCookies = ServiceCookies.getUserCookies();
     if(userCookies['ckuserid'] == null && userCookies['cktoken'] == null) {
-      window.location.replace('/account');  
+      window.location.replace('/cryptodeep/account');  
     }else{
         ServiceAuth.playfindtherobot({
             "token": userCookies['cktoken']
@@ -144,7 +144,7 @@ export default class BasePage extends React.Component {
         return (
             <div className={`basepage ${this.props.bgc ? 'bgc' : ''}`}>
                 <div className='bp-header'>
-               <a href='/'><div style={{cursor: 'pointer'}} className='bp-logo'></div></a> 
+               <a href='/cryptodeep/'><div style={{cursor: 'pointer'}} className='bp-logo'></div></a> 
                 <nav id='menu'>
   <input type='checkbox' id='responsive-menu'/><label></label>
   <ul>
@@ -194,15 +194,15 @@ export default class BasePage extends React.Component {
 </div>
 </li>
     {
-        this.state.logged ? <li><div className='bp-cbutton'><a href='/account'>{Translator.getStringTranslated('menu_myaccount', this.props.currentLang, this.props.translatorData)}</a></div></li> :
-        <li><div className='bp-cbutton'><a href='/login'>{Translator.getStringTranslated('menu_getstarted', this.props.currentLang, this.props.translatorData)}</a></div></li>
+        this.state.logged ? <li><div className='bp-cbutton'><a href='/cryptodeep/account'>{Translator.getStringTranslated('menu_myaccount', this.props.currentLang, this.props.translatorData)}</a></div></li> :
+        <li><div className='bp-cbutton'><a href='/cryptodeep/login'>{Translator.getStringTranslated('menu_getstarted', this.props.currentLang, this.props.translatorData)}</a></div></li>
     }
     
     
-    <li><div className='bp-cbutton'><a href='/faq'>{Translator.getStringTranslated('menu_faq', this.props.currentLang, this.props.translatorData)}</a></div></li>
-    <li><div className='bp-cbutton'><a href='/affiliate'>{Translator.getStringTranslated('menu_affiliate', this.props.currentLang, this.props.translatorData)}</a></div></li>
-    <li><div className='bp-cbutton'><a href='/reviews'>{Translator.getStringTranslated('menu_reviews', this.props.currentLang, this.props.translatorData)}</a></div></li>
-    <li><div className='bp-cbutton'><a href='/'>{Translator.getStringTranslated('menu_faucet', this.props.currentLang, this.props.translatorData)}</a></div></li>
+    <li><div className='bp-cbutton'><a href='/cryptodeep/faq'>{Translator.getStringTranslated('menu_faq', this.props.currentLang, this.props.translatorData)}</a></div></li>
+    <li><div className='bp-cbutton'><a href='/cryptodeep/affiliate'>{Translator.getStringTranslated('menu_affiliate', this.props.currentLang, this.props.translatorData)}</a></div></li>
+    <li><div className='bp-cbutton'><a href='/cryptodeep/reviews'>{Translator.getStringTranslated('menu_reviews', this.props.currentLang, this.props.translatorData)}</a></div></li>
+    <li><div className='bp-cbutton'><a href='/cryptodeep/'>{Translator.getStringTranslated('menu_faucet', this.props.currentLang, this.props.translatorData)}</a></div></li>
   <li><div className='bp-spacer'></div></li>
   {/* <li><div className='bp-menu-item'></div></li> */}
   </ul>
@@ -214,7 +214,7 @@ export default class BasePage extends React.Component {
             questionGameShow: true
         })
     }} className="questions-pu">
-    <img src="images/robot_questions.png" width='100'/>
+    <img src="cryptodeep/images/robot_questions.png" width='100'/>
     <h4 className='withdrawTitle'>{Translator.getStringTranslated('qst_popup', this.props.currentLang, this.props.translatorData)}</h4>
     
     </div>
@@ -224,7 +224,7 @@ export default class BasePage extends React.Component {
     this.state.displayFTR && (this.props.ftr != null) ? (this.props.ftr == this.state.ftrPosition ? <div onClick={() => {
         this._pressFTR();
     }} className={`findtherobot-pos-${this.state.ftrPosition}`}>
-    <img src="images/robot_findtherobot.png" width='100'/>
+    <img src="cryptodeep/images/robot_findtherobot.png" width='100'/>
     </div> : null) : null
 }
 
