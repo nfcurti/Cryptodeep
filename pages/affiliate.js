@@ -152,7 +152,7 @@ export default class Home extends React.Component {
             }}>
             <p className='withdrawTitle ' style={{fontSize:'1.5em'}}>{Translator.getStringTranslated('affc_title', this.state.currentLang, this.state.translatorData)} </p>
             
-            <h4 className='withdrawTitle' style={{fontSize:'2em'}}>{Translator.getStringTranslated('affc_leaderboard', this.state.currentLang, this.state.translatorData)}</h4>
+            <h4 className='withdrawTitle' style={{fontSize:'2em', }}>{Translator.getStringTranslated('affc_leaderboard', this.state.currentLang, this.state.translatorData)}</h4>
             <div className='countdown' >
               {
                 this.state.date == null ? null : <Countdown className='countdown' date={this.state.date} />
@@ -231,12 +231,14 @@ export default class Home extends React.Component {
         <div className='bp-middle'>
           <div className='bp-middle-over'>
 
-            <div className='bp-middle-all bp-blueshadow affiliateProgram' style={{padding:"3em"}}>
-              <p style={{textAlign:'initial',width:'80%',marginTop:"1em",fontSize:"1.2em"}}>{Translator.getStringTranslated('aff_offer', this.state.currentLang, this.state.translatorData)}</p>
+            <div className='bp-middle-all bp-blueshadow affiliateProgram' style={{
+              width: '96%'
+            }}>
+              <p style={{textAlign:'center',width:'100%',marginTop:"1em",fontSize:"1.2em",}}>{Translator.getStringTranslated('aff_offer', this.state.currentLang, this.state.translatorData)}</p>
               
-               <div style={{width:'80%'}}>
+               <div style={{width:'100%'}}>
                 <div style={{float:'left', textAlign:'left',fontSize:"1.1em",marginTop:"3em"}}>
-                <h1 className='withdrawTitle' style={{color: 'orange', textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_howitworks', this.state.currentLang, this.state.translatorData)}</h1>
+                <h1 className='withdrawTitle' style={{color: '#61E667', textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_howitworks', this.state.currentLang, this.state.translatorData)}</h1>
                   <p>{Translator.getStringTranslated('aff_hiw_intro', this.state.currentLang, this.state.translatorData)}</p>
                   <br />
                   <p>{Translator.getStringTranslated('aff_hiw_1', this.state.currentLang, this.state.translatorData)}</p><br />
@@ -245,7 +247,7 @@ export default class Home extends React.Component {
                 </div>
               </div>
               <div className='withdrawalForm' style={{float:'left', textAlign:'left',fontSize:"1.1em"}}>
-                  <h1 className='withdrawTitle' style={{color: 'orange', textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_rules', this.state.currentLang, this.state.translatorData)}</h1>
+                  <h1 className='withdrawTitle' style={{color: '#61E667', textTransform: 'uppercase'}}>{Translator.getStringTranslated('aff_rules', this.state.currentLang, this.state.translatorData)}</h1>
                   <p>{Translator.getStringTranslated('aff_rule_1', this.state.currentLang, this.state.translatorData)}</p>
                   <br />
                   <p>{Translator.getStringTranslated('aff_rule_2', this.state.currentLang, this.state.translatorData)}</p><br />
@@ -270,9 +272,9 @@ export default class Home extends React.Component {
         <style jsx>{`
           .countdown{    font-weight: 900;
     font-size: 2em;
-    color: #DC8614;
+    color: #61E667;
     letter-spacing: 5px;margin-top:-0.5em;margin-bottom:1em}
-          .contestContainer{height: 27em;
+          .contestContainer{
     overflow: auto;}
           .toggle-container {
     position: relative;
@@ -366,7 +368,7 @@ input:checked + .slider:after {
                     margin-left:0.4em;
                   }
                   .withdrawalForm{
-                    width: 80%;
+                    width: 100%;
                     margin: auto;
                   }
                   .withdrawalForm p{
@@ -512,7 +514,6 @@ input:checked + .slider:after {
                   .bp-middle {
                       margin: 0px;
                       width: 100%;
-                      height: 400px;
                   }
   
                   .bp-middle-over {
@@ -527,9 +528,8 @@ input:checked + .slider:after {
                     margin-right: 12%;
                     margin-top: 30px;
                     margin-bottom: 30px;
-                    width: 90%;
+                    width: 94%;
                     float: left;
-                    height: 440px;
                     padding: 0 14px;
   
                     font-family: 'Nunito';
@@ -541,7 +541,7 @@ input:checked + .slider:after {
                   .bp-center-text {
                     text-align: center;
                     margin: 0px auto;
-                    width: 92%;
+                    width: 96%;
                     float: left;
                     padding: 10px 14px;
   
@@ -585,10 +585,14 @@ input:checked + .slider:after {
                     font-weight: 700;
                     font-size: 14px;
                   }
+
+                  .affiliateprogram {
+                    margin-left: 25px;
+                  }
   
                   @media screen and (max-width: 800px){
                     .banner{width: 85% !important}
-                    .affiliateProgram{width: 73%!important;}
+                    .affiliateProgram{width: 90%!important;}
                     .affiliateProgram p{}
                     .rightEarning{width: fit-content;float: inherit!important;margin-right: 0em!important;}
                     .selectCrypto{
@@ -607,9 +611,6 @@ input:checked + .slider:after {
                     .bp-middle-left, .bp-middle-left-sub {
                       width: 90%;
                     }
-                    .security{
-                    height:50em !important
-                  }
   
                   .divider{
                     display:none

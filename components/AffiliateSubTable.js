@@ -27,18 +27,22 @@ export default class AffiliateSubTable extends React.Component {
     render() {
         return !this.state.logged ? null : (
             <>
-            <div className='bp-center-text'>
-        <p style={{fontWeight: 700, fontSize: 16}}>{Translator.getStringTranslated('aff_referralbanner', this.props.currentLang, this.props.translatorData)}</p>
+            <div className='bp-center-text' style={{
+              width:'96%'
+            }}>
+        <p style={{fontWeight: 700, fontSize: 26}}>{Translator.getStringTranslated('aff_referralbanner', this.props.currentLang, this.props.translatorData)}</p>
       </div>
           
       <div className='bp-middle'>
         <div className='bp-middle-over'>
         
-          <div className='bp-middle-all bp-blueshadow affiliateProgram' style={{padding:"3em"}}>
+          <div className='bp-middle-all bp-blueshadow affiliateProgram' style={{
+            width: '96%'
+          }}>
             <div style={{width:'80%',margin:'auto'}}>
               <div className='inputhold'>
               {/* https://registry.screencraft.org/wp-content/uploads/sites/3/2015/06/placeholder-image-250.png */}
-                <img className='banner' src={'/cryptodeep/images/imageFN_1.png' } style={{width: '250px',height: '250px', position: 'inherit',margin: 'auto'}} />
+                <img className='banner' src={'/cryptodeep/images/imageFN_1.png' } style={{width: '350px',height: '250px', position: 'inherit',margin: 'auto'}} />
                 <label style={{    display: 'block',fontSize: '1em',marginBottom: '3em'}}>250 x 250 px - Static PNG</label>
               </div>
               <div className='inputhold'>
@@ -240,7 +244,7 @@ export default class AffiliateSubTable extends React.Component {
                    margin-right: 12%;
                    margin-top: 30px;
                    margin-bottom: 30px;
-                   width: 90%;
+                   width: 94%;
                    float: left;
                    height: 440px;
                    padding: 0 14px;
@@ -301,7 +305,7 @@ export default class AffiliateSubTable extends React.Component {
  
                  @media screen and (max-width: 800px){
                    .banner{width: 85% !important}
-                   .affiliateProgram{width: 73%!important;}
+                   .affiliateProgram{width: 90%!important;}
                    .affiliateProgram p{}
                    .rightEarning{width: fit-content;float: inherit!important;margin-right: 0em!important;}
                    .selectCrypto{

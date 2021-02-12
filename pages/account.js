@@ -106,6 +106,7 @@ export default class Home extends React.Component {
           <div className='bp-middle-over'>
           <div className='bp-middle-left-sub bp-blueshadow' style={{
               width: '90%',
+              marginLeft: '25px',
               marginBottom: '40px'
             }}>
               <img className='crypto-icon crownSvg' src='/cryptodeep/images/cryptodeep_asset_6.png' style={{
@@ -120,7 +121,10 @@ export default class Home extends React.Component {
 
           <img onClick={() => this.logout()} style={{"pointer-events": "all"}} alt="Logout" className='loutButton img' src={'/cryptodeep/images/logout.svg'} />
                
-            <div className='bp-middle-left bp-blueshadow main'>
+            <div className='bp-middle-left bp-blueshadow main' style={{
+
+marginLeft: '25px',
+            }}>
   
             <div className='over_robot_e'/>
             <br/><p className='bp-title'>{Translator.getStringTranslated('global_wallet', this.state.currentLang, this.state.translatorData)}</p>
@@ -152,7 +156,7 @@ export default class Home extends React.Component {
                 translatorData={this.state.translatorData}
               />
             </Modal>
-        <AccountSecurity 
+        <AccountSecurity
           currentLang={this.state.currentLang}
           translatorData={this.state.translatorData}
         />
@@ -162,7 +166,8 @@ export default class Home extends React.Component {
             
         <div className='bp-middle'>
           <div className='bp-middle-over'>
-            <div className='bp-middle-all bp-blueshadow' style={{overflowX: 'auto'}}>
+            <div className='bp-middle-all bp-blueshadow' style={{overflowX: 'auto', 
+          marginLeft: '25px',}}>
               <WithdrawalTable
                 currentLang={this.state.currentLang}
                 translatorData={this.state.translatorData}

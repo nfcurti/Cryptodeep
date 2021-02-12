@@ -454,9 +454,10 @@ a {
 	background-image: url('/cryptodeep/images/robot_faq.png');
 	background-size: contain;
 	background-repeat: no-repeat;
-	right: 5%;
-	width: 14em;
+	left: 5%;
+	width: 24em;
 	height: 15em;
+	margin-top: -200px;
 }
 
 .over_robot_c {
@@ -474,9 +475,9 @@ a {
 	background-image: url('/cryptodeep/images/robot_settings.png');
 	background-size: contain;
 	background-repeat: no-repeat;
-	left: 5%;
-	width: 20em;
-	height: 20em;
+	left: 3%;
+	width: 25em;
+	height: 25em;
 }
 
 .over_robot_e {
@@ -484,7 +485,7 @@ a {
 	background-image: url('/cryptodeep/images/robot_withdraw.png');
 	background-size: contain;
 	background-repeat: no-repeat;
-	left: 0%;
+	right: 0%;
 	margin-bottom: 40px;
 	width: 20em;
 	height: 20em;
@@ -525,8 +526,8 @@ a {
 
 @media screen and (max-width: 800px){
 	.over_robot_b {
-		right: 0%;
-		width: 8em;
+		left: 0%;
+		width: 12em;
 	}
 
 	.over_robot_c {

@@ -177,10 +177,15 @@ export default class AccountSecurity extends React.Component {
     render() {
         return (
             <div className='bp-middle-over security'>
-          <div className='bp-middle-left bp-blueshadow security'>
+          <div className='bp-middle-left bp-blueshadow security' style={{
+
+          marginLeft: '25px',
+          }}>
 
           <div className='over_robot_d'/>
-          <br/><p className='bp-title'>{Translator.getStringTranslated('acc_security', this.props.currentLang, this.props.translatorData)}</p>
+          <br/><p className='bp-title' style={{
+            fontSize: '22px'
+          }}>{Translator.getStringTranslated('acc_security', this.props.currentLang, this.props.translatorData)}</p>
           <p>{Translator.getStringTranslated('acc_securitysub', this.props.currentLang, this.props.translatorData)}</p>
           <br/><br/><br/>
           <div className='bp-security'>
@@ -203,12 +208,18 @@ export default class AccountSecurity extends React.Component {
                   onClick={() => this.changeEmailPressed()}
                   type='submit'
                   className='loginSubmit submitSecurity'
+                  style={{
+                    backgroundColor: 'purple'
+                  }}
                 />
                 <input
                   value={`${Translator.getStringTranslated('acc_savefaucetalert', this.props.currentLang, this.props.translatorData)} (${this.state.faucetAlertSound ? Translator.getStringTranslated('global_on', this.props.currentLang, this.props.translatorData) : Translator.getStringTranslated('global_off', this.props.currentLang, this.props.translatorData)})`}
                   onClick={() => this.changeFaucetAlertPressed()}
                   type='submit'
                   className='loginSubmit submitSecurity'
+                  style={{
+                    backgroundColor: 'purple'
+                  }}
                 />
             {/* </form> */}
             
@@ -236,6 +247,9 @@ export default class AccountSecurity extends React.Component {
                   type='submit'
                   onClick={() => this.changePasswordPressed()}
                   className='loginSubmit submitSecurity'
+                  style={{
+                    backgroundColor: 'purple'
+                  }}
                 />
                 <input
                   value={Translator.getStringTranslated('acc_logout', this.props.currentLang, this.props.translatorData)}

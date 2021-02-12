@@ -80,7 +80,7 @@ export default class AffiliateTable extends React.Component {
             <div className='bp-middle-left bp-blueshadow main'>
 
             <div className='over_robot_c'/>
-        <br/><p className='bp-title' style={{float: 'left', fontSize: '18px', textAlign:'start',padding:'1em',color:'#DC8614', fontWeight:"bold"}}>{Translator.getStringTranslated('aff_yourreflink', this.props.currentLang, this.props.translatorData)} <span style={{color:'#ffffff80',fontWeight:"500"}}>https://cryptodeep.com/signup?ref={this.state.userid} </span></p>
+        <br/><p className='bp-title' style={{float: 'left', fontSize: '22px', textAlign:'start',padding:'1em',color:'#61E667', fontWeight:"bold"}}>{Translator.getStringTranslated('aff_yourreflink', this.props.currentLang, this.props.translatorData)} <span style={{color:'#ffffff80',fontWeight:"500"}}>https://cryptodeep.com/signup?ref={this.state.userid} </span></p>
         <div onClick={() => {
           navigator.clipboard.writeText(`https://cryptodeep.com/signup?ref=${this.state.userid}`)
           alert('Copied to clipboard!')
@@ -310,7 +310,7 @@ export default class AffiliateTable extends React.Component {
                    margin-right: 12%;
                    margin-top: 30px;
                    margin-bottom: 30px;
-                   width: 90%;
+                   width: 96%;
                    float: left;
                    height: 440px;
                    padding: 0 14px;
@@ -370,8 +370,8 @@ export default class AffiliateTable extends React.Component {
                  }
  
                  @media screen and (max-width: 800px){
-                   .banner{width: 85% !important}
-                   .affiliateProgram{width: 73%!important;}
+                   .banner{width: 90% !important}
+                   .affiliateProgram{width: 90%!important;}
                    .affiliateProgram p{}
                    .rightEarning{width: fit-content;float: inherit!important;margin-right: 0em!important;}
                    .selectCrypto{
@@ -388,7 +388,7 @@ export default class AffiliateTable extends React.Component {
                      display:none
                    }
                    .bp-middle-left, .bp-middle-left-sub {
-                     width: 90%;
+                     width: 96%;
                    }
                    .security{
                    height:50em !important
