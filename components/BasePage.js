@@ -224,7 +224,7 @@ export default class BasePage extends React.Component {
     this.state.displayFTR && (this.props.ftr != null) ? (this.props.ftr == this.state.ftrPosition ? <div onClick={() => {
         this._pressFTR();
     }} className={`findtherobot-pos-${this.state.ftrPosition}`}>
-    <img src="cryptodeep/images/robot_findtherobot.png" width='100'/>
+    <img src="/cryptodeep/images/robot_findtherobot.png" width='100'/>
     </div> : null) : null
 }
 
@@ -261,10 +261,6 @@ export default class BasePage extends React.Component {
                 .bp-spacer {
                     width: 40px;
                     height: 10px;
-                }
-
-                .bp-cbutton p{
-                    background-color: yellow;
                 }
             `}</style>
             </div>

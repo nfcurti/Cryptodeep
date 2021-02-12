@@ -295,25 +295,33 @@ export default class Home extends React.Component {
              
             </div>
             <div className='bp-middle-left-sub bp-blueshadow' style={{
-              width: '97%'
+              width: '94%',
+              marginLeft: '25px'
             }}>
-              <img className='crypto-icon crownSvg' src='/cryptodeep/images/cryptodeep_asset_6.png' style={{
+              <img className='crypto-icon crownSvg' src='/cryptodeep/images/robot_withdraw.png' style={{
                 marginTop: '0px'
               }} />
-              <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_faucetbalance', this.state.currentLang, this.state.translatorData)}</p>
+              <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_wallet', this.state.currentLang, this.state.translatorData)}</p>
               
-    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.state.currentLang, this.state.translatorData)}</h1>
+    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userwallet} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</h1>
             </div>
 
             <div className='clearfix'/>
 
             <div className='bp-middle-left bp-blueshadow'>
-            
+            <div className='bp-middle-left-sub bp-blueshadow xxx-fin1' style={{
+              
+              boxShadow: 'none'
+            }}>
+              <img className='crypto-icon crownSvg' src={'/cryptodeep/images/cryptodeep_asset_6.png'} />
+              <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_faucetbalance', this.state.currentLang, this.state.translatorData)}</p>
+    <h1 style={{marginBottom:-10,marginTop:8, color:'#FFBF00'}}>{this.state.userfaucetbalance} {Translator.getStringTranslated('global_faucetscount', this.state.currentLang, this.state.translatorData)}</h1>
+            </div><div className='clearfix'/>
             <br/>
             <div className='over_robot_f'/>
             <br/><p className='bp-title'>{Translator.getStringTranslated('fct_myfaucet', this.state.currentLang, this.state.translatorData)}</p>
             <p style={{
-              fontSize: '12px'
+              fontSize: '14px'
             }}>{Translator.getStringTranslated('fct_youcanroll', this.state.currentLang, this.state.translatorData).replace('%val%', this.state.sv_faucetdelay)}</p>
             <div 
               id='rdm'
@@ -380,7 +388,9 @@ export default class Home extends React.Component {
                   gamblegameShow: true
                 })
               }} style={{
-                backgroundImage: 'url(\'/cryptodeep/images/buttonbgb.png\')'
+                backgroundSize: '0',
+                backgroundColor: 'purple'
+                // backgroundImage: 'url(\'/cryptodeep/images/buttonbgb.png\')'
               }}><a style={{
               }} id='rolla'>{Translator.getStringTranslated('global_gamble', this.state.currentLang, this.state.translatorData)}</a></button></div>
               <Modal  open={this.state.predictgameShow} onClose={() => {
@@ -414,11 +424,7 @@ export default class Home extends React.Component {
             </div>
             
             
-            <div className='bp-middle-left-sub bp-blueshadow'>
-              <img className='crypto-icon crownSvg' src={'/cryptodeep/images/robot_withdraw.png'} />
-              <p style={{marginTop:-2, textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_wallet', this.state.currentLang, this.state.translatorData)}</p>
-    <h1 style={{marginBottom:-10,marginTop:-8, color:'#FFBF00'}}>{this.state.userwallet} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</h1>
-            </div>
+            
             <div className='bp-middle-left-sub bp-blueshadow'>
               
               <span className='crypto-icon crownSvg' style={{backgroundImage: 'url("/cryptodeep/images/robot_trophy.png")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', width: '50px', height: '60px', border: 'none' }} />
@@ -438,10 +444,11 @@ export default class Home extends React.Component {
                   width: '100%'
                 }}>
                   <tbody><tr>
-                  <td style={{width: '8em', marginLeft: '40px'}}><p className="numbering">1</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px', fontWeight: 'bold', fontSize: '14px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 0 - 999,500</p></td>
+                <td style={{width: '1em'}}><div style={{color: 'purple', padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{this.state.sv_roll_a} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{width: '8em'}}><p className="numbering">1</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'1px', fontWeight: 'bold', fontSize: '14px'}}><p className='jackpot-fix'>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 0 - 999,500</p></td>
   
-                  <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{this.state.sv_roll_a} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  
                 </tr></tbody>
   
                 </table>
@@ -455,10 +462,10 @@ export default class Home extends React.Component {
                   margin: '0px',
                   width: '100%'
                 }}><tbody> <tr>
+                <td style={{width:'1em'}}><div style={{color: 'purple',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{this.state.sv_roll_b} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                   <td style={{width: '5em'}}><p className="numbering">2</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px', fontWeight: 'bold', fontSize: '14px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,501 - 999,700</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'1px', fontWeight: 'bold', fontSize: '14px'}}><p className='jackpot-fix'>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,501 - 999,700</p></td>
   
-                  <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{this.state.sv_roll_b} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
                 <div className='lotteryRangeN'>
@@ -469,10 +476,11 @@ export default class Home extends React.Component {
                   margin: '0px',
                   width: '100%'
                 }}><tbody><tr>
+                  <td style={{width:'1em'}}><div style={{color: 'purple',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{this.state.sv_roll_c} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                   <td style={{width: '5em'}}><p className="numbering">3</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px', fontWeight: 'bold', fontSize: '14px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,701 - 999,850</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'1px', fontWeight: 'bold', fontSize: '14px'}}><p className='jackpot-fix'>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,701 - 999,850</p></td>
   
-                  <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{this.state.sv_roll_c} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  
                 </tr></tbody></table>
                 </div>
                 <div className='lotteryRangeN'>
@@ -483,10 +491,11 @@ export default class Home extends React.Component {
                   margin: '0px',
                   width: '100%'
                 }}><tbody><tr>
+                  <td style={{width:'1em'}}><div style={{color: 'purple',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{this.state.sv_roll_d} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                   <td style={{width: '5em'}}><p className="numbering">4</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px', fontWeight: 'bold', fontSize: '14px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,851 - 999,920</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'1px', fontWeight: 'bold', fontSize: '14px'}}><p className='jackpot-fix'>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,851 - 999,920</p></td>
   
-                  <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{this.state.sv_roll_d} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
+                  
                 </tr></tbody></table>
                 </div>
                 <div className='lotteryRangeN'>
@@ -497,10 +506,10 @@ export default class Home extends React.Component {
                   margin: '0px',
                   width: '100%'
                 }}><tbody><tr>
+                <td style={{width:'1em'}}><div style={{color: 'purple',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{this.state.sv_roll_e} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                   <td style={{width: '5em'}}><p className="numbering">5</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px', fontWeight: 'bold', fontSize: '14px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,921 - 999,998</p></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'1px', fontWeight: 'bold', fontSize: '14px'}}><p className='jackpot-fix'>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,921 - 999,998</p></td>
   
-                  <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{this.state.sv_roll_e} {Translator.getStringTranslated('global_points', this.state.currentLang, this.state.translatorData)}</div></td>
                 </tr></tbody></table>
                 </div>
                 <div className='lotteryRangeN'>
@@ -511,10 +520,10 @@ export default class Home extends React.Component {
                   margin: '0px',
                   width: '100%'
                 }}><tbody><tr>
-                  <td style={{width: '5em'}}><p className="numbering" style={{opacity: '0'}}>6</p></td>
-                  <td style={{width: '25em', textAlign:'left',letterSpacing:'2px', fontWeight: 'bold', fontSize: '14px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,999</p></td>
-  
-                  <td style={{paddingRight:'1em'}}><div style={{color: 'green', backgroundColor:'rgba(255,255,255,0.4)',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</div></td>
+                   <td style={{width:'1em'}}><div style={{color: 'purple',padding:'0.2em',borderRadius:'0.4em', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '14px', letterSpacing: '10px', marginLeft: '20px'}}>{Translator.getStringTranslated('global_jackpot', this.state.currentLang, this.state.translatorData)}</div></td>
+                  <td style={{width: '25em', textAlign:'left',letterSpacing:'1px', fontWeight: 'bold', fontSize: '14px'}}><p>{Translator.getStringTranslated('global_roll', this.state.currentLang, this.state.translatorData)} 999,999</p></td>
+                <td/>
+                 
                 </tr></tbody></table>
                 </div>
             </div>
@@ -542,13 +551,15 @@ export default class Home extends React.Component {
           
         </div>
         <div className='bp-center-text'>
-        <p style={{fontWeight: 700, fontSize: 16}}>{Translator.getStringTranslated('fct_history', this.state.currentLang, this.state.translatorData)}</p>
+        <p style={{fontWeight: 700, fontSize: 22}}>{Translator.getStringTranslated('fct_history', this.state.currentLang, this.state.translatorData)}</p>
         </div>
             
         <div className='bp-middle'>
           <div className='bp-middle-over'>
             
-            <div className='bp-middle-all bp-blueshadow'>
+            <div className='bp-middle-all bp-blueshadow xxx-fin2' style={{
+              
+            }}>
 
                 <PaginatedList 
                   list={this.state.faucets}
@@ -677,14 +688,14 @@ export default class Home extends React.Component {
                     border: none;
                   }
                   .numbering{
-                    color: green; 
-                    background-color:rgba(255,255,255,0.4);
+                    color: #61E667; 
+                    background-color: purple;
                     font-weight:800;
                     width: 1.5em;
                     margin: auto;
                     padding: 0.4em;
                     border-radius: 50%;
-                    margin-left: 110px;
+                    margin-left: 60px;
                     margin-right: 10px;
                         }
                   .cryptoMarquee{
@@ -695,6 +706,7 @@ export default class Home extends React.Component {
                     height: 60px;
                     width: 100%;
                   }
+
                   .lotteryRange1{
                     font-weight:600;
                     height:4em;
@@ -744,6 +756,7 @@ export default class Home extends React.Component {
                   }
                   .bp-middle {
                       margin: 0px;
+                      margin-left:
                       width: 100%;
                       height: 400px;
                   }
@@ -756,14 +769,15 @@ export default class Home extends React.Component {
                     margin: 0px;
                   }
                   .bp-middle-left {
+                    margin-left: 25px;
+                    margin-right: 10%;
                     text-align: center;
-                    margin-right: 12%;
                     margin-top: 30px;
                     margin-bottom: 30px;
                     width: 38%;
                     float: left;
                     padding: 0 14px;
-                    padding-bottom: 30px;
+                    padding-bottom: 100px;
   
                     font-family: 'Nunito';
                     color: #FFFFFF;
@@ -774,7 +788,8 @@ export default class Home extends React.Component {
                   .bp-center-text {
                     text-align: center;
                     margin: 0px auto;
-                    width: 92%;
+                    width: 96%;
+                    margin-left: 25px;
                     float: left;
                     padding: 10px 14px;
   
@@ -787,7 +802,7 @@ export default class Home extends React.Component {
                   .bp-middle-all {
                     text-align: center;
                     margin-bottom: 30px;
-                    width: 90%;
+                    width: 94%;
                     float: left;
                     padding: 10px 14px;
                     padding-bottom: 30px;
@@ -829,10 +844,26 @@ export default class Home extends React.Component {
                   .bp-title {
                     padding: 6px 0px;
                     font-weight: 700;
-                    font-size: 14px;
+                    font-size: 18px;
+                  }
+
+                  .xxx-fin1 {
+                    margin-left: 30%;
+                  }
+
+                  .xxx-fin2 {
+                    margin-left: 25px;
                   }
   
                   @media screen and (max-width: 800px){
+                    .xxx-fin1 {
+                      margin-left: 20px;
+                    }
+
+                    .xxx-fin2 {
+                      margin-left: 0px;
+                    }
+
                     .stars-review{
                       left: 0;
                       right: 0;
@@ -888,6 +919,16 @@ export default class Home extends React.Component {
                     .bp-middle-left, .bp-middle-left-sub {
                       width: 90%;
                     }
+
+                      .numbering{
+                        margin-left: 40px;
+                        margin-bottom: 20px;
+                      }
+
+                      .jackpot-fix {
+                        margin-top: 4px;
+                      }
+                    
                   }
   
                   .bp-blueshadow {

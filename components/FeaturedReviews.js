@@ -22,8 +22,8 @@ export default class FeaturedReviews extends React.Component {
         return this.props.item == null || this.props.reviews == null ? <p>Error</p> : (
             <div onClick={() => {
                 window.location.replace(`/cryptodeep/single?id=${this.props.item._id}`);
-               }} className="ffreview">
-
+               }} className={`ffreview`}>
+                <div className={` ${this.props.featured ? 'featuredList' : ''}`} />
                <div className='ffrcont'
                >
                    <div className='ffrinfo'>
@@ -51,24 +51,24 @@ export default class FeaturedReviews extends React.Component {
                </div>
 
                {
-                   this.props.featured ?
-                    <>
-                    <div onClick={() => {
-                   window.location.replace(`/cryptodeep/single?id=${this.props.item._id}`);
-               }} className='ffrc ffrcleft'
-               style={{
-                   backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length == 0 ? 'red' : 'orange'
-               }}
-               >
-                   <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_review', this.props.currentLang, this.props.translatorData)}</p>
-               </div>
-               <div onClick={() => {
-                   const tab = window.open(this.props.item.siteurl, '_blank');
-               }} className='ffrc ffrcright'
-               >
-                   <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_site', this.props.currentLang, this.props.translatorData)}</p>
-               </div>
-               </> : 
+            //        this.props.featured ?
+            //         <>
+            //         <div onClick={() => {
+            //        window.location.replace(`/cryptodeep/single?id=${this.props.item._id}`);
+            //    }} className='ffrc ffrcleft'
+            //    style={{
+            //        backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length == 0 ? 'red' : 'orange'
+            //    }}
+            //    >
+            //        <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_review', this.props.currentLang, this.props.translatorData)}</p>
+            //    </div>
+            //    <div onClick={() => {
+            //        const tab = window.open(this.props.item.siteurl, '_blank');
+            //    }} className='ffrc ffrcright'
+            //    >
+            //        <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_site', this.props.currentLang, this.props.translatorData)}</p>
+            //    </div>
+            //    </> : 
                
 
                <>
@@ -76,7 +76,7 @@ export default class FeaturedReviews extends React.Component {
                    window.location.replace(`/cryptodeep/single?id=${this.props.item._id}`);
                }} className='ffrc ffrcleftx'
                style={{
-                backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length == 0 ? 'red' : 'orange'
+                backgroundColor: this.props.reviews.filter(r => r.reviewid == this.props.item.uniqueid).length == 0 ? 'purple' : 'orange'
             }}
                >
                    <p className='ffrctext' style={{textTransform: 'uppercase'}}>{Translator.getStringTranslated('global_review', this.props.currentLang, this.props.translatorData)}</p>
