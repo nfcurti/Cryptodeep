@@ -811,7 +811,7 @@ a {
   }
 
   .innerhtmlx {
-	  color: #252540;
+	  color: white;
 	  font-size: 20px;
 
 	  a {
@@ -825,13 +825,15 @@ a {
 
   .innerhtmlxpros {
 	  font-size: 22px;
+	  color: white;
 	ul {
 		list-style: none;
 	}
 	
 	li {
 		position: relative;
-		line-height: 40px;
+		line-height: 45px;
+		margin-bottom: 20px;
 	}
 	li:before {
 		/*
@@ -854,13 +856,16 @@ a {
 
   .innerhtmlxcons  {
 	font-size: 22px;
+	color: white;
+
 	ul {
 		list-style: none;
 	}
 	
 	li {
 		position: relative;
-		line-height: 40px;
+		line-height: 45px;
+		margin-bottom: 20px;
 	}
 	li:before {
 		/*
@@ -1106,7 +1111,7 @@ a {
 }
 
 .bgc {
-	background-color: white;
+	background-color: #34334E;
 }
 
 
@@ -1280,3 +1285,17 @@ details {
 		  background-color: rgba(255, 166, 0, 0.3);
 	  }
   }
+
+  .greenline {
+	  width: 3px;
+	  margin-top: 10px;
+	  margin-left: 8px;
+	  height: 100px;
+	  background-color: #61E667;
+  }
+
+  .redline {
+	width: 100px;
+	height: 10px;
+	background-color: red;
+}

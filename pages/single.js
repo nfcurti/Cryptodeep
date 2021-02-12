@@ -156,7 +156,7 @@ export default class Home extends React.Component {
       <BasePage
         currentLang={this.state.currentLang}
         translatorData={this.state.translatorData}
-        bgc={'white'}
+        bgc={'#34334E'}
       >
         {
           this.state.item == null ? null :
@@ -172,7 +172,7 @@ export default class Home extends React.Component {
         style={{
           width: '100%',
           height: '60px',
-          backgroundColor: 'white'
+          backgroundColor: '#34334E'
         }}
       />
       <div
@@ -191,20 +191,33 @@ export default class Home extends React.Component {
           margin: 'auto',
           marginTop: '5%',
           height: '80%',
-          display: 'block'
+          display: 'block',
         }} src={`data:image/png;base64,${this.state.item.iconurl}`}/>
+        
       </div>
       <p style={{
         fontWeight: 'bold',
         color: 'orange',
-        position: 'absolute',
-        left: '430px',
-        top: '100px',
+        margin: '0px',
+        marginLeft: '10%',
+        marginBottom: '20px',
         fontSize: '36px',
         fontFamily: 'Nunito'
       }}>
         {this.state.item.title} ({this.state.item.score}<img style={{height:"30px", marginTop: '2px'}}src={'https://upload.wikimedia.org/wikipedia/commons/a/a3/Orange_star.svg'} />)
       </p>
+      <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'-40px', fontFamily: 'Nunito', marginLeft: '10%'}}>
+          <span style={{marginTop: '20px',fontSize: '30px', marginRight:'0.2em',fontWeight:'bold', color: 'white'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length})</span>
+          <ReactStars
+              count={5}
+              size={50}
+              value={this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length}
+              edit={false}
+              isHalf={true}
+              activeColor="#ffd700"
+            />
+        </div>
+        <div className='clearfix'/>
       <div style={{
         color: '#1E1D32',
         marginLeft: '5%',
@@ -214,31 +227,15 @@ export default class Home extends React.Component {
       }}>
          <a href={this.state.item.siteurl}><input onClick={() => {
 
-         }} type='submit' style={{textAlign:"right", textTransform: 'uppercase'}} value={Translator.getStringTranslated('sng_visit', this.state.currentLang, this.state.translatorData)} /></a>
+         }} type='submit' style={{textAlign:"right", textTransform: 'uppercase', backgroundColor: 'purple', color: '#61E667', fontWeight: '800', borderRadius: '4px', fontSize: '14px'}} value={Translator.getStringTranslated('sng_visit', this.state.currentLang, this.state.translatorData)} /></a>
           <input onClick={() => {
             window.scrollTo(0,document.body.scrollHeight);
-}} type='submit' style={{marginLeft: '20px', textAlign:"right", textTransform: 'uppercase'}} value={Translator.getStringTranslated('sng_leavereview', this.state.currentLang, this.state.translatorData)} />
+}} type='submit' style={{marginLeft: '20px', textAlign:"right", textTransform: 'uppercase', backgroundColor: 'purple', color: 'white', fontWeight: '700', borderRadius: '4px'}} value={Translator.getStringTranslated('sng_leavereview', this.state.currentLang, this.state.translatorData)} />
 
-      <br/>
-
-      <h2 style={{
-        fontSize: '36px'
-      }}>{Translator.getStringTranslated('srv_overallrating', this.state.currentLang, this.state.translatorData)}</h2>
       
-      <div style={{display:'flex',width:"fit-content",float:'left',marginTop:'-40px'}}>
-                    <span style={{marginTop: '20px',fontSize: '30px', marginRight:'0.2em',fontWeight:'bold', color: 'black'}}>{this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length} ({this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length == 0 ? '-' : this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length})</span>
-                   <ReactStars
-                       count={5}
-                       size={50}
-                       value={this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).reduce((acc, r) => acc+r.scoregiven, 0) / this.state.reviews.filter(r => r.reviewid == this.state.item.uniqueid).length}
-                       edit={false}
-                       isHalf={true}
-                       activeColor="#ffd700"
-                     />
-                  </div>
-                  <br/>
       <h2 style={{
-        fontSize: '36px'
+        fontSize: '36px',
+        color: '#61E667'
       }}>{Translator.getStringTranslated('global_description', this.state.currentLang, this.state.translatorData)}</h2>
       {
               this.state.item.description == ''
@@ -261,18 +258,21 @@ export default class Home extends React.Component {
                 float: 'left',
                 width: '200px',
                 border: '2px solid #252540',
-                paddingLeft: '20px',
+                // paddingLeft: '20px',
                 lineHeight: 'null',
                 paddingTop: '10px',
                 paddingBottom: '4px',
-                borderTopLeftRadius: '10px',
-                borderTopRightRadius: '10px',
-                backgroundColor: this.state.showingpros ? 'orange' : 'white'
+                borderTopLeftRadius: '5px',
+                borderTopRightRadius: '5px',
+                backgroundColor: !this.state.showingpros ? 'purple' : 'white',
+                color: !this.state.showingpros ? '#61E667' : 'purple'
               }}
             >
             <h2 style={{
-        fontSize: '36px',
-        margin: '0px'
+        fontSize: '30px',
+        textTransform: 'uppercase',
+        margin: '0px',
+        textAlign: 'center',
       }}>{Translator.getStringTranslated('sng_pros', this.state.currentLang, this.state.translatorData)}</h2>
       
             </div>
@@ -287,18 +287,21 @@ export default class Home extends React.Component {
                 float: 'left',
                 width: '200px',
                 border: '2px solid #252540',
-                paddingLeft: '20px',
+                // paddingLeft: '20px',
                 lineHeight: 'null',
                 paddingTop: '10px',
                 paddingBottom: '4px',
-                borderTopLeftRadius: '10px',
-                borderTopRightRadius: '10px',
-                backgroundColor: !this.state.showingpros ? 'orange' : 'white'
+                borderTopLeftRadius: '5px',
+                borderTopRightRadius: '5px',
+                backgroundColor: this.state.showingpros ? 'purple' : 'white',
+                color: this.state.showingpros ? '#61E667' : 'purple'
               }}
             >
             <h2 style={{
-        fontSize: '36px',
-        margin: '0px'
+        fontSize: '30px',
+        textTransform: 'uppercase',
+        margin: '0px',
+        textAlign: 'center'
       }}>{Translator.getStringTranslated('sng_cons', this.state.currentLang, this.state.translatorData)}</h2>
       
             </div>
@@ -306,7 +309,7 @@ export default class Home extends React.Component {
             <div
               style={{
                 width: '100%',
-                border: '2px solid #252540',
+                borderRadius: '4px',
                 paddingLeft: '20px',
               }}
             >
@@ -316,6 +319,13 @@ export default class Home extends React.Component {
               ? null :
               <div
               className='innerhtmlxpros'
+              style={{
+                backgroundImage: 'url("images/bg_green.png")',
+                backgroundSize: '3px 85%',
+                backgroundPositionX: '9px',
+                backgroundPositionY: '20px',
+                backgroundRepeat: 'no-repeat'
+              }}
               dangerouslySetInnerHTML={{
                 __html: this.state.item.pros
               }}></div>
@@ -324,6 +334,14 @@ export default class Home extends React.Component {
               ? null :
               <div
               className='innerhtmlxcons'
+              style={{
+
+                backgroundImage: 'url("images/bg_red.png")',
+                backgroundSize: '3px 85%',
+                backgroundPositionX: '9px',
+                backgroundPositionY: '20px',
+                backgroundRepeat: 'no-repeat'
+              }}
               dangerouslySetInnerHTML={{
                 __html: this.state.item.cons
               }}></div>
@@ -344,16 +362,20 @@ export default class Home extends React.Component {
         <div className='bp-middle-over bgc'>
         <h2 style={{
         fontSize: '36px',
-        color: '#252540',
+        color: '#61E667',
         textAlign: 'left',
         fontFamily: 'Nunito',
         marginLeft: '5%'
       }}>{Translator.getStringTranslated('sng_latestreviews', this.state.currentLang, this.state.translatorData)}</h2>
        
             <div className='bp-middle-all bp-blueshadow latest_rev bgc' style={{
-              backgroundColor: 'white'
+              backgroundColor: '#1E1D32',
+              margin: '0px',
+              width: '90%',
+              paddingLeft: '5%',
+              paddingRight: '5%'
             }}>
-         <p className='loginTitle' style={{color: '#252540', fontSize:'17px', textAlign: 'left', marginTop: '-20px'}}>{Translator.getStringTranslated('sng_latestreviewssub', this.state.currentLang, this.state.translatorData)} </p>
+         <p className='loginTitle' style={{color: 'white', fontSize:'17px', textAlign: 'left', marginTop: '20px'}}>{Translator.getStringTranslated('sng_latestreviewssub', this.state.currentLang, this.state.translatorData)} </p>
                 
             <PaginatedList
               list={this.state.reviews.filter(r => r.message != "")}
@@ -373,12 +395,12 @@ export default class Home extends React.Component {
                           isHalf={true}
                           activeColor="#ffd700"
                         />
-                      <p style={{marginTop:'1.3em', fontSize: '14px',  color: '#252540'}}>{Translator.getStringTranslated('sng_by', this.state.currentLang, this.state.translatorData)} {item.username} - {Translator.getStringTranslated('global_date', this.state.currentLang, this.state.translatorData)}: {item.created_at.replace('T', ' ').substring(0, 16)}</p>
+                      <p style={{marginTop:'1.3em', fontSize: '14px',  color: 'white'}}>{Translator.getStringTranslated('sng_by', this.state.currentLang, this.state.translatorData)} {item.username} - {Translator.getStringTranslated('global_date', this.state.currentLang, this.state.translatorData)}: {item.created_at.replace('T', ' ').substring(0, 16)}</p>
                     </div>
-                    <div className='inputhold' style={{marginBottom: '-1em'}}>
-                      
+                 <p style={{marginTop:'1.3em', fontSize: '20px',  color: '#61E667', textAlign: 'left'}}>{item.message}</p>
+                    {/* <div className='inputhold' style={{marginBottom: '-1em'}}>
                       <textarea style={{resize:'none'}} readonly type='text'  value={item.message} name='comment' rows={5}/>
-                    </div>
+                    </div> */}
                      <hr style={{backgroundColor: '#f5a500',height: '1px', border:'none'}}/>
                 </div>
                  })
@@ -389,19 +411,30 @@ export default class Home extends React.Component {
               )}
             />  
             </div>
-
+            <br/>
+            <h2 style={{
+        fontSize: '36px',
+        color: '#61E667',
+        textAlign: 'left',
+        fontFamily: 'Nunito',
+        marginLeft: '5%',
+        lineHeight: '80px'
+      }}>
+      <br/>{Translator.getStringTranslated('sng_leavereview', this.state.currentLang, this.state.translatorData)}</h2>
             {
               this.state.reviews.filter(r => r.userid == this.state.userid).length == 0 ?
               <div className='bp-middle-all bp-blueshadow' style={{
-                backgroundColor: 'white',
-                border: '1px solid #161526'
+                backgroundColor: '#1E1D32',
+              margin: '0px',
+              width: '90%',
+              paddingLeft: '5%',
+              paddingRight: '5%'
               }}>
-                <p style={{color: '#161526', fontSize: '36px', textAlign: 'left'}} className='loginTitle'>{Translator.getStringTranslated('sng_leavereview', this.state.currentLang, this.state.translatorData)} </p>
-                <p className='loginTitle' style={{color: '#161526', fontSize:'17px', textAlign: 'left',marginTop:'-2em'}}>{Translator.getStringTranslated('sng_leavereviewsub', this.state.currentLang, this.state.translatorData)} </p>
+                <p className='loginTitle' style={{color: '#61E667', fontSize:'17px', textAlign: 'left'}}>{Translator.getStringTranslated('sng_leavereviewsub', this.state.currentLang, this.state.translatorData)} </p>
                 {/* <form> */}
                 <div className='scores'>
                     <label style={{
-                      color: '#161526',
+                      color: 'white',
                       fontSize: '14px'
                     }}>{Translator.getStringTranslated('sng_score', this.state.currentLang, this.state.translatorData)}</label>
                     <ReactStars
@@ -426,7 +459,7 @@ export default class Home extends React.Component {
                     <div className='inputhold' style={{marginBottom: '-1em'}}>
                       <label style={{
                         fontSize: '14px',
-                        color: '#161526'
+                        color: 'white'
                       }}>{Translator.getStringTranslated('sng_comm', this.state.currentLang, this.state.translatorData)}</label>
                       <textarea type='text' style={{resize: 'none'}} placeholder={Translator.getStringTranslated('sng_comm_place', this.state.currentLang, this.state.translatorData)} name='message' onChange={this.handleInputChange} value={this.state.formController.message} rows={5}/>
                     </div>
