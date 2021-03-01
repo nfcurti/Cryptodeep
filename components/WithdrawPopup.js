@@ -10,6 +10,10 @@ export default class WithdrawPopup extends React.Component {
         this.state = {
             usdperpoint: 0,
             maxpoints: 0,
+            btcenabled: false,
+            ethenabled: false,
+            ltcenabled: false,
+            trxenabled: false,
             minbtc: 1000,
             mineth: 1000,
             minltc: 1000,
@@ -53,6 +57,10 @@ export default class WithdrawPopup extends React.Component {
                     const dataB = response.data;
                     console.log(dataB);
                     this.setState({
+                        btcenabled: dataB.data.settings.btcenabled,
+                        ethenabled: dataB.data.settings.ethenabled,
+                        ltcenabled: dataB.data.settings.ltcenabled,
+                        trxenabled: dataB.data.settings.trxenabled,
                         minbtc: dataB.data.settings.minbtcwithdraw,
                         mineth: dataB.data.settings.minethwithdraw,
                         minltc: dataB.data.settings.minltcwithdraw,
@@ -61,6 +69,31 @@ export default class WithdrawPopup extends React.Component {
                         cryptoval: dataB.data.cryptoval,
                         usdperpoint: dataB.data.settings.usdperpoint
                     })
+
+                    if(!this.state.btcenabled) {
+                      if(!this.state.ethenabled) {
+                        if(!this.state.ltcenabled) {
+                          var _fC = this.state.formController;
+                        _fC.currency = 'TRX';
+                        this.setState({
+                          formController: _fC
+                        })
+                        return;
+                        }
+                        var _fC = this.state.formController;
+                        _fC.currency = 'LTC';
+                        this.setState({
+                          formController: _fC
+                        })
+                        return;
+                      }
+                      var _fC = this.state.formController;
+                      _fC.currency = 'ETH';
+                      this.setState({
+                        formController: _fC
+                      })
+                      return;
+                    }
                   }).catch(e => {
                     console.log(e);
                     alert(e);
@@ -155,10 +188,14 @@ export default class WithdrawPopup extends React.Component {
                       pointValIndex: _newPVI
                   })
               }}>
-                  <option value="btc">Bitcoin (BTC)</option>
-                  <option value="eth">Ethereum (ETH)</option>
-                  <option value="ltc">Litecoin (LTC)</option>
-                  <option value="trx">Tron (TRX)</option>
+                  { this.state.btcenabled ? <option value="btc">Bitcoin (BTC)</option> : <span/> }
+                  { this.state.ethenabled ? <option value="eth">Ethereum (ETH)</option> : <span/> }
+                  { this.state.ltcenabled ? <option value="ltc">Litecoin (LTC)</option> : <span/> }
+                  { this.state.trxenabled ? <option value="trx">Tron (TRX)</option> : <span/> }
+                  
+                  
+                  
+                  
                 </select>
                 {
                     this.state.formController.currency == 'BTC' ? 

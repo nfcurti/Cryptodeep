@@ -236,6 +236,39 @@ export default class Home extends React.Component {
       })
     }
   }
+
+  modifyCryptocurreny = (key, newval) => {
+    const userCookies = ServiceCookies.getUserCookies();
+    if(userCookies['ckuserid'] == null || userCookies['cktoken'] == null) {
+        window.location.replace(`/cryptodeep/login`)
+    }else{
+      if(userCookies['ckpl'] != '999') { return; }
+
+      var _mmap = {
+        "token": userCookies['cktoken']
+      }
+
+      if(key == 'BTC') {
+        _mmap['btcenabled'] = newval;
+      }else if(key == 'ETH') {
+        _mmap['ethenabled'] = newval;
+      }else if(key == 'LTC') {
+        _mmap['ltcenabled'] = newval;
+      }else if(key == 'TRX') {
+        _mmap['trxenabled'] = newval;
+      }
+
+      ServiceAuth.updategeneralsettings(_mmap).then(response => {
+        if(response.data == null) { return; }
+        const data = response.data;
+        window.location.replace('/cryptodeep/admin/home');
+      }).catch(e => {
+        console.log(e);
+        alert(e);
+        return;
+      })
+    }
+  }
   
   render() {
 
@@ -276,6 +309,111 @@ export default class Home extends React.Component {
                   className='loginSubmit '
                 />
                 <br/>
+                  <br/>
+                  <hr/>
+                  <h2>Manage currencies</h2>
+                  {
+                    this.state.settings.btcenabled ? 
+                    <input
+                      style={{
+                        color: 'green',
+                        width: '300px'
+                      }}
+                      value="BTC is enabled. Click to disable"
+                      type='submit'
+                      onClick={() => this.modifyCryptocurreny('BTC', false)}
+                      className='loginSubmit '
+                    /> 
+                    :
+                    <input
+                      style={{
+                        color: 'red',
+                        width: '300px'
+                      }}
+                      value="BTC is disabled. Click to enable"
+                      type='submit'
+                      onClick={() => this.modifyCryptocurreny('BTC', true)}
+                      className='loginSubmit '
+                    />
+                  }
+                  <br/>
+                  <br/>
+                  {
+                    this.state.settings.ethenabled ? 
+                    <input
+                      style={{
+                        color: 'green',
+                        width: '300px'
+                      }}
+                      value="ETH is enabled. Click to disable"
+                      type='submit'
+                      onClick={() => this.modifyCryptocurreny('ETH', false)}
+                      className='loginSubmit '
+                    /> 
+                    :
+                    <input
+                      style={{
+                        color: 'red',
+                        width: '300px'
+                      }}
+                      value="ETH is disabled. Click to enable"
+                      type='submit'
+                      onClick={() => this.modifyCryptocurreny('ETH', true)}
+                      className='loginSubmit '
+                    />
+                  }
+                  <br/>
+                  <br/>
+                  {
+                    this.state.settings.ltcenabled ? 
+                    <input
+                      style={{
+                        color: 'green',
+                        width: '300px'
+                      }}
+                      value="LTC is enabled. Click to disable"
+                      type='submit'
+                      onClick={() => this.modifyCryptocurreny('LTC', false)}
+                      className='loginSubmit '
+                    /> 
+                    :
+                    <input
+                      style={{
+                        color: 'red',
+                        width: '300px'
+                      }}
+                      value="LTC is disabled. Click to enable"
+                      type='submit'
+                      onClick={() => this.modifyCryptocurreny('LTC', true)}
+                      className='loginSubmit '
+                    />
+                  }
+                  <br/>
+                  <br/>
+                  {
+                    this.state.settings.trxenabled ? 
+                    <input
+                      style={{
+                        color: 'green',
+                        width: '300px'
+                      }}
+                      value="TRX is enabled. Click to disable"
+                      type='submit'
+                      onClick={() => this.modifyCryptocurreny('TRX', false)}
+                      className='loginSubmit '
+                    /> 
+                    :
+                    <input
+                      style={{
+                        color: 'red',
+                        width: '300px'
+                      }}
+                      value="TRX is disabled. Click to enable"
+                      type='submit'
+                      onClick={() => this.modifyCryptocurreny('TRX', true)}
+                      className='loginSubmit '
+                    />
+                  }
                   <br/>
                   <hr/>
                   <br/>

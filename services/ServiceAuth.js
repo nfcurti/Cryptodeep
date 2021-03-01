@@ -168,6 +168,10 @@ const _http = axios.create({
 
 var _mapToSend = {};
 
+if(data.btcenabled != null) { _mapToSend.btcenabled = data.btcenabled; }
+if(data.ethenabled != null) { _mapToSend.ethenabled = data.ethenabled; }
+if(data.ltcenabled != null) { _mapToSend.ltcenabled = data.ltcenabled; }
+if(data.trxenabled != null) { _mapToSend.trxenabled = data.trxenabled; }
 if(data.usdperpoint != null) { _mapToSend.usdperpoint = data.usdperpoint; }
 if(data.faucetdelay != null) { _mapToSend.faucetdelay = data.faucetdelay; }
 if(data.minbtcwithdraw != null) { _mapToSend.minbtcwithdraw = data.minbtcwithdraw; }
